@@ -42,12 +42,6 @@ window.KITAP_UPCOMING=[
     "status": "Özet hazırlanacak"
   },
   {
-    "name": "Şeker Portakalı",
-    "author": "José Mauro de Vasconcelos",
-    "category": "Roman",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Uçurtma Avcısı",
     "author": "Khaled Hosseini",
     "category": "Roman",
