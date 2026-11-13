@@ -1,11 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Suç ve Ceza",
-    "author": "Fyodor Dostoyevski",
-    "category": "Klasikler",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Sefiller",
     "author": "Victor Hugo",
     "category": "Klasikler",
