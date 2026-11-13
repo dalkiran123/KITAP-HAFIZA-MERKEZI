@@ -1,5 +1,43 @@
 window.KITAP_UPCOMING=[
   {
+    "name": "Cennetin Doğusu",
+    "author": "John Steinbeck",
+    "category": "Klasikler",
+    "isbn": "9780140186390",
+    "description": "Kaliforniya'nın Salinas Vadisi'nde Trask ve Hamilton ailelerinin kuşaklar boyunca süren ilişkileri üzerinden kardeşlik, kıskançlık, seçim ve iyilik-kötülük çatışmasını anlatan roman.",
+    "status": "Özet hazırlanacak"
+  },
+  {
+    "name": "Kur'an-ı Kerim",
+    "author": "İslam'ın kutsal metni",
+    "category": "Din ve Düşünce",
+    "description": "114 sureden oluşan, İslam inancında vahiy olarak kabul edilen; inanç, ibadet, ahlak, insan ve toplum hayatına ilişkin konuları içeren kutsal metin. Bu kayıt bir edebî roman özeti değildir.",
+    "status": "Açıklamalı içerik hazırlanacak"
+  },
+  {
+    "name": "Bir Ömür Nasıl Yaşanır?",
+    "author": "İlber Ortaylı",
+    "category": "Deneme",
+    "description": "İlber Ortaylı'nın deneyimlerinden hareketle eğitim, kültür, dil öğrenimi, seyahat, çalışma ve hayatı değerlendirme üzerine tavsiyelerini aktardığı söyleşi kitabı.",
+    "status": "Özet hazırlanacak"
+  },
+  {
+    "name": "Gizli Tarih",
+    "author": "Donna Tartt",
+    "category": "Roman",
+    "isbn": "9781400031702",
+    "description": "Seçkin bir üniversitede Antik Yunanca çalışan öğrenci grubunun ilişkileri, işledikleri suç ve ardından yaşadıkları vicdani ve psikolojik çözülme üzerine kurulu roman.",
+    "status": "Özet hazırlanacak"
+  },
+  {
+    "name": "Babil",
+    "author": "R. F. Kuang",
+    "category": "Fantastik",
+    "isbn": "9780063021426",
+    "description": "Alternatif tarih ve karanlık akademi öğelerini birleştiren; Oxford'daki çeviri enstitüsü üzerinden dil, sömürgecilik, güç ve direnişi sorgulayan roman.",
+    "status": "Özet hazırlanacak"
+  },
+  {
     "name": "Sefiller",
     "author": "Victor Hugo",
     "category": "Klasikler",
