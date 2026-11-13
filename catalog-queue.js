@@ -42,12 +42,6 @@ window.KITAP_UPCOMING=[
     "status": "Özet hazırlanacak"
   },
   {
-    "name": "Yeraltından Notlar",
-    "author": "Fyodor Dostoyevski",
-    "category": "Klasikler",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Karamazov Kardeşler",
     "author": "Fyodor Dostoyevski",
     "category": "Klasikler",
@@ -55,12 +49,6 @@ window.KITAP_UPCOMING=[
   },
   {
     "name": "Martin Eden",
-    "author": "Jack London",
-    "category": "Roman",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "Beyaz Diş",
     "author": "Jack London",
     "category": "Roman",
     "status": "Özet hazırlanacak"
