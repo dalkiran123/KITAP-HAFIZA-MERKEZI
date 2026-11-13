@@ -1,13 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Cennetin Doğusu",
-    "author": "John Steinbeck",
-    "category": "Klasikler",
-    "isbn": "9780140186390",
-    "description": "Kaliforniya'nın Salinas Vadisi'nde Trask ve Hamilton ailelerinin kuşaklar boyunca süren ilişkileri üzerinden kardeşlik, kıskançlık, seçim ve iyilik-kötülük çatışmasını anlatan roman.",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Kur'an-ı Kerim",
     "author": "İslam'ın kutsal metni",
     "category": "Din ve Düşünce",
@@ -35,12 +27,6 @@ window.KITAP_UPCOMING=[
     "category": "Fantastik",
     "isbn": "9780063021426",
     "description": "Alternatif tarih ve karanlık akademi öğelerini birleştiren; Oxford'daki çeviri enstitüsü üzerinden dil, sömürgecilik, güç ve direnişi sorgulayan roman.",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "Sefiller",
-    "author": "Victor Hugo",
-    "category": "Klasikler",
     "status": "Özet hazırlanacak"
   },
   {
