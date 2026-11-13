@@ -7,13 +7,6 @@ window.KITAP_UPCOMING=[
     "status": "Açıklamalı içerik hazırlanacak"
   },
   {
-    "name": "Bir Ömür Nasıl Yaşanır?",
-    "author": "İlber Ortaylı",
-    "category": "Deneme",
-    "description": "İlber Ortaylı'nın deneyimlerinden hareketle eğitim, kültür, dil öğrenimi, seyahat, çalışma ve hayatı değerlendirme üzerine tavsiyelerini aktardığı söyleşi kitabı.",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Gizli Tarih",
     "author": "Donna Tartt",
     "category": "Roman",
@@ -27,12 +20,6 @@ window.KITAP_UPCOMING=[
     "category": "Fantastik",
     "isbn": "9780063021426",
     "description": "Alternatif tarih ve karanlık akademi öğelerini birleştiren; Oxford'daki çeviri enstitüsü üzerinden dil, sömürgecilik, güç ve direnişi sorgulayan roman.",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "Anna Karenina",
-    "author": "Lev Tolstoy",
-    "category": "Klasikler",
     "status": "Özet hazırlanacak"
   },
   {
