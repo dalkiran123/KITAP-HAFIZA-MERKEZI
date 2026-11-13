@@ -7,14 +7,6 @@ window.KITAP_UPCOMING=[
     "status": "Açıklamalı içerik hazırlanacak"
   },
   {
-    "name": "Gizli Tarih",
-    "author": "Donna Tartt",
-    "category": "Roman",
-    "isbn": "9781400031702",
-    "description": "Seçkin bir üniversitede Antik Yunanca çalışan öğrenci grubunun ilişkileri, işledikleri suç ve ardından yaşadıkları vicdani ve psikolojik çözülme üzerine kurulu roman.",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Babil",
     "author": "R. F. Kuang",
     "category": "Fantastik",
@@ -32,12 +24,6 @@ window.KITAP_UPCOMING=[
     "name": "Karamazov Kardeşler",
     "author": "Fyodor Dostoyevski",
     "category": "Klasikler",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "Martin Eden",
-    "author": "Jack London",
-    "category": "Roman",
     "status": "Özet hazırlanacak"
   },
   {
