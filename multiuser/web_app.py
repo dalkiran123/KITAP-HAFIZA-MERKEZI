@@ -2,8 +2,6 @@
 import json
 import hashlib
 import hmac
-import time
-import threading
 import os
 import sqlite3
 from pathlib import Path
@@ -14,16 +12,14 @@ from wsgiref.simple_server import make_server
 from user_store import connect, create_user, authenticate, rate_book, leaderboard
 from sessions import SessionManager
 from persistent_sessions import SQLiteSessionManager
+from login_limiter import LoginLimiter
 from shelves import save_book, list_books
 from reading_history import add_read, list_reads
 from shelf_sync import read_sync, update_sync
 
 DB_PATH = os.environ.get('BOOK_DB_PATH', 'book_users.sqlite3')
 SESSIONS = SQLiteSessionManager(DB_PATH)
-LOGIN_ATTEMPTS = {}
-LOGIN_LOCK = threading.Lock()
-LOGIN_WINDOW = 300
-LOGIN_MAX_FAILURES = 5
+LOGIN_LIMITER = LoginLimiter(DB_PATH)
 
 
 def csrf_for(token):
@@ -158,19 +154,13 @@ def app(env, start_response):
                 db.close()
             return respond(200, {'ok': True})
 
-        # In-memory per-IP throttling for login only. Production deployments
-        # require a shared, proxy-aware rate limiter with bounded storage.
+        # Shared, persistent failed-login limits; never trust unvalidated
+        # X-Forwarded-For values from clients.
         if path == '/login':
             ip = env.get('REMOTE_ADDR', 'unknown')
-            now = time.monotonic()
-            with LOGIN_LOCK:
-                recent = [t for t in LOGIN_ATTEMPTS.get(ip, []) if now - t < LOGIN_WINDOW]
-                if recent:
-                    LOGIN_ATTEMPTS[ip] = recent
-                else:
-                    LOGIN_ATTEMPTS.pop(ip, None)
-                if len(recent) >= LOGIN_MAX_FAILURES:
-                    return respond(429, {'error': 'Too many login attempts'})
+            limiter = LoginLimiter(DB_PATH)
+            if not limiter.allowed(ip):
+                return respond(429, {'error': 'Too many login attempts'})
 
         username, password = payload.get('username'), payload.get('password')
         if not isinstance(username, str) or not isinstance(password, str):
@@ -186,12 +176,10 @@ def app(env, start_response):
             db.close()
         if identity is None:
             if path == '/login':
-                with LOGIN_LOCK:
-                    LOGIN_ATTEMPTS.setdefault(ip, []).append(time.monotonic())
+                limiter.fail(ip)
             return respond(401, {'error': 'Invalid credentials'})
         if path == '/login':
-            with LOGIN_LOCK:
-                LOGIN_ATTEMPTS.pop(ip, None)
+            limiter.success(ip)
         token = SESSIONS.issue(identity['id'], identity['role'])
         return respond(200, identity,
                        f'session={token}; HttpOnly; Secure; SameSite=Strict; Path=/')
