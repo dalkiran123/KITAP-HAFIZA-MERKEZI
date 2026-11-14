@@ -85,6 +85,16 @@ class MultiuserHttpContract(unittest.TestCase):
             self.assertIn("Yerel kitaplık değiştirilmedi", script)
             self.assertIn("Sunucudaki kitap ve okuma kayıtlarını göster", script)
             self.assertIn("Kitap puanları", script)
+            self.assertIn("bookTitle(item.book_id)", script)
+        for asset, marker in (
+            ("/catalog.js", "KITAP_CATALOG"),
+            ("/catalog-queue.js", "KITAP_UPCOMING"),
+        ):
+            with self.subTest(asset=asset):
+                with urllib.request.urlopen(self.base + asset, timeout=5) as response:
+                    self.assertEqual(response.status, 200)
+                    self.assertIn("javascript", response.headers["Content-Type"])
+                    self.assertIn(marker, response.read().decode("utf-8"))
 
     def test_health_and_protected_routes(self):
         self.assertEqual(self.call("/health")[0], 200)
