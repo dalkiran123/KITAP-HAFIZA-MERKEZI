@@ -4,7 +4,6 @@ Run from repository root:
   PYTHONPATH=multiuser:. python3 -m unittest discover -s tests -p 'test_multiuser_http_contract.py' -v
 All tests use a temporary SQLite database; production data is never opened.
 """
-import http.cookiejar
 import importlib
 import json
 import os
@@ -70,6 +69,14 @@ class MultiuserHttpContract(unittest.TestCase):
         code, data, _ = self.call("/csrf", cookie=cookie)
         self.assertEqual(code, 200)
         return cookie, data["csrf_token"]
+
+    def test_full_book_home_is_served_without_authentication(self):
+        with urllib.request.urlopen(self.base + "/", timeout=5) as response:
+            html = response.read().decode("utf-8")
+            self.assertEqual(response.status, 200)
+            self.assertIn("text/html", response.headers["Content-Type"])
+            self.assertIn("Kitap Hafıza Merkezi", html)
+            self.assertIn("localStorage", html)
 
     def test_health_and_protected_routes(self):
         self.assertEqual(self.call("/health")[0], 200)
