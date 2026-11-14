@@ -1,5 +1,8 @@
 """Local-only multi-user WSGI prototype. NOT production ready."""
 import json
+import hashlib
+import hmac
+import secrets
 import os
 import sqlite3
 from pathlib import Path
@@ -15,6 +18,12 @@ from shelf_sync import read_sync, update_sync
 
 DB_PATH = os.environ.get('BOOK_DB_PATH', 'book_users.sqlite3')
 SESSIONS = SessionManager()
+CSRF_SECRET = secrets.token_bytes(32)
+
+
+def csrf_for(token):
+    return hmac.new(CSRF_SECRET, token.encode('utf-8'), hashlib.sha256).hexdigest()
+
 
 
 def app(env, start_response):
@@ -62,11 +71,13 @@ def app(env, start_response):
                   if item.strip().startswith('session=')), None)
     account = SESSIONS.lookup(token)
 
-    if method == 'GET' and path in ('/me', '/my/ratings', '/my/books', '/my/reading', '/my/sync', '/leaderboard'):
+    if method == 'GET' and path in ('/me', '/csrf', '/my/ratings', '/my/books', '/my/reading', '/my/sync', '/leaderboard'):
         if not account:
             return respond(401, {'error': 'Authentication required'})
         if path == '/me':
             return respond(200, account)
+        if path == '/csrf':
+            return respond(200, {'csrf_token': csrf_for(token)})
         db = connect(DB_PATH)
         try:
             uid = account['user_id']
@@ -85,6 +96,13 @@ def app(env, start_response):
                                                 for name, count in leaderboard(db)]})
         finally:
             db.close()
+
+    # Browser writes require a session-bound CSRF header. Requests without an
+    # Origin are retained for local prototype/API regression compatibility.
+    if method == 'POST' and account and env.get('HTTP_ORIGIN'):
+        supplied = env.get('HTTP_X_CSRF_TOKEN', '')
+        if not hmac.compare_digest(supplied, csrf_for(token)):
+            return respond(403, {'error': 'CSRF token required'})
 
     if method == 'POST' and path == '/logout':
         if not account:
