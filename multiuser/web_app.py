@@ -71,11 +71,25 @@ def app(env, start_response):
     if method == 'GET' and path in ('/', '/index.html'):
         page = Path(__file__).resolve().parent.parent / 'index.html'
         data = page.read_bytes()
+        script = b'<script defer src="/account-preview.js"></script>'
+        if b'</body>' in data:
+            data = data.replace(b'</body>', script + b'</body>', 1)
+        else:
+            data += script
         start_response('200 OK', [
             ('Content-Type', 'text/html; charset=utf-8'),
             ('Cache-Control', 'no-store'),
             ('X-Content-Type-Options', 'nosniff'),
             ('X-Frame-Options', 'DENY'),
+        ])
+        return [data]
+
+    if method == 'GET' and path == '/account-preview.js':
+        data = (Path(__file__).parent / 'account_preview.js').read_bytes()
+        start_response('200 OK', [
+            ('Content-Type', 'text/javascript; charset=utf-8'),
+            ('Cache-Control', 'no-store'),
+            ('X-Content-Type-Options', 'nosniff'),
         ])
         return [data]
 
