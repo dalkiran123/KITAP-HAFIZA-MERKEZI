@@ -3,6 +3,8 @@ import json
 import hashlib
 import hmac
 import secrets
+import time
+import threading
 import os
 import sqlite3
 from pathlib import Path
@@ -19,6 +21,10 @@ from shelf_sync import read_sync, update_sync
 DB_PATH = os.environ.get('BOOK_DB_PATH', 'book_users.sqlite3')
 SESSIONS = SessionManager()
 CSRF_SECRET = secrets.token_bytes(32)
+LOGIN_ATTEMPTS = {}
+LOGIN_LOCK = threading.Lock()
+LOGIN_WINDOW = 300
+LOGIN_MAX_FAILURES = 5
 
 
 def csrf_for(token):
@@ -151,6 +157,20 @@ def app(env, start_response):
                 db.close()
             return respond(200, {'ok': True})
 
+        # In-memory per-IP throttling for login only. Production deployments
+        # require a shared, proxy-aware rate limiter with bounded storage.
+        if path == '/login':
+            ip = env.get('REMOTE_ADDR', 'unknown')
+            now = time.monotonic()
+            with LOGIN_LOCK:
+                recent = [t for t in LOGIN_ATTEMPTS.get(ip, []) if now - t < LOGIN_WINDOW]
+                if recent:
+                    LOGIN_ATTEMPTS[ip] = recent
+                else:
+                    LOGIN_ATTEMPTS.pop(ip, None)
+                if len(recent) >= LOGIN_MAX_FAILURES:
+                    return respond(429, {'error': 'Too many login attempts'})
+
         username, password = payload.get('username'), payload.get('password')
         if not isinstance(username, str) or not isinstance(password, str):
             return respond(400, {'error': 'Invalid input'})
@@ -164,7 +184,13 @@ def app(env, start_response):
         finally:
             db.close()
         if identity is None:
+            if path == '/login':
+                with LOGIN_LOCK:
+                    LOGIN_ATTEMPTS.setdefault(ip, []).append(time.monotonic())
             return respond(401, {'error': 'Invalid credentials'})
+        if path == '/login':
+            with LOGIN_LOCK:
+                LOGIN_ATTEMPTS.pop(ip, None)
         token = SESSIONS.issue(identity['id'], identity['role'])
         return respond(200, identity,
                        f'session={token}; HttpOnly; Secure; SameSite=Strict; Path=/')
