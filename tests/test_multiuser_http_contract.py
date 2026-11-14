@@ -83,6 +83,8 @@ class MultiuserHttpContract(unittest.TestCase):
             self.assertEqual(response.status, 200)
             self.assertIn("/my/sync", script)
             self.assertIn("Yerel kitaplık değiştirilmedi", script)
+            self.assertIn("Sunucudaki kitap ve okuma kayıtlarını göster", script)
+            self.assertIn("Kitap puanları", script)
 
     def test_health_and_protected_routes(self):
         self.assertEqual(self.call("/health")[0], 200)
