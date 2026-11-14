@@ -6,12 +6,6 @@ window.KITAP_UPCOMING=[
     "status": "Özet hazırlanacak"
   },
   {
-    "name": "Fareler ve İnsanlar",
-    "author": "John Steinbeck",
-    "category": "Klasikler",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Gazap Üzümleri",
     "author": "John Steinbeck",
     "category": "Klasikler",
