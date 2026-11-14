@@ -29,7 +29,15 @@
     button.type = 'submit';
     button.textContent = 'Hesaba bağlan';
     form.append(username, password, button);
-    panel.append(heading, status, form);
+    const details = document.createElement('details');
+    details.style.cssText = 'margin-top:10px';
+    const summary = document.createElement('summary');
+    summary.textContent = 'Sunucudaki kitap ve okuma kayıtlarını göster';
+    const records = document.createElement('div');
+    records.style.cssText = 'max-height:320px;overflow:auto;padding:8px 0;line-height:1.6';
+    details.append(summary, records);
+    panel.append(heading, status, form, details);
+    details.hidden = true;
     const main = document.querySelector('main') || document.body;
     main.insertBefore(panel, main.firstChild);
 
@@ -47,6 +55,37 @@
       status.textContent = 'Hesap #' + user.user_id + ': sunucuda ' +
         books.books.length + ' kitap, ' + reads.reading.length + ' okuma kaydı, ' +
         ratings.ratings.length + ' puan. Yerel kitaplık değiştirilmedi. Otomatik senkronizasyon henüz etkin değil.';
+      // Show server records separately. Never write to localStorage here:
+      // server shelf entries contain progress state, not full book summaries.
+      records.replaceChildren();
+      const section = (title, items, format) => {
+        const h = document.createElement('strong');
+        h.textContent = title + ' (' + items.length + ')';
+        h.style.cssText = 'display:block;margin-top:12px';
+        records.append(h);
+        if (!items.length) {
+          const empty = document.createElement('p');
+          empty.textContent = 'Kayıt bulunamadı';
+          records.append(empty);
+          return;
+        }
+        const list = document.createElement('ol');
+        list.style.cssText = 'padding-left:22px;margin:5px 0';
+        for (const item of items) {
+          const li = document.createElement('li');
+          li.textContent = format(item);
+          list.append(li);
+        }
+        records.append(list);
+      };
+      section('Kitaplık kayıtları', books.books, item =>
+        String(item.book_id) + ' · revizyon ' + String(item.revision) +
+        (item.state && item.state.done ? ' · tamamlandı' : ''));
+      section('Okuma geçmişi', reads.reading, item =>
+        String(item.book_id) + ' · ' + String(item.completed_at));
+      section('Kitap puanları', ratings.ratings, item =>
+        String(item.book_id) + ' · ' + String(item.score) + '/10');
+      details.hidden = false;
       form.hidden = true;
     }
     form.addEventListener('submit', async event => {
