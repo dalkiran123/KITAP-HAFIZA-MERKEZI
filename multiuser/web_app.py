@@ -3,6 +3,7 @@ import json
 import os
 import sqlite3
 from pathlib import Path
+from urllib.parse import urlsplit
 from http import HTTPStatus
 from wsgiref.simple_server import make_server
 
@@ -27,6 +28,21 @@ def app(env, start_response):
             headers.append(('Set-Cookie', cookie))
         start_response(f'{code} {HTTPStatus(code).phrase}', headers)
         return [json.dumps(data, ensure_ascii=False).encode()]
+
+    # Defense in depth for browser-originated writes. A production reverse proxy
+    # must also enforce a trusted Host and HTTPS configuration.
+    if method == 'POST':
+        origin = env.get('HTTP_ORIGIN')
+        if origin:
+            parsed = urlsplit(origin)
+            host = env.get('HTTP_HOST') or env.get('SERVER_NAME', '')
+            scheme = env.get('wsgi.url_scheme', 'http')
+            if (parsed.scheme not in ('http', 'https') or not parsed.netloc
+                    or parsed.username is not None or parsed.password is not None
+                    or parsed.path not in ('', '/') or parsed.query or parsed.fragment
+                    or parsed.netloc.lower() != host.lower()
+                    or parsed.scheme != scheme):
+                return respond(403, {'error': 'Cross-origin write blocked'})
 
     if method == 'GET' and path in ('/mobile', '/mobile/', '/mobile/mobile_client.js'):
         name = 'mobile_client.js' if path.endswith('.js') else 'index.html'
