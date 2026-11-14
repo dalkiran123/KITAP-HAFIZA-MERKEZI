@@ -103,9 +103,9 @@ def app(env, start_response):
         finally:
             db.close()
 
-    # Browser writes require a session-bound CSRF header. Requests without an
-    # Origin are retained for local prototype/API regression compatibility.
-    if method == 'POST' and account and env.get('HTTP_ORIGIN'):
+    # Every authenticated write requires a session-bound CSRF header,
+    # including requests that omit Origin.
+    if method == 'POST' and account:
         supplied = env.get('HTTP_X_CSRF_TOKEN', '')
         if not hmac.compare_digest(supplied, csrf_for(token)):
             return respond(403, {'error': 'CSRF token required'})
