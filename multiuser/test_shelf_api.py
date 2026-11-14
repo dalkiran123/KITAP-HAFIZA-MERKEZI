@@ -18,7 +18,8 @@ class ShelfAPITests(unittest.TestCase):
             result['status']=int(status.split()[0])
             result['headers']=dict(headers)
         out=b''.join(web_app.app({'REQUEST_METHOD':method,'PATH_INFO':path,'CONTENT_LENGTH':str(len(body)),
-          'wsgi.input':io.BytesIO(body),'HTTP_COOKIE':cookie},start))
+          'wsgi.input':io.BytesIO(body),'HTTP_COOKIE': cookie,
+          'HTTP_X_CSRF_TOKEN': web_app.csrf_for(cookie.split('=',1)[1]) if cookie.startswith('session=') else ''},start))
         return result['status'],json.loads(out),result['headers']
     def test_two_users_cannot_read_each_others_books(self):
         _,_,a=self.request('POST','/register',{'username':'alice','password':'a secure long password'})
