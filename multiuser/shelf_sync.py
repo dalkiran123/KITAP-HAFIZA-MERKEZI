@@ -13,6 +13,13 @@ def ensure_sync(db):
         revision INTEGER NOT NULL CHECK(revision >= 1),
         state_json TEXT NOT NULL,
         PRIMARY KEY(user_id,book_id))""")
+    # Import records from the original unversioned prototype on every access.
+    # INSERT OR IGNORE preserves revisions and never overwrites newer edits.
+    legacy = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='shelves'").fetchone()
+    if legacy:
+        with db:
+            db.execute("""INSERT OR IGNORE INTO shelf_sync(user_id,book_id,revision,state_json)
+                SELECT user_id,book_id,1,state_json FROM shelves""")
 
 def read_sync(db,user_id):
     ensure_sync(db)
