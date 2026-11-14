@@ -103,6 +103,7 @@
         bookTitle(item.book_id) + ' · ' + String(item.score) + '/10');
       details.hidden = false;
       form.hidden = true;
+      form.style.display = 'none';
     }
     form.addEventListener('submit', async event => {
       event.preventDefault();
