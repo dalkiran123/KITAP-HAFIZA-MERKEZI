@@ -98,6 +98,36 @@ class LoopbackIntegrationTests(unittest.TestCase):
         self.assertEqual(first_books[0]['state']['notes'], 'private to reader one')
         self.assertEqual(second_books[0]['state']['notes'], 'reader two version')
 
+    def test_two_sessions_same_account_detect_stale_revision(self):
+        registration = self.request('POST', '/register', {
+            'username': 'readerone', 'password': 'a secure long password'})
+        self.assertEqual(registration[0], 200)
+        device_a = registration[2]['Set-Cookie'].split(';')[0]
+        login = self.request('POST', '/login', {
+            'username': 'readerone', 'password': 'a secure long password'})
+        self.assertEqual(login[0], 200)
+        device_b = login[2]['Set-Cookie'].split(';')[0]
+        self.assertNotEqual(device_a, device_b)
+        csrf_a = self.request('GET', '/csrf', cookie=device_a)[1]['csrf_token']
+        csrf_b = self.request('GET', '/csrf', cookie=device_b)[1]['csrf_token']
+        self.assertEqual(self.request('POST', '/my/sync', {
+            'book_id': 'novel', 'state': {'notes': 'device a'},
+            'expected_revision': 0}, device_a, csrf_a)[0], 200)
+        # Both sessions see the same server-side shelf.
+        data_b = self.request('GET', '/my/sync', cookie=device_b)[1]['books']
+        self.assertEqual(data_b[0]['state']['notes'], 'device a')
+        self.assertEqual(self.request('POST', '/my/sync', {
+            'book_id': 'novel', 'state': {'notes': 'device b'},
+            'expected_revision': 0}, device_b, csrf_b)[0], 409)
+        self.assertEqual(self.request('GET', '/my/sync', cookie=device_a)[1]['books'][0]['state']['notes'],
+                         'device a')
+        revision = data_b[0]['revision']
+        self.assertEqual(self.request('POST', '/my/sync', {
+            'book_id': 'novel', 'state': {'notes': 'device b'},
+            'expected_revision': revision}, device_b, csrf_b)[0], 200)
+        self.assertEqual(self.request('GET', '/my/sync', cookie=device_a)[1]['books'][0]['state']['notes'],
+                         'device b')
+
 
 if __name__ == '__main__':
     unittest.main()
