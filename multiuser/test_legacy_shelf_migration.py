@@ -55,6 +55,13 @@ class LegacyShelfMigrationTests(unittest.TestCase):
             update_sync(self.db, self.alice, 'classic', {'notes':'stale'}, 0)
         self.assertEqual(read_sync(self.db, self.alice)[0]['state']['notes'], 'original')
 
+    def test_direct_sync_read_keeps_newer_revision_after_repeated_migration(self):
+        self.assertEqual(read_sync(self.db, self.alice)[0]['revision'], 1)
+        self.assertEqual(update_sync(self.db, self.alice, 'classic', {'notes':'new'}, 1), 2)
+        self.assertEqual(read_sync(self.db, self.alice)[0]['revision'], 2)
+        self.assertEqual(read_sync(self.db, self.alice)[0]['state']['notes'], 'new')
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM shelves').fetchone()[0], 2)
+
     def test_legacy_save_uses_canonical_store(self):
         ensure_shelves(self.db)
         save_book(self.db,self.alice,'classic',{'notes':'compatibility'})
