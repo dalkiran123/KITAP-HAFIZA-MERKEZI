@@ -1,19 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Babil",
-    "author": "R. F. Kuang",
-    "category": "Fantastik",
-    "isbn": "9780063021426",
-    "description": "Alternatif tarih ve karanlık akademi öğelerini birleştiren; Oxford'daki çeviri enstitüsü üzerinden dil, sömürgecilik, güç ve direnişi sorgulayan roman.",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "Savaş ve Barış",
-    "author": "Lev Tolstoy",
-    "category": "Klasikler",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Karamazov Kardeşler",
     "author": "Fyodor Dostoyevski",
     "category": "Klasikler",
