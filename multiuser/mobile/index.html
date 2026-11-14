@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101b2e">
+<title>Kitap Hafıza Merkezi | Çok Kullanıcılı Önizleme</title>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#e9f3ff;background:#101b2e;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;padding:18px;min-height:100dvh}
+main{max-width:760px;margin:auto}h1{font-size:clamp(1.5rem,5vw,2rem);margin:8px 0}
+p{color:#b7c9dd}section{background:#1b2b44;border:1px solid #304663;border-radius:18px;padding:18px;margin:16px 0}
+label{display:block;margin:12px 0 6px;font-weight:600}input,textarea{width:100%;padding:13px;border-radius:10px;border:1px solid #526982;background:#102038;color:#fff;font:inherit}
+button{border:0;border-radius:10px;padding:12px 16px;background:#36bf91;color:#06231d;font-weight:700;font:inherit;cursor:pointer;margin:10px 8px 0 0}
+button.secondary{background:#334e6b;color:#fff}button:disabled{opacity:.5}button:focus-visible,input:focus-visible{outline:2px solid #a2f9d2}
+article{border-top:1px solid #344c68;padding:14px 0}small{color:#abc4d9}
+#status{min-height:2em;padding:8px 0}#status.error{color:#ffb4b4}#status.ok{color:#8bf0b8}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>📚 Kitap Hafıza Merkezi</h1>
+<p>Çok kullanıcılı mobil önizleme. Android ve iPhone tarayıcılarında çalışması hedeflenen arayüz.</p>
+<div id="status" role="status" aria-live="polite">Bu ekranın çalışması için aynı adreste çalışan çok kullanıcılı sunucu gerekir.</div>
+<section id="auth">
+<h2>Hesabım</h2>
+<form id="login-form">
+<label for="username">Kullanıcı adı</label><input id="username" autocomplete="username" required minlength="3">
+<label for="password">Şifre</label><input id="password" type="password" autocomplete="current-password" required>
+<button type="submit">Giriş yap</button><button type="button" id="register" class="secondary">Yeni hesap oluştur</button>
+</form>
+</section>
+<section id="shelf" hidden>
+<h2>Kitaplığım</h2><p id="identity"></p>
+<button type="button" id="refresh">Kitaplığımı yenile</button><button type="button" id="logout" class="secondary">Çıkış yap</button>
+<div id="books"></div>
+<form id="book-form">
+<h3>Kitap kaydı</h3>
+<label for="book-id">Kitap kimliği</label><input id="book-id" required maxlength="256">
+<label for="notes">Notlarım</label><textarea id="notes" rows="3"></textarea>
+<label><input id="done" type="checkbox" style="width:auto"> Okudum</label>
+<button type="submit">Kaydet</button>
+</form>
+</section>
+</main>
+<script src="./mobile_client.js" defer></script>
+</body>
+</html>
