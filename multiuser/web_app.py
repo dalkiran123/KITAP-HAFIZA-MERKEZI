@@ -13,6 +13,7 @@ from user_store import connect, create_user, authenticate, rate_book, leaderboar
 from sessions import SessionManager
 from persistent_sessions import SQLiteSessionManager
 from login_limiter import LoginLimiter
+from deployment_guard import validate_public_origin
 from shelves import save_book, list_books
 from reading_history import add_read, list_reads
 from shelf_sync import read_sync, update_sync
@@ -40,6 +41,15 @@ def app(env, start_response):
             headers.append(('Set-Cookie', cookie))
         start_response(f'{code} {HTTPStatus(code).phrase}', headers)
         return [json.dumps(data, ensure_ascii=False).encode()]
+
+    # An explicit deployment origin locks the accepted Host and expected
+    # external scheme; the proxy must remove untrusted forwarded headers.
+    public_origin = os.environ.get('BOOK_PUBLIC_ORIGIN', '')
+    if public_origin and not validate_public_origin(env, public_origin):
+        return respond(400, {'error': 'Invalid deployment host'})
+    if public_origin:
+        env = dict(env)
+        env['wsgi.url_scheme'] = 'https'
 
     # Defense in depth for browser-originated writes. A production reverse proxy
     # must also enforce a trusted Host and HTTPS configuration.
