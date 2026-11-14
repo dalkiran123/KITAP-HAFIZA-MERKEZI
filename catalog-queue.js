@@ -1,5 +1,50 @@
 window.KITAP_UPCOMING=[
   {
+    "name": "Şibumi",
+    "author": "Trevanian",
+    "category": "Gerilim",
+    "description": "Nikolai Hel'in çevresinde gelişen, casusluk ve güç mücadelelerini konu alan roman.",
+    "status": "6 ve 20 paragraflık özet hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T10:00:00+03:00"
+  },
+  {
+    "name": "Nar Ağacı",
+    "author": "Nazan Bekiroğlu",
+    "category": "Tarihi Roman",
+    "description": "Trabzon ve Tebriz arasında uzanan, savaş, göç, aile hafızası ve aşk temalı roman.",
+    "status": "6 ve 20 paragraflık özet hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T10:00:00+03:00"
+  },
+  {
+    "name": "Efsane",
+    "author": "İskender Pala",
+    "category": "Tarihi Roman",
+    "description": "Barbaros Hayreddin Paşa'nın hayatından ve Akdeniz tarihinden hareketle kurgulanan roman.",
+    "status": "6 ve 20 paragraflık özet hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T10:00:00+03:00"
+  },
+  {
+    "name": "Gerçek Tıp",
+    "author": "Aidin Salih",
+    "category": "Sağlık",
+    "description": "Geleneksel ve alternatif sağlık yaklaşımlarını savunan eser; tıbbi iddiaları bilimsel kanıtlarla ayrıca değerlendirilmelidir.",
+    "status": "6 ve 20 paragraflık özet hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T10:00:00+03:00"
+  },
+  {
+    "name": "Cumhuriyetin İlk Sabahı",
+    "author": "Şermin Yaşar ve İlber Ortaylı",
+    "category": "Tarih",
+    "description": "Türkiye Cumhuriyeti'nin kuruluş dönemini çocuklara yönelik tarihsel anlatıyla ele alan eser.",
+    "status": "6 ve 20 paragraflık özet hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T10:00:00+03:00"
+  },
+  {
     "name": "Bülbülü Öldürmek",
     "author": "Harper Lee",
     "category": "Roman",
