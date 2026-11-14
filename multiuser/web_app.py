@@ -14,12 +14,13 @@ from wsgiref.simple_server import make_server
 
 from user_store import connect, create_user, authenticate, rate_book, leaderboard
 from sessions import SessionManager
+from persistent_sessions import SQLiteSessionManager
 from shelves import save_book, list_books
 from reading_history import add_read, list_reads
 from shelf_sync import read_sync, update_sync
 
 DB_PATH = os.environ.get('BOOK_DB_PATH', 'book_users.sqlite3')
-SESSIONS = SessionManager()
+SESSIONS = SQLiteSessionManager(DB_PATH)
 CSRF_SECRET = secrets.token_bytes(32)
 LOGIN_ATTEMPTS = {}
 LOGIN_LOCK = threading.Lock()
