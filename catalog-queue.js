@@ -1,11 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Gazap Üzümleri",
-    "author": "John Steinbeck",
-    "category": "Klasikler",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Cesur Yeni Dünya",
     "author": "Aldous Huxley",
     "category": "Distopya",
