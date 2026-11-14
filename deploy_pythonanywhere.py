@@ -53,18 +53,17 @@ def main():
         src.backup(dst)
     backup_db.chmod(0o600)
     # This WSGI entry point does not import or run B2B.
-    config = (
-        "import os\\nimport sys\\n"
-        "PROJECT_DIR = " + repr(str(REPO)) + "\\n"
-        "MULTIUSER_DIR = " + repr(str(REPO / "multiuser")) + "\\n"
-        "for p in (MULTIUSER_DIR, PROJECT_DIR):\\n"
-        "    if p not in sys.path: sys.path.insert(0, p)\\n"
-        "os.environ['BOOK_DB_PATH'] = " + repr(str(DB)) + "\\n"
-        "os.environ['BOOK_PUBLIC_ORIGIN'] = " + repr(HOST) + "\\n"
-        "from multiuser.web_app import app as application\\n"
-    )
-    # Generate real newline-delimited Python code.
-    config = config.replace("\\\\n", "\\n")
+    config = f"""import os
+import sys
+PROJECT_DIR = {str(REPO)!r}
+MULTIUSER_DIR = {str(REPO / 'multiuser')!r}
+for p in (MULTIUSER_DIR, PROJECT_DIR):
+    if p not in sys.path:
+        sys.path.insert(0, p)
+os.environ['BOOK_DB_PATH'] = {str(DB)!r}
+os.environ['BOOK_PUBLIC_ORIGIN'] = {HOST!r}
+from multiuser.web_app import app as application
+"""
     compile(config, str(WSGI), "exec")
     temp_wsgi = WSGI.with_name(WSGI.name + ".booktmp")
     temp_wsgi.write_text(config, encoding="utf-8")
