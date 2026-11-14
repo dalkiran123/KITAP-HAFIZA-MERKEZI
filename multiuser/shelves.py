@@ -1,38 +1,26 @@
-"""Per-user book shelf records for the isolated SQLite prototype."""
-import json
+"""Compatibility facade over the canonical revisioned shelf store.
+
+New clients should use /my/sync with expected_revision to prevent lost updates.
+Legacy save_book performs last-write-wins and must not be used for device sync.
+"""
+from shelf_sync import ensure_sync, read_sync, update_sync
+
 
 def ensure_shelves(db):
-    db.execute("""CREATE TABLE IF NOT EXISTS shelves(
-      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      book_id TEXT NOT NULL,
-      state_json TEXT NOT NULL,
-      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY(user_id,book_id))""")
+    """Maintain legacy call compatibility; the canonical table is shelf_sync."""
+    ensure_sync(db)
 
-def save_book(db,user_id,book_id,state):
-    if not isinstance(book_id,str) or not 1 <= len(book_id) <= 256:
-        raise ValueError('Invalid book id')
-    if not isinstance(state,dict):
-        raise ValueError('Invalid book state')
-    allowed={'read','done','listened','lastRead','lastListened','notes'}
-    if set(state)-allowed:
-        raise ValueError('Unsupported state fields')
-    if any(k in state and type(state[k]) is not bool for k in ('read','done','listened')):
-        raise ValueError('Invalid flags')
-    if any(k in state and state[k] is not None and not isinstance(state[k],str) for k in ('lastRead','lastListened','notes')):
-        raise ValueError('Invalid text')
-    encoded=json.dumps(state,ensure_ascii=False,sort_keys=True)
-    if len(encoded.encode('utf-8'))>32768:
-        raise ValueError('State too large')
-    ensure_shelves(db)
-    with db:
-        db.execute("""INSERT INTO shelves(user_id,book_id,state_json)
-          VALUES(?,?,?) ON CONFLICT(user_id,book_id) DO UPDATE SET
-          state_json=excluded.state_json,updated_at=CURRENT_TIMESTAMP""",
-          (user_id,book_id,encoded))
 
-def list_books(db,user_id):
-    ensure_shelves(db)
-    return [{'book_id':book_id,'state':json.loads(state)}
-            for book_id,state in db.execute(
-              'SELECT book_id,state_json FROM shelves WHERE user_id=? ORDER BY book_id',(user_id,)).fetchall()]
+def save_book(db, user_id, book_id, state):
+    """Legacy upsert. Existing API clients have no revision field."""
+    ensure_sync(db)
+    row = db.execute(
+        'SELECT revision FROM shelf_sync WHERE user_id=? AND book_id=?',
+        (user_id, book_id)).fetchone()
+    revision = row[0] if row else 0
+    update_sync(db, user_id, book_id, state, revision)
+
+
+def list_books(db, user_id):
+    return [{'book_id': entry['book_id'], 'state': entry['state']}
+            for entry in read_sync(db, user_id)]
