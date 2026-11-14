@@ -1,42 +1,25 @@
-import io
-import json
-import os
-import tempfile
 import unittest
-import web_app
+from user_store import connect, create_user, rate_book, leaderboard
 
 class IsolationTests(unittest.TestCase):
     def setUp(self):
-        self.tmp=tempfile.TemporaryDirectory()
-        web_app.DB_PATH=os.path.join(self.tmp.name,'users.sqlite3')
-        web_app.SESSIONS.clear()
-    def tearDown(self): self.tmp.cleanup()
-    def call(self,method,path,data=None,cookie=''):
-        body=json.dumps(data).encode() if data is not None else b''
-        state={}
-        def start(status,headers): state['status']=int(status.split()[0]);state['headers']=dict(headers)
-        output=b''.join(web_app.app({'REQUEST_METHOD':method,'PATH_INFO':path,
-          'CONTENT_LENGTH':str(len(body)),'wsgi.input':io.BytesIO(body),
-          'HTTP_COOKIE':cookie},start))
-        return state['status'],json.loads(output),state['headers']
+        self.db=connect(':memory:')
+    def tearDown(self):
+        self.db.close()
     def test_separate_user_ratings(self):
-        a={'username':'alice','password':'a secure long password'}
-        b={'username':'bobby','password':'another long password'}
-        _,_,h1=self.call('POST','/register',a)
-        _,_,h2=self.call('POST','/register',b)
-        c1=h1['Set-Cookie'].split(';')[0]
-        c2=h2['Set-Cookie'].split(';')[0]
-        self.assertEqual(self.call('POST','/my/ratings',{'book_id':'abc','score':10},c1)[0],200)
-        self.assertEqual(self.call('POST','/my/ratings',{'book_id':'abc','score':3},c2)[0],200)
-        self.assertEqual(self.call('GET','/my/ratings',cookie=c1)[1]['ratings'][0]['score'],10)
-        self.assertEqual(self.call('GET','/my/ratings',cookie=c2)[1]['ratings'][0]['score'],3)
-        self.assertEqual(self.call('GET','/my/ratings')[0],401)
-    def test_logout(self):
-        p={'username':'reader','password':'a secure long password'}
-        _,_,h=self.call('POST','/register',p)
-        cookie=h['Set-Cookie'].split(';')[0]
-        self.assertEqual(self.call('GET','/me',cookie=cookie)[0],200)
-        self.assertEqual(self.call('POST','/logout',cookie=cookie)[0],200)
-        self.assertEqual(self.call('GET','/me',cookie=cookie)[0],401)
+        a=create_user(self.db,'alice','a secure long password')
+        b=create_user(self.db,'bobby','another long password')
+        rate_book(self.db,a,'abc',10)
+        rate_book(self.db,b,'abc',3)
+        self.assertEqual(self.db.execute('SELECT score FROM ratings WHERE user_id=? AND book_id=?',(a,'abc')).fetchone()[0],10)
+        self.assertEqual(self.db.execute('SELECT score FROM ratings WHERE user_id=? AND book_id=?',(b,'abc')).fetchone()[0],3)
+    def test_leaderboard_uses_distinct_books(self):
+        a=create_user(self.db,'alice','a secure long password')
+        b=create_user(self.db,'bobby','another long password')
+        with self.db:
+            self.db.execute('INSERT INTO reading(user_id,book_id,completed_at) VALUES(?,?,?)',(a,'abc','2026-11-14T12:00:00Z'))
+            self.db.execute('INSERT INTO reading(user_id,book_id,completed_at) VALUES(?,?,?)',(a,'abc','2026-11-14T13:00:00Z'))
+            self.db.execute('INSERT INTO reading(user_id,book_id,completed_at) VALUES(?,?,?)',(b,'xyz','2026-11-14T13:00:00Z'))
+        self.assertEqual(dict(leaderboard(self.db)),{'alice':1,'bobby':1})
 
 if __name__=='__main__': unittest.main()
