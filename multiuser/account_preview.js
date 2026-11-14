@@ -36,7 +36,15 @@
     const records = document.createElement('div');
     records.style.cssText = 'max-height:320px;overflow:auto;padding:8px 0;line-height:1.6';
     details.append(summary, records);
-    panel.append(heading, status, form, details);
+    const accountActions = document.createElement('div');
+    accountActions.style.cssText = 'display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0';
+    const accountLabel = document.createElement('strong');
+    const logoutButton = document.createElement('button');
+    logoutButton.type = 'button';
+    logoutButton.textContent = 'Çıkış yap / Hesap değiştir';
+    logoutButton.style.cssText = 'padding:9px 14px;border:0;border-radius:8px;cursor:pointer;background:#a5d8ff;color:#142650';
+    accountActions.append(accountLabel, logoutButton);
+    panel.append(heading, status, form, accountActions, details);
     details.hidden = true;
     const main = document.querySelector('main') || document.body;
     main.insertBefore(panel, main.firstChild);
@@ -52,6 +60,9 @@
       const [books, reads, ratings] = await Promise.all([
         json('/my/sync'), json('/my/reading'), json('/my/ratings')
       ]);
+      accountLabel.textContent = 'Hesap #' + user.user_id + ' · ' +
+        (user.role === 'admin' ? 'Yönetici' : 'Okuyucu');
+      accountActions.style.display = 'flex';
       status.textContent = 'Hesap #' + user.user_id + ': sunucuda ' +
         books.books.length + ' kitap, ' + reads.reading.length + ' okuma kaydı, ' +
         ratings.ratings.length + ' puan. Yerel kitaplık değiştirilmedi. Otomatik senkronizasyon henüz etkin değil.';
@@ -105,6 +116,32 @@
       form.hidden = true;
       form.style.display = 'none';
     }
+    logoutButton.addEventListener('click', async () => {
+      logoutButton.disabled = true;
+      try {
+        const csrf = await json('/csrf');
+        await json('/logout', {
+          method: 'POST',
+          headers: { 'X-CSRF-Token': csrf.csrf_token }
+        });
+        // Do not delete any local books. They are browser-wide until full
+        // per-user storage isolation is implemented.
+        accountActions.style.display = 'none';
+        details.hidden = true;
+        details.open = false;
+        records.replaceChildren();
+        username.value = '';
+        password.value = '';
+        form.hidden = false;
+        form.style.display = 'flex';
+        status.textContent = 'Çıkış yapıldı. Başka hesapla giriş yapabilirsiniz. ' +
+          'Dikkat: Bu tarayıcıdaki yerel kitaplar henüz kullanıcıya özel ayrılmıyor.';
+      } catch (error) {
+        status.textContent = 'Çıkış yapılamadı: ' + error.message;
+      } finally {
+        logoutButton.disabled = false;
+      }
+    });
     form.addEventListener('submit', async event => {
       event.preventDefault();
       button.disabled = true;
@@ -132,6 +169,9 @@
       }
     });
     inspect().catch(() => {
+      accountActions.style.display = 'none';
+      form.hidden = false;
+      form.style.display = 'flex';
       status.textContent = 'Sunucu hesabına bağlanarak kayıt sayılarını karşılaştırabilirsiniz. Yerel kitaplar korunur.';
     });
   };
