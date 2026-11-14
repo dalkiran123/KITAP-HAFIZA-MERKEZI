@@ -6,6 +6,7 @@ users, and revocation is shared by processes using the same SQLite file.
 import hashlib
 import secrets
 import time
+from contextlib import closing
 from user_store import connect
 from sessions import SESSION_TTL_SECONDS
 
@@ -27,7 +28,7 @@ class SQLiteSessionManager:
     def issue(self, user_id, role='reader'):
         token = secrets.token_urlsafe(32)
         digest = hashlib.sha256(token.encode('utf-8')).hexdigest()
-        with self._connect() as db:
+        with closing(self._connect()) as db, db:
             db.execute('DELETE FROM login_sessions WHERE expires <= ?', (time.time(),))
             db.execute('INSERT INTO login_sessions(token_hash,user_id,role,expires) VALUES(?,?,?,?)',
                        (digest, user_id, role, time.time() + SESSION_TTL_SECONDS))
@@ -37,7 +38,7 @@ class SQLiteSessionManager:
         if not isinstance(token, str) or not token or len(token) > 256:
             return None
         digest = hashlib.sha256(token.encode('utf-8')).hexdigest()
-        with self._connect() as db:
+        with closing(self._connect()) as db, db:
             row = db.execute('SELECT user_id,role,expires FROM login_sessions WHERE token_hash=?',
                              (digest,)).fetchone()
             if row is None:
@@ -51,5 +52,5 @@ class SQLiteSessionManager:
         if not isinstance(token, str) or len(token) > 256:
             return
         digest = hashlib.sha256(token.encode('utf-8')).hexdigest()
-        with self._connect() as db:
+        with closing(self._connect()) as db, db:
             db.execute('DELETE FROM login_sessions WHERE token_hash=?', (digest,))

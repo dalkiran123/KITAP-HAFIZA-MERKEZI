@@ -4,6 +4,7 @@ The remote address must come from a trusted reverse proxy; do not trust
 X-Forwarded-For headers from arbitrary clients.
 """
 import time
+from contextlib import closing
 from user_store import connect
 
 
@@ -23,17 +24,17 @@ class LoginLimiter:
 
     def allowed(self, ip):
         now=time.time()
-        with self._db() as db:
+        with closing(self._db()) as db, db:
             db.execute('DELETE FROM login_failures WHERE attempted_at <= ?', (now-self.window_seconds,))
             count=db.execute('SELECT COUNT(*) FROM login_failures WHERE ip=?',(ip,)).fetchone()[0]
             return count < self.max_failures
 
     def fail(self, ip):
         now=time.time()
-        with self._db() as db:
+        with closing(self._db()) as db, db:
             db.execute('DELETE FROM login_failures WHERE attempted_at <= ?', (now-self.window_seconds,))
             db.execute('INSERT INTO login_failures(ip,attempted_at) VALUES(?,?)',(ip,now))
 
     def success(self, ip):
-        with self._db() as db:
+        with closing(self._db()) as db, db:
             db.execute('DELETE FROM login_failures WHERE ip=?',(ip,))
