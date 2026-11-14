@@ -1,11 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Cesur Yeni Dünya",
-    "author": "Aldous Huxley",
-    "category": "Distopya",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Bülbülü Öldürmek",
     "author": "Harper Lee",
     "category": "Roman",
