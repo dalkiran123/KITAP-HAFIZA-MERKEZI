@@ -9,7 +9,7 @@ class ApiTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory()
         web_app.DB_PATH=os.path.join(self.temp.name,'users.db')
-        web_app.SESSIONS.clear()
+        web_app.SESSIONS=web_app.SessionManager()
     def tearDown(self): self.temp.cleanup()
     def call(self,method,path,data=None):
         body=json.dumps(data).encode() if data is not None else b''
