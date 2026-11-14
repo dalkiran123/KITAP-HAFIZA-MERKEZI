@@ -1,14 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Nar Ağacı",
-    "author": "Nazan Bekiroğlu",
-    "category": "Tarihi Roman",
-    "description": "Trabzon ve Tebriz arasında uzanan, savaş, göç, aile hafızası ve aşk temalı roman.",
-    "status": "6 ve 20 paragraflık özet hazırlanacak",
-    "requested": true,
-    "addedAt": "2026-11-14T10:00:00+03:00"
-  },
-  {
     "name": "Efsane",
     "author": "İskender Pala",
     "category": "Tarihi Roman",
@@ -34,12 +25,6 @@ window.KITAP_UPCOMING=[
     "status": "6 ve 20 paragraflık özet hazırlanacak",
     "requested": true,
     "addedAt": "2026-11-14T10:00:00+03:00"
-  },
-  {
-    "name": "Bülbülü Öldürmek",
-    "author": "Harper Lee",
-    "category": "Roman",
-    "status": "Özet hazırlanacak"
   },
   {
     "name": "Dorian Gray'in Portresi",
