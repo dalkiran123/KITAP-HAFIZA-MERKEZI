@@ -1,14 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Efsane",
-    "author": "İskender Pala",
-    "category": "Tarihi Roman",
-    "description": "Barbaros Hayreddin Paşa'nın hayatından ve Akdeniz tarihinden hareketle kurgulanan roman.",
-    "status": "6 ve 20 paragraflık özet hazırlanacak",
-    "requested": true,
-    "addedAt": "2026-11-14T10:00:00+03:00"
-  },
-  {
     "name": "Gerçek Tıp",
     "author": "Aidin Salih",
     "category": "Sağlık",
@@ -25,12 +16,6 @@ window.KITAP_UPCOMING=[
     "status": "6 ve 20 paragraflık özet hazırlanacak",
     "requested": true,
     "addedAt": "2026-11-14T10:00:00+03:00"
-  },
-  {
-    "name": "Dorian Gray'in Portresi",
-    "author": "Oscar Wilde",
-    "category": "Klasikler",
-    "status": "Özet hazırlanacak"
   },
   {
     "name": "Gurur ve Önyargı",
