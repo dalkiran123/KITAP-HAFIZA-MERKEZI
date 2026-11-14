@@ -9,6 +9,7 @@ from user_store import connect, create_user, authenticate, rate_book, leaderboar
 from sessions import SessionManager
 from shelves import save_book, list_books
 from reading_history import add_read, list_reads
+from shelf_sync import read_sync, update_sync
 
 DB_PATH = os.environ.get('BOOK_DB_PATH', 'book_users.sqlite3')
 SESSIONS = SessionManager()
@@ -35,7 +36,7 @@ def app(env, start_response):
                   if item.strip().startswith('session=')), None)
     account = SESSIONS.lookup(token)
 
-    if method == 'GET' and path in ('/me', '/my/ratings', '/my/books', '/my/reading', '/leaderboard'):
+    if method == 'GET' and path in ('/me', '/my/ratings', '/my/books', '/my/reading', '/my/sync', '/leaderboard'):
         if not account:
             return respond(401, {'error': 'Authentication required'})
         if path == '/me':
@@ -43,6 +44,8 @@ def app(env, start_response):
         db = connect(DB_PATH)
         try:
             uid = account['user_id']
+            if path == '/my/sync':
+                return respond(200, {'books': read_sync(db, uid)})
             if path == '/my/books':
                 return respond(200, {'books': list_books(db, uid)})
             if path == '/my/reading':
@@ -65,7 +68,7 @@ def app(env, start_response):
                        'session=; Max-Age=0; HttpOnly; Secure; SameSite=Strict; Path=/')
 
     if method != 'POST' or path not in ('/register', '/login', '/my/ratings',
-                                       '/my/books', '/my/reading'):
+                                       '/my/books', '/my/reading', '/my/sync'):
         return respond(404, {'error': 'Not found'})
 
     try:
@@ -82,6 +85,9 @@ def app(env, start_response):
             db = connect(DB_PATH)
             try:
                 uid = account['user_id']
+                if path == '/my/sync':
+                    revision = update_sync(db, uid, payload.get('book_id'), payload.get('state'), payload.get('expected_revision'))
+                    return respond(200, {'revision': revision})
                 if path == '/my/books':
                     save_book(db, uid, payload.get('book_id'), payload.get('state'))
                 elif path == '/my/reading':
