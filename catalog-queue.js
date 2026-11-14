@@ -1,5 +1,54 @@
 window.KITAP_UPCOMING=[
   {
+    "name": "Açlık Oyunları",
+    "author": "Suzanne Collins",
+    "category": "Distopya / Genç Yetişkin",
+    "description": "Panem'de Katniss Everdeen, kardeşinin yerine ölümcül Açlık Oyunları'na katılır. Roman, iktidar, medya gösterisi ve hayatta kalma temalarını işler.",
+    "isbn": "9780439023528",
+    "status": "6 ve 20 paragraflık içerik hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T22:00:00+03:00"
+  },
+  {
+    "name": "Ejderha Dövmeli Kız",
+    "author": "Stieg Larsson",
+    "category": "Polisiye / Gerilim",
+    "description": "Gazeteci Mikael Blomkvist ile araştırmacı Lisbeth Salander, Vanger ailesindeki eski bir kaybolma olayını araştırır. Gizem ve toplumsal şiddet temaları öne çıkar.",
+    "isbn": "9780307454546",
+    "status": "6 ve 20 paragraflık içerik hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T22:00:00+03:00"
+  },
+  {
+    "name": "Dîvân-ı Kebîr (Dîvân-ı Şems-i Tebrîzî)",
+    "author": "Mevlânâ Celâleddîn-i Rûmî",
+    "category": "Tasavvuf / Şiir",
+    "description": "Mevlânâ'nın Şems-i Tebrîzî ile manevi ilişkisi etrafında şekillenen, aşk, vecd, ayrılık ve ilahi birlik temalarını işleyen geniş şiir külliyatı. Tek olay örgülü bir roman değildir.",
+    "status": "6 ve 20 paragraflık içerik hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T22:00:00+03:00"
+  },
+  {
+    "name": "Sevda Sözleri",
+    "author": "Cemal Süreya",
+    "category": "Türk Şiiri",
+    "description": "Cemal Süreya'nın şiirlerini bir araya getiren eser. Aşk, dil, beden, kent yaşamı ve toplumsal duyarlılık temalarını içerir; roman gibi tek bir olay örgüsü yoktur.",
+    "status": "6 ve 20 paragraflık içerik hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T22:00:00+03:00"
+  },
+  {
+    "name": "Ben Sana Mecburum",
+    "author": "Attilâ İlhan",
+    "category": "Türk Şiiri",
+    "description": "Attilâ İlhan'ın şiir kitabı; aşk, özlem, yalnızlık ve kent atmosferini yoğun imgelerle işler. Tek olay örgülü roman değildir.",
+    "status": "6 ve 20 paragraflık içerik hazırlanacak",
+    "requested": true,
+    "addedAt": "2026-11-14T22:00:00+03:00"
+  }
+,
+
+  {
     "name": "Gerçek Tıp",
     "author": "Aidin Salih",
     "category": "Sağlık",
