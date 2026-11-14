@@ -4,6 +4,7 @@ Never store uploaded backups in a public repository.
 """
 import hashlib
 import json
+from shelf_sync import ensure_sync
 from datetime import datetime, timezone
 
 def preview(payload):
@@ -61,11 +62,25 @@ def import_backup(db, user_id, payload, *, confirmed=False):
     details = preview(payload)
     # Hash canonical JSON for repeat-safe imports.
     fingerprint = hashlib.sha256(json.dumps(payload,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+    # Stage only fields supported by the canonical per-user shelf schema.
+    # Never overwrite records already modified on another device.
+    shelf_rows = []
+    for book in payload['books']:
+        state = {key: book[key] for key in ('read', 'done', 'listened')
+                 if type(book.get(key)) is bool}
+        for key in ('lastRead', 'lastListened', 'notes'):
+            if key in book and (book[key] is None or isinstance(book[key], str)):
+                state[key] = book[key]
+        shelf_rows.append((book['id'], json.dumps(state, ensure_ascii=False, sort_keys=True)))
+    ensure_sync(db)
     with db:
         if not db.execute('SELECT 1 FROM users WHERE id=?',(user_id,)).fetchone():
             raise ValueError('Unknown user')
         if db.execute('SELECT 1 FROM migration_imports WHERE user_id=? AND import_id=?',(user_id,fingerprint)).fetchone():
             return {'status':'already_imported','fingerprint':fingerprint}
+        for book_id, state_json in shelf_rows:
+            db.execute('INSERT OR IGNORE INTO shelf_sync(user_id,book_id,revision,state_json) VALUES(?,?,1,?)',
+                       (user_id,book_id,state_json))
         for book_id,score in details['ratings_rows']:
             db.execute('INSERT INTO ratings(user_id,book_id,score) VALUES(?,?,?) ON CONFLICT(user_id,book_id) DO UPDATE SET score=excluded.score',(user_id,book_id,score))
         # Reading table stores timestamps, but not event type; keep only actual read events.
@@ -74,4 +89,4 @@ def import_backup(db, user_id, payload, *, confirmed=False):
                 db.execute('INSERT OR IGNORE INTO reading(user_id,book_id,completed_at) VALUES(?,?,?)',(user_id,book_id,date))
         db.execute('INSERT INTO migration_imports(user_id,import_id) VALUES(?,?)',(user_id,fingerprint))
     return {'status':'imported','fingerprint':fingerprint,'ratings':details['ratings'],'read_events':sum(e[2]=='read' for e in details['event_rows']),
-            'warning':'Book notes, completion flags, listening events and requests are not yet migrated; do not delete original backup.'}
+            'warning':'Book notes and supported completion flags are imported without overwriting existing shelf entries. Listening events, requests and unsupported backup fields remain only in the original backup; do not delete it.'}
