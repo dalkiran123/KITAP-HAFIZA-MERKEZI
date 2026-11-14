@@ -28,7 +28,7 @@ class SyncAPITests(unittest.TestCase):
         b=hb['Set-Cookie'].split(';')[0]
         self.assertEqual(self.call('POST','/my/sync',{'book_id':'b1','state':{'notes':'phone'},'expected_revision':0},a)[1]['revision'],1)
         self.assertEqual(self.call('POST','/my/sync',{'book_id':'b1','state':{'notes':'tablet'},'expected_revision':1},a)[1]['revision'],2)
-        self.assertEqual(self.call('POST','/my/sync',{'book_id':'b1','state':{'notes':'stale'},'expected_revision':1},a)[0],400)
+        self.assertEqual(self.call('POST','/my/sync',{'book_id':'b1','state':{'notes':'stale'},'expected_revision':1},a)[0],409)
         self.assertEqual(self.call('GET','/my/sync',cookie=a)[1]['books'][0]['state']['notes'],'tablet')
         self.assertEqual(self.call('GET','/my/sync',cookie=b)[1]['books'],[])
         self.assertEqual(self.call('GET','/my/sync')[0],401)
