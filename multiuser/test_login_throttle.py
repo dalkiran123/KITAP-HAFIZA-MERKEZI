@@ -12,13 +12,11 @@ class LoginThrottleTests(unittest.TestCase):
         self.old_db,self.old_sessions=web_app.DB_PATH,web_app.SESSIONS
         web_app.DB_PATH=os.path.join(self.tmp.name,'users.sqlite3')
         web_app.SESSIONS=web_app.SessionManager()
-        with web_app.LOGIN_LOCK:
-            web_app.LOGIN_ATTEMPTS.clear()
+
 
     def tearDown(self):
         web_app.DB_PATH,web_app.SESSIONS=self.old_db,self.old_sessions
-        with web_app.LOGIN_LOCK:
-            web_app.LOGIN_ATTEMPTS.clear()
+
         self.tmp.cleanup()
 
     def call(self,method,path,data,ip='192.0.2.1'):
@@ -43,8 +41,8 @@ class LoginThrottleTests(unittest.TestCase):
         self.call('POST','/register',{'username':'alice','password':'a secure long password'})
         self.call('POST','/login',{'username':'alice','password':'wrong password'})
         self.assertEqual(self.call('POST','/login',{'username':'alice','password':'a secure long password'})['status'],200)
-        with web_app.LOGIN_LOCK:
-            self.assertNotIn('192.0.2.1',web_app.LOGIN_ATTEMPTS)
+        from login_limiter import LoginLimiter
+        self.assertTrue(LoginLimiter(web_app.DB_PATH).allowed('192.0.2.1'))
 
 
 if __name__=='__main__':
