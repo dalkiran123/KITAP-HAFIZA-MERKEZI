@@ -84,6 +84,17 @@ def app(env, start_response):
         ])
         return [data]
 
+    # The original homepage loads these catalog scripts dynamically.
+    # Serve only the two explicitly allowed public assets.
+    if method == 'GET' and path in ('/catalog.js', '/catalog-queue.js'):
+        data = (Path(__file__).resolve().parent.parent / path.lstrip('/')).read_bytes()
+        start_response('200 OK', [
+            ('Content-Type', 'text/javascript; charset=utf-8'),
+            ('Cache-Control', 'no-store'),
+            ('X-Content-Type-Options', 'nosniff'),
+        ])
+        return [data]
+
     if method == 'GET' and path == '/account-preview.js':
         data = (Path(__file__).parent / 'account_preview.js').read_bytes()
         start_response('200 OK', [
