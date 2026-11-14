@@ -108,11 +108,20 @@
       event.preventDefault();
       button.disabled = true;
       try {
-        await json('/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: username.value, password: password.value })
-        });
+        // If already signed in, do not submit credentials again.
+        // The server requires a session-bound CSRF token for every authenticated POST.
+        let signedIn = false;
+        try {
+          await json('/me');
+          signedIn = true;
+        } catch (_) {}
+        if (!signedIn) {
+          await json('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: username.value, password: password.value })
+          });
+        }
         password.value = '';
         await inspect();
       } catch (error) {
