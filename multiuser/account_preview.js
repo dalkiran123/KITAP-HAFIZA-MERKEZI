@@ -78,13 +78,29 @@
         }
         records.append(list);
       };
+      const catalog = Array.isArray(window.KITAP_CATALOG) ? window.KITAP_CATALOG : [];
+      const bookTitle = bookId => {
+        const id = String(bookId || '');
+        const isbn = id.match(/^catalog-(97[89][0-9]{10})$/);
+        if (isbn) {
+          const match = catalog.find(book => String(book.isbn || '').replace(/[^0-9]/g, '') === isbn[1]);
+          if (match) return match.name + ' (' + id + ')';
+        }
+        if (id.startsWith('catalog-')) {
+          try {
+            const decoded = decodeURIComponent(id.slice(8).replace(/%20/g, ' '));
+            if (decoded && decoded !== id.slice(8)) return decoded;
+          } catch (_) {}
+        }
+        return id;
+      };
       section('Kitaplık kayıtları', books.books, item =>
-        String(item.book_id) + ' · revizyon ' + String(item.revision) +
+        bookTitle(item.book_id) + ' · revizyon ' + String(item.revision) +
         (item.state && item.state.done ? ' · tamamlandı' : ''));
       section('Okuma geçmişi', reads.reading, item =>
-        String(item.book_id) + ' · ' + String(item.completed_at));
+        bookTitle(item.book_id) + ' · ' + String(item.completed_at));
       section('Kitap puanları', ratings.ratings, item =>
-        String(item.book_id) + ' · ' + String(item.score) + '/10');
+        bookTitle(item.book_id) + ' · ' + String(item.score) + '/10');
       details.hidden = false;
       form.hidden = true;
     }
