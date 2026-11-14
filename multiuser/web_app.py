@@ -2,7 +2,6 @@
 import json
 import hashlib
 import hmac
-import secrets
 import time
 import threading
 import os
@@ -21,7 +20,6 @@ from shelf_sync import read_sync, update_sync
 
 DB_PATH = os.environ.get('BOOK_DB_PATH', 'book_users.sqlite3')
 SESSIONS = SQLiteSessionManager(DB_PATH)
-CSRF_SECRET = secrets.token_bytes(32)
 LOGIN_ATTEMPTS = {}
 LOGIN_LOCK = threading.Lock()
 LOGIN_WINDOW = 300
@@ -29,7 +27,9 @@ LOGIN_MAX_FAILURES = 5
 
 
 def csrf_for(token):
-    return hmac.new(CSRF_SECRET, token.encode('utf-8'), hashlib.sha256).hexdigest()
+    # The random 256-bit session token is the HMAC key; the domain-separated
+    # token remains stable across restarts without a process-local secret.
+    return hmac.new(token.encode('utf-8'), b'book-memory-center:csrf:v1', hashlib.sha256).hexdigest()
 
 
 
