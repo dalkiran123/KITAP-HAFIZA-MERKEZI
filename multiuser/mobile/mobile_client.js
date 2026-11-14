@@ -7,9 +7,13 @@
     el('status').className = error ? 'error' : 'ok';
   };
   let revisions = new Map();
+  let csrfToken = null;
   async function request(path, method = 'GET', body) {
     const options = { method, credentials: 'same-origin', headers: {} };
     if (body !== undefined) {
+      if (csrfToken && path !== '/login' && path !== '/register') {
+        options.headers['X-CSRF-Token'] = csrfToken;
+      }
       options.headers['Content-Type'] = 'application/json';
       options.body = JSON.stringify(body);
     }
@@ -51,6 +55,7 @@
   }
   async function enter() {
     const user = await request('/me');
+    csrfToken = (await request('/csrf')).csrf_token;
     el('identity').textContent = 'Hesap: ' + user.user_id;
     el('auth').hidden = true;
     el('shelf').hidden = false;
@@ -96,6 +101,7 @@
     try {
       await request('/logout', 'POST', {});
       revisions.clear();
+      csrfToken = null;
       el('books').replaceChildren();
       el('auth').hidden = false;
       el('shelf').hidden = true;
