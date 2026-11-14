@@ -1,14 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Şibumi",
-    "author": "Trevanian",
-    "category": "Gerilim",
-    "description": "Nikolai Hel'in çevresinde gelişen, casusluk ve güç mücadelelerini konu alan roman.",
-    "status": "6 ve 20 paragraflık özet hazırlanacak",
-    "requested": true,
-    "addedAt": "2026-11-14T10:00:00+03:00"
-  },
-  {
     "name": "Nar Ağacı",
     "author": "Nazan Bekiroğlu",
     "category": "Tarihi Roman",
@@ -114,12 +105,6 @@ window.KITAP_UPCOMING=[
     "name": "Düşün ve Zengin Ol",
     "author": "Napoleon Hill",
     "category": "Kişisel Gelişim",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "İnsan Ne ile Yaşar?",
-    "author": "Lev Tolstoy",
-    "category": "Klasikler",
     "status": "Özet hazırlanacak"
   },
   {
