@@ -128,6 +128,29 @@ class LoopbackIntegrationTests(unittest.TestCase):
         self.assertEqual(self.request('GET', '/my/sync', cookie=device_a)[1]['books'][0]['state']['notes'],
                          'device b')
 
+    def test_two_accounts_independent_sessions_and_logout(self):
+        first = self.request('POST', '/register', {
+            'username': 'readerone', 'password': 'a secure long password'})
+        second = self.request('POST', '/register', {
+            'username': 'readertwo', 'password': 'another secure password'})
+        self.assertEqual(first[0], 200)
+        self.assertEqual(second[0], 200)
+        cookie_a = first[2]['Set-Cookie'].split(';')[0]
+        cookie_b = second[2]['Set-Cookie'].split(';')[0]
+        csrf_a = self.request('GET', '/csrf', cookie=cookie_a)[1]['csrf_token']
+        csrf_b = self.request('GET', '/csrf', cookie=cookie_b)[1]['csrf_token']
+        self.assertEqual(self.request('POST', '/my/sync', {
+            'book_id': 'a', 'state': {'notes': 'A'}, 'expected_revision': 0},
+            cookie_a, csrf_a)[0], 200)
+        self.assertEqual(self.request('POST', '/my/sync', {
+            'book_id': 'b', 'state': {'notes': 'B'}, 'expected_revision': 0},
+            cookie_b, csrf_b)[0], 200)
+        self.assertEqual(self.request('POST', '/logout', {}, cookie_a, csrf_a)[0], 200)
+        self.assertEqual(self.request('GET', '/my/sync', cookie=cookie_a)[0], 401)
+        status, payload, _ = self.request('GET', '/my/sync', cookie=cookie_b)
+        self.assertEqual(status, 200)
+        self.assertEqual([book['book_id'] for book in payload['books']], ['b'])
+
 
 if __name__ == '__main__':
     unittest.main()
