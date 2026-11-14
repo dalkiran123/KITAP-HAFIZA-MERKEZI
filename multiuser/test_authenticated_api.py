@@ -17,7 +17,8 @@ class AuthenticatedAPITests(unittest.TestCase):
         def start(status,headers):
             result['status']=int(status.split()[0])
             result['headers']=dict(headers)
-        output=b''.join(web_app.app({'REQUEST_METHOD':method,'PATH_INFO':path,'CONTENT_LENGTH':str(len(body)),'wsgi.input':io.BytesIO(body),'HTTP_COOKIE':cookie},start))
+        output=b''.join(web_app.app({'REQUEST_METHOD':method,'PATH_INFO':path,'CONTENT_LENGTH':str(len(body)),'wsgi.input':io.BytesIO(body),'HTTP_COOKIE':cookie,
+          'HTTP_X_CSRF_TOKEN': web_app.csrf_for(cookie.split('=',1)[1]) if cookie.startswith('session=') else ''},start))
         return result['status'],json.loads(output),result['headers']
     def test_isolated_ratings_and_logout(self):
         a={'username':'alice','password':'a secure long password'}
