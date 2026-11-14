@@ -1,17 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Karamazov Kardeşler",
-    "author": "Fyodor Dostoyevski",
-    "category": "Klasikler",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "Uçurtma Avcısı",
-    "author": "Khaled Hosseini",
-    "category": "Roman",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Bin Muhteşem Güneş",
     "author": "Khaled Hosseini",
     "category": "Roman",
