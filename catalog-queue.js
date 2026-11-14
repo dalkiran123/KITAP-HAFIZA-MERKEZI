@@ -1,11 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Bin Muhteşem Güneş",
-    "author": "Khaled Hosseini",
-    "category": "Roman",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Gazap Üzümleri",
     "author": "John Steinbeck",
     "category": "Klasikler",
