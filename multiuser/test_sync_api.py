@@ -19,7 +19,8 @@ class SyncAPITests(unittest.TestCase):
             result['headers']=dict(headers)
         response=b''.join(web_app.app({'REQUEST_METHOD':method,'PATH_INFO':path,
           'CONTENT_LENGTH':str(len(body)),'wsgi.input':io.BytesIO(body),
-          'HTTP_COOKIE':cookie},start))
+          'HTTP_COOKIE': cookie,
+          'HTTP_X_CSRF_TOKEN': web_app.csrf_for(cookie.split('=',1)[1]) if cookie.startswith('session=') else ''},start))
         return result['code'],json.loads(response),result['headers']
     def test_two_device_conflict_and_isolation(self):
         _,_,ha=self.call('POST','/register',{'username':'alice','password':'a secure long password'})
