@@ -123,7 +123,11 @@ def app(env, start_response):
                     if not isinstance(bid, str) or not 1 <= len(bid) <= 256:
                         raise ValueError('Invalid book id')
                     rate_book(db, uid, bid, score)
-            except (ValueError, TypeError, sqlite3.IntegrityError):
+            except ValueError as error:
+                if str(error) == 'Revision conflict':
+                    return respond(409, {'error': 'Revision conflict', 'action': 'refresh'})
+                return respond(400, {'error': 'Invalid record'})
+            except (TypeError, sqlite3.IntegrityError):
                 return respond(400, {'error': 'Invalid record'})
             finally:
                 db.close()
