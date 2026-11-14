@@ -66,6 +66,19 @@ def app(env, start_response):
                     or parsed.scheme != scheme):
                 return respond(403, {'error': 'Cross-origin write blocked'})
 
+    # Serve the existing full-featured book UI without modifying its local data.
+    # The UI is still localStorage-based; this route alone does not enable sync.
+    if method == 'GET' and path in ('/', '/index.html'):
+        page = Path(__file__).resolve().parent.parent / 'index.html'
+        data = page.read_bytes()
+        start_response('200 OK', [
+            ('Content-Type', 'text/html; charset=utf-8'),
+            ('Cache-Control', 'no-store'),
+            ('X-Content-Type-Options', 'nosniff'),
+            ('X-Frame-Options', 'DENY'),
+        ])
+        return [data]
+
     if method == 'GET' and path in ('/mobile', '/mobile/', '/mobile/mobile_client.js'):
         name = 'mobile_client.js' if path.endswith('.js') else 'index.html'
         data = (Path(__file__).parent / 'mobile' / name).read_bytes()
