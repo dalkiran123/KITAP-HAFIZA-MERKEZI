@@ -88,6 +88,9 @@ class MultiuserHttpContract(unittest.TestCase):
             self.assertIn("bookTitle(item.book_id)", script)
             self.assertIn("form.style.display = 'none'", script)
             self.assertIn("if (!signedIn)", script)
+            self.assertIn("Çıkış yap / Hesap değiştir", script)
+            self.assertIn("csrf.csrf_token", script)
+            self.assertIn("form.style.display = 'flex'", script)
         for asset, marker in (
             ("/catalog.js", "KITAP_CATALOG"),
             ("/catalog-queue.js", "KITAP_UPCOMING"),
@@ -118,6 +121,8 @@ class MultiuserHttpContract(unittest.TestCase):
         code, data, _ = self.call("/my/sync", cookie=bob)
         self.assertEqual(code, 200)
         self.assertEqual(data["books"], [])
+        self.assertEqual(self.call("/logout", body={}, cookie=alice)[0], 403)
+        self.assertEqual(self.call("/me", cookie=alice)[0], 200)
         self.assertEqual(self.call("/logout", body={}, cookie=alice, csrf=alice_csrf)[0], 200)
         self.assertEqual(self.call("/me", cookie=alice)[0], 401)
         self.assertEqual(self.call("/me", cookie=bob)[0], 200)
