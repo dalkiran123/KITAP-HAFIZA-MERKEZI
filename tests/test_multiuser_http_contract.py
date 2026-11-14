@@ -86,6 +86,8 @@ class MultiuserHttpContract(unittest.TestCase):
             self.assertIn("Sunucudaki kitap ve okuma kayıtlarını göster", script)
             self.assertIn("Kitap puanları", script)
             self.assertIn("bookTitle(item.book_id)", script)
+            self.assertIn("form.style.display = 'none'", script)
+            self.assertIn("if (!signedIn)", script)
         for asset, marker in (
             ("/catalog.js", "KITAP_CATALOG"),
             ("/catalog-queue.js", "KITAP_UPCOMING"),
