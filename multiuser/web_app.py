@@ -2,6 +2,7 @@
 import json
 import os
 import sqlite3
+from pathlib import Path
 from http import HTTPStatus
 from wsgiref.simple_server import make_server
 
@@ -26,6 +27,15 @@ def app(env, start_response):
             headers.append(('Set-Cookie', cookie))
         start_response(f'{code} {HTTPStatus(code).phrase}', headers)
         return [json.dumps(data, ensure_ascii=False).encode()]
+
+    if method == 'GET' and path in ('/mobile', '/mobile/', '/mobile/mobile_client.js'):
+        name = 'mobile_client.js' if path.endswith('.js') else 'index.html'
+        data = (Path(__file__).parent / 'mobile' / name).read_bytes()
+        content_type = 'text/javascript; charset=utf-8' if name.endswith('.js') else 'text/html; charset=utf-8'
+        start_response('200 OK', [('Content-Type', content_type),
+                                  ('Cache-Control', 'no-store'),
+                                  ('X-Content-Type-Options', 'nosniff')])
+        return [data]
 
     if method == 'GET' and path == '/health':
         return respond(200, {'status': 'prototype'})
