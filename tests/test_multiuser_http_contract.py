@@ -77,6 +77,12 @@ class MultiuserHttpContract(unittest.TestCase):
             self.assertIn("text/html", response.headers["Content-Type"])
             self.assertIn("Kitap Hafıza Merkezi", html)
             self.assertIn("localStorage", html)
+            self.assertIn("/account-preview.js", html)
+        with urllib.request.urlopen(self.base + "/account-preview.js", timeout=5) as response:
+            script = response.read().decode("utf-8")
+            self.assertEqual(response.status, 200)
+            self.assertIn("/my/sync", script)
+            self.assertIn("Yerel kitaplık değiştirilmedi", script)
 
     def test_health_and_protected_routes(self):
         self.assertEqual(self.call("/health")[0], 200)
