@@ -72,12 +72,6 @@ window.KITAP_UPCOMING=[
     "status": "Özet hazırlanacak"
   },
   {
-    "name": "Serenad",
-    "author": "Zülfü Livaneli",
-    "category": "Türk Edebiyatı",
-    "status": "Özet hazırlanacak"
-  },
-  {
     "name": "Beyaz Zambaklar Ülkesinde",
     "author": "Grigory Petrov",
     "category": "Kişisel Gelişim",
