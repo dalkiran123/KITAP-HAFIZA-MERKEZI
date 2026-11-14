@@ -7,6 +7,7 @@ from http import HTTPStatus
 from wsgiref.simple_server import make_server
 from user_store import connect,create_user,authenticate,rate_book,leaderboard
 from sessions import SessionManager
+from shelves import save_book, list_books
 
 DB_PATH=os.environ.get('BOOK_DB_PATH','book_users.sqlite3')
 SESSIONS=SessionManager()  # Process-local prototype; not production-ready.
@@ -22,11 +23,12 @@ def app(env,start_response):
     cookie=env.get('HTTP_COOKIE','')
     token=next((v.strip().split('=',1)[1] for v in cookie.split(';') if v.strip().startswith('session=')),None)
     account=SESSIONS.lookup(token)
-    if method=='GET' and path in ('/me','/my/ratings','/leaderboard'):
+    if method=='GET' and path in ('/me','/my/ratings','/my/books','/leaderboard'):
         if not account: return respond(401,{'error':'Authentication required'})
         if path=='/me': return respond(200,account)
         db=connect(DB_PATH)
         try:
+            if path=='/my/books': return respond(200,{'books':list_books(db,account['user_id'])})
             if path=='/my/ratings':
                 rows=db.execute('SELECT book_id,score FROM ratings WHERE user_id=? ORDER BY book_id',(account['user_id'],)).fetchall()
                 return respond(200,{'ratings':[{'book_id':b,'score':score} for b,score in rows]})
@@ -36,12 +38,21 @@ def app(env,start_response):
         if not account: return respond(401,{'error':'Authentication required'})
         SESSIONS.revoke(token)
         return respond(200,{'ok':True},'session=; Max-Age=0; HttpOnly; Secure; SameSite=Strict; Path=/')
-    if method!='POST' or path not in ('/register','/login','/my/ratings'): return respond(404,{'error':'Not found'})
+    if method!='POST' or path not in ('/register','/login','/my/ratings','/my/books'): return respond(404,{'error':'Not found'})
     try:
         size=int(env.get('CONTENT_LENGTH') or '0')
         if size<1 or size>8192: return respond(413,{'error':'Invalid body size'})
         payload=json.loads(env['wsgi.input'].read(size))
         if not isinstance(payload,dict): return respond(400,{'error':'Invalid JSON object'})
+        if path=='/my/books':
+            if not account: return respond(401,{'error':'Authentication required'})
+            db=connect(DB_PATH)
+            try:
+                save_book(db,account['user_id'],payload.get('book_id'),payload.get('state'))
+            except (ValueError,TypeError,sqlite3.IntegrityError):
+                return respond(400,{'error':'Invalid book state'})
+            finally: db.close()
+            return respond(200,{'ok':True})
         if path=='/my/ratings':
             if not account: return respond(401,{'error':'Authentication required'})
             book_id,score=payload.get('book_id'),payload.get('score')
