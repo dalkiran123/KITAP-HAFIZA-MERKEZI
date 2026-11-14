@@ -79,7 +79,7 @@ def app(env, start_response):
         if not isinstance(payload, dict):
             return respond(400, {'error': 'Invalid JSON object'})
 
-        if path in ('/my/ratings', '/my/books', '/my/reading'):
+        if path in ('/my/ratings', '/my/books', '/my/reading', '/my/sync'):
             if not account:
                 return respond(401, {'error': 'Authentication required'})
             db = connect(DB_PATH)
