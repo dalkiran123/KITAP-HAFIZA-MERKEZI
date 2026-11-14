@@ -39,6 +39,7 @@ class CsrfBrowserTests(unittest.TestCase):
         origin='https://books.example.test'
         data={'book_id':'one','state':{'notes':'safe'},'expected_revision':0}
         self.assertEqual(self.call('POST','/my/sync',data,cookie,origin=origin)['status'],403)
+        self.assertEqual(self.call('POST','/my/sync',data,cookie)['status'],403)
         self.assertEqual(self.call('POST','/my/sync',data,cookie,csrf='invalid',origin=origin)['status'],403)
         self.assertEqual(self.call('POST','/my/sync',data,cookie,csrf=token,origin=origin)['status'],200)
         self.assertEqual(self.call('POST','/logout',{},cookie,origin=origin)['status'],403)
