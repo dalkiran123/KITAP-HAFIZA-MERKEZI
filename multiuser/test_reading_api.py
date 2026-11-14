@@ -17,7 +17,8 @@ class ReadingAPITests(unittest.TestCase):
         def start(status,headers):
             result['code']=int(status.split()[0])
             result['headers']=dict(headers)
-        response=b''.join(web_app.app({'REQUEST_METHOD':method,'PATH_INFO':path,'CONTENT_LENGTH':str(len(body)),'wsgi.input':io.BytesIO(body),'HTTP_COOKIE':cookie},start))
+        response=b''.join(web_app.app({'REQUEST_METHOD':method,'PATH_INFO':path,'CONTENT_LENGTH':str(len(body)),'wsgi.input':io.BytesIO(body),'HTTP_COOKIE':cookie,
+          'HTTP_X_CSRF_TOKEN': web_app.csrf_for(cookie.split('=',1)[1]) if cookie.startswith('session=') else ''},start))
         return result['code'],json.loads(response),result['headers']
     def test_private_reading_and_leaderboard(self):
         _,_,ha=self.call('POST','/register',{'username':'alice','password':'a secure long password'})
