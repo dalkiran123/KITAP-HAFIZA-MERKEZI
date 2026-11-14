@@ -1,12 +1,5 @@
 window.KITAP_UPCOMING=[
   {
-    "name": "Kur'an-ı Kerim",
-    "author": "İslam'ın kutsal metni",
-    "category": "Din ve Düşünce",
-    "description": "114 sureden oluşan, İslam inancında vahiy olarak kabul edilen; inanç, ibadet, ahlak, insan ve toplum hayatına ilişkin konuları içeren kutsal metin. Bu kayıt bir edebî roman özeti değildir.",
-    "status": "Açıklamalı içerik hazırlanacak"
-  },
-  {
     "name": "Babil",
     "author": "R. F. Kuang",
     "category": "Fantastik",
@@ -53,12 +46,6 @@ window.KITAP_UPCOMING=[
   {
     "name": "Cesur Yeni Dünya",
     "author": "Aldous Huxley",
-    "category": "Distopya",
-    "status": "Özet hazırlanacak"
-  },
-  {
-    "name": "Fahrenheit 451",
-    "author": "Ray Bradbury",
     "category": "Distopya",
     "status": "Özet hazırlanacak"
   },
