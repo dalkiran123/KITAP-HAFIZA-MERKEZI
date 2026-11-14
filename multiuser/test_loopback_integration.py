@@ -75,6 +75,29 @@ class LoopbackIntegrationTests(unittest.TestCase):
         self.assertEqual(self.request('POST', '/logout', {}, cookie, csrf)[0], 200)
         self.assertEqual(self.request('GET', '/my/sync', cookie=cookie)[0], 401)
 
+    def test_two_users_cannot_access_each_others_books(self):
+        first = self.request('POST', '/register', {
+            'username': 'readerone', 'password': 'a secure long password'})
+        second = self.request('POST', '/register', {
+            'username': 'readertwo', 'password': 'another secure password'})
+        self.assertEqual(first[0], 200)
+        self.assertEqual(second[0], 200)
+        first_cookie = first[2]['Set-Cookie'].split(';')[0]
+        second_cookie = second[2]['Set-Cookie'].split(';')[0]
+        first_csrf = self.request('GET', '/csrf', cookie=first_cookie)[1]['csrf_token']
+        second_csrf = self.request('GET', '/csrf', cookie=second_cookie)[1]['csrf_token']
+        self.assertEqual(self.request('POST', '/my/sync', {
+            'book_id': 'private-book', 'state': {'notes': 'private to reader one'},
+            'expected_revision': 0}, first_cookie, first_csrf)[0], 200)
+        self.assertEqual(self.request('GET', '/my/sync', cookie=second_cookie)[1]['books'], [])
+        self.assertEqual(self.request('POST', '/my/sync', {
+            'book_id': 'private-book', 'state': {'notes': 'reader two version'},
+            'expected_revision': 0}, second_cookie, second_csrf)[0], 200)
+        first_books = self.request('GET', '/my/sync', cookie=first_cookie)[1]['books']
+        second_books = self.request('GET', '/my/sync', cookie=second_cookie)[1]['books']
+        self.assertEqual(first_books[0]['state']['notes'], 'private to reader one')
+        self.assertEqual(second_books[0]['state']['notes'], 'reader two version')
+
 
 if __name__ == '__main__':
     unittest.main()
