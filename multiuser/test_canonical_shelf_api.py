@@ -46,7 +46,7 @@ class CanonicalShelfAPITests(unittest.TestCase):
         self.assertEqual(books[0]['state']['notes'], 'second')
         self.assertEqual(self.call('POST', '/my/sync', {
             'book_id': 'b1', 'state': {'notes': 'stale'},
-            'expected_revision': 1}, cookie)[0], 400)
+            'expected_revision': 1}, cookie)[0], 409)
         self.assertEqual(self.call('GET', '/my/books', cookie=cookie)[1]['books'][0]['state']['notes'], 'second')
 
 
