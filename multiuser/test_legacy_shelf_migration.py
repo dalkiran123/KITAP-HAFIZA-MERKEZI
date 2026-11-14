@@ -44,6 +44,17 @@ class LegacyShelfMigrationTests(unittest.TestCase):
                                          (self.alice,)).fetchone()[0],
                          json.dumps({'notes':'original','done':True}))
 
+    def test_direct_sync_read_imports_legacy_without_facade(self):
+        books = read_sync(self.db, self.alice)
+        self.assertEqual(len(books), 1)
+        self.assertEqual(books[0]['state']['notes'], 'original')
+        self.assertEqual(read_sync(self.db, self.bobby)[0]['state']['notes'], 'other account')
+
+    def test_direct_sync_write_rejects_overwriting_legacy_revision_zero(self):
+        with self.assertRaisesRegex(ValueError, 'Revision conflict'):
+            update_sync(self.db, self.alice, 'classic', {'notes':'stale'}, 0)
+        self.assertEqual(read_sync(self.db, self.alice)[0]['state']['notes'], 'original')
+
     def test_legacy_save_uses_canonical_store(self):
         ensure_shelves(self.db)
         save_book(self.db,self.alice,'classic',{'notes':'compatibility'})
