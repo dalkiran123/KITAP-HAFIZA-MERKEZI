@@ -38,6 +38,7 @@ class MobileJourneyTests(unittest.TestCase):
             'CONTENT_LENGTH': str(len(raw)),
             'wsgi.input': io.BytesIO(raw),
             'HTTP_COOKIE': cookie,
+          'HTTP_X_CSRF_TOKEN': web_app.csrf_for(cookie.split('=',1)[1]) if cookie.startswith('session=') else '',
         }, start)
         payload = b''.join(chunks)
         content_type = response['headers'].get('Content-Type', '')
