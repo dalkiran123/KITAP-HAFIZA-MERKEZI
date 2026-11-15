@@ -663,5 +663,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T12:00:37.720Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Bütün Şiirleri",
+    "author": "Sabahattin Ali",
+    "category": "Türk Şiiri",
+    "description": "Sabahattin Ali'nin şiirlerini bir araya getiren derleme. Tek olay örgüsü bulunan roman değildir; baskı kapsamı doğrulanacaktır.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T13:05:01.894Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "İki Şehrin Hikâyesi",
+    "author": "Charles Dickens",
+    "category": "Klasikler",
+    "description": "Fransız Devrimi döneminde Londra ile Paris arasında geçen, fedakârlık ve adalet temalı roman.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T13:05:01.894Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Düşün ve Zengin Ol",
+    "author": "Napoleon Hill",
+    "category": "Kişisel Gelişim",
+    "description": "Başarı, hedef belirleme ve motivasyon üzerine iddialar içeren kişisel gelişim eseri; önerileri bilimsel gerçek olarak sunulmamalıdır.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T13:05:01.894Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
