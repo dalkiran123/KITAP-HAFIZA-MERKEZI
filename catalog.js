@@ -864,13 +864,14 @@ window.KITAP_CATALOG=[
     "author": "Charles Dickens",
     "category": "Roman / Klasikler",
     "description": "Yetim Oliver'ın çalışma evi, Londra sokakları ve suç çevreleri arasında kimliğini ve güvenliğini araması.",
-    "summary": "",
+    "summary": "Oliver Twist, annesinin doğum sırasında öldüğü bir yoksullar evinde dünyaya gelir. Annesinin kimliği bilinmediği için Oliver, toplumun en korumasız çocuklarından biri olarak büyür. Yetimlerin aç bırakıldığı ve sert disiplin altında tutulduğu kurumda, kendisine ayrılan yemeğin yetmediğini söyleyip biraz daha lapa istemesi büyük bir itaatsizlik sayılır. Dickens bu sahneyle yoksulluğu azaltması beklenen kurumların çocuklara nasıl acımasız davranabildiğini gösterir.\n\nOliver, cezalandırıldıktan sonra cenaze levazımatçısı Bay Sowerberry'nin yanına çırak verilir. Burada da aşağılanır; özellikle annesine yönelik hakaretlere dayanamayınca kavga eder. Kendisine güvenli bir yer bulamayacağını anlayıp Londra'ya yürür. Yolda karşılaştığı, 'Artful Dodger' lakaplı Jack Dawkins onu yemek ve barınak vaadiyle yaşlı Fagin'in yanına götürür. Oliver başlangıçta bu evdeki çocukların yankesicilik için yetiştirildiğini kavrayamaz.\n\nFagin'in çocukları bir kitapçı önünde Bay Brownlow'un cebinden mendil çalarken Oliver olayın ortasında kalır. Suçu işlememiş olmasına rağmen yakalanır; bir tanığın açıklamasıyla serbest bırakılır. Hastalanan çocuğa Brownlow evinde şefkatle bakar. Oliver ilk kez kendisine güvenen ve onu insan yerine koyan bir yetişkinle karşılaşır. Ne var ki Fagin ve suç ortağı Bill Sikes, Oliver'ın kendileri hakkında bilgi verebileceğinden korkar ve onu yeniden ele geçirir.\n\nSikes, Oliver'ı bir ev soygununa zorla götürür. Çocuk suç işlemek istemez; soygun sırasında vurularak yaralanır. Evin sakinleri Bayan Maylie ve Rose Maylie, Oliver'ın suç örgütünün gönüllü bir üyesi olmadığını anlayıp ona bakarlar. Bu evde geçirdiği zaman, Dickens'ın romanda karşı karşıya getirdiği iki dünyayı belirginleştirir: çocukları sömüren yetişkinler ve onların iyileşmesine imkân veren insanlar. Oliver'ın güven duygusu yavaş yavaş yeniden gelişir.\n\nBu sırada Oliver'ın geçmişiyle ilgili sırlar açığa çıkmaya başlar. Monks adıyla tanınan Edward Leeford, Oliver'ın üvey kardeşidir ve babalarından kalan miras üzerinde hak sahibi olmasını engellemeye çalışır. Fagin'le iş birliği yaparak çocuğu suça sürüklemek ister. Sikes'ın yanında yaşayan Nancy ise suç çevresinden kopamasa da Oliver'a karşı vicdanlı davranır. Rose ve Brownlow'a ulaştırdığı bilgiler, Oliver'ı kurtarmak için belirleyici olur. Nancy'nin yardımı ortaya çıkınca Sikes onu öldürür; bu olay romanın en sarsıcı dönüm noktalarından biridir.\n\nNancy'nin öldürülmesinin ardından Sikes kaçarken ölür, Fagin yakalanır ve idama mahkûm edilir. Brownlow, Monks'la yüzleşerek Oliver'ın ailesine ve mirasına ilişkin gerçekleri ortaya çıkarır. Oliver'ın annesinin Agnes Fleming olduğu anlaşılır; Rose'un da Agnes'in kız kardeşi olduğu ortaya çıkar. Brownlow Oliver'ı evlat edinir ve çocuk sonunda sevgi dolu bir yuvaya kavuşur. Roman, masum bir çocuğun kurtuluşunu anlatırken yoksulluk yasalarını, kurumsal ikiyüzlülüğü ve suçun toplumsal koşullarını eleştirir.",
     "longSummary": "",
     "detailSummary": "",
-    "status": "Özet hazırlanıyor",
+    "status": "6 paragraf hazır; 20 ve 100 hazırlanıyor",
     "preparedAt": "2026-11-15T17:58:31.564Z",
     "detailSummaryVerified": false,
-    "audioVerified": false
+    "audioVerified": false,
+    "summaryVerified": true
   },
   {
     "name": "Denizler Altında Yirmi Bin Fersah",
