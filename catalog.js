@@ -940,5 +940,47 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T19:05:52.949Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Seyir",
+    "author": "Piraye",
+    "category": "Roman",
+    "description": "Mina'nın kendilik arayışı, ilişkileri ve içsel dönüşümü.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T20:00:17.520Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false,
+    "copyrightNote": "Eser telif korumasındadır. Yalnızca bağımsız özgün özet hazırlanabilir; tam metin/ses kopyalanamaz."
+  },
+  {
+    "name": "Bekle Beni",
+    "author": "Zülfü Livaneli",
+    "category": "Roman",
+    "description": "Leyla ve Selim'in aşkı, ayrılık ve özgürlük mücadelesi.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T20:00:17.520Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false,
+    "copyrightNote": "Eser telif korumasındadır. Yalnızca bağımsız özgün özet hazırlanabilir; tam metin/ses kopyalanamaz."
+  },
+  {
+    "name": "Hz. Muhammed'in Hayatı",
+    "author": "Martin Lings",
+    "category": "Biyografi / Tarih",
+    "description": "Erken İslam kaynaklarından yararlanan tarihî siyer çalışması.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T20:00:17.520Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false,
+    "copyrightNote": "Eser telif korumasındadır. Yalnızca bağımsız özgün özet hazırlanabilir; tam metin/ses kopyalanamaz."
   }
 ];
