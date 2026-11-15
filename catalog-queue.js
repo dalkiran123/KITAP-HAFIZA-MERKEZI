@@ -131,5 +131,26 @@ window.KITAP_UPCOMING=[
     "author": "Marcus Aurelius",
     "category": "Felsefe",
     "status": "Özet hazırlanacak"
+  },
+  {
+    "name": "Babalar ve Oğullar",
+    "author": "İvan Turgenyev",
+    "category": "Klasikler",
+    "status": "Özet hazırlanıyor",
+    "requested": false
+  },
+  {
+    "name": "Küçük Kadınlar",
+    "author": "Louisa May Alcott",
+    "category": "Klasikler",
+    "status": "Özet hazırlanıyor",
+    "requested": false
+  },
+  {
+    "name": "İki Şehrin Hikâyesi",
+    "author": "Charles Dickens",
+    "category": "Klasikler",
+    "status": "Özet hazırlanıyor",
+    "requested": false
   }
 ];
