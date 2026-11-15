@@ -7,7 +7,7 @@ const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].m
 assert.ok(scripts.length>0,'Inline scripts should exist');
 for(const [i,code] of scripts.entries())new vm.Script(code,{filename:'index.html:inline-'+i});
 const videoHtml=readFileSync('documentaries.html','utf8');
-const videoScripts=[...videoHtml.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(m=>m[1]).filter(Boolean);
+const videoScripts=videoHtml.split('<script>').slice(1).map(part=>part.split('</script>')[0]).filter(Boolean);
 assert.ok(videoScripts.length>0,'Video page inline script should exist');
 for(const [i,code] of videoScripts.entries())new vm.Script(code,{filename:'documentaries.html:inline-'+i});
 for(const file of ['catalog.js','catalog-queue.js'])new vm.Script(readFileSync(file,'utf8'),{filename:file});
