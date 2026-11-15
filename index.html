@@ -378,8 +378,8 @@ html body #page-home .v2intro .v2audio-slot button{font-size:10px!important;bord
 #catalogshelf .catalog-expand-body>small{display:block}
 
 /* Full-screen Discover detail. Opening a card must not stretch its grid neighbor. */
-body.catalog-modal-active:has(#page-discover.active){overflow:hidden} body:not(:has(#page-discover.active)){overflow-y:auto!important} #page-reader.active{touch-action:pan-y;overflow:visible} body.catalog-modal-active #page-discover.active{overscroll-behavior:contain}
-#catalogshelf .catalog-expand[open]{position:fixed;inset:0;z-index:9999;width:100vw;height:100dvh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;background:#fff9ed;box-sizing:border-box;padding:env(safe-area-inset-top) max(16px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(16px,env(safe-area-inset-left));border-radius:0;box-shadow:none}
+body.catalog-modal-active:has(#page-discover.active){overflow-y:auto!important} body:not(:has(#page-discover.active)){overflow-y:auto!important} #page-reader.active{touch-action:pan-y;overflow:visible} body.catalog-modal-active #page-discover.active{overscroll-behavior:contain}
+#catalogshelf .catalog-expand[open]{position:relative;inset:auto;z-index:auto;width:100%;height:auto;max-height:none;overflow:visible;overscroll-behavior:auto;background:#fff9ed;box-sizing:border-box;padding:12px;border-radius:18px;box-shadow:none}
 #catalogshelf .catalog-expand[open]>.catalog-summary{position:sticky;top:0;z-index:1;background:#fff9ed;border-bottom:1px solid #e2dff0;padding:16px 4px;min-height:0}
 #catalogshelf .catalog-expand[open]>.catalog-summary:after{content:'✕ Detayları kapat';align-self:flex-end;font-size:14px;color:#6746c4}
 #catalogshelf .catalog-expand[open]>.catalog-expand-body{width:min(100%,620px);margin:0 auto;padding:18px 4px 32px;gap:14px}
