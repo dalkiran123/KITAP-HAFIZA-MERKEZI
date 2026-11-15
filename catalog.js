@@ -702,5 +702,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T13:05:01.894Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Frankenstein",
+    "author": "Mary Shelley",
+    "category": "Gotik Roman / Bilimkurgu",
+    "description": "Victor Frankenstein'ın yarattığı canlı karşısında sorumluluktan kaçışı, dışlanma ve etik sonuçları konu alan 1818 romanı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T13:57:48.092Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Drakula",
+    "author": "Bram Stoker",
+    "category": "Gotik Roman",
+    "description": "Transilvanya Kontu Drakula'ya karşı mücadeleyi mektuplar ve günlükler üzerinden anlatan 1897 romanı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T13:57:48.092Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Monte Cristo Kontu",
+    "author": "Alexandre Dumas",
+    "category": "Klasik / Macera",
+    "description": "Edmond Dantès'in haksız hapis cezası, dönüşümü ve intikamın ahlaki bedeli üzerine 1844-1846 romanı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T13:57:48.092Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
