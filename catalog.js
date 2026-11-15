@@ -858,5 +858,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T20:01:00+03:00",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Oliver Twist",
+    "author": "Charles Dickens",
+    "category": "Roman / Klasikler",
+    "description": "Yetim Oliver'ın çalışma evi, Londra sokakları ve suç çevreleri arasında kimliğini ve güvenliğini araması.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T17:58:31.564Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Denizler Altında Yirmi Bin Fersah",
+    "author": "Jules Verne",
+    "category": "Bilimkurgu / Klasikler",
+    "description": "Profesör Aronnax'ın Kaptan Nemo'nun Nautilus denizaltısında okyanusları dolaşması.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T17:58:31.564Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "David Copperfield",
+    "author": "Charles Dickens",
+    "category": "Roman / Klasikler",
+    "description": "David'in çocukluk güçlüklerinden yetişkinliğe uzanan yaşamı ve insan ilişkileri.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T17:58:31.564Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
