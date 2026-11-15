@@ -982,5 +982,44 @@ window.KITAP_CATALOG=[
     "detailSummaryVerified": false,
     "audioVerified": false,
     "copyrightNote": "Eser telif korumasındadır. Yalnızca bağımsız özgün özet hazırlanabilir; tam metin/ses kopyalanamaz."
+  },
+  {
+    "name": "Yüzüklerin Efendisi",
+    "author": "J. R. R. Tolkien",
+    "category": "Fantastik Roman",
+    "description": "Orta Dünya'da Tek Yüzük'ü yok etmek için yola çıkan Frodo ve arkadaşlarının mücadelesi.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T22:04:24.056Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Momo",
+    "author": "Michael Ende",
+    "category": "Fantastik Roman",
+    "description": "Zaman hırsızlarına karşı insanları dinleme yeteneğiyle direnen Momo'nun hikâyesi.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T22:04:24.056Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Hamnet",
+    "author": "Maggie O'Farrell",
+    "category": "Tarihsel Roman",
+    "description": "Shakespeare ailesinin kaybı, yas ve aile ilişkileri üzerine kurulu tarihsel kurmaca.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T22:04:24.056Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
