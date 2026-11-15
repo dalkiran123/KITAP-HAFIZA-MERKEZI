@@ -131,30 +131,26 @@ window.KITAP_UPCOMING=[
     "author": "Marcus Aurelius",
     "category": "Felsefe",
     "status": "Özet hazırlanacak"
-  }
-,
+  },
   {
     "name": "Babalar ve Oğullar",
     "author": "İvan Turgenyev",
     "category": "Klasikler",
     "status": "Özet hazırlanıyor",
-    "requested": false,
-    "addedAt": "2026-11-15T12:00:00+03:00"
+    "requested": false
   },
   {
     "name": "Küçük Kadınlar",
     "author": "Louisa May Alcott",
     "category": "Klasikler",
     "status": "Özet hazırlanıyor",
-    "requested": false,
-    "addedAt": "2026-11-15T12:00:00+03:00"
+    "requested": false
   },
   {
     "name": "İki Şehrin Hikâyesi",
     "author": "Charles Dickens",
     "category": "Klasikler",
     "status": "Özet hazırlanıyor",
-    "requested": false,
-    "addedAt": "2026-11-15T12:00:00+03:00"
+    "requested": false
   }
 ];
