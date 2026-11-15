@@ -585,5 +585,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T10:06:05.264Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Huzur",
+    "author": "Ahmet Hamdi Tanpınar",
+    "category": "Türk Edebiyatı",
+    "description": "",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T14:04:18+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Tutunamayanlar",
+    "author": "Oğuz Atay",
+    "category": "Türk Edebiyatı",
+    "description": "",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T14:04:18+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Aylak Adam",
+    "author": "Yusuf Atılgan",
+    "category": "Türk Edebiyatı",
+    "description": "",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T14:04:18+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
