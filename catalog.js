@@ -819,5 +819,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T19:01:21+03:00",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Alice Harikalar Diyarında",
+    "author": "Lewis Carroll",
+    "category": "Fantastik / Klasikler",
+    "description": "Alice'in tavşan deliğinden geçerek tuhaf mantık kurallarıyla işleyen dünyada yaşadığı maceralar.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T20:01:00+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Oz Büyücüsü",
+    "author": "L. Frank Baum",
+    "category": "Fantastik / Klasikler",
+    "description": "Dorothy'nin Kansas'tan Oz ülkesine sürüklenmesi ve arkadaşlarıyla eve dönüş yolu araması.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T20:01:00+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Baskerville Tazısı",
+    "author": "Arthur Conan Doyle",
+    "category": "Polisiye / Klasikler",
+    "description": "Sherlock Holmes ve Dr. Watson'ın Baskerville ailesini tehdit eden gizemi araştırması.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T20:01:00+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
