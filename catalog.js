@@ -780,5 +780,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T14:59:09.810Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Define Adası",
+    "author": "Robert Louis Stevenson",
+    "category": "Macera",
+    "description": "Jim Hawkins'ın korsan haritası üzerinden define arayışını ve Long John Silver ile çatışmasını anlatan klasik roman.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T19:01:21+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Gizli Bahçe",
+    "author": "Frances Hodgson Burnett",
+    "category": "Çocuk Edebiyatı",
+    "description": "Mary Lennox'un Yorkshire'daki kapalı bahçeyi keşfetmesi ve Colin ile Dickon'la kurduğu bağın iyileştirici etkisi.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T19:01:21+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Vahşetin Çağrısı",
+    "author": "Jack London",
+    "category": "Macera",
+    "description": "Buck adlı köpeğin Yukon altına hücum döneminde kızak yaşamına sürüklenmesi ve vahşi doğaya uyum sağlaması.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T19:01:21+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
