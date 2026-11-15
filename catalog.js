@@ -741,5 +741,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T13:57:48.092Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Zaman Makinesi",
+    "author": "H. G. Wells",
+    "category": "Bilimkurgu",
+    "description": "1895 tarihli roman. Zaman Yolcusu uzak geleceğe giderek Eloi ve Morlock toplumlarını gözlemler.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T14:59:09.810Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Seksen Günde Devriâlem",
+    "author": "Jules Verne",
+    "category": "Macera / Klasik",
+    "description": "Phileas Fogg ve Passepartout'nun seksen günde dünyayı dolaşma iddiası üzerine 1872 tarihli roman.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T14:59:09.810Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Dr. Jekyll ile Bay Hyde",
+    "author": "Robert Louis Stevenson",
+    "category": "Gotik / Klasik",
+    "description": "1886 tarihli kısa roman. Dr. Jekyll'in deneyleri ve Edward Hyde'ın eylemleri üzerinden kimliğin ahlaki ikiliğini işler.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T14:59:09.810Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
