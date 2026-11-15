@@ -1060,5 +1060,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T23:02:10.086Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Gece Yarısı Kütüphanesi",
+    "author": "Matt Haig",
+    "category": "Çağdaş Roman",
+    "description": "Nora Seed'in alternatif yaşam olasılıklarını keşfettiği roman; telifli eserden alıntı yapılmadan özgün özet hazırlanacak.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T02:56:30+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Sarı Yüz",
+    "author": "R. F. Kuang",
+    "category": "Çağdaş Roman",
+    "description": "Yayın dünyası, kültürel sahiplenme ve yazarlık etiği üzerine roman; özgün özet hazırlanacak.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T02:56:30+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Algernon'a Çiçekler",
+    "author": "Daniel Keyes",
+    "category": "Bilimkurgu",
+    "description": "Charlie Gordon'ın deneysel zekâ artırma sürecini konu alan eser; özgün özet hazırlanacak.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T02:56:30+03:00",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
