@@ -825,10 +825,10 @@ window.KITAP_CATALOG=[
     "author": "Lewis Carroll",
     "category": "Fantastik / Klasikler",
     "description": "Alice'in tavşan deliğinden geçerek tuhaf mantık kurallarıyla işleyen dünyada yaşadığı maceralar.",
-    "summary": "",
+    "summary": "Alice, cebinden saat çıkaran Beyaz Tavşan'ı izleyerek bir deliğe düşer. Kapılarla dolu salonda küçülüp büyümesine yol açan yiyecek ve içecekler bulur. Bahçeye ulaşma isteği, sürekli değişen bedeni yüzünden güçleşir.\n\nGözyaşı havuzundan çıkan Alice, Fare ve başka hayvanlarla karşılaşır. Daha sonra Tavşan'ın evinde büyüyerek sıkışır; mantar üzerinde oturan Tırtıl ona boyunu değiştirebilmesi için mantarın iki yanını kullanmayı öğretir.\n\nDüşesin biberli mutfağında Cheshire Kedisi'yle tanışır; Düşesin bebeği bir domuza dönüşür. Kedi, Alice'e Şapkacı ile Mart Tavşanı'nın yollarını gösterir ve bu dünyada deliliğin sıradan sayıldığını söyler.\n\nŞapkacı, Mart Tavşanı ve Fındık Faresi'nin çay sofrasında zaman durmuş gibidir. Konuklar bilmece ve söz oyunlarıyla Alice'i şaşırtır. Alice sonunda masadan ayrılıp başlangıçtaki salona döner ve küçük kapıdan bahçeye geçmeyi başarır.\n\nBahçede Kupa Kraliçesi'nin buyurgan ve keyfi yönetimiyle karşılaşır. Canlı flamingolar ve kirpilerle oynanan kroket oyununda düzen kurulamaz. Alice, Gryphon ve Sahte Kaplumbağa'dan tuhaf okul anıları ve dans hikâyeleri dinler.\n\nKupa Vale'si tartları çalmakla suçlandığında Alice mahkemeyi izler. Kral ve Kraliçe kanıtsız yorumlar ve keyfi kurallarla karar vermek ister. Alice onların yalnızca iskambil kâğıtları olduğunu söyleyerek karşı çıkar; sonra nehir kıyısında uyanır ve yaşadıklarını ablasına anlatır.",
     "longSummary": "",
     "detailSummary": "",
-    "status": "Özet hazırlanıyor",
+    "status": "6 paragraf hazır, 20 ve 100 paragraf hazırlanıyor",
     "preparedAt": "2026-11-15T20:01:00+03:00",
     "detailSummaryVerified": false,
     "audioVerified": false
