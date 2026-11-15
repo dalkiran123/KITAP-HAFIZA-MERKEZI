@@ -898,5 +898,47 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T17:58:31.564Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Yeşilin Kızı Anne",
+    "author": "Lucy Maud Montgomery",
+    "category": "Klasikler / Gençlik",
+    "description": "Anne Shirley'nin Avonlea'daki yeni yaşamı, aidiyet arayışı ve büyümesi.",
+    "copyrightNote": "1908 tarihli özgün eser kamu malı; yeni Türkçe çeviri metni kullanılmayacak",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T19:05:52.949Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Tom Sawyer'ın Maceraları",
+    "author": "Mark Twain",
+    "category": "Klasikler / Macera",
+    "description": "Tom Sawyer'ın Mississippi kıyısındaki çocukluk maceraları, dostluk ve vicdan sınavları.",
+    "copyrightNote": "1876 tarihli özgün eser kamu malı; yeni Türkçe çeviri metni kullanılmayacak",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T19:05:52.949Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Pollyanna",
+    "author": "Eleanor H. Porter",
+    "category": "Klasikler / Çocuk",
+    "description": "Pollyanna'nın yeni kasabasındaki ilişkilerini iyimserlik ve empatiyle dönüştürmesi.",
+    "copyrightNote": "1913 tarihli özgün eser kamu malı; yeni Türkçe çeviri metni kullanılmayacak",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T19:05:52.949Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
