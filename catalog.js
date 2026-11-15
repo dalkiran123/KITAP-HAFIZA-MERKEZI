@@ -1021,5 +1021,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T22:04:24.056Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Sessiz Hasta",
+    "author": "Alex Michaelides",
+    "category": "Psikolojik gerilim",
+    "description": "Alicia Berenson'ın suskunluğu ve psikoterapist Theo Faber'in soruşturması.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T23:02:10.086Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Taş Kâğıt Makas",
+    "author": "Alice Feeney",
+    "category": "Psikolojik gerilim",
+    "description": "Evlilik, hafıza ve güvenilmez anlatım üzerine psikolojik gerilim.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T23:02:10.086Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Beyaz Leke",
+    "author": "Aslı Arslan",
+    "category": "Genç yetişkin / Roman",
+    "description": "Birey ve otorite çatışmasını işleyen distopik kurgu.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T23:02:10.086Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
