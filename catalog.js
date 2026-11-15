@@ -537,4 +537,15 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T05:57:53.502Z",
     "detailSummaryVerified": false
   }
+,
+  {
+    "name": "Gurur ve Önyargı",
+    "author": "Jane Austen",
+    "category": "Klasikler",
+    "people": "Elizabeth Bennet, Fitzwilliam Darcy, Jane Bennet, Charles Bingley, George Wickham",
+    "theme": "Önyargı, gurur, sınıf, aile ve karşılıklı anlayış",
+    "summary": "Bennet ailesinin beş kızının geleceği, dönemin İngiliz toplumunda evlilik ve miras düzeniyle yakından bağlantılıdır. Longbourn mülkünün erkek akrabaya geçecek olması, özellikle Bayan Bennet'in kızlarını uygun eşlerle evlendirme telaşını artırır. Yakınlarına taşınan varlıklı Charles Bingley ve arkadaşı Fitzwilliam Darcy, aile çevresindeki ilişkileri değiştirir.\n\nBir baloda Bingley ile Jane Bennet birbirlerine ilgi duyar. Jane'in kız kardeşi Elizabeth ise Darcy'nin mesafeli ve gururlu tavrından hoşlanmaz. Elizabeth'in ilk izlenimi, Darcy'nin onu küçümsemesiyle daha da olumsuzlaşır. Böylece romanın temel çatışması, insanların birbirini sınıfsal önyargılar ve eksik bilgilerle değerlendirmesi üzerinden kurulur.\n\nElizabeth, çekici ve konuşkan subay George Wickham'ın Darcy hakkında anlattıklarına inanma eğilimindedir. Öte yandan Darcy, Elizabeth'e giderek daha çok ilgi duysa da Bennet ailesinin toplumsal konumuna ve bazı davranışlarına ilişkin çekincelerini aşamaz. Darcy'nin ilk evlilik teklifi, kibirli ifadeleri ve Bingley ile Jane'in yakınlaşmasına müdahalesi nedeniyle Elizabeth tarafından reddedilir.\n\nDarcy'nin Elizabeth'e yazdığı mektup, olayların başka bir yüzünü açığa çıkarır. Wickham'ın geçmişi ve Bingley ile Jane hakkındaki yanlış değerlendirmeler, Elizabeth'in kendi yargılarını yeniden sorgulamasına yol açar. Elizabeth, yalnızca Darcy'nin gururunu değil, kendisinin de peşin hükümlerini fark etmeye başlar.\n\nElizabeth'in Darcy'nin Pemberley malikânesini ziyareti, onun karakterine dair daha dengeli bir bakış geliştirmesini sağlar. Bu sırada küçük kız kardeş Lydia'nın Wickham'la kaçması Bennet ailesini büyük bir toplumsal skandal tehlikesiyle karşı karşıya bırakır. Darcy, gösterişten uzak biçimde bu sorunun çözümüne yardımcı olur ve Elizabeth onun sorumluluk duygusunu daha iyi anlar.\n\nYanlış anlamalar, aile baskısı ve sınıf farkları aşıldıkça Jane ile Bingley, Elizabeth ile Darcy arasındaki ilişkiler olgunlaşır. Elizabeth'in düşüncelerini değiştirebilmesi ve Darcy'nin davranışlarını düzeltmesi, karşılıklı saygıya dayalı bir yakınlaşmanın önünü açar. Roman, evliliği yalnızca ekonomik güvence olarak değil, karakter, anlayış ve kişisel gelişim meselesi olarak da ele alır.",
+    "preparedAt": "2026-11-15T09:44:51.937Z",
+    "detailSummaryVerified": false
+  }
 ];
