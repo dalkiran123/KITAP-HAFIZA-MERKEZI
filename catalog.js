@@ -624,5 +624,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-15T14:04:18+03:00",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Beyaz Zambaklar Ülkesinde",
+    "author": "Grigory Petrov",
+    "category": "Kişisel Gelişim",
+    "description": "",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T12:00:37.720Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Babalar ve Oğullar",
+    "author": "İvan Turgenyev",
+    "category": "Klasikler",
+    "description": "",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T12:00:37.720Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Küçük Kadınlar",
+    "author": "Louisa May Alcott",
+    "category": "Klasikler",
+    "description": "",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-15T12:00:37.720Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
