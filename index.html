@@ -1424,4 +1424,15 @@ let lastReminder=start;setInterval(()=>{if(document.hidden)return;const now=Date
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
+</script><style id="khm-v411-layout">
+/* Counter occupies the date area within the career header, not a separate row. */
+html body header.topbar button.career-modern{position:relative!important;padding-bottom:33px!important}
+html body header.topbar button.career-modern #khm-live-session{position:absolute!important;right:14px!important;top:49px!important;left:auto!important;width:auto!important;margin:0!important;display:block!important;font-size:12px!important;line-height:1.15!important;text-align:right!important;color:#53677e!important;white-space:nowrap!important;z-index:5!important;pointer-events:none!important}
+html body #page-home .v3recentitems button.khm-recent-cover{position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;padding:0 0 46px!important;min-height:174px!important}
+html body #page-home .v3recentitems button.khm-recent-cover .khm-recent-cover-title{position:relative!important;z-index:3!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;width:100%!important;min-height:40px!important;margin:auto 0!important;padding:8px 6px!important;background:transparent!important;color:#283d60!important;text-align:center!important;font-weight:800!important;font-size:14px!important;line-height:1.3!important}
+html body #page-home .v3recentitems button.khm-recent-cover .khm-recent-read-date{position:absolute!important;bottom:0!important;left:0!important;right:0!important;z-index:4!important;min-height:46px!important;display:flex!important;align-items:center!important;justify-content:center!important;margin:0!important}
+</style><script id="khm-v411-layout-js">
+(function(){function move(){const counter=document.getElementById('khm-live-session');const career=document.querySelector('header.topbar button.career-modern');if(counter&&career&&counter.parentElement!==career){career.appendChild(counter)}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',move);else move();
+})();
 </script></body></html>
