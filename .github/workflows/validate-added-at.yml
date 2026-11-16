@@ -1,0 +1,23 @@
+name: Validate catalog addedAt
+on:
+  push:
+    paths:
+      - 'catalog.js'
+      - 'scripts/validate-added-at.cjs'
+      - '.github/workflows/validate-added-at.yml'
+  pull_request:
+    paths:
+      - 'catalog.js'
+      - 'scripts/validate-added-at.cjs'
+      - '.github/workflows/validate-added-at.yml'
+jobs:
+  added-at:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/validate-added-at.cjs
