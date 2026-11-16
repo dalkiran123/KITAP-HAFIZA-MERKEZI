@@ -1139,5 +1139,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-16T03:03:19.513Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Harman Günü",
+    "author": "Rebecca Yarros",
+    "category": "Fantastik / Roman",
+    "description": "Basgiath Savaş Akademisi çevresindeki ejderha binicisi adaylarının hayatta kalma sınavına odaklanan eser. ISBN 9786258931211.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T07:04:23.169Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Günübirlik Hayatlar",
+    "author": "Irvin D. Yalom",
+    "category": "Psikoloji / Anlatı",
+    "description": "Psikoterapi deneyimlerinden hareketle ölüm, anlam ve insan ilişkilerini inceleyen on anlatıdan oluşan eser.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T07:04:23.169Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Bütün Şiirleri (Sabahattin Ali)",
+    "author": "Sabahattin Ali",
+    "category": "Türk Şiiri",
+    "description": "Sabahattin Ali'nin şiirlerini bir araya getiren derleme; tek olay örgülü roman değildir. Edisyon ve şiir metinleri ayrıca telif kontrolü gerektirir.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T07:04:23.169Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
