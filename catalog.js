@@ -1002,10 +1002,10 @@ window.KITAP_CATALOG=[
     "author": "Michael Ende",
     "category": "Fantastik Roman",
     "description": "Zaman hırsızlarına karşı insanları dinleme yeteneğiyle direnen Momo'nun hikâyesi.",
-    "summary": "",
+    "summary": "Momo, kentin kenarındaki eski bir amfitiyatroda yaşayan, ailesi ve geçmişi pek bilinmeyen küçük bir kızdır. İnsanların sorunlarını dikkatle dinlemesi, çevresindekilerin kendilerini anlamasına yardım eder.\n\nKasabanın çocukları Momo'nun yanında oyunlar kurar; yetişkinler de onunla konuştuklarında düşüncelerini berraklaştırır. Özellikle yol süpürücüsü Beppo ve hikâye anlatıcısı Gigi, Momo'nun yakın dostları olur.\n\nBir süre sonra gri takım elbiseli adamlar insanları Zaman Tasarruf Sandığı adına daha verimli yaşamaya çağırır. İnsanlar sohbeti, dinlenmeyi ve birbirine ayırdığı zamanı gereksiz görmeye başlar.\n\nGri adamların önerdiği tasarruf, gerçekte insanlara daha fazla boş zaman kazandırmaz. Kent sakinleri giderek aceleci, yalnız ve huzursuz hâle gelirken Momo bu değişimin nedenini anlamaya çalışır.\n\nMomo, kaplumbağa Kassiopeia'nın yardımıyla zamanın kaynağını gözeten Hora Usta'ya ulaşır. Orada insanın zamanının yalnızca saatle ölçülen bir miktar değil, yaşanarak anlam kazanan bir armağan olduğunu öğrenir.\n\nHora Usta zamanı kısa süreliğine durdurduğunda Momo, gri adamların sakladığı zaman çiçeklerini kurtarmaya girişir. Çalınmış zaman insanlara geri döner; dostluk, oyun ve dikkatle dinleme yeniden değer kazanır.",
     "longSummary": "",
     "detailSummary": "",
-    "status": "Özet hazırlanıyor",
+    "status": "6 paragraf hazır, 20 paragraf hazırlanıyor",
     "preparedAt": "2026-11-15T22:04:24.056Z",
     "detailSummaryVerified": false,
     "audioVerified": false
