@@ -1338,5 +1338,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Lavinia",
+    "author": "Özdemir Asaf",
+    "category": "Şiir",
+    "isbn": "",
+    "description": "GitHub Kitap İste talebinden kataloğa alındı. Özet hazırlanıyor.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T21:04:57.700Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Zabit ve Kumandan ile Hasbihal",
+    "author": "Mustafa Kemal Atatürk",
+    "category": "Tarih",
+    "isbn": "",
+    "description": "GitHub Kitap İste talebinden kataloğa alındı. Özet hazırlanıyor.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T21:04:57.700Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Osmanlı'yı Yeniden Keşfetmek",
+    "author": "İlber Ortaylı",
+    "category": "Tarih",
+    "isbn": "",
+    "description": "GitHub Kitap İste talebinden kataloğa alındı. Özet hazırlanıyor.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T21:04:57.700Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
