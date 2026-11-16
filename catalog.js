@@ -1236,5 +1236,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Satranç",
+    "author": "Stefan Zweig",
+    "category": "Kısa Roman",
+    "isbn": "",
+    "description": "Kitap İste üzerinden talep edildi. Katalog kaydı açıldı; 6, 20 ve geniş özetler henüz hazırlanmadı. Kaynak: GitHub Kitap İste #41.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T19:04:09.983Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Nutuk",
+    "author": "Mustafa Kemal Atatürk",
+    "category": "Tarih / Söylev",
+    "isbn": "",
+    "description": "Kitap İste üzerinden talep edildi. Katalog kaydı açıldı; 6, 20 ve geniş özetler henüz hazırlanmadı. Kaynak: GitHub Kitap İste #41.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T19:04:09.983Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "The Creative Act: A Way of Being",
+    "author": "Rick Rubin",
+    "category": "Yaratıcılık / Kurgu Dışı",
+    "isbn": "",
+    "description": "Kitap İste üzerinden talep edildi. Katalog kaydı açıldı; 6, 20 ve geniş özetler henüz hazırlanmadı. Kaynak: GitHub Kitap İste #40.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T19:04:09.983Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
