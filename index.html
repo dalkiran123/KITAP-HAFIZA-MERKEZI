@@ -1245,10 +1245,10 @@ function setupNewBooksTicker(){
  const source=Array.isArray(window.KITAP_CATALOG)?window.KITAP_CATALOG:[];
  const normalized=v=>String(v||'').trim().toLocaleLowerCase('tr-TR');
  const seen=new Set(),eligible=[];
- for(const b of source){if(!b||!b.name||!String(b.summary||'').trim())continue;const key=normalized(b.name)+'|'+normalized(b.author);if(seen.has(key))continue;seen.add(key);const local=books.find(x=>normalized(x.name)===normalized(b.name)&&normalized(x.author)===normalized(b.author));if(local&&isDone(local))continue;const stamp=b.addedAt||b.publishedAt||b.createdAt||null;eligible.push({book:b,stamp,ms:stamp&&Number.isFinite(Date.parse(stamp))?Date.parse(stamp):null})}
+ for(const b of source){if(!b||!b.name||!String(b.summary||'').trim())continue;const key=normalized(b.name)+'|'+normalized(b.author);if(seen.has(key))continue;seen.add(key);const local=books.find(x=>normalized(x.name)===normalized(b.name)&&normalized(x.author)===normalized(b.author));if(local&&isDone(local))continue;const stamp=b.preparedAt||b.addedAt||b.publishedAt||b.createdAt||null;eligible.push({book:b,stamp,ms:stamp&&Number.isFinite(Date.parse(stamp))?Date.parse(stamp):null})}
  // Only genuine timestamps establish chronological order; without them preserve source order, never invent an hour.
  eligible.sort((a,b)=>a.ms!==null&&b.ms!==null?b.ms-a.ms:a.ms!==null?-1:b.ms!==null?1:0);
- const recent=eligible.slice(0,3);track.replaceChildren();if(!recent.length){track.textContent='📚 Özeti hazır, okunmamış yeni kitap bulunamadı';return}
+ const recent=eligible.slice(0,Math.min(12,eligible.length));track.replaceChildren();if(!recent.length){track.textContent='📚 Özeti hazır, okunmamış yeni kitap bulunamadı';return}
  const group=document.createElement('span');group.className='khm-new-group';
  for(const {book:b,stamp,ms} of recent){const item=document.createElement('span');item.className='khm-new-item';const name=document.createElement('strong');name.textContent='📚 '+b.name;const author=document.createElement('span');author.textContent=b.author||'Yazar belirtilmemiş';item.append(name,author);{const time=document.createElement('small');time.className='khm-new-timestamp';time.textContent=ms!==null?'📅 '+new Date(stamp).toLocaleString('tr-TR',{dateStyle:'short',timeStyle:'short'}):'📅 Tarih belirtilmemiş';item.append(time)}group.append(item)}
  const duplicate=group.cloneNode(true);duplicate.setAttribute('aria-hidden','true');track.append(group,duplicate);
