@@ -856,7 +856,7 @@ window.KITAP_CATALOG=[
     "author": "Arthur Conan Doyle",
     "category": "Polisiye / Klasikler",
     "description": "Sherlock Holmes ve Dr. Watson'ın Baskerville ailesini tehdit eden gizemi araştırması.",
-    "summary": "",
+    "summary": "Sherlock Holmes ile Dr. Watson, Devonshire'daki Baskerville ailesinin etrafında dolaşan eski bir laneti araştırmaya çağrılır. Aile efsanesi, geceleri bataklıkta dolaşan korkunç bir tazının Baskerville soyunu takip ettiğini söyler.\n\nSir Charles Baskerville'in malikânesi yakınında ölü bulunması, doğaüstü söylentiyi yeniden canlandırır. Doktor Mortimer, cesedin çevresindeki izleri ve Charles'ın korku dolu son günlerini Holmes'a anlatır.\n\nAmerika'dan gelen mirasçı Sir Henry Baskerville, tehditlere rağmen aile malikânesine yerleşmeye karar verir. Holmes Londra'da şüpheli işaretleri incelerken Watson'ı Henry'nin güvenliği ve gözlem için Devonshire'a gönderir.\n\nWatson, sisli bataklığı, kaçak mahkûm söylentilerini, Barrymore çiftinin gizemli davranışlarını ve komşu Stapleton'ların ilişkilerini araştırır. Görünürde birbirinden kopuk olaylar, aile mirasıyla ilgili bir çıkar çatışmasına bağlanmaya başlar.\n\nHolmes gizlice bölgede çalıştığını açıklayınca Stapleton'ın kimliği ve miras planı belirginleşir. Stapleton, Sir Henry'yi öldürmek için fosforla ürkütücü hale getirdiği gerçek bir köpeği efsanedeki canavar gibi kullanmıştır.\n\nHolmes ile Watson, Sir Henry'ye yönelen saldırıyı durdurur ve köpeği etkisiz hale getirir. Stapleton bataklığa kaçarak kaybolur. Çözüm, korkunun ve batıl inancın nasıl hesaplı bir suçun örtüsü yapılabileceğini gösterir.",
     "longSummary": "",
     "detailSummary": "",
     "status": "Özet hazırlanıyor",
