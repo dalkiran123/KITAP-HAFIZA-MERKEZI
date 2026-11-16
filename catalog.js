@@ -1182,5 +1182,53 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-16T07:04:23.169Z",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Parçalanmış Ahenk Sarayı",
+    "author": "Sarah J. Maas",
+    "category": "Fantastik",
+    "isbn": "9786255572592",
+    "description": "Özgün Türkçe özet hazırlanıyor. Telif korumasındaki eserin tam metni paylaşılmaz.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "addedAt": "2026-11-16T12:06:32.505Z",
+    "preparedAt": "2026-11-16T12:06:32.505Z",
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Arhavili 1 - Medcezir",
+    "author": "Burcu Büyükyıldız",
+    "category": "Roman",
+    "isbn": "9786255701060",
+    "description": "Özgün Türkçe özet hazırlanıyor. Telif korumasındaki eserin tam metni paylaşılmaz.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "addedAt": "2026-11-16T12:06:32.505Z",
+    "preparedAt": "2026-11-16T12:06:32.505Z",
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Roma'nın Beş Günü",
+    "author": "Ahmet Ümit",
+    "category": "Polisiye",
+    "isbn": "9789750868702",
+    "description": "Özgün Türkçe özet hazırlanıyor. Telif korumasındaki eserin tam metni paylaşılmaz.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "addedAt": "2026-11-16T12:06:32.505Z",
+    "preparedAt": "2026-11-16T12:06:32.505Z",
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
