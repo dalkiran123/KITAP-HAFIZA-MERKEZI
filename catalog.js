@@ -773,10 +773,10 @@ window.KITAP_CATALOG=[
     "author": "Robert Louis Stevenson",
     "category": "Gotik / Klasik",
     "description": "1886 tarihli kısa roman. Dr. Jekyll'in deneyleri ve Edward Hyde'ın eylemleri üzerinden kimliğin ahlaki ikiliğini işler.",
-    "summary": "",
+    "summary": "Londra'da avukat Gabriel John Utterson, dostu Richard Enfield'den küçük bir kız çocuğunu sokakta ezip geçen acımasız bir adamın öyküsünü dinler. Edward Hyde adlı bu adamın tazminatı, saygın doktor Henry Jekyll'in adına düzenlenmiş bir çekle ödediği anlaşılır. Utterson, iki kişi arasındaki ilişkinin ne olduğunu merak eder.\n\nUtterson, Hyde'ı sokakta bekleyip onunla karşılaşır. Hyde'ın yüzünde açıkça tarif edemediği rahatsız edici bir kötülük izlenimi görür. Jekyll'e konuyu açtığında doktor, Hyde'la ilişkisini istediği zaman sonlandırabileceğini söyleyerek dostunu yatıştırmaya çalışır.\n\nBir süre sonra Hyde, yaşlı ve saygın Sir Danvers Carew'ü sokakta vahşice öldürür. Cinayete tanık olan hizmetçi polisi haberdar eder. Utterson, Hyde'ın evine gittiğinde kırılmış bir baston ve aceleyle terk edilmiş odalar bulur; Hyde ise ortadan kaybolmuştur.\n\nPoole ve Utterson kapıyı kırarak içeri girdiklerinde yerde Hyde'ın cesedini bulurlar. Hyde, Jekyll'in kendisinden büyük giysilerini giymektedir ve zehir almış görünmektedir. Jekyll ise hiçbir yerde yoktur; masada açıklayıcı belgeler vardır.\n\nJekyll'in kendi itirafı, uzun zamandır saygın görünümüyle gizli arzuları arasında bölünmüş hissettiğini anlatır. İnsanın iyi ve kötü eğilimlerini ayırabileceği düşüncesiyle kimyasal deneylere girişmiştir. Hazırladığı karışım, bedenini ve davranışlarını değiştirmiştir.\n\nRoman, kötülüğü ayrı bir kişiliğe yükleyerek ondan kaçmanın mümkün olmadığını sorgular. Jekyll'in toplum önündeki itibarı ile gizli eylemleri arasındaki çatışma, Viktorya dönemi saygınlık anlayışını da eleştirir. Stevenson, insanın karmaşık doğasını basitçe ikiye ayırma girişiminin tehlikesini anlatır.",
     "longSummary": "",
     "detailSummary": "",
-    "status": "Özet hazırlanıyor",
+    "status": "6 paragraf hazır; 20 ve 100 hazırlanıyor",
     "preparedAt": "2026-11-15T14:59:09.810Z",
     "detailSummaryVerified": false,
     "audioVerified": false
