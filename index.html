@@ -1508,4 +1508,12 @@ border-color:#e8a58e!important;
 }
 @keyframes khm-v416-warm{0%{background-position:0% 50%}100%{background-position:100% 50%}}
 @media(prefers-reduced-motion:reduce){html body header.topbar button.career-modern,html body .khm-last-read-ticker,html body .khm-new-books{animation:none!important}}
-</style></body></html>
+</style><style id="khm-v417-nav-pulse">
+/* Eight menu buttons brighten one after another, then return to their own colors. */
+html body header.topbar .topbar-buttons>button{animation:khm-v417-pulse 16s ease-in-out infinite!important;animation-delay:var(--khm-pulse-delay,0s)!important;will-change:filter}
+@keyframes khm-v417-pulse{0%,11%,100%{filter:brightness(1) saturate(1);transform:scale(1);box-shadow:inherit}4.5%{filter:brightness(1.28) saturate(1.35);transform:scale(1.035);box-shadow:0 0 17px 3px rgba(255,225,153,.65)}}
+@media(prefers-reduced-motion:reduce){html body header.topbar .topbar-buttons>button{animation:none!important}}
+</style><script id="khm-v417-nav-pulse-init">
+(function(){function init(){const buttons=document.querySelectorAll('header.topbar .topbar-buttons>button');buttons.forEach((b,i)=>b.style.setProperty('--khm-pulse-delay',(i*2)+'s'))}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
+</script></body></html>
