@@ -1532,4 +1532,20 @@ html body .career-track>#careerBar:not([style*="width: 0"]):not([style*="width:0
 @keyframes khm-v419-fill-pulse{0%,100%{filter:brightness(1);box-shadow:0 0 3px #ffc56a66}50%{filter:brightness(1.32);box-shadow:0 0 9px #ffd17b99}}
 @keyframes khm-v419-tip-spark{0%,100%{opacity:.35;transform:translateY(-50%) scale(.65) rotate(0deg)}45%{opacity:1;transform:translateY(-50%) scale(1.22) rotate(45deg)}70%{opacity:.55;transform:translateY(-50%) scale(.85) rotate(75deg)}}
 @media(prefers-reduced-motion:reduce){html body .career-track>#careerBar,html body .career-track>#careerBar::after{animation:none!important}}
-</style></body></html>
+</style><style id="khm-v420-period-bar-sparks">
+/* Three genuine filled segments, tracked by the existing chart rendering. */
+html body header.topbar .periodcharts .khm-v420-fill{position:relative!important;overflow:visible!important;animation:khm-v420-breathe 3.4s ease-in-out infinite!important;box-shadow:0 0 5px #ffe6a366}
+html body header.topbar .periodcharts .khm-v420-fill::after{content:"✦";position:absolute;right:-5px;top:50%;font-size:11px;line-height:1;color:#fff4b8;text-shadow:0 0 5px #fff,0 0 10px #ffbb57;animation:khm-v420-spark 1.9s ease-in-out infinite;pointer-events:none}
+@keyframes khm-v420-breathe{0%,100%{filter:brightness(1);box-shadow:0 0 3px #ffe6a355}50%{filter:brightness(1.32);box-shadow:0 0 9px #ffd47faa}}
+@keyframes khm-v420-spark{0%,100%{opacity:.35;transform:translateY(-50%) scale(.6) rotate(0)}45%{opacity:1;transform:translateY(-50%) scale(1.2) rotate(45deg)}75%{opacity:.55;transform:translateY(-50%) scale(.8) rotate(80deg)}}
+@media(prefers-reduced-motion:reduce){html body header.topbar .periodcharts .khm-v420-fill,html body header.topbar .periodcharts .khm-v420-fill::after{animation:none!important}}
+</style><script id="khm-v420-period-bar-observer">
+(function(){function init(){
+const ids=['dailyDonut','weeklyDonut','monthlyDonut'];
+let pending=false;
+function update(){pending=false;ids.forEach(id=>{const host=document.getElementById(id);if(!host)return;const bars=host.querySelectorAll('div[style]');bars.forEach(bar=>{const parent=bar.parentElement;if(!parent||!parent.style||!parent.style.backgroundColor)return;const w=bar.style.width;if(!w||!w.endsWith('%'))return;const pct=parseFloat(w);if(!(pct>0&&pct<=100))return;bar.classList.add('khm-v420-fill');parent.style.setProperty('overflow','visible','important')})})}
+const observer=new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(update)});
+ids.forEach(id=>{const h=document.getElementById(id);if(h)observer.observe(h,{childList:true,subtree:true})});update();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
+</script></body></html>
