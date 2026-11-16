@@ -1404,4 +1404,24 @@ function arrange(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',arrange);else arrange();
 })();
+</script><style id="khm-v410-style">
+header.topbar .topbar-buttons .khm-top-discover{border-radius:21px!important;min-height:0!important;height:100%!important;align-self:stretch!important;box-shadow:0 5px 0 rgba(43,46,78,.22)!important;border:2px solid rgba(109,72,15,.3)!important;background:#ff9c28!important;color:#171717!important;font-weight:800!important}
+#page-home .v3recentitems .khm-recent-cover,#page-home .v3recentitems button{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;min-width:0!important}
+#page-home .v3recentitems .khm-recent-cover>*{max-width:100%;overflow-wrap:anywhere;text-align:center!important}
+#khm-live-session{font-size:12px;font-weight:700;color:#526b7b;margin:5px 0 0;text-align:right;font-variant-numeric:tabular-nums}
+#khm-video-toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:5%;width:90%;max-width:500px;z-index:10020;background:rgba(36,49,80,.91);color:white;border:1px solid #a5b7f0;border-radius:18px;padding:13px 18px;box-shadow:0 10px 30px #151d4050;opacity:0;transform:translateY(110px);pointer-events:none;transition:transform 2s ease,opacity 1.2s ease;backdrop-filter:blur(8px);text-align:center;font-size:14px}
+#khm-video-toast.visible{opacity:.94;transform:translateY(0);pointer-events:auto}
+</style><script id="khm-v410-session">
+(function(){
+const key='khm-v410-session-start',logKey='khm-v410-session-history',start=(()=>{try{let x=Number(sessionStorage.getItem(key));if(!x||x>Date.now()){x=Date.now();sessionStorage.setItem(key,String(x))}return x}catch(e){return Date.now()}})();
+const duration=()=>Math.max(0,Date.now()-start);
+const fmt=ms=>{const n=Math.floor(ms/1000);return [Math.floor(n/3600),Math.floor(n/60)%60,n%60].map(x=>String(x).padStart(2,'0')).join(':')};
+function persist(){try{let a=JSON.parse(localStorage.getItem(logKey)||'[]');if(!Array.isArray(a))a=[];const id=String(start);let row=a.find(x=>x.id===id);if(!row){row={id,start,ms:0,last:0};a.push(row)}row.ms=Math.max(row.ms,duration());row.last=Date.now();localStorage.setItem(logKey,JSON.stringify(a.slice(-1000)))}catch(e){}}
+function setup(){const header=document.querySelector('header.topbar');if(!header)return;const target=header.querySelector('.career-modern')||header.querySelector('.topbar-actions')||header;const el=document.createElement('div');el.id='khm-live-session';el.setAttribute('aria-label','Canlı kullanım süresi');el.textContent='⏱ Oturum: '+fmt(duration());target.insertAdjacentElement('afterend',el);function tick(){el.textContent='⏱ Oturum: '+fmt(duration())}tick();setInterval(tick,1000);setInterval(persist,30000);persist();window.addEventListener('pagehide',persist);document.addEventListener('visibilitychange',()=>{if(document.hidden)persist()});
+const report=document.getElementById('timeDetails');if(report){const info=document.createElement('div');info.id='khm-v410-report';report.appendChild(info);function update(){try{const rows=JSON.parse(localStorage.getItem(logKey)||'[]');const now=new Date();const day=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();const week=day-((now.getDay()+6)%7)*86400000;const month=new Date(now.getFullYear(),now.getMonth(),1).getTime();const sum=t=>rows.filter(r=>r.last>=t).reduce((a,r)=>a+(Number(r.ms)||0),0);info.textContent='📊 Bugün: '+fmt(sum(day))+' · Hafta: '+fmt(sum(week))+' · Ay: '+fmt(sum(month))}catch(e){info.textContent='Kullanım raporu yüklenemedi'}}update();setInterval(update,30000)}
+const toast=document.createElement('div');toast.id='khm-video-toast';toast.setAttribute('role','status');toast.textContent='🎬 Videolar bölümüne göz at. İlgini çekebilecek içerikler olabilir.';toast.addEventListener('click',()=>location.href='./documentaries.html');document.body.appendChild(toast);
+let lastReminder=start;setInterval(()=>{if(document.hidden)return;const now=Date.now();if(now-lastReminder<300000)return;lastReminder=now;toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),7000)},10000);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
 </script></body></html>
