@@ -1099,5 +1099,44 @@ window.KITAP_CATALOG=[
     "preparedAt": "2026-11-16T02:56:30+03:00",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Gökyüzünde Nehirler Var",
+    "author": "Elif Şafak",
+    "category": "Roman",
+    "description": "2025 tarihli, su ve hafıza temalı üç zamanlı roman.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T03:03:19.513Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Kervankıran",
+    "author": "Zülfü Livaneli",
+    "category": "Roman",
+    "description": "2026 tarihli Ali ve Zühre'nin yolculuğunu konu alan roman.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T03:03:19.513Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Demir Zambak",
+    "author": "Loresima",
+    "category": "Roman",
+    "description": "2026 tarihli Aslıhan Karakurt ve Güntekin Agâh'ı konu alan roman.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "Özet hazırlanıyor",
+    "preparedAt": "2026-11-16T03:03:19.513Z",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
