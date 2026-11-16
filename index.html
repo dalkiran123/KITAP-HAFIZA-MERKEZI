@@ -1524,4 +1524,12 @@ html body header.topbar button.career-modern .career-steps .khm-career-stage.cur
 html body header.topbar button.career-modern .career-steps .khm-career-stage.current strong{display:inline-block!important;font-size:30px!important;line-height:1.1!important;color:#ffca4b!important;animation:khm-v418-earned-glow 2.4s ease-in-out infinite!important}
 @keyframes khm-v418-earned-glow{0%,100%{transform:scale(1);filter:brightness(1.1);text-shadow:0 0 5px #ffe18a}50%{transform:scale(1.12);filter:brightness(1.5);text-shadow:0 0 12px #ffd64f,0 0 22px #ff9f36}}
 @media(prefers-reduced-motion:reduce){html body header.topbar button.career-modern .career-steps .khm-career-stage.current strong{animation:none!important}}
+</style><style id="khm-v419-progress-spark">
+/* Animate filled progress only; never change reported values. */
+html body .career-track{overflow:visible!important}
+html body .career-track>#careerBar{position:relative!important;min-width:0!important;animation:khm-v419-fill-pulse 3.2s ease-in-out infinite!important;box-shadow:0 0 5px rgba(255,200,104,.35)}
+html body .career-track>#careerBar:not([style*="width: 0"]):not([style*="width:0"])::after{content:"✦"!important;position:absolute!important;right:-5px!important;top:50%!important;transform:translateY(-50%)!important;font-size:12px!important;line-height:1!important;color:#fff0ad!important;text-shadow:0 0 5px #fff,0 0 10px #ffbd52!important;animation:khm-v419-tip-spark 1.8s ease-in-out infinite!important;pointer-events:none}
+@keyframes khm-v419-fill-pulse{0%,100%{filter:brightness(1);box-shadow:0 0 3px #ffc56a66}50%{filter:brightness(1.32);box-shadow:0 0 9px #ffd17b99}}
+@keyframes khm-v419-tip-spark{0%,100%{opacity:.35;transform:translateY(-50%) scale(.65) rotate(0deg)}45%{opacity:1;transform:translateY(-50%) scale(1.22) rotate(45deg)}70%{opacity:.55;transform:translateY(-50%) scale(.85) rotate(75deg)}}
+@media(prefers-reduced-motion:reduce){html body .career-track>#careerBar,html body .career-track>#careerBar::after{animation:none!important}}
 </style></body></html>
