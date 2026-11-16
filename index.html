@@ -1435,4 +1435,22 @@ html body #page-home .v3recentitems button.khm-recent-cover .khm-recent-read-dat
 (function(){function move(){const counter=document.getElementById('khm-live-session');const career=document.querySelector('header.topbar button.career-modern');if(counter&&career&&counter.parentElement!==career){career.appendChild(counter)}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',move);else move();
 })();
+</script><style id="khm-v412-fx">
+html body header.topbar button.career-modern #khm-live-session{top:39px!important;right:14px!important;color:#d32135!important;font-weight:900!important;font-size:12px!important;letter-spacing:.1px!important;text-shadow:0 1px 1px #fff8!important}
+#khm-v412-sparks{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden}
+.khm-v412-spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#ffd86a;box-shadow:0 0 9px 3px #ffb433aa;animation:khm-v412-fly .7s ease-out forwards}
+@keyframes khm-v412-fly{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.15);opacity:0}}
+@keyframes khm-v412-shake{0%,100%{transform:translate(0,0)}20%{transform:translate(-2px,1px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-1px,2px)}80%{transform:translate(1px,-1px)}}
+body.khm-v412-shaking main{animation:khm-v412-shake .28s ease-in-out 1}
+@media(prefers-reduced-motion:reduce){.khm-v412-spark,body.khm-v412-shaking main{animation:none!important}}
+</style><script id="khm-v412-fx-script">
+(function(){
+const sessionKey='khm-v410-session-start',doneKey='khm-v412-three-minute-fx';
+function setup(){let start;try{start=Number(sessionStorage.getItem(sessionKey))}catch(e){}if(!start)return;
+const run=()=>{if(document.hidden||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const counter=document.getElementById('khm-live-session');if(!counter)return;const rect=counter.getBoundingClientRect();const x=rect.left+rect.width/2,y=rect.top+rect.height/2;const layer=document.createElement('div');layer.id='khm-v412-sparks';document.body.appendChild(layer);for(let i=0;i<36;i++){const p=document.createElement('i');p.className='khm-v412-spark';p.style.left=x+'px';p.style.top=y+'px';const a=i*Math.PI*2/36;const d=70+Math.random()*Math.min(innerWidth,innerHeight)*.55;p.style.setProperty('--dx',Math.cos(a)*d+'px');p.style.setProperty('--dy',Math.sin(a)*d+'px');layer.appendChild(p)}document.body.classList.add('khm-v412-shaking');setTimeout(()=>{document.body.classList.remove('khm-v412-shaking');layer.remove()},800)};
+const check=()=>{if(Date.now()-start<180000||document.hidden)return;try{if(sessionStorage.getItem(doneKey)===String(start))return;sessionStorage.setItem(doneKey,String(start))}catch(e){if(window.__khmV412Done)return;window.__khmV412Done=true}run()};
+setInterval(check,1000);check();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
 </script></body></html>
