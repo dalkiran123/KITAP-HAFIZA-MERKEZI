@@ -1442,5 +1442,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Taş Kağıt Makas",
+    "author": "Alice Feeney",
+    "category": "Gerilim",
+    "isbn": "",
+    "description": "Kitap İste kaydı. Özetler henüz hazırlanmadı. GitHub Kitap İste #32",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T23:03:03.080Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Aurora'nın Sonu",
+    "author": "Amie Kaufman ve Jay Kristoff",
+    "category": "Bilimkurgu",
+    "isbn": "",
+    "description": "Kitap İste kaydı. Özetler henüz hazırlanmadı. GitHub Kitap İste #41",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T23:03:03.080Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Büyük Atatürk'ten Küçük Öyküler",
+    "author": "Süleyman Bulut",
+    "category": "Biyografi / Çocuk",
+    "isbn": "",
+    "description": "Kitap İste kaydı. Özetler henüz hazırlanmadı. GitHub Kitap İste #41",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T23:03:03.080Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
