@@ -1675,4 +1675,34 @@ html body #page-home nav.v2nav>button:active{transform:translateY(3px) scale(.98
 html body #page-home nav.v2nav>button:focus-visible{outline:3px solid #fff0a0!important;outline-offset:3px!important}
 @keyframes khm-v422-nav-cycle{0%,13%,100%{filter:brightness(1);transform:scale(1)}4%,9%{filter:brightness(1.2) saturate(1.17);transform:scale(1.035)}}
 @media(prefers-reduced-motion:reduce){html body #page-home nav.v2nav>button{animation:none!important}}
+</style><style id="khm-v423-rank-legibility">
+/* Contrast fix for the dark purple career panel. Preserve rank glow and layout. */
+html body header.topbar button.career-modern,
+html body header.topbar button.career-modern #careerMiniName,
+html body header.topbar button.career-modern #careerMiniScore,
+html body header.topbar button.career-modern #careerMiniRank{
+ color:#fff9ff!important;-webkit-text-fill-color:#fff9ff!important;opacity:1!important;
+ text-shadow:0 1px 2px #180c35aa!important;
+}
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current),
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current) strong,
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current) small{
+ color:#e6dcf1!important;-webkit-text-fill-color:#e6dcf1!important;opacity:.94!important;
+ text-shadow:0 1px 2px #150d2a99!important;
+}
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current,
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current strong,
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current small{
+ color:#ffe080!important;-webkit-text-fill-color:#ffe080!important;opacity:1!important;
+ text-shadow:0 0 8px #ffd26088,0 1px 2px #28152c!important;
+}
+html body header.topbar .session-info,
+html body header.topbar .session-info *,
+html body header.topbar .career-modern .khm-session-info,
+html body header.topbar .career-modern .khm-session-info *{
+ color:#fff7ff!important;-webkit-text-fill-color:#fff7ff!important;opacity:1!important;
+}
+html body header.topbar button.career-modern [class*="session"]{
+ color:#fff7ff!important;-webkit-text-fill-color:#fff7ff!important;
+}
 </style></body></html>
