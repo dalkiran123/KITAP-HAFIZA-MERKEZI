@@ -578,10 +578,10 @@ window.KITAP_CATALOG=[
     "author": "Ahmet Hamdi Tanpınar",
     "category": "Türk Edebiyatı / Roman",
     "description": "Hayri İrdal ve Saatleri Ayarlama Enstitüsü üzerinden modernleşme, zaman ve kurumların hicvini konu alan roman.",
-    "summary": "",
+    "summary": "Ahmet Hamdi Tanpınar'ın Saatleri Ayarlama Enstitüsü romanı, Hayri İrdal'ın anıları üzerinden Türkiye'nin modernleşme deneyimini hicveder. Hayri'nin güvenilmez ve yer yer kendisiyle çelişen anlatımı, okuru hem kişisel bir yaşam öyküsüne hem de kurumların nasıl yapay bir ciddiyet kazandığına götürür.\n\nHayri'nin çocukluğu ve gençliği, saatlere meraklı Nuri Efendi'nin çevresinde şekillenir. Nuri Efendi için saatçilik yalnızca mekanik bir uğraş değildir; ölçü, düzen ve insanın zamanla kurduğu ilişki üzerine düşünmenin yoludur. Bu yaklaşım daha sonra kurulacak enstitünün gösterişçi mantığıyla keskin bir karşıtlık oluşturur.\n\nHayri, aile ilişkileri, geçim sıkıntıları ve kişisel kararsızlıklar arasında savrulurken Doktor Ramiz gibi isimlerle tanışır. Ramiz'in psikanalize dayalı açıklamaları, Hayri'nin sorunlarını çözmekten çok onları dönemin moda kavramlarıyla yeniden adlandırır. Roman böylece Batı'dan aktarılan fikirlerin yüzeysel kullanımını da sorgular.\n\nHayri'nin hayatındaki büyük kırılma Halit Ayarcı'yla karşılaşmasıdır. Girişimci ve ikna gücü yüksek Halit, saatlerin ayarlanmasını toplumsal bir zorunluluk gibi sunarak Saatleri Ayarlama Enstitüsü'nü kurar. Hayri'nin geçmişteki saat bilgisi, bu yeni yapıya uzmanlık görüntüsü kazandırmak için kullanılır.\n\nEnstitü büyüdükçe kadrolar, görevler, söylevler ve tanıtım faaliyetleri çoğalır; fakat kurumun gerçek ihtiyacı karşıladığı giderek daha tartışmalı hâle gelir. Halit Ayarcı'nın enerjisi ve Hayri'nin tereddütleri, gösterişli bir modernleşme projesinin içindeki boşluğu birlikte görünür kılar.\n\nRomanın sonunda enstitünün itibarı ve varlık gerekçesi sarsılır. Hayri İrdal'ın tanıklığı, geçmişin tümüyle idealize edilmesini de yeninin sorgusuz kabulünü de engeller. Tanpınar'ın temel sorusu, saati ayarlamanın insanın zaman anlayışını gerçekten değiştirip değiştiremeyeceğidir.",
     "longSummary": "",
     "detailSummary": "",
-    "status": "Özet hazırlanıyor",
+    "status": "6 paragraf hazır",
     "preparedAt": "2026-11-15T10:06:05.264Z",
     "detailSummaryVerified": false,
     "audioVerified": false
