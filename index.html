@@ -1420,7 +1420,7 @@ function persist(){try{let a=JSON.parse(localStorage.getItem(logKey)||'[]');if(!
 function setup(){const header=document.querySelector('header.topbar');if(!header)return;const target=header.querySelector('.career-modern')||header.querySelector('.topbar-actions')||header;const el=document.createElement('div');el.id='khm-live-session';el.setAttribute('aria-label','Canlı kullanım süresi');el.textContent='⏱ Oturum: '+fmt(duration());target.insertAdjacentElement('afterend',el);function tick(){el.textContent='⏱ Oturum: '+fmt(duration())}tick();setInterval(tick,1000);setInterval(persist,30000);persist();window.addEventListener('pagehide',persist);document.addEventListener('visibilitychange',()=>{if(document.hidden)persist()});
 const report=document.getElementById('timeDetails');if(report){const info=document.createElement('div');info.id='khm-v410-report';report.appendChild(info);function update(){try{const rows=JSON.parse(localStorage.getItem(logKey)||'[]');const now=new Date();const day=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();const week=day-((now.getDay()+6)%7)*86400000;const month=new Date(now.getFullYear(),now.getMonth(),1).getTime();const sum=t=>rows.filter(r=>r.last>=t).reduce((a,r)=>a+(Number(r.ms)||0),0);info.textContent='📊 Bugün: '+fmt(sum(day))+' · Hafta: '+fmt(sum(week))+' · Ay: '+fmt(sum(month))}catch(e){info.textContent='Kullanım raporu yüklenemedi'}}update();setInterval(update,30000)}
 const toast=document.createElement('div');toast.id='khm-video-toast';toast.setAttribute('role','status');toast.textContent='🎬 Videolar bölümüne göz at. İlgini çekebilecek içerikler olabilir.';toast.addEventListener('click',()=>location.href='./documentaries.html');document.body.appendChild(toast);
-let lastReminder=start;setInterval(()=>{if(document.hidden)return;const now=Date.now();if(now-lastReminder<300000)return;lastReminder=now;toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),7000)},10000);
+let lastReminder=Date.now();let activeMs=0;let previousTick=Date.now();setInterval(()=>{const now=Date.now();const elapsed=Math.min(11000,Math.max(0,now-previousTick));previousTick=now;if(document.hidden)return;activeMs+=elapsed;if(activeMs<300000||now-lastReminder<300000)return;activeMs=0;lastReminder=now;toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),5000)},10000);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
@@ -1462,4 +1462,10 @@ html body header.topbar button.career-modern>*{position:relative;z-index:1}
 html body header.topbar button.career-modern #khm-live-session{position:absolute!important;z-index:3!important}
 @keyframes khm-v413-wave{0%{background-position:100% 50%}100%{background-position:0% 50%}}
 @media(prefers-reduced-motion:reduce){html body header.topbar button.career-modern:after{animation:none!important}}
+</style><style id="khm-v414-wave-correction">
+/* Actual pastel background-color movement, no translucent veil or blur. */
+html body header.topbar button.career-modern{background:linear-gradient(105deg,#f5f1fb 0%,#e0e5f7 24%,#cbdcf0 45%,#e9d8f3 68%,#f5f1fb 100%)!important;background-size:240% 100%!important;animation:khm-v414-colorflow 14s ease-in-out infinite alternate!important;backdrop-filter:none!important}
+html body header.topbar button.career-modern:after{display:none!important;animation:none!important}
+@keyframes khm-v414-colorflow{from{background-position:0% 50%}to{background-position:100% 50%}}
+@media(prefers-reduced-motion:reduce){html body header.topbar button.career-modern{animation:none!important}}
 </style></body></html>
