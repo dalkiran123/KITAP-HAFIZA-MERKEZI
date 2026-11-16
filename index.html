@@ -1493,4 +1493,19 @@ setInterval(()=>{const now=Date.now(),delta=Math.min(11000,Math.max(0,now-last))
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
-</script></body></html>
+</script><style id="khm-v416-warm-waves">
+/* Warm, clearly perceptible moving color, without blur. */
+html body header.topbar button.career-modern{
+background:linear-gradient(105deg,#ffe0bb 0%,#ffb9a4 18%,#ffd0e1 36%,#ffdf9e 54%,#ffc0a7 72%,#ffe6bc 90%,#ffe0bb 100%)!important;
+background-size:310% 100%!important;
+animation:khm-v416-warm 10s ease-in-out infinite alternate!important;
+}
+html body .khm-last-read-ticker,html body .khm-new-books{
+background:linear-gradient(105deg,#fff0cf 0%,#ffcfbd 22%,#f8bcd7 45%,#ffe5a9 67%,#ffc8ae 85%,#fff0cf 100%)!important;
+background-size:310% 100%!important;
+animation:khm-v416-warm 10s ease-in-out infinite alternate!important;
+border-color:#e8a58e!important;
+}
+@keyframes khm-v416-warm{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+@media(prefers-reduced-motion:reduce){html body header.topbar button.career-modern,html body .khm-last-read-ticker,html body .khm-new-books{animation:none!important}}
+</style></body></html>
