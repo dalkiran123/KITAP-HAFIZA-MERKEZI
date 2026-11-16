@@ -1548,4 +1548,13 @@ const observer=new MutationObserver(()=>{if(pending)return;pending=true;requestA
 ids.forEach(id=>{const h=document.getElementById(id);if(h)observer.observe(h,{childList:true,subtree:true})});update();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
-</script></body></html>
+</script><style id="khm-v421-filled-only-fix">
+/* No halo, glow, filter or animation on empty chart tracks. */
+html body header.topbar .periodcharts .khm-chart div[style*="background: rgb(225, 230, 233)"],
+html body header.topbar .periodcharts .khm-chart div[style*="background: #e1e6e9"]{box-shadow:none!important;filter:none!important;animation:none!important}
+html body header.topbar .periodcharts .khm-v420-fill{box-shadow:none!important;filter:none!important;animation:khm-v421-fill-light 3.4s ease-in-out infinite!important;isolation:isolate}
+html body header.topbar .periodcharts .khm-v420-fill::before{content:"";position:absolute;inset:0;border-radius:inherit;background:rgba(255,255,255,.3);opacity:0;pointer-events:none;animation:khm-v421-fill-light 3.4s ease-in-out infinite}
+html body header.topbar .periodcharts .khm-v420-fill::after{right:0!important;font-size:9px!important;text-shadow:0 0 3px #fff,0 0 5px #ffbc55!important}
+@keyframes khm-v421-fill-light{0%,100%{opacity:0}50%{opacity:.55}}
+@media(prefers-reduced-motion:reduce){html body header.topbar .periodcharts .khm-v420-fill,html body header.topbar .periodcharts .khm-v420-fill::before{animation:none!important}}
+</style></body></html>
