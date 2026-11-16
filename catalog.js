@@ -1287,5 +1287,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Kayıp Ağaçlar Adası",
+    "author": "Elif Şafak",
+    "category": "Roman",
+    "isbn": "",
+    "description": "Kitap İste #49 talebi. Katalogda, özet henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T20:04:25.623Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Camdaki Kız",
+    "author": "Gülseren Budayıcıoğlu",
+    "category": "Roman / Psikoloji",
+    "isbn": "",
+    "description": "Kitap İste #49 talebi. Katalogda, özet henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T20:04:25.623Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "The Psychology of Money",
+    "author": "Morgan Housel",
+    "category": "Finans / Psikoloji",
+    "isbn": "",
+    "description": "Kitap İste #45 talebi. Katalogda, özet henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-16T20:04:25.623Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
