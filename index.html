@@ -1565,4 +1565,87 @@ html body header.topbar .periodcharts .khm-chart .khm-v420-fill::after{opacity:1
 @keyframes khm-v422-vivid{0%,100%{filter:brightness(1.08) saturate(1.45)}50%{filter:brightness(1.45) saturate(1.65)}}
 @keyframes khm-v422-sheen{0%,100%{opacity:0}50%{opacity:.65}}
 @media(prefers-reduced-motion:reduce){html body header.topbar .periodcharts .khm-chart .khm-v420-fill,html body header.topbar .periodcharts .khm-chart .khm-v420-fill::before{animation:none!important}}
-</style></body></html>
+</style><style id="khm-v421-global-search-theme">
+html body header.topbar button.career-modern{
+ background:linear-gradient(110deg,#31234f 0%,#49315e 28%,#332c60 52%,#51345e 76%,#31234f 100%)!important;
+ background-size:240% 100%!important;
+ border:1px solid #8e78b5!important;
+ box-shadow:0 10px 24px #35225048!important;
+ animation:khm-v421-purple 12s ease-in-out infinite alternate!important;
+ color:#f8f2ff!important;
+}
+html body header.topbar button.career-modern .career-steps .khm-career-stage{color:#bcb0d1!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current{color:#ffd76e!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current small{color:#ffd76e!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current) strong{opacity:.7!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current) small{color:#c6bad5!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current){text-shadow:none!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current strong{filter:drop-shadow(0 0 7px #ffc952)!important}
+html body #khm-global-results{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+html body #khm-global-results.khm-visible{display:grid}
+html body #khm-global-results .khm-search-item{background:#f7f5ff;border:1px solid #cbbce9;border-radius:14px;padding:13px;color:#263b64;min-width:0}
+html body #khm-global-results .khm-search-item strong{display:block;overflow-wrap:anywhere;font-size:15px}
+html body #khm-global-results .khm-search-item small{display:block;color:#61708a;margin:5px 0}
+html body #khm-global-results .khm-search-item button{font-size:12px;background:#6651bc;color:white;padding:9px;margin:5px 0 0}
+html body #khm-global-results .khm-search-item button:disabled{background:#e5dff2;color:#6b6383}
+html body #khm-global-results .khm-search-empty{grid-column:1/-1;color:#354769}
+@keyframes khm-v421-purple{from{background-position:0% 50%}to{background-position:100% 50%}}
+@media(prefers-reduced-motion:reduce){html body header.topbar button.career-modern{animation:none!important}}
+</style><script id="khm-v421-global-search">
+(function(){
+ function init(){
+  const input=document.getElementById('booksearch'),shelf=document.getElementById('catalogshelf');
+  if(!input||!shelf)return;
+  input.placeholder='🔎 Tüm kitaplarda veya yazarlarda ara';
+  const result=document.createElement('div');result.id='khm-global-results';result.setAttribute('aria-live','polite');
+  shelf.parentNode.insertBefore(result,shelf);
+  function normalize(t){return String(t||'').toLocaleLowerCase('tr-TR').trim()}
+  function update(){
+   const q=normalize(input.value);
+   const chips=document.getElementById('filters'),waiting=document.getElementById('waiting'),totals=document.getElementById('catalog-totals');
+   result.replaceChildren();
+   const searching=q.length>0;
+   result.classList.toggle('khm-visible',searching);
+   shelf.style.display=searching?'none':'';
+   if(chips)chips.style.display=searching?'none':'';
+   if(waiting)waiting.style.display=searching?'none':'';
+   if(totals)totals.style.display=searching?'none':'';
+   if(!searching){if(typeof applyBookFilters==='function')applyBookFilters();return}
+   const all=new Map();
+   function add(b,source){
+    if(!b||!b.name)return;
+    const key=normalize(b.name)+'|'+normalize(b.author);
+    const prev=all.get(key);
+    if(!prev||(!String(prev.book.summary||'').trim()&&String(b.summary||'').trim()))all.set(key,{book:b,source});
+   }
+   (window.KITAP_UPCOMING||[]).forEach(b=>add(b,'queue'));
+   (window.KITAP_CATALOG||[]).forEach(b=>add(b,'catalog'));
+   if(typeof books!=='undefined'&&Array.isArray(books))books.forEach(b=>add(b,'library'));
+   let matches=0;
+   all.forEach(({book,source})=>{
+    if(!normalize(book.name+' '+(book.author||'')).includes(q))return;
+    matches++;
+    const ready=!!String(book.summary||'').trim();
+    const card=document.createElement('div');card.className='khm-search-item';
+    const name=document.createElement('strong');name.textContent=book.name;
+    const author=document.createElement('small');author.textContent=book.author||'Yazar belirtilmemiş';
+    const status=document.createElement('small');status.textContent=ready?'✓ Özet hazır':'◷ Hazırlanıyor / bekliyor';
+    const button=document.createElement('button');button.type='button';
+    button.textContent=ready?'📖 Oku / Dinle':'⏳ Henüz hazır değil';button.disabled=!ready;
+    button.addEventListener('click',()=>{
+      if(!ready)return;
+      if(source==='library'&&typeof show==='function')show(book.id);
+      else if(typeof openIsolatedCatalogReader==='function')openIsolatedCatalogReader(book);
+    });
+    card.append(name,author,status,button);result.append(card);
+   });
+   if(!matches){const empty=document.createElement('p');empty.className='khm-search-empty';empty.textContent='Bu isimde kitap veya yazar bulunamadı.';result.append(empty)}
+  }
+  input.addEventListener('input',update);
+  const originalRender=window.renderCatalog;
+  if(typeof originalRender==='function')window.renderCatalog=function(){const value=originalRender.apply(this,arguments);if(input.value.trim())update();return value};
+  update();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script></body></html>
