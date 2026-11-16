@@ -634,7 +634,7 @@ window.KITAP_CATALOG=[
     "author": "Grigory Petrov",
     "category": "Kişisel Gelişim",
     "description": "",
-    "summary": "",
+    "summary": "Grigory Petrov'un Beyaz Zambaklar Ülkesinde adlı eseri, Finlandiya'nın eğitim ve toplumsal dayanışma yoluyla dönüşümünü örnek gösteren düşünsel bir anlatıdır. Kitap, tek kahramanlı bir roman değil, bir toplumun kendini yenilemesine ilişkin örnekler ve öğütler bütünüdür.\n\nKitabın önemli simalarından Johan Vilhelm Snellman, ulusal bilinç ve eğitim reformu düşüncesinin temsilcisi olarak sunulur. Onun örneği, değişimin yalnızca tepeden verilen emirlerle gerçekleşmeyeceğini gösterir.\n\nEğitim, Petrov'un tasvirinde yalnızca okuma yazma öğretmek değildir. İnsana düşünme, birlikte yaşama, çalışma disiplini ve kamusal sorumluluk kazandırması beklenir.\n\nPetrov, meslek sahiplerinin kendi alanlarındaki özensizliğinin ortak hayatı zayıflattığını ileri sürer. Bu nedenle dürüstlük ve işini iyi yapma, büyük reformların gündelik karşılığı olarak gösterilir.\n\nBu nedenle eseri ayrıntılı ve tarafsız bir Finlandiya tarihi olarak okumak doğru olmaz. Daha çok eğitim, kamusal etik ve yurttaşlık bilinci üzerine yazılmış bir toplumsal gelişme metnidir.\n\nEserin vardığı düşünce, kalıcı gelişmenin tek bir liderin başarısı değil, çok sayıda insanın eğitimli ve sorumlu davranışlarının toplamı olduğudur. Okura yöneltilen soru, kendi çevresindeki iyileşmeye nasıl katkıda bulunacağıdır.",
     "longSummary": "",
     "detailSummary": "",
     "status": "Özet hazırlanıyor",
