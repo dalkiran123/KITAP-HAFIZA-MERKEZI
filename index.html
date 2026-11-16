@@ -1516,4 +1516,12 @@ html body header.topbar .topbar-buttons>button{animation:khm-v417-pulse 16s ease
 </style><script id="khm-v417-nav-pulse-init">
 (function(){function init(){const buttons=document.querySelectorAll('header.topbar .topbar-buttons>button');buttons.forEach((b,i)=>b.style.setProperty('--khm-pulse-delay',(i*2)+'s'))}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
-</script></body></html>
+</script><style id="khm-v418-rank-focus">
+/* Only the earned rank symbol is prominent. Neighboring ranks stay smaller and quiet. */
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current){opacity:.65!important;filter:saturate(.65)!important;text-shadow:none!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage:not(.current) strong{font-size:15px!important;transform:scale(.85)!important;animation:none!important;text-shadow:none!important;filter:none!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current{opacity:1!important;filter:none!important}
+html body header.topbar button.career-modern .career-steps .khm-career-stage.current strong{display:inline-block!important;font-size:30px!important;line-height:1.1!important;color:#ffca4b!important;animation:khm-v418-earned-glow 2.4s ease-in-out infinite!important}
+@keyframes khm-v418-earned-glow{0%,100%{transform:scale(1);filter:brightness(1.1);text-shadow:0 0 5px #ffe18a}50%{transform:scale(1.12);filter:brightness(1.5);text-shadow:0 0 12px #ffd64f,0 0 22px #ff9f36}}
+@media(prefers-reduced-motion:reduce){html body header.topbar button.career-modern .career-steps .khm-career-stage.current strong{animation:none!important}}
+</style></body></html>
