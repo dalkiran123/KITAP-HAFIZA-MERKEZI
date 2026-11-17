@@ -1543,5 +1543,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Robinson Crusoe",
+    "author": "Daniel Defoe",
+    "category": "Klasikler",
+    "isbn": "",
+    "description": "Katalogda bekliyor; özetler henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T01:07:09.963Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Kırmızı ve Siyah",
+    "author": "Stendhal",
+    "category": "Klasikler",
+    "isbn": "",
+    "description": "Katalogda bekliyor; özetler henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T01:07:09.963Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Madame Bovary",
+    "author": "Gustave Flaubert",
+    "category": "Klasikler",
+    "isbn": "",
+    "description": "Katalogda bekliyor; özetler henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T01:07:09.963Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
