@@ -57,7 +57,10 @@ window.KITAP_CATALOG=[
     "theme": "İktidar, inanç, manipülasyon ve özgür irade",
     "summary": "11. yüzyıl İran'ında Hasan Sabbah, Alamut Kalesi'nde İsmailî fedailerden oluşan disiplinli bir düzen kurar. Selçuklu iktidarına karşı görünürde dinî, gerçekte siyasal ve psikolojik bir savaş yürütür.\n\nGenç İbn Tahir, ailesinin inançları ve intikam arzusu nedeniyle Alamut'a gelir. Kalede cesaret, itaat ve ölüm karşısında kayıtsızlık eğitiminden geçer.\n\nHalime, Hasan'ın kalenin arkasında gizlediği bahçeye getirilen genç kadınlardan biridir. Bahçe, fedailere cennet olarak gösterilecek bir sahnenin parçasıdır.\n\nHasan, fedaileri uyuşturarak bahçeye taşıtır; uyanan gençler burayı ahiretteki cennet sanır. Kadınlarla geçirilen zaman, kendilerine verilen vaadin gerçekliğine kanıt gibi sunulur.\n\nİbn Tahir, Hasan'ın seçtiği hedefe yönelik suikast görevini kutsal bir emir sayar. Görev sırasında vezir Nizamülmülk'ün öldürülmesi, kaledeki eğitimin siyasal sonucunu ortaya koyar.\n\nİbn Tahir zamanla kandırıldığını fark eder. Hasan'ın 'Hiçbir şey gerçek değildir, her şeye izin vardır' anlayışı, romanı kör inanç, iktidar ve özgür irade üzerine sarsıcı bir sorgulamaya dönüştürür. Hafıza zinciri: kale, fedai, bahçe, sahte cennet, suikast, kuşku.",
     "longSummary": "Vladimir Bartol'un romanı, Selçuklu egemenliğiyle çatışan İsmailî hareketinin tarihsel ortamını kurmaca kişiler ve olaylarla işler. Anlatının odağı, Hasan Sabbah'ın Alamut Kalesi'nde inşa ettiği güç düzenidir.\n\nHasan, kendisinden çok daha güçlü ordulara karşı doğrudan savaşmak yerine az sayıda insanın mutlak itaatini stratejik silaha dönüştürmek ister. Kaleyi askerî bir üs kadar düşünceleri yöneten bir laboratuvar olarak tasarlar.\n\nİbn Tahir, ailesinden devraldığı inançlarla ve adalet arayışıyla kaleye ulaşan genç bir adamdır. Cesur ve öğrenmeye açıktır; fakat tam da bu özellikleri onu yönlendirmeye elverişli kılar.\n\nYeni gelenler sıkı eğitim görür. Bedensel dayanıklılık, silah kullanımı, dinî bilgi ve emir karşısında tereddüt etmemek aynı disiplinin parçalarıdır.\n\nFedailerin önüne yalnızca düşmanla mücadele hedefi konmaz. Kendilerine ölüme gönüllü giderlerse sonsuz mutluluğa kavuşacakları söylenir.\n\nRomanın ikinci önemli hattında Halime, kalenin gizli bahçesine götürülen genç kadınlardan biri olarak görünür. Onun merakı ve duyguları, erkeklerin askerî dünyasından farklı bir deneyim sunar.\n\nBahçede yaşayan kadınlar müzik, şiir ve eğlenceyle çevrili gösterişli bir düzenin içinde tutulur. Ancak görünürdeki güzellik, onların özgürce seçtikleri bir yaşam değildir.\n\nHasan, kalenin erişilemeyen bu bölümünü fedailere vaat edilen cennetin dünyevi taklidi olarak kullanır. İnançlarını kanıtlayacak bir deneyim ürettiğini düşünür.\n\nSeçilen gençler uyuşturucu etkisiyle bilinçlerini yitirir ve bahçede uyandırılır. Böylece normal yollarla erişemedikleri bir yere mucizevi biçimde götürüldüklerine inanırlar.\n\nİbn Tahir de bu deneyimin etkisine girer. Gördüğü güzellik, öğretilen sözlerin doğruluğunu sorgulamasını daha zor hâle getirir.\n\nHasan, insanların gerçeği doğrudan görmek yerine güçlü bir anlatıya ve duyularına güvenebileceğini bilir. Bahçe bu nedenle yalnızca aldatmaca değil, tasarlanmış bir iktidar aracıdır.\n\nSelçuklu veziri Nizamülmülk, Hasan'ın mücadelesinde önemli bir siyasal hedeftir. Düşmanın merkezine saldırmak, kalenin sayıca az gücünü görünür kılacaktır.\n\nİbn Tahir, kendisine verilen ölümcül görevi bir şeref olarak kabul eder. Fedailerin bireysel arzuları, liderin siyasal hesabı içinde erir.\n\nNizamülmülk'e yönelik suikastın gerçekleşmesi, Hasan'ın yönteminin etkisini gösterir. Ancak bu başarı, kullanılan insanların hakikati bilip bilmediği sorusunu da keskinleştirir.\n\nSuikastın ardından İbn Tahir'in karşılaştığı gerçekler, bahçedeki deneyimi başka gözle değerlendirmesine neden olur. Cennet sandığı yerin düzenlenmiş bir sahne olabileceğini kavrar.\n\nBu farkındalık, onun yalnızca Hasan'a değil kendi kararlarına da kuşkuyla bakmasına yol açar. Özgürce seçtiğini sandığı yolun başkası tarafından çizildiğini görür.\n\nHalime'nin hikâyesi de düzenin bedelini açığa çıkarır. Kadınların arzuları, Hasan'ın büyük planında fedaileri etkilemeye yarayan araçlara indirgenmiştir.\n\nHasan'ın gücü, insanları her ayrıntıya inandırmasından çok, onların inanmak istedikleri şeyleri ustalıkla kullanmasından doğar. Roman bu yönüyle propaganda ve manipülasyon üzerine düşünür.\n\nSon bölümde İbn Tahir'in inancı geri dönülmez biçimde sarsılır; Hasan ise kurduğu düzenin ardındaki acımasız hesabı sürdürür. Anlatı kolay bir adalet zaferiyle kapanmaz.\n\nFinalin hafıza anahtarı altı kavramdır: Alamut mekân, Hasan tasarımcı, İbn Tahir inanan, Halime kullanılan insan, bahçe yanılsama, Nizamülmülk siyasal hedef. Romanın temel sorusu, bir ideal adına gerçeği çarpıtmanın bedelidir.",
-    "isbn": ""
+    "isbn": "",
+    "detailSummary": "Vladimir Bartol'un romanı, Selçuklu egemenliğiyle çatışan İsmailî hareketinin tarihsel ortamını kurmaca kişiler ve olaylarla işler. Anlatının odağı, Hasan Sabbah'ın Alamut Kalesi'nde inşa ettiği güç düzenidir.\n\nHasan, kendisinden çok daha güçlü ordulara karşı doğrudan savaşmak yerine az sayıda insanın mutlak itaatini stratejik silaha dönüştürmek ister. Kaleyi askerî bir üs kadar düşünceleri yöneten bir laboratuvar olarak tasarlar.\n\nİbn Tahir, ailesinden devraldığı inançlarla ve adalet arayışıyla kaleye ulaşan genç bir adamdır. Cesur ve öğrenmeye açıktır; fakat tam da bu özellikleri onu yönlendirmeye elverişli kılar.\n\nYeni gelenler sıkı eğitim görür. Bedensel dayanıklılık, silah kullanımı, dinî bilgi ve emir karşısında tereddüt etmemek aynı disiplinin parçalarıdır.\n\nFedailerin önüne yalnızca düşmanla mücadele hedefi konmaz. Kendilerine ölüme gönüllü giderlerse sonsuz mutluluğa kavuşacakları söylenir.\n\nRomanın ikinci önemli hattında Halime, kalenin gizli bahçesine götürülen genç kadınlardan biri olarak görünür. Onun merakı ve duyguları, erkeklerin askerî dünyasından farklı bir deneyim sunar.\n\nBahçede yaşayan kadınlar müzik, şiir ve eğlenceyle çevrili gösterişli bir düzenin içinde tutulur. Ancak görünürdeki güzellik, onların özgürce seçtikleri bir yaşam değildir.\n\nHasan, kalenin erişilemeyen bu bölümünü fedailere vaat edilen cennetin dünyevi taklidi olarak kullanır. İnançlarını kanıtlayacak bir deneyim ürettiğini düşünür.\n\nSeçilen gençler uyuşturucu etkisiyle bilinçlerini yitirir ve bahçede uyandırılır. Böylece normal yollarla erişemedikleri bir yere mucizevi biçimde götürüldüklerine inanırlar.\n\nİbn Tahir de bu deneyimin etkisine girer. Gördüğü güzellik, öğretilen sözlerin doğruluğunu sorgulamasını daha zor hâle getirir.\n\nHasan, insanların gerçeği doğrudan görmek yerine güçlü bir anlatıya ve duyularına güvenebileceğini bilir. Bahçe bu nedenle yalnızca aldatmaca değil, tasarlanmış bir iktidar aracıdır.\n\nSelçuklu veziri Nizamülmülk, Hasan'ın mücadelesinde önemli bir siyasal hedeftir. Düşmanın merkezine saldırmak, kalenin sayıca az gücünü görünür kılacaktır.\n\nİbn Tahir, kendisine verilen ölümcül görevi bir şeref olarak kabul eder. Fedailerin bireysel arzuları, liderin siyasal hesabı içinde erir.\n\nNizamülmülk'e yönelik suikastın gerçekleşmesi, Hasan'ın yönteminin etkisini gösterir. Ancak bu başarı, kullanılan insanların hakikati bilip bilmediği sorusunu da keskinleştirir.\n\nSuikastın ardından İbn Tahir'in karşılaştığı gerçekler, bahçedeki deneyimi başka gözle değerlendirmesine neden olur. Cennet sandığı yerin düzenlenmiş bir sahne olabileceğini kavrar.\n\nBu farkındalık, onun yalnızca Hasan'a değil kendi kararlarına da kuşkuyla bakmasına yol açar. Özgürce seçtiğini sandığı yolun başkası tarafından çizildiğini görür.\n\nHasan'ın fedailer üzerinde kurduğu iktidar, yalnızca emir vermeye değil, onların yaşadıklarını nasıl yorumlayacaklarını belirlemeye dayanır. İbn Tahir'in şüpheye düşmesi bu yüzden tek bir suikastın değil, kendisine sunulan bütün hakikat düzeninin sorgulanmasıdır.\n\nHalime'nin hikâyesi de düzenin bedelini açığa çıkarır. Kadınların arzuları, Hasan'ın büyük planında fedaileri etkilemeye yarayan araçlara indirgenmiştir.\n\nHasan'ın gücü, insanları her ayrıntıya inandırmasından çok, onların inanmak istedikleri şeyleri ustalıkla kullanmasından doğar. Roman bu yönüyle propaganda ve manipülasyon üzerine düşünür.\n\nSon bölümde İbn Tahir'in inancı geri dönülmez biçimde sarsılır; Hasan ise kurduğu düzenin ardındaki acımasız hesabı sürdürür. Anlatı kolay bir adalet zaferiyle kapanmaz.\n\nFinalin hafıza anahtarı altı kavramdır: Alamut mekân, Hasan tasarımcı, İbn Tahir inanan, Halime kullanılan insan, bahçe yanılsama, Nizamülmülk siyasal hedef. Romanın temel sorusu, bir ideal adına gerçeği çarpıtmanın bedelidir.",
+    "detailSummaryVerified": true,
+    "preparedAt": "2026-11-17T15:03:53.300Z"
   },
   {
     "name": "Cesur Yeni Dünya",
@@ -598,8 +601,10 @@ window.KITAP_CATALOG=[
     "people": "Elizabeth Bennet, Fitzwilliam Darcy, Jane Bennet, Charles Bingley, George Wickham",
     "theme": "Önyargı, gurur, sınıf, aile ve karşılıklı anlayış",
     "summary": "Bennet ailesinin beş kızının geleceği, dönemin İngiliz toplumunda evlilik ve miras düzeniyle yakından bağlantılıdır. Longbourn mülkünün erkek akrabaya geçecek olması, özellikle Bayan Bennet'in kızlarını uygun eşlerle evlendirme telaşını artırır. Yakınlarına taşınan varlıklı Charles Bingley ve arkadaşı Fitzwilliam Darcy, aile çevresindeki ilişkileri değiştirir.\n\nBir baloda Bingley ile Jane Bennet birbirlerine ilgi duyar. Jane'in kız kardeşi Elizabeth ise Darcy'nin mesafeli ve gururlu tavrından hoşlanmaz. Elizabeth'in ilk izlenimi, Darcy'nin onu küçümsemesiyle daha da olumsuzlaşır. Böylece romanın temel çatışması, insanların birbirini sınıfsal önyargılar ve eksik bilgilerle değerlendirmesi üzerinden kurulur.\n\nElizabeth, çekici ve konuşkan subay George Wickham'ın Darcy hakkında anlattıklarına inanma eğilimindedir. Öte yandan Darcy, Elizabeth'e giderek daha çok ilgi duysa da Bennet ailesinin toplumsal konumuna ve bazı davranışlarına ilişkin çekincelerini aşamaz. Darcy'nin ilk evlilik teklifi, kibirli ifadeleri ve Bingley ile Jane'in yakınlaşmasına müdahalesi nedeniyle Elizabeth tarafından reddedilir.\n\nDarcy'nin Elizabeth'e yazdığı mektup, olayların başka bir yüzünü açığa çıkarır. Wickham'ın geçmişi ve Bingley ile Jane hakkındaki yanlış değerlendirmeler, Elizabeth'in kendi yargılarını yeniden sorgulamasına yol açar. Elizabeth, yalnızca Darcy'nin gururunu değil, kendisinin de peşin hükümlerini fark etmeye başlar.\n\nElizabeth'in Darcy'nin Pemberley malikânesini ziyareti, onun karakterine dair daha dengeli bir bakış geliştirmesini sağlar. Bu sırada küçük kız kardeş Lydia'nın Wickham'la kaçması Bennet ailesini büyük bir toplumsal skandal tehlikesiyle karşı karşıya bırakır. Darcy, gösterişten uzak biçimde bu sorunun çözümüne yardımcı olur ve Elizabeth onun sorumluluk duygusunu daha iyi anlar.\n\nYanlış anlamalar, aile baskısı ve sınıf farkları aşıldıkça Jane ile Bingley, Elizabeth ile Darcy arasındaki ilişkiler olgunlaşır. Elizabeth'in düşüncelerini değiştirebilmesi ve Darcy'nin davranışlarını düzeltmesi, karşılıklı saygıya dayalı bir yakınlaşmanın önünü açar. Roman, evliliği yalnızca ekonomik güvence olarak değil, karakter, anlayış ve kişisel gelişim meselesi olarak da ele alır.",
-    "preparedAt": "2026-11-15T09:44:51.937Z",
-    "detailSummaryVerified": false
+    "preparedAt": "2026-11-17T15:03:53.300Z",
+    "detailSummaryVerified": false,
+    "longSummary": "Bennet ailesi Longbourn'da beş kızlarıyla yaşar. Mülkün erkek mirasçıya kalacak olması, kızların ekonomik geleceğini belirsizleştirir.\n\nZengin Charles Bingley'nin Netherfield'a taşınması, çevredeki ailelerin evlilik beklentilerini artırır.\n\nBingley bir baloda Jane Bennet'e ilgi gösterir. Jane'in çekingenliği duygularının başkaları tarafından yanlış yorumlanmasına neden olur.\n\nBingley'nin arkadaşı Darcy'nin soğuk tavrı Elizabeth Bennet'i rahatsız eder. Elizabeth onun kibirli olduğuna karar verir.\n\nElizabeth'in canlı zekâsı Darcy'nin dikkatini çekse de Darcy, Bennet ailesinin bazı davranışlarını küçümser.\n\nJane hastalanınca Netherfield'da kalır. Elizabeth kardeşini ziyaret ederek Darcy ile daha fazla zaman geçirir.\n\nBay Collins, Bennet mülkünün mirasçısı olarak aileyi ziyaret eder. Elizabeth'e evlenme teklif eder ancak reddedilir.\n\nElizabeth'in arkadaşı Charlotte Lucas, Collins ile evlenmeyi kabul eder. Bu karar ekonomik güvence ile sevgi arasındaki gerilimi gösterir.\n\nSubay Wickham, Darcy hakkında olumsuz bir geçmiş hikâyesi anlatır. Elizabeth bu anlatıya kolayca inanır.\n\nBingley, Jane'den uzaklaşıp Londra'ya gider. Elizabeth ayrılığın ardında Darcy'nin etkisi olduğunu düşünür.\n\nElizabeth, Charlotte'u Hunsford'da ziyaret eder ve Lady Catherine de Bourgh'un buyurgan tavrını gözlemler.\n\nDarcy, Elizabeth'e evlenme teklif eder. Ancak teklifindeki sınıf vurgusu Elizabeth'i incitir.\n\nElizabeth, Jane'e müdahalesi ve Wickham'a davranışı nedeniyle Darcy'nin teklifini reddeder.\n\nDarcy yazdığı mektupta Wickham'ın geçmişini ve Jane hakkındaki düşüncelerini açıklar. Elizabeth ilk yargılarını yeniden değerlendirir.\n\nElizabeth, Gardiner ailesiyle Derbyshire'a gider ve Darcy'nin Pemberley malikânesini ziyaret eder.\n\nPemberley'deki hizmetkârların Darcy hakkındaki olumlu sözleri Elizabeth'in onun karakterine bakışını değiştirir.\n\nDarcy'nin nazik karşılaması, Elizabeth ile arasındaki gerginliği azaltır ve karşılıklı anlayışı güçlendirir.\n\nElizabeth'in küçük kardeşi Lydia, Wickham ile kaçar. Ailenin itibarı ciddi tehlikeye girer.\n\nDarcy, Lydia ile Wickham'ın evlenmesini sağlamak için gizlice müdahale eder. Elizabeth bu yardımı sonradan öğrenir.\n\nBingley yeniden Jane'e evlenme teklif eder. Darcy ile Elizabeth de yanlışlarını kabul ederek karşılıklı saygıya dayalı bir birlikteliğe ulaşır.",
+    "status": "ready"
   },
   {
     "name": "Gerçek Tıp",
@@ -1082,11 +1087,11 @@ window.KITAP_CATALOG=[
     "author": "Alex Michaelides",
     "category": "Psikolojik gerilim",
     "description": "Alicia Berenson'ın suskunluğu ve psikoterapist Theo Faber'in soruşturması.",
-    "summary": "",
+    "summary": "Alicia Berenson, Londra'da yaşayan ressamdır. Eşi Gabriel'in öldürülmesinin ardından konuşmayı bırakır ve cinayetin başlıca şüphelisi olur.\n\nAlicia, Grove adlı psikiyatri kurumuna yerleştirilir. Olaydan sonra yaptığı Alcestis tablosu, sessizliğine ilişkin yorumların odağına yerleşir.\n\nPsikoterapist Theo Faber, Alicia'yı konuşturmak amacıyla Grove'da çalışmaya başlar. Hastasının geçmişini araştırdıkça profesyonel sınırlarını zorlar.\n\nTheo, Alicia'nın aile ilişkilerini ve evliliğini soruştururken çelişkili tanıklıklarla karşılaşır. Alicia'nın günlüğü olaylara farklı bir bakış sunar.\n\nTheo'nun kendi evliliğindeki güvensizlikler, Alicia'nın hikâyesiyle beklenmedik biçimde kesişir. Anlatıdaki zaman düzeni okurun ilk varsayımlarını sarsar.\n\nSon bölümde Theo'nun Alicia'nın travmasındaki rolü ortaya çıkar. Alicia'nın suskunluğu ve günlüğü, cinayetin ardındaki gerçekleri ve anlatıcının güvenilmezliğini açığa çıkarır.",
     "longSummary": "",
     "detailSummary": "",
-    "status": "Özet hazırlanıyor",
-    "preparedAt": "2026-11-15T23:02:10.086Z",
+    "status": "ready",
+    "preparedAt": "2026-11-17T15:03:53.300Z",
     "detailSummaryVerified": false,
     "audioVerified": false
   },
@@ -1925,6 +1930,48 @@ window.KITAP_CATALOG=[
     "status": "ready",
     "addedAt": "2026-11-17T11:05:41.301Z",
     "preparedAt": "2026-11-17T13:04:08.087Z",
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Don Kişot",
+    "author": "Miguel de Cervantes",
+    "category": "Klasik",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T15:03:53.300Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Kör Baykuş",
+    "author": "Sadık Hidayet",
+    "category": "Klasik",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T15:03:53.300Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "İlahi Komedya",
+    "author": "Dante Alighieri",
+    "category": "Klasik",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T15:03:53.300Z",
+    "preparedAt": null,
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
