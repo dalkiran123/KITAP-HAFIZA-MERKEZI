@@ -1650,5 +1650,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Genç Werther'in Acıları",
+    "author": "Johann Wolfgang von Goethe",
+    "category": "Klasik Roman",
+    "isbn": "",
+    "description": "Özet hazırlığı bekleyen katalog kaydı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T03:59:54.730Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Ölü Canlar",
+    "author": "Nikolay Gogol",
+    "category": "Klasik Roman",
+    "isbn": "",
+    "description": "Özet hazırlığı bekleyen katalog kaydı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T03:59:54.730Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Büyük Umutlar",
+    "author": "Charles Dickens",
+    "category": "Klasik Roman",
+    "isbn": "",
+    "description": "Özet hazırlığı bekleyen katalog kaydı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T03:59:54.730Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
