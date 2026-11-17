@@ -1,0 +1,126 @@
+{
+  "version": "5.0-draft",
+  "mode": "private-bot-testing",
+  "realUsersEnabled": false,
+  "botDisclosure": true,
+  "leagueSeparation": true,
+  "questionPolicy": {
+    "source": "completed-books-only",
+    "verifiedQuestionsOnly": true,
+    "questionsPerMatch": 10,
+    "secondsPerQuestion": 20
+  },
+  "bots": [
+    {
+      "id": "atlas",
+      "name": "Atlas",
+      "player_type": "bot",
+      "accuracy": 0.35,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "mira",
+      "name": "Mira",
+      "player_type": "bot",
+      "accuracy": 0.4,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "deniz",
+      "name": "Deniz",
+      "player_type": "bot",
+      "accuracy": 0.45,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "arda",
+      "name": "Arda",
+      "player_type": "bot",
+      "accuracy": 0.5,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "luna",
+      "name": "Luna",
+      "player_type": "bot",
+      "accuracy": 0.55,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "nova",
+      "name": "Nova",
+      "player_type": "bot",
+      "accuracy": 0.6,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "orion",
+      "name": "Orion",
+      "player_type": "bot",
+      "accuracy": 0.7,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "ada",
+      "name": "Ada",
+      "player_type": "bot",
+      "accuracy": 0.75,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "bilge",
+      "name": "Bilge",
+      "player_type": "bot",
+      "accuracy": 0.85,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    },
+    {
+      "id": "zirve",
+      "name": "Zirve",
+      "player_type": "bot",
+      "accuracy": 0.95,
+      "answerTimeSeconds": [
+        3,
+        18
+      ]
+    }
+  ],
+  "future": {
+    "playerTypes": [
+      "human",
+      "bot"
+    ],
+    "matchmaking": [
+      "friends",
+      "random"
+    ],
+    "serverAuthoritativeScoring": true
+  }
+}
