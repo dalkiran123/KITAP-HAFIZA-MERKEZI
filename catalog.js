@@ -1492,5 +1492,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Beyaz Geceler",
+    "author": "Fyodor Dostoyevski",
+    "category": "Dünya Klasikleri",
+    "isbn": "",
+    "description": "Katalog kaydı açıldı. Özetler hazırlanıyor.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T00:04:37.776Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Notre Dame'ın Kamburu",
+    "author": "Victor Hugo",
+    "category": "Dünya Klasikleri",
+    "isbn": "",
+    "description": "Katalog kaydı açıldı. Özetler hazırlanıyor.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T00:04:37.777Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Monte Kristo Kontu",
+    "author": "Alexandre Dumas",
+    "category": "Dünya Klasikleri",
+    "isbn": "",
+    "description": "Katalog kaydı açıldı. Özetler hazırlanıyor.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T00:04:37.777Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
