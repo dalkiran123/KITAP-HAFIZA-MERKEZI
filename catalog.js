@@ -19,7 +19,9 @@ window.KITAP_CATALOG=[
     "longSummary": "Bülbülü Öldürmek, 1930'ların Alabama eyaletindeki Maycomb kasabasında geçer. Olayları çocuk Jean Louise 'Scout' Finch'in bakışından izleriz; yetişkinlerin adalet anlayışı çocukların sorularıyla sınanır.\n\nScout, ağabeyi Jem ve babaları avukat Atticus Finch ile yaşar. Ailenin hayatında Calpurnia'nın emeği ve rehberliği önemli bir yer tutar.\n\nYaz tatillerinde gelen Dill ile çocuklar, komşuları Arthur 'Boo' Radley hakkında anlatılan korkutucu söylentilere kapılır. Onu görmeye çalışmaları, başkalarını tanımadan yargılamanın ilk örneğidir.\n\nAtticus, çocuklarına bir insanı anlamak için olaylara onun açısından bakmaları gerektiğini öğretir. Bu öğüt, romanın ilerleyen bölümlerinde giderek daha ağır bir sınavdan geçer.\n\nKasabanın ırkçı düzeni, siyah bir adam olan Tom Robinson'ın beyaz Mayella Ewell'e saldırmakla suçlanmasıyla görünür hâle gelir. Atticus, Tom'un savunmasını üstlenir.\n\nScout ve Jem, babalarının davayı kabul etmesi yüzünden çevrelerinden hakaretler duyar. Çocuklar, hukuki bir meselenin nasıl toplumsal düşmanlığa dönüştüğünü yaşar.\n\nAtticus'un bir gece hapishane önünde Tom'u linç etmeye gelen kalabalıkla karşılaşması önemli bir dönüm noktasıdır. Scout'un tanıdığı bir adama içtenlikle seslenmesi, kalabalığın dağılmasına katkıda bulunur.\n\nDuruşmada Mayella'nın yaraları ve Tom'un sakat kolu hakkında verilen bilgiler, suçlamanın güvenilirliğini sarsar. Atticus, fiziksel kanıtlarla tanıklıklar arasındaki çelişkileri gösterir.\n\nMayella'nın babası Bob Ewell'in şiddet eğilimi ve önyargıları da duruşmada açığa çıkar. Bununla birlikte roman, Mayella'nın yoksulluk ve yalnızlık içindeki konumunu da görmezden gelmez.\n\nTom, Mayella'ya yardım ettiğini ve suçlanan saldırıyı gerçekleştirmediğini anlatır. Onun ifadesi, kasabanın yerleşik ırk hiyerarşisi yüzünden adil biçimde değerlendirilmez.\n\nAtticus'un savunmasına rağmen jüri Tom'u suçlu bulur. Jem'in adalet sistemine duyduğu güven ciddi biçimde sarsılır; Scout da yetişkinlerin sözleriyle davranışları arasındaki uçurumu görür.\n\nAtticus temyiz için çabalamayı sürdürür. Ancak Tom, hapishaneden kaçmaya çalışırken vurularak öldürülür; dava hukuki düzeltme ihtimalini kaybeder.\n\nBob Ewell, duruşmada küçük düşürüldüğünü düşünerek Atticus'a ve çevresindekilere kin besler. Mahkeme kararı, kasabadaki şiddet tehdidini sona erdirmez.\n\nCadılar Bayramı gecesi Scout ve Jem eve dönerken saldırıya uğrar. Jem yaralanır; Scout, kostümünün içinde olup biteni tam olarak göremez.\n\nÇocukları kurtaran kişi, uzun süredir söylentilerin hedefi olan Boo Radley'dir. Bob Ewell ise çatışmanın sonunda ölü bulunur.\n\nŞerif Heck Tate, Bob Ewell'in kendi bıçağının üzerine düştüğü açıklamasını benimser. Bu karar, Boo'yu kamuoyunun merakından ve olası soruşturmadan korumayı amaçlar.\n\nScout, Boo'yu sonunda bir canavar değil, kendilerini gözeten ve koruyan kırılgan bir komşu olarak görür. Çocukların baştaki korkusu yerini empatiye bırakır.\n\nScout, Boo'yu evine götürdüğünde onun kapısından sokağa bakar ve yaşananları onun açısından hayal eder. Böylece Atticus'un başta verdiği öğüt somut bir deneyime dönüşür.\n\nFinalde Atticus, Scout'un yanında kalır; çocuk, dünyanın adaletsizliğini görmüş olsa da başkalarını anlamaya yönelik bir ahlaki yön kazanır. Tom'un ölümü telafi edilmez, ancak Boo hakkındaki yanlış yargı değişir.\n\nHafıza ipuçları: Scout anlatıcı; Jem ağabey; Atticus vicdanlı savunucu; Tom haksız mahkûm; Mayella suçlamanın merkezinde; Bob Ewell tehdit; Boo görünmeyen koruyucu. Dönüm noktaları hapishane, duruşma, Tom'un ölümü ve Cadılar Bayramı saldırısıdır.",
     "isbn": "9786051738178",
     "coverSource": "https://openlibrary.org/books/OL32200117M",
-    "coverStatus": "unverified"
+    "coverStatus": "unverified",
+    "detailSummary": "Bülbülü Öldürmek, 1930'ların Alabama eyaletindeki Maycomb kasabasında geçer. Olayları çocuk Jean Louise 'Scout' Finch'in bakışından izleriz; yetişkinlerin adalet anlayışı çocukların sorularıyla sınanır.\n\nScout, ağabeyi Jem ve babaları avukat Atticus Finch ile yaşar. Ailenin hayatında Calpurnia'nın emeği ve rehberliği önemli bir yer tutar.\n\nYaz tatillerinde gelen Dill ile çocuklar, komşuları Arthur 'Boo' Radley hakkında anlatılan korkutucu söylentilere kapılır. Onu görmeye çalışmaları, başkalarını tanımadan yargılamanın ilk örneğidir.\n\nAtticus, çocuklarına bir insanı anlamak için olaylara onun açısından bakmaları gerektiğini öğretir. Bu öğüt, romanın ilerleyen bölümlerinde giderek daha ağır bir sınavdan geçer.\n\nKasabanın ırkçı düzeni, siyah bir adam olan Tom Robinson'ın beyaz Mayella Ewell'e saldırmakla suçlanmasıyla görünür hâle gelir. Atticus, Tom'un savunmasını üstlenir.\n\nScout ve Jem, babalarının davayı kabul etmesi yüzünden çevrelerinden hakaretler duyar. Çocuklar, hukuki bir meselenin nasıl toplumsal düşmanlığa dönüştüğünü yaşar.\n\nAtticus'un bir gece hapishane önünde Tom'u linç etmeye gelen kalabalıkla karşılaşması önemli bir dönüm noktasıdır. Scout'un tanıdığı bir adama içtenlikle seslenmesi, kalabalığın dağılmasına katkıda bulunur.\n\nDuruşmada Mayella'nın yaraları ve Tom'un sakat kolu hakkında verilen bilgiler, suçlamanın güvenilirliğini sarsar. Atticus, fiziksel kanıtlarla tanıklıklar arasındaki çelişkileri gösterir.\n\nMayella'nın babası Bob Ewell'in şiddet eğilimi ve önyargıları da duruşmada açığa çıkar. Bununla birlikte roman, Mayella'nın yoksulluk ve yalnızlık içindeki konumunu da görmezden gelmez.\n\nTom, Mayella'ya yardım ettiğini ve suçlanan saldırıyı gerçekleştirmediğini anlatır. Onun ifadesi, kasabanın yerleşik ırk hiyerarşisi yüzünden adil biçimde değerlendirilmez.\n\nAtticus'un savunmasına rağmen jüri Tom'u suçlu bulur. Jem'in adalet sistemine duyduğu güven ciddi biçimde sarsılır; Scout da yetişkinlerin sözleriyle davranışları arasındaki uçurumu görür.\n\nAtticus temyiz için çabalamayı sürdürür. Ancak Tom, hapishaneden kaçmaya çalışırken vurularak öldürülür; dava hukuki düzeltme ihtimalini kaybeder.\n\nBob Ewell, duruşmada küçük düşürüldüğünü düşünerek Atticus'a ve çevresindekilere kin besler. Mahkeme kararı, kasabadaki şiddet tehdidini sona erdirmez.\n\nCadılar Bayramı gecesi Scout ve Jem eve dönerken saldırıya uğrar. Jem yaralanır; Scout, kostümünün içinde olup biteni tam olarak göremez.\n\nÇocukları kurtaran kişi, uzun süredir söylentilerin hedefi olan Boo Radley'dir. Bob Ewell ise çatışmanın sonunda ölü bulunur.\n\nŞerif Heck Tate, Bob Ewell'in kendi bıçağının üzerine düştüğü açıklamasını benimser. Bu karar, Boo'yu kamuoyunun merakından ve olası soruşturmadan korumayı amaçlar.\n\nScout, Boo'yu sonunda bir canavar değil, kendilerini gözeten ve koruyan kırılgan bir komşu olarak görür. Çocukların baştaki korkusu yerini empatiye bırakır.\n\nScout, Boo'yu evine götürdüğünde onun kapısından sokağa bakar ve yaşananları onun açısından hayal eder. Böylece Atticus'un başta verdiği öğüt somut bir deneyime dönüşür.\n\nFinalde Atticus, Scout'un yanında kalır; çocuk, dünyanın adaletsizliğini görmüş olsa da başkalarını anlamaya yönelik bir ahlaki yön kazanır. Tom'un ölümü telafi edilmez, ancak Boo hakkındaki yanlış yargı değişir.\n\nScout ile Jem'in yaz arkadaşı Dill, Boo Radley'yi görme merakını büyütür; çocuklar komşularını tanımadan korkutucu hikâyeler kurar.\n\nRadley evinin yakınındaki ağaç kovuğunda bulunan hediyeler, Boo'nun çocuklarla sessiz bir bağ kurduğunu düşündürür.\n\nNathan Radley'nin ağaç kovuğunu kapatması, çocukların bu sessiz iletişim ihtimalini sona erdirir.\n\nMiss Maudie'nin evinin yandığı gece Scout'un omuzlarına bırakılan battaniye, Boo'nun görünmeden yardım ettiğini gösterir.\n\nScout'un okulda Walter Cunningham'a yaklaşımı, sınıf farklılıklarının çocuklar arasındaki ilişkilere nasıl yansıdığını ortaya koyar.\n\nAtticus'un kuduz köpeği tek atışla vurması, çocukların babalarının sakladığı becerisini ve sorumluluk duygusunu görmelerini sağlar.\n\nMrs. Dubose'un bağımlılığıyla mücadelesi, Atticus'un çocuklara yenilgi ihtimaline rağmen gösterilen cesareti anlatmasına vesile olur.\n\nDill, Tom Robinson'ın duruşmada gördüğü aşağılayıcı muameleye dayanamaz; çocukların adaletsizliğe tepkisi yetişkinlerden farklıdır.\n\nHafıza ipuçları: Scout anlatıcı; Jem ağabey; Atticus vicdanlı savunucu; Tom haksız mahkûm; Mayella suçlamanın merkezinde; Bob Ewell tehdit; Boo görünmeyen koruyucu. Dönüm noktaları hapishane, duruşma, Tom'un ölümü ve Cadılar Bayramı saldırısıdır.",
+    "detailSummaryVerified": true
   },
   {
     "name": "Şibumi",
@@ -332,7 +334,8 @@ window.KITAP_CATALOG=[
     "isbn": "9780062316097",
     "people": "Tarihsel insan toplulukları; belirli roman karakterleri yok",
     "theme": "Bilişsel, tarımsal ve bilimsel devrimler",
-    "summary": "Harari, Homo sapiens'in birçok insan türü arasından nasıl küresel hâkimiyet kurduğunu sorgular. Bilişsel devrim, dil ve ortak kurgu oluşturma kapasitesini öne çıkarır.\n\nMitler, dinler ve ortak inançlar çok sayıda yabancının işbirliği yapmasına imkân verir. Yazar, kurumların çoğunun paylaşılan anlatılara dayandığını savunur.\n\nTarım devrimi gıda üretimini artırırken bireylerin yaşamını her zaman kolaylaştırmaz. Yerleşiklik, nüfus artışı ve yeni eşitsizlikler doğurur.\n\nPara, imparatorluklar ve evrensel dinler insan topluluklarını daha geniş ağlarda birleştirir. Kültürler birbirinden etkilenir.\n\nBilimsel devrim, bilmediğini kabul edip araştırmaya yönelmeyle hız kazanır. Sermaye, imparatorluk ve teknolojiyle karşılıklı ilişki kurar.\n\nSon bölümlerde sanayi, tüketim, mutluluk ve biyoteknoloji tartışılır. Yazar, insanın gücü artarken ne istediğini bilip bilmediğini sorar. Kitaptaki bazı tarihsel genellemeler bilimsel tartışmaya açıktır."
+    "summary": "Harari, Homo sapiens'in birçok insan türü arasından nasıl küresel hâkimiyet kurduğunu sorgular. Bilişsel devrim, dil ve ortak kurgu oluşturma kapasitesini öne çıkarır.\n\nMitler, dinler ve ortak inançlar çok sayıda yabancının işbirliği yapmasına imkân verir. Yazar, kurumların çoğunun paylaşılan anlatılara dayandığını savunur.\n\nTarım devrimi gıda üretimini artırırken bireylerin yaşamını her zaman kolaylaştırmaz. Yerleşiklik, nüfus artışı ve yeni eşitsizlikler doğurur.\n\nPara, imparatorluklar ve evrensel dinler insan topluluklarını daha geniş ağlarda birleştirir. Kültürler birbirinden etkilenir.\n\nBilimsel devrim, bilmediğini kabul edip araştırmaya yönelmeyle hız kazanır. Sermaye, imparatorluk ve teknolojiyle karşılıklı ilişki kurar.\n\nSon bölümlerde sanayi, tüketim, mutluluk ve biyoteknoloji tartışılır. Yazar, insanın gücü artarken ne istediğini bilip bilmediğini sorar. Kitaptaki bazı tarihsel genellemeler bilimsel tartışmaya açıktır.",
+    "longSummary": "Harari, insan türünün tarihini biyoloji, kültür ve ekonomi arasındaki ilişkilerle açıklar.\n\nİlk insan toplulukları avcılık ve toplayıcılıkla yaşamlarını sürdürür.\n\nHomo sapiens diğer insan türleriyle aynı gezegeni paylaşmış, sonunda baskın tür olmuştur.\n\nBilişsel devrim, karmaşık dil ve ortak hayal gücüyle büyük grupların işbirliğini kolaylaştırır.\n\nMitler, kabilelerin ötesinde birbirini tanımayan insanları ortak kurallara bağlar.\n\nAvcı-toplayıcı yaşamın çeşitliliği, tek bir ilerleme çizgisi fikrini sorgulatır.\n\nTarım devrimi daha çok besin üretirken bireylerin çalışma yükünü artırabilir.\n\nBuğday tarımı insanları yerleşik köylere ve mevsimlik emek döngülerine bağlar.\n\nYerleşik hayat, nüfus artışına ve salgın hastalıkların yayılmasına zemin hazırlar.\n\nArtan üretim fazlası yöneticilerin, askerlerin ve uzmanların ortaya çıkmasını sağlar.\n\nYazı, vergi ve mülkiyet kayıtlarının büyük ölçekli tutulmasına olanak verir.\n\nToplumsal hiyerarşiler çoğu zaman tarihsel düzenlemeler olduğu halde doğal gösterilir.\n\nPara, birbirine yabancı insanların değiş tokuş yapabilmesini sağlayan ortak bir güven sistemidir.\n\nİmparatorluklar farklı halkları aynı idari ve kültürel düzen içinde birleştirir.\n\nEvrensel dinler geniş topluluklar için ortak ahlaki çerçeveler sunar.\n\nBilimsel devrim, insanın bilgisizliğini kabul edip sistematik araştırmaya yönelmesiyle hız kazanır.\n\nAvrupa devletlerinin keşif seferleri bilimsel merakla ekonomik ve siyasi çıkarları birleştirir.\n\nKapitalizm gelecekteki büyümeye duyulan güveni kredi ve yatırım sistemine dönüştürür.\n\nSanayi devrimi enerji kullanımını, üretimi ve gündelik hayatın zaman düzenini değiştirir.\n\nKitap, teknolojik güç artışının mutluluk ve etik ilerlemeyle aynı şey olmadığını sorgulayarak sona erer."
   },
   {
     "name": "Kozmos",
@@ -662,7 +665,7 @@ window.KITAP_CATALOG=[
     "author": "Yusuf Atılgan",
     "category": "Türk Edebiyatı",
     "description": "",
-    "summary": "",
+    "summary": "C., İstanbul sokaklarında dolaşırken sıradan iş ve aile düzenine bağlanmayı reddeder.\n\nAyşe ile ilişkisi, yakınlık isteği ile özgürlüğünü koruma arzusunun çatışmasını gösterir.\n\nC.'nin çocukluğunda babasıyla yaşadığı gerilim, yetişkinlikteki ilişkilerine gölge düşürür.\n\nC., çevresindeki insanların alışkanlıklarını gözlemleyerek onların samimiyetini sorgular.\n\nGüler ile yakınlaşması da aradığı kusursuz ilişkiyi bulmasını sağlamaz.\n\nRomanın sonunda C., kalabalıkta aradığı kadını gördüğünü sanarak peşinden gider; arayışı sonuçsuz kalır.",
     "longSummary": "",
     "detailSummary": "",
     "status": "Özet hazırlanıyor",
@@ -1747,6 +1750,48 @@ window.KITAP_CATALOG=[
     "detailSummary": "",
     "status": "pending",
     "addedAt": "2026-11-17T04:57:40.467Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Yabancı",
+    "author": "Albert Camus",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T05:58:30.814Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Veba",
+    "author": "Albert Camus",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T05:58:30.814Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Kumarbaz",
+    "author": "Fyodor Dostoyevski",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T05:58:30.814Z",
     "preparedAt": null,
     "coverStatus": "missing",
     "detailSummaryVerified": false,
