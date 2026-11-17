@@ -1703,5 +1703,53 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Körlük",
+    "author": "José Saramago",
+    "category": "Roman",
+    "isbn": "",
+    "description": "Katalog kaydı açıldı. Özetler henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T04:57:40.467Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Dava",
+    "author": "Franz Kafka",
+    "category": "Roman",
+    "isbn": "",
+    "description": "Katalog kaydı açıldı. Özetler henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T04:57:40.467Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Siddhartha",
+    "author": "Hermann Hesse",
+    "category": "Roman",
+    "isbn": "",
+    "description": "Katalog kaydı açıldı. Özetler henüz hazırlanmadı.",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-17T04:57:40.467Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
