@@ -2305,5 +2305,47 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": false,
     "audioVerified": false
+  },
+  {
+    "name": "Kaptan Grant'ın Çocukları",
+    "author": "Jules Verne",
+    "category": "Macera",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-18T13:00:48.613Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Mansfield Park",
+    "author": "Jane Austen",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-18T13:00:48.614Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "İki Yıl Okul Tatili",
+    "author": "Jules Verne",
+    "category": "Macera",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-18T13:00:48.615Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
