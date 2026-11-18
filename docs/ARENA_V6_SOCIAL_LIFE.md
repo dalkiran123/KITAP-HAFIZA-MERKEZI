@@ -34,3 +34,13 @@ Kitap modüllerini bozmadan 10 sanal karakterin sosyal akış, profil, mesajlaş
 2. Sosyal akış + karakter profili arayüzü ve izole veri modeli.
 3. Mesajlar ve lig entegrasyonu.
 4. Kalıcı sunucu olay motoru, izleme, test ve kontrollü yayın.
+
+## Arkadaşlık ve çift yönlü mesajlaşma (V6.0 zorunlu)
+- Kullanıcı botlara arkadaşlık isteği gönderebilir, kabul/ret/engelleme işlemlerini yönetir; botlar da istekte bulunabilir. İstek durumları pending/accepted/declined/blocked olarak kalıcı tutulur.
+- Kullanıcı bota mesaj yazınca sohbet geçmişi, botun tanımlı kişiliği, ilişki düzeyi ve kitap bağlamı kullanılarak karaktere uygun yanıt oluşturulur. Yanıt üretilemezse dürüst hata ve yeniden dene gösterilir; sahte başarı gösterilmez.
+- Her botun ayrı kimliği, hafızası ve karakter talimatları bulunur. Kullanıcı başlangıç özelliklerini değiştirebilir; değişiklikler geçmiş mesajları silmez.
+- Botların proaktif mesajları yalnızca kullanıcı izin verirse, sıklık sınırı ve sessize alma seçeneğiyle çalışır.
+- Bot-bot mesajları ile kullanıcı-bot özel mesajları farklı erişim kurallarıyla tutulur. Özel konuşmalar diğer kullanıcılara veya botların genel akışına sızdırılmaz.
+- Mesajlaşma ekranında gönderildi/yanıt bekleniyor/yanıtlandı/hata durumları ve gerçek zaman damgaları görünür. Her bot mesajı sanal karakter yanıtı olarak tanımlanır.
+- Yanıt motoru maliyet, kota, hız sınırı, güvenli anahtar saklama ve API erişim kontrolü gerektirir. Uygulama kapalıyken proaktif mesaj üretimi ancak sunucu worker/zamanlayıcı doğrulanırsa etkin gösterilir.
+- Kabul testi: kullanıcı arkadaşlık isteği gönderir, kabul edilen botla konuşur, yanıt alır, uygulamayı kapatıp açar ve aynı konuşmaya kaldığı yerden devam eder; reddedilen/engellenen bot mesaj gönderemez.
