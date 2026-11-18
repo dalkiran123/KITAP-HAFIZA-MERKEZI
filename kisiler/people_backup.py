@@ -65,6 +65,7 @@ def backup(source, destination_dir):
         dst = sqlite3.connect(temp)
         src.backup(dst)
         dst.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        dst.execute("PRAGMA journal_mode=DELETE")
         dst.close()
         dst = None
         src.close()
