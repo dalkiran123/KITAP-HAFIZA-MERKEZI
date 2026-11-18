@@ -92,6 +92,42 @@ def plan_hourly_tick(bots, slot):
     """Build a retry-stable tick for one UTC hour from committed state."""
     return next_tick_from_remote(bots, tick_id=deterministic_tick_id(slot))
 
+
+def get_tick_receipt(url, secret, tick_id, *, opener=None):
+    parts = urlsplit(url)
+    if parts.scheme != "https" or not parts.hostname or parts.username or parts.password or parts.query or parts.fragment or parts.path != "/api/bots/state":
+        raise ValueError("Invalid bot API URL")
+    path = "/api/bots/ticks/" + tick_id
+    stamp = str(int(time.time()))
+    signature = hmac.new(secret.encode(), stamp.encode() + b".GET." + path.encode(), hashlib.sha256).hexdigest()
+    req = urllib.request.Request("https://" + parts.netloc + path,
+                                 headers={"X-Bot-Timestamp": stamp, "X-Bot-Signature": signature}, method="GET")
+    with (opener or urllib.request.urlopen)(req, timeout=20) as res:
+        if res.status != 200:
+            raise RuntimeError("Receipt lookup failed")
+        data = json.load(res)
+    if type(data.get("committed")) is not bool:
+        raise ValueError("Invalid receipt")
+    return data
+
+def run_one_hour(state_url, secret, slot, *, reader=get_state, sender=post_tick, receipt_reader=get_tick_receipt):
+    """At most one committed tick per UTC slot. No blind retry after timeout."""
+    tick_id = deterministic_tick_id(slot)
+    receipt = receipt_reader(state_url, secret, tick_id)
+    if receipt["committed"]:
+        return {"ok": True, "already_committed": True}
+    bots = reader(state_url, secret)
+    body = plan_hourly_tick(bots, slot)
+    target = state_url.removesuffix("/api/bots/state") + "/api/bots/tick"
+    try:
+        return sender(target, body, secret)
+    except (urllib.error.URLError, TimeoutError, ConnectionError):
+        # Query receipt once, never blindly recompute and resend.
+        receipt = receipt_reader(state_url, secret, tick_id)
+        if receipt["committed"] and receipt.get("payload_sha256") == hashlib.sha256(body).hexdigest():
+            return {"ok": True, "recovered": True}
+        raise
+
 def main():
     # Deliberately fail closed: no scheduling and no production write by default.
     if os.environ.get("BOOK_BOT_ENABLE_REMOTE_WRITE") != "true":
