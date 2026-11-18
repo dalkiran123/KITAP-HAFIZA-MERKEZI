@@ -17,7 +17,7 @@ function replyFor(post,c){
 function settleReplies(){
  let changed=false;const now=Date.now();
  posts.forEach(post=>{if(!post.sim||!Array.isArray(post.comments))return;
- const pending=post.comments.filter(c=>c.who==='Ben'&&!c.replied&&c.replyAt&&now>=c.replyAt);
+ const pending=post.comments.filter(c=>c.who==='Ben'&&!c.replied&&(!c.replyAt||now>=c.replyAt));
  pending.forEach(c=>{post.comments.push({who:post.who,text:replyFor(post,c),at:new Date().toISOString(),simulated:true});c.replied=true;changed=true;});
  });
  if(changed){save();render();}
