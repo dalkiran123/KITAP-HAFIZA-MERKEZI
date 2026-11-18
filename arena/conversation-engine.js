@@ -1,67 +1,61 @@
-/* BOOK CENTER offline conversation engine v1. No external API. */
+/* BOOK CENTER Turkish offline dialogue engine v4. No external API. */
 (function(){'use strict';
-const topics=[
- {id:'day',re:/bugün günlerden ne|bugün hangi gün|günlerden ne|hangi gündeyiz|hangi gün|gün ne/i,replies:[]},
- {id:'time',re:/saat kaç|şu an saat|kaç oldu saat/i,replies:[]},
- {id:'weather',re:/hava nasıl|hava buz gibi|hava soğuk|hava sıcak|üşüyorum|yağmur yağıyor/i,replies:[]},
- {id:'help',re:/sen yardım et|yardım et|nereden yardım alabilirim|yardım lazım/i,replies:[]},
-
- {id:'headache',re:/baş(ım|ın|ı)?\s*(çok\s*)?(ağrı|ağrıyor)|migren|baş ağrısı/i,replies:['Geçmiş olsun. Ne zamandır başın ağrıyor?','Üzüldüm. Biraz dinlenme fırsatın oldu mu?','Baş ağrısı yorucu olabilir. Ağrın hafif mi, şiddetli mi?']},
- {id:'unwell',re:/iyi değilim|kötüyüm|kendimi kötü|moralim bozuk|üzgünüm|canım sıkkın/i,replies:['Bunu duyduğuma üzüldüm. İstersen neler olduğunu anlatabilirsin.','Yanındayım, seni dinliyorum. Seni üzen bir şey mi oldu?','Zor bir gün geçiriyor gibisin. Konuşmak ister misin?']},
- {id:'duration',re:/sabahtan beri|dünden beri|kaç saattir|birkaç gündür|uzun zamandır/i,replies:['Anladım, bir süredir devam ediyor. Şu anda biraz daha iyi misin?','Bu kadar sürmesi yorucu olmalı. Dinlenebildin mi?']},
- {id:'confusion',re:/beni anlamıyor|anlamadın|neyden bahsediyorsun|neyi düşünmek|ne alaka|saçmalama/i,replies:['Haklısın, söylediklerini yanlış yorumladım. Konumuza geri dönelim.','Özür dilerim, cevabım söylediklerinle uyuşmadı. Seni daha dikkatli dinleyeceğim.']},
- {id:'books',re:/kitap|roman|okuyorum|yazar|özet|sayfa/i,replies:['Ne güzel, hangi kitabı okuyorsun?','Bu kitapta seni en çok etkileyen şey ne oldu?','Okumayı seviyorum. Son bitirdiğin kitabı merak ettim.']},
- {id:'location',re:/nerelerdesin|neredesin|nerdesin|nereye gidiyorsun|nerede kaldın/i,replies:['Buradayım, biraz kendi halimde vakit geçiriyordum. Sen neler yapıyorsun?','Kitaplarımla ilgileniyordum. Senin günün nasıl geçiyor?']},
- {id:'greeting',re:/^(merhaba|selam|günaydın|iyi akşamlar|hey)\b/i,replies:['Merhaba! Günün nasıl geçiyor?','Selam! Bugün neler yaptın?']},
- {id:'thanks',re:/teşekkür|sağ ol|eyvallah/i,replies:['Rica ederim, ne zaman istersen konuşabiliriz.','Ne demek, memnun oldum.']},
- {id:'positive',re:/çok iyiyim|mutluyum|harika|sevindim|güzel haber/i,replies:['Buna sevindim! Ne oldu, anlatır mısın?','Harika! Bu güzel haberin devamını duymak isterim.']},
- {id:'sleep',re:/uyku|uyuyamıyorum|yorgunum|uykusuz/i,replies:['Yorgun hissetmek zor olmalı. Bugün yoğun bir gün müydü?','Biraz dinlenebilmeni umuyorum. Seni uykusuz bırakan bir şey mi var?']},
- {id:'work',re:/iş|ofis|toplantı|mesai|çalışıyorum/i,replies:['İşlerin nasıl gidiyor? Bugün yoğun muydu?','Anladım. Günün en zor kısmı neydi?']},
- {id:'food',re:/kahve|çay|yemek|acıktım|kahvaltı/i,replies:['Güzel bir mola gibi! Yanında kitap da var mı?','Afiyet olsun! Bugün kendine vakit ayırabildin mi?']}
+const norm=s=>String(s||'').toLocaleLowerCase('tr-TR').replace(/[’']/g,'').replace(/[^a-zçğıöşü0-9\s]/gi,' ').replace(/\s+/g,' ').trim();
+const intents=[
+ ['health',/baş(ım|ın)?\s*ağr|baş ağrı|migren|midem bulan|hastayım|ateşim var|kendimi hasta/,['Geçmiş olsun. Ne zamandır böyle hissediyorsun?','Üzüldüm. Biraz dinlenebildin mi?','Geçmiş olsun. Şu anda kendini nasıl hissediyorsun?']],
+ ['sad',/iyi değilim|kötüyüm|moralim bozuk|üzgünüm|canım sıkkın|yalnızım|çok bunaldım/,['Bunu duyduğuma üzüldüm. İstersen anlat, seni dinliyorum.','Zor bir gün gibi görünüyor. Seni ne üzdü?','Buradayım, konuşmak istersen dinlerim.']],
+ ['food',/yemeğe|yemek yem|yemek yi|yemek ye|akşam yemeği|öğle yemeği|acıktım|açım|kahvaltı|restoran|lokanta/,['Afiyet olsun! Ne yiyeceksin?','Güzel bir mola olacak gibi. Nereye gidiyorsun?','Afiyet olsun. Bugün ne yemeyi düşünüyorsun?']],
+ ['drink',/kahve|çay|içecek|su iç/,['Bir mola iyi gelir. Kahve mi çay mı tercih ediyorsun?','Keyifli bir mola gibi görünüyor.']],
+ ['book',/kitap|roman|okuma|okuyorum|yazar|özet|hikaye|sayfa/,['Şu sıralar hangi kitabı okuyorsun?','Kitabın en çok hangi bölümü ilgini çekti?','Son bitirdiğin kitabı merak ettim.']],
+ ['work',/işe gid|işten gel|çalışıyorum|mesai|toplantı|ofis|patron|muhasebe/,['Bugün işlerin yoğun mu?','İş günün nasıl geçiyor?','Bugün seni en çok ne meşgul etti?']],
+ ['sleep',/uykum|uyku|uyuyam|yorgun|uykusuz|dinlen/,['Biraz dinlenme fırsatın oldu mu?','Yorucu bir gün geçirmiş gibisin.']],
+ ['weather',/hava|soğuk|sıcak|üşü|yağmur|kar yağı/,['Hava seni epey etkilemiş anlaşılan. Dışarıda mısın?','Havaya göre plan yapıyorsun galiba. Dışarı çıkacak mısın?']],
+ ['location',/nerdesin|neredesin|nerelerdesin|nereye gid|nerede kaldın|nerde kaldın/,['Buradayım. Biraz kitaplarla ilgileniyordum. Sen neredesin?','Biraz kendi halimdeydim. Senin günün nasıl geçiyor?']],
+ ['activity',/ne yapıyorsun|neler yapıyorsun|ne yaptın|napıyorsun|napıyon|nasıl gidiyor/,['Biraz okuyup dinleniyorum. Sen neler yapıyorsun?','Bugün kitaplarımla vakit geçiriyorum. Senin günün nasıl?']],
+ ['plans',/yarın|hafta sonu|planım|tatil|gezmeye|sinemaya|dışarı çık/,['Güzel bir plan gibi. Kiminle gideceksin?','Planın kulağa hoş geliyor. Ne zaman düşünüyorsun?']],
+ ['thanks',/teşekkür|sağ ol|saol|eyvallah/,['Rica ederim!','Ne demek, memnuniyetle.']],
+ ['greeting',/^(selam|merhaba|hey|günaydın|iyi akşamlar|iyi geceler|naber|nasılsın)/,['Selam! Bugün nasıl gidiyor?','Merhaba! Günün nasıl geçiyor?','Selam, seni görmek güzel. Neler yapıyorsun?']],
+ ['happy',/mutluyum|sevindim|harika|çok güzel|müthiş|heyecanlıyım/,['Buna sevindim! Neler oldu?','Harika haber! Biraz daha anlatır mısın?']],
+ ['angry',/sinirliyim|kızgınım|çok sinirlendim|öfkeliyim/,['Canını sıkan ne oldu?','Belli ki seni kızdıran bir şey var. Anlatmak ister misin?']],
+ ['confused',/anlamadın|anlamıyor|ne alaka|neyden bahsediyorsun|neyi düşünmek|saçmalama/,['Haklısın, konudan uzaklaştım. Söylediğine geri dönelim.','Özür dilerim, yanlış anladım. Biraz daha dikkatli olacağım.']]
 ];
-const personalities={Mira:{prefix:'🌻 ',warm:true},Deniz:{prefix:'',analytical:true},Atlas:{prefix:'',brief:true},Luna:{prefix:'🌙 '},Ada:{prefix:'✨ '}};
-const normalize=x=>String(x||'').toLocaleLowerCase('tr-TR').trim();
-function pick(list,seed){let h=0;for(const c of seed)h=(h*31+c.charCodeAt(0))>>>0;return list[h%list.length]}
-function answer(post,comment){
- const history=(post.comments||[]).filter(c=>c&&typeof c.text==='string');
- const index=history.indexOf(comment);
- const earlier=index<0?history:history.slice(0,index);
- const userEarlier=earlier.filter(c=>c.who==='Ben').slice(-6);
- const current=normalize(comment.text);
- if(/yemeğe gid|yemek yemeye gid|akşam yemeği|öğle yemeği/i.test(current)){
-   return /\bgel\b|birlikte|sen de/i.test(current)?'Afiyet olsun! 🌻 Davetin çok hoş. Nereye gidiyorsun?':'Afiyet olsun! 🌻 Nereye gidiyorsun, ne yiyeceksin?';
- }
- if(/fena değil|idare eder|iyiyim|iyi senin|iyi ya sen/i.test(current)&&!/yemeğe gid|yemek yemeye gid/i.test(current)){
-   return 'Ben de iyiyim, teşekkür ederim. 🌻 Bugün neler yapıyorsun?';
- }
-
- const recentBot=earlier.filter(c=>c.who===post.who).slice(-6).map(c=>normalize(c.text));
- if(/^(iyi(yim)?|iyidir|fena değil|idare eder)([, ]+sen(in)?|[, ]+ya sen)?[?.!]*$/.test(current)){
-   const options=['Ben de iyiyim, teşekkür ederim. Bugün neler yaptın?','İyiyim, sağ ol! Bugün nasıl geçti?','Ben de fena değilim. Senin gününde güzel bir şey oldu mu?'];
-   return pick(options.filter(x=>!recentBot.includes(normalize(x))),post.who+earlier.length);
- }
- if(/^(sen nasılsın|ya sen|peki sen|senin nasıl)[?.!]*$/.test(current))return 'Ben de iyiyim, teşekkür ederim. Bugün neler yaptın?';
-
- if(/bugün günlerden ne|bugün hangi gün|günlerden ne|hangi gündeyiz|hangi gün|gün ne/i.test(current)){const day=new Intl.DateTimeFormat('tr-TR',{weekday:'long',timeZone:'Europe/Istanbul'}).format(new Date());return 'Bugün '+day+'. 🌻';}
- if(/bugün ayın kaçı|ayın kaçı|bugünün tarihi|tarih ne/i.test(current))return 'Bugünün tarihi '+new Intl.DateTimeFormat('tr-TR',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
- if(/saat kaç|şu an saat|kaç oldu saat/i.test(current))return 'Türkiye saatiyle '+new Intl.DateTimeFormat('tr-TR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
- if(/hava nasıl/i.test(current))return 'Güncel hava durumuna erişimim yok. Hangi şehirde olduğunu söylersen sohbet edebiliriz ama sıcaklık uydurmak istemem.';
- if(/hava buz gibi|hava soğuk|üşüyorum/i.test(current))return 'Çok soğuk hissediyorsun anlaşılan. Umarım sıcak bir yere geçebilirsin. ☕';
- if(/hava sıcak|çok sıcak/i.test(current))return 'Sıcak bunaltıcı olabiliyor. Serinleyebildin mi?';
- if(/sen yardım et|yardım et|nereden yardım alabilirim|yardım lazım/i.test(current))return /baş.*ağr|migren|iyi değilim/.test(userEarlier.map(x=>normalize(x.text)).join(' '))?'Başın ağrıdığı için yardım istiyorsun, anladım. Şiddetli veya ani başlayan bir ağrıysa ya da başka ciddi belirtiler varsa acil tıbbi yardım al. Nasıl hissettiğini biraz daha anlatabilir misin?':'Elimden geldiğince yardımcı olayım. Hangi konuda yardıma ihtiyacın var?';
-
- let match=topics.find(t=>t.re.test(current));
- const previousTopics=userEarlier.map(c=>topics.find(t=>t.re.test(normalize(c.text)))?.id).filter(Boolean);
- const lastTopic=previousTopics[previousTopics.length-1];
- if(match?.id==='duration'&&lastTopic==='headache')return 'Sabahtan beri başının ağrıdığını anladım. Geçmiş olsun. Şu anda ağrın hafifledi mi?';
- if(match?.id==='confusion'&&previousTopics.some(t=>t==='headache'||t==='unwell'))return 'Haklısın, konuyu kaçırdım. Kendini iyi hissetmediğini söyledin. Seni dinliyorum, şimdi nasılsın?';
- if(!match&&lastTopic==='headache'&&/evet|hayır|biraz|çok|hala|hâlâ|geçmedi|azaldı/i.test(current))return 'Anladım. Umarım kısa zamanda rahatlarsın. Biraz dinlenme fırsatın var mı?';
- if(!match&&lastTopic==='unwell'&&/evet|hayır|bilmiyorum|biraz/i.test(current))return 'Anlıyorum. İstersen seni neyin yorduğunu konuşabiliriz.';
- if(!match)return 'Tam olarak ne demek istediğini anlayamadım. Biraz daha anlatır mısın?';
- const choices=match.replies.filter(x=>!recentBot.includes(normalize(x))&&!recentBot.some(y=>y.endsWith(normalize(x))));
- const base=pick(choices.length?choices:match.replies,post.who+'|'+match.id+'|'+earlier.length);
- const persona=personalities[post.who]||{};
- return (persona.prefix||'')+base;
+const replies={well:['Ben de iyiyim, teşekkür ederim. Senin günün nasıl gidiyor?','İyiyim, sağ ol. Bugün neler yaptın?','Ben de fena değilim. Sen nasılsın?'],invite:['Davetin çok hoş! 🌻 Nereye gidiyorsun?','Ne güzel düşündün. Nereye gideceksin?'],duration:['Bir süredir devam ediyor demek. Şimdi biraz daha iyi misin?','Anladım, uzun sürmüş. Şu anda nasılsın?'],ack:['Anladım. Biraz daha anlatmak ister misin?','Peki, seni dinliyorum.'],unknown:['Tam olarak anlayamadım. Biraz daha anlatır mısın?','Bunu biraz açar mısın? Seni yanlış anlamak istemiyorum.','Söylediğinle ilgili biraz daha ayrıntı verir misin?']};
+function pick(options,history,seed){
+ const used=history.filter(x=>x.who!=='Ben').slice(-12).map(x=>norm(x.text));
+ const available=options.filter(x=>!used.some(y=>y===norm(x)||y.endsWith(norm(x))));
+ const pool=available.length?available:options;
+ let n=0;for(const c of seed)n=(n*33+c.charCodeAt(0))>>>0;
+ return pool[n%pool.length];
 }
-window.BookCenterConversation={answer,version:'offline-v3',topicCount:topics.length};
+function answer(post,comment){
+ const all=(post.comments||[]).filter(x=>x&&typeof x.text==='string');
+ const idx=all.indexOf(comment),past=idx<0?all:all.slice(0,idx);
+ const current=norm(comment.text),lastUser=past.filter(x=>x.who==='Ben').slice(-5);
+ const recent=lastUser.map(x=>norm(x.text)).join(' ');
+ const recentIntent=[...lastUser].reverse().map(x=>intents.find(t=>t[1].test(norm(x.text)))?.[0]).find(Boolean);
+ const choose=(options)=>pick(options,past,post.who+'|'+current+'|'+past.length);
+ const day=()=>new Intl.DateTimeFormat('tr-TR',{weekday:'long',timeZone:'Europe/Istanbul'}).format(new Date());
+ if(/bugün günlerden|hangi gün|günlerden ne|gün ne/.test(current))return 'Bugün '+day()+'.';
+ if(/ayın kaçı|bugünün tarihi|tarih ne/.test(current))return 'Bugünün tarihi '+new Intl.DateTimeFormat('tr-TR',{dateStyle:'long',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
+ if(/saat kaç|şu an saat|kaç oldu/.test(current))return 'Türkiye saatiyle '+new Intl.DateTimeFormat('tr-TR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
+ if(/hava nasıl|hava durumu|kaç derece/.test(current))return 'Canlı hava durumu verisine erişemiyorum. O yüzden sıcaklık uydurmayacağım.';
+ if(/^(iyiyim|iyi|fena değil|idare eder|iyidir|eh işte)( senin| ya sen| peki sen)?$/.test(current)||/^(ya sen|peki sen|sen nasılsın)$/.test(current))return choose(replies.well);
+ if(/^(evet|hayır|olur|tamam|peki|bilmiyorum|biraz)$/.test(current)){
+  if(recentIntent==='health'||recentIntent==='sad')return 'Anladım. Şimdi biraz daha iyi hissediyor musun?';
+  return choose(replies.ack);
+ }
+ if(/sabahtan beri|dünden beri|birkaç gündür/.test(current)&&(recentIntent==='health'||recentIntent==='sad'))return choose(replies.duration);
+ if(/yardım et|yardım lazım|yardım alabilirim/.test(current)){
+  return /baş.*ağr|migren|hastayım/.test(recent)?'Sağlık konusunda yardımcı olmaya çalışırım ama doktor değilim. Ağrın aniden çok şiddetli başladıysa veya ciddi belirtilerin varsa acil yardım al. Şu an nasılsın?':'Hangi konuda yardım istediğini anlatırsan birlikte düşünebiliriz.';
+ }
+ const found=intents.filter(t=>t[1].test(current));
+ const ids=found.map(t=>t[0]);
+ if(ids.includes('food')&&/\bgel\b|sen de|birlikte|beraber/.test(current))return choose(replies.invite);
+ if(ids.includes('food')&&/fena değil|iyiyim/.test(current))return 'Ben de iyiyim, teşekkür ederim. Afiyet olsun! Nereye gidiyorsun?';
+ if(ids.includes('weather')&&/buz gibi|çok soğuk|üşüyorum/.test(current))return 'Gerçekten soğuk hissediyorsun. Umarım sıcak bir yere geçebilirsin. ☕';
+ if(ids.includes('confused')&&(recentIntent==='health'||recentIntent==='sad'||/baş.*ağr|iyi değilim/.test(recent)))return 'Haklısın, konuyu kaçırdım. Kendini iyi hissetmediğini söylemiştin. Şimdi nasılsın?';
+ if(ids.length){const priority=['health','sad','angry','food','happy','location','activity','book','work','sleep','weather','plans','drink','confused','thanks','greeting'];found.sort((a,b)=>priority.indexOf(a[0])-priority.indexOf(b[0]));return choose(found[0][2]);}
+ return choose(replies.unknown);
+}
+window.BookCenterConversation={answer,version:'offline-v4',topicCount:intents.length};
 })();
