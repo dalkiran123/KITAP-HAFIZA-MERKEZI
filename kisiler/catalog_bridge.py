@@ -58,7 +58,6 @@ def assign_book(db, person_id, book_id):
 
 
 def reading_progress(db, person_id):
-    ensure_schema(db)
     rows = db.execute(
         "SELECT c.book_id,c.title,c.author,p.minutes,p.completed_at "
         "FROM person_books p JOIN catalog_books c ON c.book_id=p.book_id "
