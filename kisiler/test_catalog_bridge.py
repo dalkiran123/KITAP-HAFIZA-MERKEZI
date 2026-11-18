@@ -1,5 +1,6 @@
 import os
 import tempfile
+import datetime as dt
 import unittest
 
 import people_engine
@@ -25,6 +26,15 @@ class CatalogBridgeTests(unittest.TestCase):
         self.assertEqual(reading_progress(self.db, 1)[0]["id"], "catalog-17")
         self.assertEqual(len(reading_progress(self.db, 1)), 1)
         self.assertEqual(reading_progress(self.db, 2), [])
+
+    def test_hourly_tick_records_catalog_progress(self):
+        import_catalog(self.db, [{"id":"real-book-1","title":"Gerçek Katalog Kaydı"}])
+        result = people_engine.tick(self.db, dt.datetime(2026, 11, 18, 9, tzinfo=dt.timezone.utc))
+        self.assertGreater(result["new"], 0)
+        total = self.db.execute("SELECT COALESCE(SUM(minutes),0) FROM person_books").fetchone()[0]
+        self.assertGreater(total, 0)
+        self.assertEqual(people_engine.tick(self.db, dt.datetime(2026, 11, 18, 9, tzinfo=dt.timezone.utc))["new"], 0)
+        self.assertEqual(self.db.execute("SELECT COALESCE(SUM(minutes),0) FROM person_books").fetchone()[0], total)
 
     def test_reject_unknown_books_and_people(self):
         with self.assertRaises(ValueError):
