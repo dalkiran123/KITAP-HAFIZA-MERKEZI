@@ -9,7 +9,7 @@ const typing=new Map();
 function animateReply(span,key,full,startTime){
  const chars=Array.from(full);const speed=65;
  const draw=()=>{if(!span.isConnected)return;const count=Math.min(chars.length,Math.max(0,Math.floor((Date.now()-startTime)/speed)));span.textContent=chars.slice(0,count).join('')+(count<chars.length?' ▍':'');if(count<chars.length)setTimeout(draw,65);else typing.delete(key)};
- typing.set(key,true);draw();
+ typing.set(key,true);setTimeout(draw,0);
 }
 function replyFor(post,c){
  const msg=c.text.toLocaleLowerCase('tr-TR').trim();
