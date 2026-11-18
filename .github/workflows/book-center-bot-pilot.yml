@@ -1,5 +1,7 @@
 name: BOOK CENTER bot pilot
 on:
+  schedule:
+    - cron: '7 * * * *'
   workflow_dispatch:
     inputs:
       confirm_live_write:
@@ -13,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   pilot:
-    if: ${{ inputs.confirm_live_write == 'YES' }}
+    if: ${{ github.event_name == 'schedule' || inputs.confirm_live_write == 'YES' }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
