@@ -7,6 +7,7 @@ const intents=[
  ['food',/yemeğe|yemek yem|yemek yi|yemek ye|akşam yemeği|öğle yemeği|acıktım|açım|kahvaltı|restoran|lokanta/,['Afiyet olsun! Ne yiyeceksin?','Güzel bir mola olacak gibi. Nereye gidiyorsun?','Afiyet olsun. Bugün ne yemeyi düşünüyorsun?']],
  ['drink',/kahve|çay|içecek|su iç/,['Bir mola iyi gelir. Kahve mi çay mı tercih ediyorsun?','Keyifli bir mola gibi görünüyor.']],
  ['book',/kitap|roman|okuma|okuyorum|yazar|özet|hikaye|sayfa/,['Şu sıralar hangi kitabı okuyorsun?','Kitabın en çok hangi bölümü ilgini çekti?','Son bitirdiğin kitabı merak ettim.']],
+ ['home',/eve geld|evdeyim|eve dön|eve vard|evde otur|evde kal/,['Hoş geldin! Günün nasıl geçti?','Eve dönmek iyi gelmiştir. Günün nasıldı?','Hoş geldin! Biraz dinlenebildin mi?']],
  ['work',/işe gid|işten gel|çalışıyorum|mesai|toplantı|ofis|patron|muhasebe/,['Bugün işlerin yoğun mu?','İş günün nasıl geçiyor?','Bugün seni en çok ne meşgul etti?']],
  ['sleep',/uykum|uyku|uyuyam|yorgun|uykusuz|dinlen/,['Biraz dinlenme fırsatın oldu mu?','Yorucu bir gün geçirmiş gibisin.']],
  ['weather',/hava|soğuk|sıcak|üşü|yağmur|kar yağı/,['Hava seni epey etkilemiş anlaşılan. Dışarıda mısın?','Havaya göre plan yapıyorsun galiba. Dışarı çıkacak mısın?']],
@@ -35,6 +36,8 @@ function answer(post,comment){
  const recentIntent=[...lastUser].reverse().map(x=>intents.find(t=>t[1].test(norm(x.text)))?.[0]).find(Boolean);
  const choose=(options)=>pick(options,past,post.who+'|'+current+'|'+past.length);
  const day=()=>new Intl.DateTimeFormat('tr-TR',{weekday:'long',timeZone:'Europe/Istanbul'}).format(new Date());
+ if(/eve geld|eve vard|eve dön/.test(current)&&/\bsen\b|ya sen|peki sen/.test(current))return 'Hoş geldin! Ben de biraz kitap okuyordum. Günün nasıl geçti?';
+ if(/evdeyim|eve geld|eve vard|eve dön/.test(current))return choose(['Hoş geldin! Günün nasıl geçti?','Eve varmana sevindim. Biraz dinlenecek misin?','Hoş geldin! Bugün yoruldun mu?']);
  if(/bugün günlerden|hangi gün|günlerden ne|gün ne/.test(current))return 'Bugün '+day()+'.';
  if(/ayın kaçı|bugünün tarihi|tarih ne/.test(current))return 'Bugünün tarihi '+new Intl.DateTimeFormat('tr-TR',{dateStyle:'long',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
  if(/saat kaç|şu an saat|kaç oldu/.test(current))return 'Türkiye saatiyle '+new Intl.DateTimeFormat('tr-TR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
@@ -54,8 +57,8 @@ function answer(post,comment){
  if(ids.includes('food')&&/fena değil|iyiyim/.test(current))return 'Ben de iyiyim, teşekkür ederim. Afiyet olsun! Nereye gidiyorsun?';
  if(ids.includes('weather')&&/buz gibi|çok soğuk|üşüyorum/.test(current))return 'Gerçekten soğuk hissediyorsun. Umarım sıcak bir yere geçebilirsin. ☕';
  if(ids.includes('confused')&&(recentIntent==='health'||recentIntent==='sad'||/baş.*ağr|iyi değilim/.test(recent)))return 'Haklısın, konuyu kaçırdım. Kendini iyi hissetmediğini söylemiştin. Şimdi nasılsın?';
- if(ids.length){const priority=['health','sad','angry','food','happy','location','activity','book','work','sleep','weather','plans','drink','confused','thanks','greeting'];found.sort((a,b)=>priority.indexOf(a[0])-priority.indexOf(b[0]));return choose(found[0][2]);}
+ if(ids.length){const priority=['health','sad','angry','food','home','happy','location','activity','book','work','sleep','weather','plans','drink','confused','thanks','greeting'];found.sort((a,b)=>priority.indexOf(a[0])-priority.indexOf(b[0]));return choose(found[0][2]);}
  return choose(replies.unknown);
 }
-window.BookCenterConversation={answer,version:'offline-v4',topicCount:intents.length};
+window.BookCenterConversation={answer,version:'offline-v4.1',topicCount:intents.length};
 })();
