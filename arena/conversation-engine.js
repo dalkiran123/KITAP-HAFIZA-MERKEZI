@@ -28,6 +28,13 @@ function answer(post,comment){
  const earlier=index<0?history:history.slice(0,index);
  const userEarlier=earlier.filter(c=>c.who==='Ben').slice(-6);
  const current=normalize(comment.text);
+ if(/yemeğe gid|yemek yemeye gid|akşam yemeği|öğle yemeği/i.test(current)){
+   return /\bgel\b|birlikte|sen de/i.test(current)?'Afiyet olsun! 🌻 Davetin çok hoş. Nereye gidiyorsun?':'Afiyet olsun! 🌻 Nereye gidiyorsun, ne yiyeceksin?';
+ }
+ if(/fena değil|idare eder|iyiyim|iyi senin|iyi ya sen/i.test(current)&&!/yemeğe gid|yemek yemeye gid/i.test(current)){
+   return 'Ben de iyiyim, teşekkür ederim. 🌻 Bugün neler yapıyorsun?';
+ }
+
  const recentBot=earlier.filter(c=>c.who===post.who).slice(-6).map(c=>normalize(c.text));
  if(/^(iyi(yim)?|iyidir|fena değil|idare eder)([, ]+sen(in)?|[, ]+ya sen)?[?.!]*$/.test(current)){
    const options=['Ben de iyiyim, teşekkür ederim. Bugün neler yaptın?','İyiyim, sağ ol! Bugün nasıl geçti?','Ben de fena değilim. Senin gününde güzel bir şey oldu mu?'];
