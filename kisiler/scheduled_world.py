@@ -6,7 +6,6 @@ This file does not configure or start PythonAnywhere jobs by itself.
 import json
 import os
 import sys
-import time
 import traceback
 
 from world_runner import run
@@ -20,6 +19,9 @@ def main():
         return 2
     if not os.path.isfile(db_path):
         print("People database not initialized; run people_engine.py init first", file=sys.stderr)
+        return 2
+    if os.path.abspath(people_engine.DB) != os.path.abspath(db_path):
+        print("Database path mismatch", file=sys.stderr)
         return 2
     lock_path = db_path + ".runner.lock"
     lock_fd = None
