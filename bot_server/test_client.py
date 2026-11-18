@@ -2,7 +2,7 @@ import io
 import json
 import unittest
 from datetime import datetime, timezone
-from bot_server.client import make_payload, post_tick, signed_headers, next_tick_from_remote
+from bot_server.client import make_payload, post_tick, signed_headers, next_tick_from_remote, deterministic_tick_id, plan_hourly_tick
 
 class ClientTests(unittest.TestCase):
     def test_ten_bots_and_signature(self):
@@ -33,3 +33,14 @@ class ClientTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             next_tick_from_remote({"bot-01": {"version": 1, "xp": 1}},
                                   tick_id="00000000-0000-0000-0000-000000000093")
+
+    def test_hourly_tick_id_is_stable(self):
+        from datetime import timedelta
+        hour = datetime(2026, 11, 18, 11, 2, tzinfo=timezone.utc)
+        same_hour = hour + timedelta(minutes=40)
+        later = hour + timedelta(hours=1)
+        self.assertEqual(deterministic_tick_id(hour), deterministic_tick_id(same_hour))
+        self.assertNotEqual(deterministic_tick_id(hour), deterministic_tick_id(later))
+        with self.assertRaises(ValueError):
+            deterministic_tick_id(datetime(2026, 11, 18))
+        self.assertEqual(json.loads(plan_hourly_tick({}, hour))["tick_id"], deterministic_tick_id(hour))
