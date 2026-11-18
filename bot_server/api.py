@@ -86,3 +86,32 @@ def handle_tick(method, path, headers, body, *, secret, database, now=None):
         raise
     finally:
         conn.close()
+
+def handle_state(method, path, headers, *, secret, database, now=None):
+    """Signed GET endpoint. Returns the authoritative committed bot versions."""
+    if method != "GET" or path != "/api/bots/state":
+        return 404, {"error": "Not found"}
+    if not isinstance(secret, str) or len(secret) < 32 or not database:
+        return 503, {"error": "Bot endpoint not configured"}
+    now = int(time.time() if now is None else now)
+    try:
+        stamp = int(headers.get("x-bot-timestamp", ""))
+        signature = headers.get("x-bot-signature", "")
+    except (ValueError, TypeError, AttributeError):
+        return 401, {"error": "Invalid signature"}
+    if abs(now - stamp) > MAX_SKEW or not isinstance(signature, str) or len(signature) != 64:
+        return 401, {"error": "Invalid signature"}
+    expected = hmac.new(secret.encode(), str(stamp).encode() + b".GET./api/bots/state", hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(signature, expected):
+        return 401, {"error": "Invalid signature"}
+    # Never create or initialize a database through GET.
+    if not Path(database).is_file():
+        return 200, {"bots": {}}
+    conn = sqlite3.connect(f"file:{Path(database).resolve()}?mode=ro", uri=True, timeout=10)
+    try:
+        rows = conn.execute("SELECT bot_id,version,xp FROM bot_state ORDER BY bot_id").fetchall()
+    except sqlite3.OperationalError:
+        return 503, {"error": "Bot state unavailable"}
+    finally:
+        conn.close()
+    return 200, {"bots": {bot_id: {"version": version, "xp": xp} for bot_id, version, xp in rows}}
