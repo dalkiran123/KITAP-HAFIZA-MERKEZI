@@ -28,6 +28,13 @@ function answer(post,comment){
  const earlier=index<0?history:history.slice(0,index);
  const userEarlier=earlier.filter(c=>c.who==='Ben').slice(-6);
  const current=normalize(comment.text);
+ const recentBot=earlier.filter(c=>c.who===post.who).slice(-6).map(c=>normalize(c.text));
+ if(/^(iyi(yim)?|iyidir|fena değil|idare eder)([, ]+sen(in)?|[, ]+ya sen)?[?.!]*$/.test(current)){
+   const options=['Ben de iyiyim, teşekkür ederim. Bugün neler yaptın?','İyiyim, sağ ol! Bugün nasıl geçti?','Ben de fena değilim. Senin gününde güzel bir şey oldu mu?'];
+   return pick(options.filter(x=>!recentBot.includes(normalize(x))),post.who+earlier.length);
+ }
+ if(/^(sen nasılsın|ya sen|peki sen|senin nasıl)[?.!]*$/.test(current))return 'Ben de iyiyim, teşekkür ederim. Bugün neler yaptın?';
+
  if(/bugün günlerden ne|bugün hangi gün|günlerden ne|hangi gündeyiz|hangi gün|gün ne/i.test(current)){const day=new Intl.DateTimeFormat('tr-TR',{weekday:'long',timeZone:'Europe/Istanbul'}).format(new Date());return 'Bugün '+day+'. 🌻';}
  if(/bugün ayın kaçı|ayın kaçı|bugünün tarihi|tarih ne/i.test(current))return 'Bugünün tarihi '+new Intl.DateTimeFormat('tr-TR',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
  if(/saat kaç|şu an saat|kaç oldu saat/i.test(current))return 'Türkiye saatiyle '+new Intl.DateTimeFormat('tr-TR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
@@ -44,11 +51,10 @@ function answer(post,comment){
  if(!match&&lastTopic==='headache'&&/evet|hayır|biraz|çok|hala|hâlâ|geçmedi|azaldı/i.test(current))return 'Anladım. Umarım kısa zamanda rahatlarsın. Biraz dinlenme fırsatın var mı?';
  if(!match&&lastTopic==='unwell'&&/evet|hayır|bilmiyorum|biraz/i.test(current))return 'Anlıyorum. İstersen seni neyin yorduğunu konuşabiliriz.';
  if(!match)return 'Tam olarak ne demek istediğini anlayamadım. Biraz daha anlatır mısın?';
- const recentBot=earlier.filter(c=>c.who===post.who).slice(-3).map(c=>c.text);
- const choices=match.replies.filter(x=>!recentBot.includes(x));
- const base=pick(choices.length?choices:match.replies,post.who+'|'+comment.text+'|'+earlier.length);
+ const choices=match.replies.filter(x=>!recentBot.includes(normalize(x))&&!recentBot.some(y=>y.endsWith(normalize(x))));
+ const base=pick(choices.length?choices:match.replies,post.who+'|'+match.id+'|'+earlier.length);
  const persona=personalities[post.who]||{};
  return (persona.prefix||'')+base;
 }
-window.BookCenterConversation={answer,version:'offline-v2',topicCount:topics.length};
+window.BookCenterConversation={answer,version:'offline-v3',topicCount:topics.length};
 })();
