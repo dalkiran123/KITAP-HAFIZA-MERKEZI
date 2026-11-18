@@ -5,11 +5,13 @@ const $=id=>document.getElementById(id);const names=()=>{try{return window.arena
 const load=()=>{try{const v=JSON.parse(localStorage.getItem(KEY));return Array.isArray(v)?v.filter(x=>x&&typeof x.id==='string').slice(0,80):[]}catch{return []}};
 let posts=load();
 const REPLY_DELAY=0;
-const typing=new Map();
 function animateReply(span,key,full,startTime){
- const chars=Array.from(full);const speed=65;
- const draw=()=>{if(!span.isConnected)return;const count=Math.min(chars.length,Math.max(0,Math.floor((Date.now()-startTime)/speed)));span.textContent=chars.slice(0,count).join('')+(count<chars.length?' ▍':'');if(count<chars.length)setTimeout(draw,65);else typing.delete(key)};
- typing.set(key,true);setTimeout(draw,0);
+ // Always put the complete response in the DOM first. Animation must never hide content permanently.
+ span.textContent=full;
+ if(!span.animate)return;
+ const elapsed=Date.now()-startTime;
+ if(elapsed>4000)return;
+ try{span.animate([{opacity:0.35},{opacity:1}],{duration:Math.max(250,850-elapsed),fill:'forwards'});}catch(e){}
 }
 function replyFor(post,c){
  const msg=c.text.toLocaleLowerCase('tr-TR').trim();
@@ -46,7 +48,7 @@ posts.forEach(post=>{const card=node('article','socialPost');const head=node('he
 if(post.photo){const image=node('img','socialPhoto');image.src=post.photo;image.alt='Paylaşılan fotoğraf';image.loading='lazy';card.append(image)}else if(post.emoji){const art=node('div','socialArt',post.emoji);art.style.background='linear-gradient(135deg,'+(post.colors||['#51417b','#9d658c']).join(',')+')';art.setAttribute('role','img');art.setAttribute('aria-label','Sanal paylaşım görseli');card.append(art)}
 if(post.text)card.append(node('p','socialCaption',post.text));
 const actions=node('div','socialPostActions');const like=node('button','', (post.likes?.includes('me')?'❤️':'🤍')+' '+(post.likes?.length||0)+' Beğen');like.onclick=()=>{post.likes=post.likes||[];post.likes=post.likes.includes('me')?post.likes.filter(x=>x!=='me'):[...post.likes,'me'];save();render()};actions.append(like,node('span','', '💬 '+(post.comments?.length||0)+' yorum'));card.append(actions);
-const comments=node('div','socialComments');(post.comments||[]).forEach(c=>{const line=node('p');line.append(node('strong','',c.who+': '));const message=node('span');line.append(message);if(c.simulated&&c.typingKey&&c.typingStarted&&Date.now()-c.typingStarted<Array.from(c.text).length*65){animateReply(message,c.typingKey,c.text,c.typingStarted)}else message.textContent=c.text;comments.append(line)});const input=node('input');input.placeholder='Yorum yaz...';input.maxLength=300;const send=node('button','','Gönder');send.onclick=()=>{const t=input.value.trim();if(!t)return;post.comments=post.comments||[];post.comments.push({who:'Ben',text:t,at:new Date().toISOString(),replyAt:post.sim?Date.now()+REPLY_DELAY:null});save();settleReplies()};const form=node('div','socialCommentForm');form.append(input,send);comments.append(form);card.append(comments);feed.append(card)});
+const comments=node('div','socialComments');(post.comments||[]).forEach(c=>{const line=node('p');line.append(node('strong','',c.who+': '));const message=node('span');line.append(message);if(c.simulated&&c.typingKey&&c.typingStarted&&Date.now()-c.typingStarted<4000){animateReply(message,c.typingKey,c.text,c.typingStarted)}else message.textContent=c.text;comments.append(line)});const input=node('input');input.placeholder='Yorum yaz...';input.maxLength=300;const send=node('button','','Gönder');send.onclick=()=>{const t=input.value.trim();if(!t)return;post.comments=post.comments||[];post.comments.push({who:'Ben',text:t,at:new Date().toISOString(),replyAt:post.sim?Date.now()+REPLY_DELAY:null});save();settleReplies()};const form=node('div','socialCommentForm');form.append(input,send);comments.append(form);card.append(comments);feed.append(card)});
 const foot=node('p','socialStatus','Bot yanıtları sınırlı, kural tabanlı örnek simülasyonlardır. Anlamadığı konularda bunu açıkça belirtir. Gerçek yapay zekâ sohbeti ve cihazlar arası senkronizasyon için sunucu entegrasyonu gerekir.');feed.append(foot)}
 seed();posts.forEach(p=>{if(p.sim&&Array.isArray(p.comments))p.comments.forEach(c=>{if(c.who==='Ben'&&!c.replied)c.replyAt=Date.now()})});settleReplies();render();window.setInterval(settleReplies,2000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)settleReplies()});window.addEventListener('arena-botnames-updated',()=>{posts.forEach(p=>{if(p.id.startsWith('demo-'))p.who=names()[Number(p.id.slice(5))]||p.who});save();render()});
 })();
