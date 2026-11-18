@@ -1,19 +1,14 @@
-name: BOOK CENTER hourly bot tick
+name: BOOK CENTER bot API connection check
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17 * * * *'
 permissions:
   contents: read
-concurrency:
-  group: book-center-hourly-bot-tick
-  cancel-in-progress: false
 jobs:
-  tick:
+  connection-check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      BOOK_BOT_API_SECRET: ${{ secrets.BOOK_BOT_API_SECRET }}
+      BOOK_BOT_API_SECRET: ${{ secrets.BOT_TICK_SECRET }}
       BOOK_BOT_API_URL: https://b2bsocialtest.pythonanywhere.com/api/bots/state
     steps:
       - uses: actions/checkout@v4
@@ -21,35 +16,20 @@ jobs:
         with:
           python-version: '3.13'
       - name: Verify bot regression tests
-        run: python -m unittest discover -s bot_server -p 'test_*.py'
-      - name: Require bot API secret
+        run: python -m unittest discover -s bot_server -p 'test_*.py' -v
+      - name: Require matching API secret
         run: |
           if [ -z "$BOOK_BOT_API_SECRET" ]; then
-            echo "::error::BOOK_BOT_API_SECRET repository secret is not configured"
+            echo "::error::BOT_TICK_SECRET repository secret is missing"
             exit 1
           fi
-      - name: Commit one hourly bot tick
-        shell: bash
+      - name: Verify signed read-only PythonAnywhere connection
         run: |
           python - <<'PY'
           import os
-          from datetime import datetime, timezone
-          from bot_server.client import get_state, run_one_hour
-          url = os.environ["BOOK_BOT_API_URL"]
-          secret = os.environ["BOOK_BOT_API_SECRET"]
-          before = get_state(url, secret)
-          if len(before) != 10:
-              raise SystemExit(f"Expected 10 initialized bots; got {len(before)}. No write sent.")
-          slot = datetime.now(timezone.utc)
-          result = run_one_hour(url, secret, slot)
-          after = get_state(url, secret)
-          if len(after) != 10:
-              raise SystemExit("Bot state incomplete after tick")
-          for bot_id, prior in before.items():
-              current = after[bot_id]
-              if current["version"] < prior["version"] or current["xp"] < prior["xp"]:
-                  raise SystemExit("Bot state regressed")
-          print("Hourly bot tick:", result)
-          print("Bot count:", len(after))
-          print("Total XP:", sum(item["xp"] for item in after.values()))
+          from bot_server.client import get_state
+          bots = get_state(os.environ["BOOK_BOT_API_URL"], os.environ["BOOK_BOT_API_SECRET"])
+          print("Signed bot API GET succeeded; bot count:", len(bots))
+          if len(bots) not in (0, 10):
+              raise SystemExit("Unexpected bot count")
           PY
