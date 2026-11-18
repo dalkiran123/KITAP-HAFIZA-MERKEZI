@@ -13,6 +13,8 @@ import os
 import random
 import sqlite3
 
+from catalog_bridge import ensure_schema
+
 DB = os.environ.get("BOOKCENTER_PEOPLE_DB", "people.sqlite3")
 NAMES = ["Luna", "Atlas", "Mira", "Deniz", "Ada", "Arda", "Ece", "Nova", "Eren", "Duru"]
 UTC = dt.timezone.utc
@@ -43,6 +45,7 @@ def connect():
     """)
     for i, name in enumerate(NAMES, 1):
         db.execute("INSERT OR IGNORE INTO people(id,name) VALUES(?,?)", (i,name))
+    ensure_schema(db)
     db.commit()
     return db
 
@@ -59,11 +62,21 @@ def tick(db, now=None):
         for pid in selected:
             minutes = rng.randint(8,38)
             row = db.execute("SELECT minutes,books FROM people WHERE id=?", (pid,)).fetchone()
-            # One book per 180 minutes of cumulative simulated reading, max 1 per tick.
+            catalog = db.execute("SELECT book_id,title FROM catalog_books ORDER BY book_id").fetchall()
+            active_book = None
+            if catalog:
+                active_book = catalog[rng.randrange(len(catalog))]
+                db.execute("INSERT OR IGNORE INTO person_books(person_id,book_id) VALUES(?,?)",
+                           (pid, active_book[0]))
+                db.execute("UPDATE person_books SET minutes=minutes+? WHERE person_id=? AND book_id=?",
+                           (minutes, pid, active_book[0]))
+            # Simulated completion based on cumulative time, not actual text reading.
             completed = int((row[0]+minutes)//180 > row[0]//180)
             db.execute("UPDATE people SET minutes=minutes+?,books=books+?,level=? WHERE id=?",
                        (minutes,completed,"Yetkin" if row[1]+completed>=20 else "Okur",pid))
             description = f"{minutes} dakika simüle okuma" + ("; 1 kitap tamamlandı" if completed else "")
+            if active_book:
+                description += f"; kitap: {active_book[1]}"
             db.execute("INSERT INTO activity(person_id,kind,description,occurred_at) VALUES(?,?,?,?)",
                        (pid,"simulated_reading",description,now.isoformat()))
     return {"slot":slot,"new":len(selected)}
