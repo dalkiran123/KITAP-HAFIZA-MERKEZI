@@ -25,7 +25,7 @@ def sha256(path):
 def verify(path):
     if not os.path.isfile(path):
         raise ValueError("Backup file not found")
-    uri = "file:" + os.path.abspath(path) + "?mode=ro"
+    uri = "file:" + os.path.abspath(path) + "?mode=ro&immutable=1"
     db = sqlite3.connect(uri, uri=True)
     try:
         integrity = db.execute("PRAGMA integrity_check").fetchone()[0]
@@ -64,6 +64,7 @@ def backup(source, destination_dir):
         src = sqlite3.connect("file:" + source + "?mode=ro", uri=True, timeout=10)
         dst = sqlite3.connect(temp)
         src.backup(dst)
+        dst.execute("PRAGMA wal_checkpoint(TRUNCATE)")
         dst.close()
         dst = None
         src.close()
