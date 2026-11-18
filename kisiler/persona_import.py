@@ -11,7 +11,7 @@ import os
 import sqlite3
 import sys
 
-from persona_engine import DEFAULT, ensure_schema, validate
+from persona_engine import ensure_schema, validate, get_persona
 
 
 def import_profiles(db, payload):
@@ -33,15 +33,15 @@ def import_profiles(db, payload):
         if not isinstance(name, str) or not 1 <= len(name.strip()) <= 35:
             raise ValueError("Invalid character name")
         fields = {k:item[k] for k in ("occupation","background","interests") if k in item}
-        fields["traits"] = dict(DEFAULT["traits"])
-        prepared.append((pid,name.strip(),validate(fields)))
+        prepared.append((pid,name.strip(),fields))
     ensure_schema(db)
     # Validate all before changing any records.
     for pid, _, _ in prepared:
         if not db.execute("SELECT 1 FROM people WHERE id=? AND simulated=1",(pid,)).fetchone():
             raise ValueError("Missing simulated person")
     with db:
-        for pid,name,profile in prepared:
+        for pid,name,fields in prepared:
+            profile = validate({**get_persona(db,pid), **fields})
             db.execute("UPDATE people SET name=? WHERE id=?",(name,pid))
             db.execute(
                 "INSERT INTO person_personas(person_id,profile_json) VALUES(?,?) "
