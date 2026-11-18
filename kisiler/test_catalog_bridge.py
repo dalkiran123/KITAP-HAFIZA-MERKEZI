@@ -46,7 +46,7 @@ class CatalogBridgeTests(unittest.TestCase):
     def test_invalid_catalog_does_not_partially_import(self):
         with self.assertRaises(ValueError):
             import_catalog(self.db, [{"id":"ok","title":"Test"},{"id":"","title":"Invalid"}])
-        self.assertEqual(self.db.execute("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='catalog_books'").fetchone()[0], 0)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM catalog_books").fetchone()[0], 0)
 
 
 if __name__ == "__main__":
