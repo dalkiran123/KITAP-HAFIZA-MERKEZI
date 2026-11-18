@@ -80,6 +80,18 @@ def next_tick_from_remote(bots, *, tick_id):
     return json.dumps({"tick_id": tick_id, "bots": updated},
                       separators=(",", ":"), sort_keys=True).encode()
 
+
+def deterministic_tick_id(slot):
+    """One UUID per UTC hour, stable across workflow retries."""
+    if not isinstance(slot, datetime) or slot.tzinfo is None:
+        raise ValueError("Timezone-aware datetime required")
+    utc = slot.astimezone(timezone.utc).replace(minute=0, second=0, microsecond=0)
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, "book-center:hourly:" + utc.isoformat()))
+
+def plan_hourly_tick(bots, slot):
+    """Build a retry-stable tick for one UTC hour from committed state."""
+    return next_tick_from_remote(bots, tick_id=deterministic_tick_id(slot))
+
 def main():
     # Deliberately fail closed: no scheduling and no production write by default.
     if os.environ.get("BOOK_BOT_ENABLE_REMOTE_WRITE") != "true":
