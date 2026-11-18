@@ -14,6 +14,7 @@ def _db(path):
     conn = sqlite3.connect(path, timeout=10, isolation_level=None)
     conn.execute("PRAGMA busy_timeout=10000")
     conn.execute("CREATE TABLE IF NOT EXISTS bot_ticks (tick_id TEXT PRIMARY KEY, payload TEXT NOT NULL, created_at INTEGER NOT NULL)")
+    conn.execute("CREATE TABLE IF NOT EXISTS bot_state (bot_id TEXT PRIMARY KEY, version INTEGER NOT NULL, xp INTEGER NOT NULL)")
     return conn
 
 def handle_tick(method, path, headers, body, *, secret, database, now=None):
@@ -46,7 +47,9 @@ def handle_tick(method, path, headers, body, *, secret, database, now=None):
             raise ValueError()
         for item in bots.values():
             if (not isinstance(item, dict) or type(item.get("xp")) is not int
-                    or not 0 <= item["xp"] <= 100000000):
+                    or not 0 <= item["xp"] <= 100000000
+                    or type(item.get("version")) is not int
+                    or not 1 <= item["version"] <= 100000000):
                 raise ValueError()
     except (ValueError, TypeError, KeyError, UnicodeDecodeError, OverflowError):
         return 400, {"error": "Invalid tick"}
@@ -62,6 +65,18 @@ def handle_tick(method, path, headers, body, *, secret, database, now=None):
             if previous[0] != body.decode("utf-8"):
                 return 409, {"error": "Conflicting tick id"}
             return 200, {"ok": True, "duplicate": True}
+        for bot_id, item in bots.items():
+            old = conn.execute("SELECT version, xp FROM bot_state WHERE bot_id=?", (bot_id,)).fetchone()
+            if old is not None and (item["version"] != old[0] + 1 or item["xp"] < old[1]):
+                conn.execute("ROLLBACK")
+                return 409, {"error": "Stale bot version or decreasing xp"}
+            if old is None and item["version"] != 1:
+                conn.execute("ROLLBACK")
+                return 409, {"error": "Initial version must be 1"}
+        for bot_id, item in bots.items():
+            conn.execute("INSERT INTO bot_state(bot_id,version,xp) VALUES(?,?,?) "
+                         "ON CONFLICT(bot_id) DO UPDATE SET version=excluded.version,xp=excluded.xp",
+                         (bot_id, item["version"], item["xp"]))
         conn.execute("INSERT INTO bot_ticks VALUES (?,?,?)", (tick_id, body.decode("utf-8"), now))
         conn.execute("COMMIT")
         return 201, {"ok": True, "duplicate": False}
