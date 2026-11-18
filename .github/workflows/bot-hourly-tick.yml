@@ -1,0 +1,55 @@
+name: BOOK CENTER hourly bot tick
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+permissions:
+  contents: read
+concurrency:
+  group: book-center-hourly-bot-tick
+  cancel-in-progress: false
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BOOK_BOT_API_SECRET: ${{ secrets.BOOK_BOT_API_SECRET }}
+      BOOK_BOT_API_URL: https://b2bsocialtest.pythonanywhere.com/api/bots/state
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify bot regression tests
+        run: python -m unittest discover -s bot_server -p 'test_*.py'
+      - name: Require bot API secret
+        run: |
+          if [ -z "$BOOK_BOT_API_SECRET" ]; then
+            echo "::error::BOOK_BOT_API_SECRET repository secret is not configured"
+            exit 1
+          fi
+      - name: Commit one hourly bot tick
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import datetime, timezone
+          from bot_server.client import get_state, run_one_hour
+          url = os.environ["BOOK_BOT_API_URL"]
+          secret = os.environ["BOOK_BOT_API_SECRET"]
+          before = get_state(url, secret)
+          if len(before) != 10:
+              raise SystemExit(f"Expected 10 initialized bots; got {len(before)}. No write sent.")
+          slot = datetime.now(timezone.utc)
+          result = run_one_hour(url, secret, slot)
+          after = get_state(url, secret)
+          if len(after) != 10:
+              raise SystemExit("Bot state incomplete after tick")
+          for bot_id, prior in before.items():
+              current = after[bot_id]
+              if current["version"] < prior["version"] or current["xp"] < prior["xp"]:
+                  raise SystemExit("Bot state regressed")
+          print("Hourly bot tick:", result)
+          print("Bot count:", len(after))
+          print("Total XP:", sum(item["xp"] for item in after.values()))
+          PY
