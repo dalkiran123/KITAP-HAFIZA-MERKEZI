@@ -7,7 +7,7 @@ Safe to retry: hourly reading and daily life are idempotent.
 """
 import json
 import people_engine
-from life_engine import simulate_day
+from life_continuity import simulate_day
 from persona_evolution import evolve
 
 
