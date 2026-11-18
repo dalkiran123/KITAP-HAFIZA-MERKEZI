@@ -5,6 +5,8 @@ Environment: BOOKCENTER_PEOPLE_DB=/private/path/people.sqlite3
 import json
 import os
 import sqlite3
+
+from catalog_bridge import reading_progress
 from urllib.parse import parse_qs
 
 DB = os.environ.get("BOOKCENTER_PEOPLE_DB", os.path.join(os.path.dirname(__file__), "people.sqlite3"))
@@ -16,7 +18,7 @@ def application(environ, start_response):
         return respond(start_response, 405, {"error": "method_not_allowed"})
     if path == "/api/people/health":
         return respond(start_response, 200, {"service": "bookcenter-people", "status": "ok"})
-    if path not in ("/api/people/league", "/api/people/activity"):
+    if path not in ("/api/people/league", "/api/people/activity", "/api/people/books"):
         return respond(start_response, 404, {"error": "not_found"})
     if not os.path.isfile(DB):
         return respond(start_response, 503, {"error": "database_not_initialized"})
@@ -34,6 +36,9 @@ def application(environ, start_response):
                 return respond(start_response, 400, {"error": "invalid_person_id"})
             if not 1 <= pid <= 10:
                 return respond(start_response, 400, {"error": "invalid_person_id"})
+            if path.endswith("/books"):
+                return respond(start_response, 200, {"source": "simulated", "person_id": pid,
+                                                     "books": reading_progress(con, pid)})
             rows = con.execute("SELECT kind,description,occurred_at FROM activity WHERE person_id=? ORDER BY occurred_at DESC,id DESC LIMIT 20", (pid,)).fetchall()
             return respond(start_response, 200, {"source": "simulated", "person_id": pid, "activity": [dict(x) for x in rows]})
         finally:
