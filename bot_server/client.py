@@ -135,9 +135,11 @@ def main():
         return
     url = os.environ.get("BOOK_BOT_API_URL", "")
     secret = os.environ.get("BOOK_BOT_API_SECRET", "")
-    # The authoritative state must be fetched from the server in the production version.
-    # Never generate a new state here and claim it is synchronized.
-    raise SystemExit("Remote writes blocked until server deployment, scheduler idempotency and reconciliation are verified")
+    if not url or not secret or len(secret) < 32:
+        raise SystemExit("Missing bot API configuration")
+    slot = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
+    result = run_one_hour(url, secret, slot)
+    print(json.dumps({"slot": slot.isoformat(), "result": result}, sort_keys=True))
 
 if __name__ == "__main__":
     main()
