@@ -1,0 +1,42 @@
+name: V5.1 People prototype tests
+on:
+  push:
+    branches: [feature/kisiler-v5-1]
+  pull_request:
+    paths:
+      - 'kisiler/**'
+      - 'index.html'
+      - '.github/workflows/people-v51.yml'
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Unit tests
+        run: python -m unittest discover -s kisiler -p 'test_*.py' -v
+      - name: Home and People link smoke test
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          home = Path('index.html').read_text(encoding='utf-8')
+          people = Path('kisiler/index.html').read_text(encoding='utf-8')
+          assert 'id="arenaEntryV5"' not in home
+          assert 'href="./kisiler/"' in home
+          assert 'BOOK CENTER KİŞİLER' in home
+          assert 'function render()' in people
+          print('People entry and prototype: OK')
+          PY
+      - name: Validate Kişiler JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('kisiler/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script[^>]*>(.*?)</script>', html, flags=re.S)
+          assert scripts, 'No inline JavaScript found'
+          Path('/tmp/bookcenter-people.js').write_text('\n'.join(scripts), encoding='utf-8')
+          PY
+          node --check /tmp/bookcenter-people.js
