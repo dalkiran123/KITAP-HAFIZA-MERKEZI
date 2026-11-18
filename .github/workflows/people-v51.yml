@@ -29,3 +29,14 @@ jobs:
           assert 'function render()' in people
           print('People entry and prototype: OK')
           PY
+      - name: Validate Kişiler JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('kisiler/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script[^>]*>(.*?)</script>', html, flags=re.S)
+          assert scripts, 'No inline JavaScript found'
+          Path('/tmp/bookcenter-people.js').write_text('\n'.join(scripts), encoding='utf-8')
+          PY
+          node --check /tmp/bookcenter-people.js
