@@ -7,7 +7,7 @@ import os
 import sqlite3
 
 from catalog_bridge import reading_progress
-from life_engine import timeline
+from life_continuity import history
 from urllib.parse import parse_qs
 
 DB = os.environ.get("BOOKCENTER_PEOPLE_DB", os.path.join(os.path.dirname(__file__), "people.sqlite3"))
@@ -39,7 +39,7 @@ def application(environ, start_response):
                 return respond(start_response, 400, {"error": "invalid_person_id"})
             if path.endswith("/life"):
                 return respond(start_response, 200, {"source": "simulated", "person_id": pid,
-                                                     "events": timeline(con, pid)})
+                                                     "events": history(con, pid)})
             if path.endswith("/books"):
                 return respond(start_response, 200, {"source": "simulated", "person_id": pid,
                                                      "books": reading_progress(con, pid)})
