@@ -45,3 +45,16 @@ API erişilebilir ve test edilmişse `kisiler/config.json` dosyasındaki `apiBas
 ## 6. Geri dönüş
 
 Yeni görevi durdurun ve yeni WSGI uygulamasını kapatın. Eski BOOK CENTER dosyalarını, mevcut kitap otomasyonlarını ve veritabanlarını değiştirmeyin. Ayrı sanal yaşam veritabanını silmeden önce yedek alın.
+
+## 7. Yedekleme ve doğrulama
+
+Sanal yaşam için mevcut BOOK CENTER yedeklerinden **ayrı** bir özel dizin kullanın:
+
+```bash
+mkdir -p /home/USERNAME/private_bookcenter/backups
+cd /home/USERNAME/KITAP-HAFIZA-MERKEZI/kisiler
+BOOKCENTER_PEOPLE_DB=/home/USERNAME/private_bookcenter/people.sqlite3 python people_backup.py backup /home/USERNAME/private_bookcenter/backups
+python people_backup.py verify /home/USERNAME/private_bookcenter/backups/people-EXACT-TIMESTAMP.sqlite3
+```
+
+İlk komut, gerçek dosya adını ve SHA-256 doğrulamasını JSON olarak döndürür. Doğrulama komutunda bu tam yolu kullanın. Araç yalnızca **yedekler ve doğrular**, canlı veritabanını geri yüklemez veya üzerine yazmaz. Otomatik yedekleme görevi henüz kurulmadı. Geri yükleme öncesinde zamanlanmış görev kapatılmalı, ayrı bir kopyada bütünlük doğrulanmalı ve geri dönüş planı hazırlanmalıdır.
