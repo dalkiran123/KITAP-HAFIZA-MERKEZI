@@ -3,7 +3,7 @@ import json
 import os
 from http import HTTPStatus
 from pathlib import Path
-from bot_server.api import handle_tick, handle_state, MAX_BODY
+from bot_server.api import handle_tick, handle_state, handle_tick_status, MAX_BODY
 
 def bot_wsgi_app(environ, start_response):
     """Dedicated WSGI app, deliberately separate from book web_app.app."""
@@ -19,6 +19,16 @@ def bot_wsgi_app(environ, start_response):
             code, result = 503, {"error": "Isolated bot database not configured"}
         else:
             code, result = handle_state(method, path, headers, secret=secret, database=database)
+    elif method == "GET" and path.startswith("/api/bots/ticks/"):
+        headers = {"x-bot-timestamp": environ.get("HTTP_X_BOT_TIMESTAMP", ""),
+                   "x-bot-signature": environ.get("HTTP_X_BOT_SIGNATURE", "")}
+        secret = os.environ.get("BOOK_BOT_API_SECRET", "")
+        database = os.environ.get("BOOK_BOT_DB_PATH", "")
+        book_db = os.environ.get("BOOK_DB_PATH", "")
+        if not database or (book_db and Path(database).resolve() == Path(book_db).resolve()):
+            code, result = 503, {"error": "Isolated bot database not configured"}
+        else:
+            code, result = handle_tick_status(method, path, headers, secret=secret, database=database)
     elif method != "POST" or path != "/api/bots/tick":
         code, result = 404, {"error": "Not found"}
     else:
