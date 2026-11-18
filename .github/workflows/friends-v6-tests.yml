@@ -1,0 +1,32 @@
+name: Friends V6 social engine tests
+on:
+  push:
+    paths:
+      - 'kisiler/persistent_social.py'
+      - 'kisiler/social_job.py'
+      - 'kisiler/social_feed_api.py'
+      - 'kisiler/persona_chat_v6.py'
+      - 'kisiler/chat_wsgi_v6.py'
+      - 'kisiler/test_persistent_social.py'
+      - 'kisiler/test_social_feed_api.py'
+      - 'kisiler/test_persona_chat_v6.py'
+      - 'kisiler/test_chat_wsgi_v6.py'
+      - 'kisiler/test_persona_social_v6.py'
+      - '.github/workflows/friends-v6-tests.yml'
+  pull_request:
+    paths:
+      - 'kisiler/**'
+      - '.github/workflows/friends-v6-tests.yml'
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m unittest discover -s kisiler -p 'test_persistent_social.py' -v
+      - run: python -m unittest discover -s kisiler -p 'test_social_feed_api.py' -v
+      - run: python -m unittest discover -s kisiler -p 'test_persona_chat_v6.py' -v
+      - run: python -m unittest discover -s kisiler -p 'test_chat_wsgi_v6.py' -v
+      - run: python -m unittest discover -s kisiler -p 'test_persona_social_v6.py' -v
