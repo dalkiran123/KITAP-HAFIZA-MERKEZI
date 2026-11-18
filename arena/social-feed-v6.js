@@ -6,8 +6,11 @@ const load=()=>{try{const v=JSON.parse(localStorage.getItem(KEY));return Array.i
 let posts=load();
 const REPLY_DELAY=0;
 const typing=new Map();
-function animateReply(span,key,full){if(!typing.has(key)){typing.set(key,{start:Date.now(),text:full})}const state=typing.get(key);const speed=38;const draw=()=>{if(!span.isConnected)return;const count=Math.min([...full].length,Math.floor((Date.now()-state.start)/speed));span.textContent=[...full].slice(0,count).join('')+(count<[...full].length?' ▍':'');if(count<[...full].length)setTimeout(draw,45);else typing.delete(key)};draw();}
-
+function animateReply(span,key,full,startTime){
+ const chars=Array.from(full);const speed=65;
+ const draw=()=>{if(!span.isConnected)return;const count=Math.min(chars.length,Math.max(0,Math.floor((Date.now()-startTime)/speed)));span.textContent=chars.slice(0,count).join('')+(count<chars.length?' ▍':'');if(count<chars.length)setTimeout(draw,65);else typing.delete(key)};
+ typing.set(key,true);draw();
+}
 function replyFor(post,c){
  const msg=c.text.toLocaleLowerCase('tr-TR').trim();
  const history=(post.comments||[]).slice(0,30);
@@ -26,7 +29,7 @@ function settleReplies(){
  let changed=false;const now=Date.now();
  posts.forEach(post=>{if(!post.sim||!Array.isArray(post.comments))return;
  const pending=post.comments.filter(c=>c.who==='Ben'&&!c.replied&&(!c.replyAt||now>=c.replyAt));
- pending.forEach(c=>{post.comments.push({who:post.who,text:(window.BookCenterConversation?.answer(post,c)||replyFor(post,c)),at:new Date().toISOString(),simulated:true,typingKey:post.id+'-'+Date.now()+'-'+post.comments.length});c.replied=true;changed=true;});
+ pending.forEach(c=>{post.comments.push({who:post.who,text:(window.BookCenterConversation?.answer(post,c)||replyFor(post,c)),at:new Date().toISOString(),simulated:true,typingKey:post.id+'-'+Date.now()+'-'+post.comments.length,typingStarted:Date.now()});c.replied=true;changed=true;});
  });
  if(changed){save();render();}
 }
@@ -43,7 +46,7 @@ posts.forEach(post=>{const card=node('article','socialPost');const head=node('he
 if(post.photo){const image=node('img','socialPhoto');image.src=post.photo;image.alt='Paylaşılan fotoğraf';image.loading='lazy';card.append(image)}else if(post.emoji){const art=node('div','socialArt',post.emoji);art.style.background='linear-gradient(135deg,'+(post.colors||['#51417b','#9d658c']).join(',')+')';art.setAttribute('role','img');art.setAttribute('aria-label','Sanal paylaşım görseli');card.append(art)}
 if(post.text)card.append(node('p','socialCaption',post.text));
 const actions=node('div','socialPostActions');const like=node('button','', (post.likes?.includes('me')?'❤️':'🤍')+' '+(post.likes?.length||0)+' Beğen');like.onclick=()=>{post.likes=post.likes||[];post.likes=post.likes.includes('me')?post.likes.filter(x=>x!=='me'):[...post.likes,'me'];save();render()};actions.append(like,node('span','', '💬 '+(post.comments?.length||0)+' yorum'));card.append(actions);
-const comments=node('div','socialComments');(post.comments||[]).forEach(c=>{const line=node('p');line.append(node('strong','',c.who+': '));const message=node('span');line.append(message);if(c.simulated&&c.typingKey&&typing.has(c.typingKey)){animateReply(message,c.typingKey,c.text)}else if(c.simulated&&c.typingKey&&!c.displayed){c.displayed=true;animateReply(message,c.typingKey,c.text)}else message.textContent=c.text;comments.append(line)});const input=node('input');input.placeholder='Yorum yaz...';input.maxLength=300;const send=node('button','','Gönder');send.onclick=()=>{const t=input.value.trim();if(!t)return;post.comments=post.comments||[];post.comments.push({who:'Ben',text:t,at:new Date().toISOString(),replyAt:post.sim?Date.now()+REPLY_DELAY:null});save();settleReplies();render()};const form=node('div','socialCommentForm');form.append(input,send);comments.append(form);card.append(comments);feed.append(card)});
+const comments=node('div','socialComments');(post.comments||[]).forEach(c=>{const line=node('p');line.append(node('strong','',c.who+': '));const message=node('span');line.append(message);if(c.simulated&&c.typingKey&&c.typingStarted&&Date.now()-c.typingStarted<Array.from(c.text).length*65){animateReply(message,c.typingKey,c.text,c.typingStarted)}else message.textContent=c.text;comments.append(line)});const input=node('input');input.placeholder='Yorum yaz...';input.maxLength=300;const send=node('button','','Gönder');send.onclick=()=>{const t=input.value.trim();if(!t)return;post.comments=post.comments||[];post.comments.push({who:'Ben',text:t,at:new Date().toISOString(),replyAt:post.sim?Date.now()+REPLY_DELAY:null});save();settleReplies()};const form=node('div','socialCommentForm');form.append(input,send);comments.append(form);card.append(comments);feed.append(card)});
 const foot=node('p','socialStatus','Bot yanıtları sınırlı, kural tabanlı örnek simülasyonlardır. Anlamadığı konularda bunu açıkça belirtir. Gerçek yapay zekâ sohbeti ve cihazlar arası senkronizasyon için sunucu entegrasyonu gerekir.');feed.append(foot)}
 seed();posts.forEach(p=>{if(p.sim&&Array.isArray(p.comments))p.comments.forEach(c=>{if(c.who==='Ben'&&!c.replied)c.replyAt=Date.now()})});settleReplies();render();window.setInterval(settleReplies,2000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)settleReplies()});window.addEventListener('arena-botnames-updated',()=>{posts.forEach(p=>{if(p.id.startsWith('demo-'))p.who=names()[Number(p.id.slice(5))]||p.who});save();render()});
 })();
