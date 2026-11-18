@@ -19,3 +19,14 @@ python -m bot_server.simulator --state /tmp/book-bot-test.json
 8. Keep the main branch and existing hourly book workflows unchanged until review.
 
 This pilot models activities, not continuous sentient processes or real-world experiences.
+
+## Deployment gate (not live)
+
+The signed state endpoint and deterministic UTC-hour tick IDs are staging components.
+The hourly ID prevents accidental *new* IDs during workflow retries, but the
+client currently recomputes a payload from current state. After an ambiguous
+network failure, that recomputation can conflict with a previously committed
+tick. Before enabling writes, implement an endpoint to query the tick ID's
+commit status (or persist the original request body for retries), test
+concurrent workflows and network timeouts, and confirm the server-side WSGI
+route and credentials. Do not enable an hourly schedule or put secrets in git.
