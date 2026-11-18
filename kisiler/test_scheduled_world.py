@@ -33,7 +33,8 @@ class ScheduledWorldTests(unittest.TestCase):
             with open(lock,"w") as f:
                 f.write("existing")
             with patch.dict(os.environ, {"BOOKCENTER_PEOPLE_DB":path}):
-                self.assertEqual(scheduled_world.main(), 3)
+                with patch.object(scheduled_world.people_engine, "DB", path):
+                    self.assertEqual(scheduled_world.main(), 3)
             with open(lock) as f:
                 self.assertEqual(f.read(),"existing")
 
