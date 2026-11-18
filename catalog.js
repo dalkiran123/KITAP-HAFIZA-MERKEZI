@@ -2263,5 +2263,47 @@ window.KITAP_CATALOG=[
     "coverStatus": "missing",
     "detailSummaryVerified": true,
     "audioVerified": false
+  },
+  {
+    "name": "Ateşden Gömlek",
+    "author": "Halide Edib Adıvar",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-18T12:01:33.875Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Ay Işığı Sokağı",
+    "author": "Stefan Zweig",
+    "category": "Öykü",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-18T12:01:33.875Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
+  },
+  {
+    "name": "Deniz Kurdu",
+    "author": "Jack London",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-18T12:01:33.875Z",
+    "preparedAt": null,
+    "coverStatus": "missing",
+    "detailSummaryVerified": false,
+    "audioVerified": false
   }
 ];
