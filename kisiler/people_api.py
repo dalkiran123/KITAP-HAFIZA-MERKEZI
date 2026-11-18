@@ -8,6 +8,7 @@ import sqlite3
 
 from catalog_bridge import reading_progress
 from life_continuity import history
+from social_engine import relations
 from urllib.parse import parse_qs
 
 DB = os.environ.get("BOOKCENTER_PEOPLE_DB", os.path.join(os.path.dirname(__file__), "people.sqlite3"))
@@ -19,7 +20,7 @@ def application(environ, start_response):
         return respond(start_response, 405, {"error": "method_not_allowed"})
     if path == "/api/people/health":
         return respond(start_response, 200, {"service": "bookcenter-people", "status": "ok"})
-    if path not in ("/api/people/league", "/api/people/activity", "/api/people/books", "/api/people/life"):
+    if path not in ("/api/people/league", "/api/people/activity", "/api/people/books", "/api/people/life", "/api/people/relations"):
         return respond(start_response, 404, {"error": "not_found"})
     if not os.path.isfile(DB):
         return respond(start_response, 503, {"error": "database_not_initialized"})
@@ -37,6 +38,9 @@ def application(environ, start_response):
                 return respond(start_response, 400, {"error": "invalid_person_id"})
             if not 1 <= pid <= 10:
                 return respond(start_response, 400, {"error": "invalid_person_id"})
+            if path.endswith("/relations"):
+                return respond(start_response, 200, {"source": "simulated", "person_id": pid,
+                                                     "relations": relations(con, pid)})
             if path.endswith("/life"):
                 return respond(start_response, 200, {"source": "simulated", "person_id": pid,
                                                      "events": history(con, pid)})
