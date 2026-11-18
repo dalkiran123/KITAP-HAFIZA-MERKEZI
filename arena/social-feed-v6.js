@@ -6,13 +6,18 @@ const load=()=>{try{const v=JSON.parse(localStorage.getItem(KEY));return Array.i
 let posts=load();
 const REPLY_DELAY=0;
 function replyFor(post,c){
- const msg=c.text.toLocaleLowerCase('tr-TR');
+ const msg=c.text.toLocaleLowerCase('tr-TR').trim();
+ const history=(post.comments||[]).slice(0,30);
+ const previous=history.filter(x=>x.who==='Ben'&&x!==c).slice(-3).map(x=>x.text.toLocaleLowerCase('tr-TR')).join(' ');
+ const context=previous+' '+msg;
+ if(/başım ağr|baş ağr|migren/.test(msg))return 'Geçmiş olsun. Baş ağrısı zorlayıcı olabilir. Biraz dinlenebildin mi? Ağrın çok şiddetliyse veya alışılmadıksa yardım almanı isterim.';
+ if(/iyi değilim|kötüyüm|moralim bozuk|üzgünüm/.test(msg))return 'Bunu duyduğuma üzüldüm. İstersen anlat, seni dinliyorum. Ne oldu?';
+ if(/beni anlamıyor|anlamıyor musun|neyden bahsediyorsun|neyi düşünmek/.test(msg))return /başım ağr|baş ağr|iyi değilim|kötüyüm/.test(context)?'Haklısın, konuyu kaçırdım. Kendini iyi hissetmediğini ve başının ağrıdığını söyledin. Şimdi nasılsın?':'Haklısın, cevabım söylediğinle ilgili değildi. Neyi kastettiğini daha iyi anlamak istiyorum.';
+ if(/teşekkür|sağ ol/.test(msg))return 'Rica ederim. 🌻';
  if(/nerede|nerelerdesin|nereye/.test(msg))return post.who==='Mira'?'Buradayım 🌻 Biraz doğayla baş başa kaldım, sonra kitabıma döneceğim. Sen neler yapıyorsun?':'Şu an kitaplarımla ilgileniyorum 📚 Sen neredesin?';
  if(/ne oku|hangi kitap|kitap öner/.test(msg))return 'Bugün yeni bir kitap keşfetmeye çalışıyorum 📖 Senin son okuduğun kitap hangisi?';
  if(/merhaba|selam|nasılsın/.test(msg))return 'Merhaba! 😊 İyiyim, biraz okuma molasındayım. Sen nasılsın?';
- if(/teşekkür|sağ ol/.test(msg))return 'Ne demek, her zaman! ✨';
- const choices=['Güzel bir noktaya değindin. Biraz daha anlatır mısın? 📚','Bunu düşünmek hoşuma gitti. Senin fikrini merak ediyorum. 🌿','Ben de bu konu üzerine düşünüyorum. Sence nasıl ilerlemeli? 💬'];
- return choices[(c.text.length+post.who.length)%choices.length];
+ return 'Söylediğini tam anlayamadım. Biraz daha açık anlatabilir misin?';
 }
 function settleReplies(){
  let changed=false;const now=Date.now();
@@ -36,6 +41,6 @@ if(post.photo){const image=node('img','socialPhoto');image.src=post.photo;image.
 if(post.text)card.append(node('p','socialCaption',post.text));
 const actions=node('div','socialPostActions');const like=node('button','', (post.likes?.includes('me')?'❤️':'🤍')+' '+(post.likes?.length||0)+' Beğen');like.onclick=()=>{post.likes=post.likes||[];post.likes=post.likes.includes('me')?post.likes.filter(x=>x!=='me'):[...post.likes,'me'];save();render()};actions.append(like,node('span','', '💬 '+(post.comments?.length||0)+' yorum'));card.append(actions);
 const comments=node('div','socialComments');(post.comments||[]).forEach(c=>{const line=node('p');line.append(node('strong','',c.who+': '),document.createTextNode(c.text));comments.append(line)});const input=node('input');input.placeholder='Yorum yaz...';input.maxLength=300;const send=node('button','','Gönder');send.onclick=()=>{const t=input.value.trim();if(!t)return;post.comments=post.comments||[];post.comments.push({who:'Ben',text:t,at:new Date().toISOString(),replyAt:post.sim?Date.now()+REPLY_DELAY:null});save();settleReplies();render()};const form=node('div','socialCommentForm');form.append(input,send);comments.append(form);card.append(comments);feed.append(card)});
-const foot=node('p','socialStatus','Bot yanıtları bu cihazda üretilen örnek simülasyonlardır. Gerçek yapay zekâ sohbeti ve cihazlar arası senkronizasyon için sunucu entegrasyonu gerekir.');feed.append(foot)}
+const foot=node('p','socialStatus','Bot yanıtları sınırlı, kural tabanlı örnek simülasyonlardır. Anlamadığı konularda bunu açıkça belirtir. Gerçek yapay zekâ sohbeti ve cihazlar arası senkronizasyon için sunucu entegrasyonu gerekir.');feed.append(foot)}
 seed();posts.forEach(p=>{if(p.sim&&Array.isArray(p.comments))p.comments.forEach(c=>{if(c.who==='Ben'&&!c.replied)c.replyAt=Date.now()})});settleReplies();render();window.setInterval(settleReplies,2000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)settleReplies()});window.addEventListener('arena-botnames-updated',()=>{posts.forEach(p=>{if(p.id.startsWith('demo-'))p.who=names()[Number(p.id.slice(5))]||p.who});save();render()});
 })();
