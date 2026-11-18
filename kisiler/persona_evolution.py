@@ -51,4 +51,5 @@ def reset_evolution(db, person_id):
     """User may reset acquired changes without losing baseline or reading history."""
     ensure_evolution_schema(db)
     with db:
-        db.execute("DELETE FROM persona_evolution WHERE person_id=?", (person_id,))
+        latest = db.execute("SELECT COALESCE(MAX(id),0) FROM activity WHERE person_id=? AND kind='simulated_reading'", (person_id,)).fetchone()[0]
+        db.execute("INSERT INTO persona_evolution(person_id,last_activity_id,experience,curiosity_delta,notes_json) VALUES(?,?,0,0,'[]') ON CONFLICT(person_id) DO UPDATE SET last_activity_id=excluded.last_activity_id,experience=0,curiosity_delta=0,notes_json='[]'", (person_id,latest))
