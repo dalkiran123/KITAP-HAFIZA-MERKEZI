@@ -1,7 +1,7 @@
 /* BOOK CENTER offline conversation engine v1. No external API. */
 (function(){'use strict';
 const topics=[
- {id:'day',re:/bugün günlerden ne|bugün hangi gün|günlerden ne|hangi gündeyiz/i,replies:[]},
+ {id:'day',re:/bugün günlerden ne|bugün hangi gün|günlerden ne|hangi gündeyiz|hangi gün|gün ne/i,replies:[]},
  {id:'time',re:/saat kaç|şu an saat|kaç oldu saat/i,replies:[]},
  {id:'weather',re:/hava nasıl|hava buz gibi|hava soğuk|hava sıcak|üşüyorum|yağmur yağıyor/i,replies:[]},
  {id:'help',re:/sen yardım et|yardım et|nereden yardım alabilirim|yardım lazım/i,replies:[]},
@@ -28,7 +28,8 @@ function answer(post,comment){
  const earlier=index<0?history:history.slice(0,index);
  const userEarlier=earlier.filter(c=>c.who==='Ben').slice(-6);
  const current=normalize(comment.text);
- if(/bugün günlerden ne|bugün hangi gün|günlerden ne|hangi gündeyiz/i.test(current)){const day=new Intl.DateTimeFormat('tr-TR',{weekday:'long',timeZone:'Europe/Istanbul'}).format(new Date());return 'Bugün '+day+'. 🌻';}
+ if(/bugün günlerden ne|bugün hangi gün|günlerden ne|hangi gündeyiz|hangi gün|gün ne/i.test(current)){const day=new Intl.DateTimeFormat('tr-TR',{weekday:'long',timeZone:'Europe/Istanbul'}).format(new Date());return 'Bugün '+day+'. 🌻';}
+ if(/bugün ayın kaçı|ayın kaçı|bugünün tarihi|tarih ne/i.test(current))return 'Bugünün tarihi '+new Intl.DateTimeFormat('tr-TR',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
  if(/saat kaç|şu an saat|kaç oldu saat/i.test(current))return 'Türkiye saatiyle '+new Intl.DateTimeFormat('tr-TR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Istanbul'}).format(new Date())+'.';
  if(/hava nasıl/i.test(current))return 'Güncel hava durumuna erişimim yok. Hangi şehirde olduğunu söylersen sohbet edebiliriz ama sıcaklık uydurmak istemem.';
  if(/hava buz gibi|hava soğuk|üşüyorum/i.test(current))return 'Çok soğuk hissediyorsun anlaşılan. Umarım sıcak bir yere geçebilirsin. ☕';
