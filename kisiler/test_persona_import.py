@@ -32,6 +32,18 @@ class PersonaImportTests(unittest.TestCase):
                 {"id":2,"name":"Atlas","interests":"not a list"}]})
         self.assertEqual(self.db.execute("SELECT name FROM people WHERE id=1").fetchone()[0],"Luna")
 
+    def test_import_preserves_existing_traits(self):
+        from persona_engine import set_persona
+        set_persona(self.db,1,{"traits":{"curiosity":91,"empathy":50,"humor":50,
+            "competitiveness":50,"sociability":50,"patience":50},
+            "daily_reading_goal_minutes":75})
+        import_profiles(self.db,{"characters":[{"id":1,"name":"Luna",
+            "occupation":"Mimar"}]})
+        persona=get_persona(self.db,1)
+        self.assertEqual(persona["traits"]["curiosity"],91)
+        self.assertEqual(persona["daily_reading_goal_minutes"],75)
+        self.assertEqual(persona["occupation"],"Mimar")
+
     def test_duplicate_id_rejected(self):
         with self.assertRaises(ValueError):
             import_profiles(self.db,{"characters":[{"id":1,"name":"A"},{"id":1,"name":"B"}]})
