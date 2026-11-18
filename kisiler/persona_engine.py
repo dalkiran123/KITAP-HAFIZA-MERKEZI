@@ -4,6 +4,7 @@ All profiles are synthetic. Do not impersonate a real person without their conse
 Profiles are stored in a separate SQLite table; reading history is not modified.
 """
 import json
+import copy
 
 DEFAULT = {
     "age": None, "occupation": "", "education": "", "background": "",
@@ -29,7 +30,7 @@ def validate(profile):
         raise ValueError("Profile must be an object")
     if set(profile) - set(DEFAULT):
         raise ValueError("Unknown persona field")
-    result = dict(DEFAULT)
+    result = copy.deepcopy(DEFAULT)
     result.update(profile)
     age = result["age"]
     if age is not None and (type(age) is not int or not 18 <= age <= 100):
