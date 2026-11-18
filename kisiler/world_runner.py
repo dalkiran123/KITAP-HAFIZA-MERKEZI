@@ -10,18 +10,20 @@ import people_engine
 from life_continuity import simulate_day
 from persona_evolution import evolve
 from social_engine import simulate_day as simulate_social_day
+from conversation_engine import simulate_day as simulate_conversation_day
 
 
 def run(db):
     reading = people_engine.tick(db)
     life = simulate_day(db)
     social = simulate_social_day(db)
+    conversations = simulate_conversation_day(db)
     evolution = []
     for person_id in range(1, 11):
         progress = evolve(db, person_id)
         evolution.append({"person_id": person_id, "experience": progress["experience"],
                           "curiosity": progress["current"]["traits"]["curiosity"]})
-    return {"reading": reading, "life": life, "social": social, "evolution": evolution,
+    return {"reading": reading, "life": life, "social": social, "conversations": conversations, "evolution": evolution,
             "simulation": True}
 
 
