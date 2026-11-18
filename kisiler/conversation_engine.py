@@ -35,7 +35,7 @@ def ensure_schema(db):
 
 def contextual_topic(db, person_id, rng):
     """Use an explicit fictional profile or recent life event when present."""
-    row = db.execute("SELECT profile_json FROM sqlite_master m JOIN person_personas p ON 1=1 WHERE m.name='person_personas' AND p.person_id=?", (person_id,)).fetchone() if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='person_personas'").fetchone() else None
+    row = db.execute("SELECT profile_json FROM person_personas WHERE person_id=?", (person_id,)).fetchone() if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='person_personas'").fetchone() else None
     if row:
         profile = json.loads(row[0])
         interests = profile.get("interests") or []
