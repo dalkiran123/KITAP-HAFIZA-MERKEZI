@@ -2,7 +2,7 @@ import io
 import json
 import unittest
 from datetime import datetime, timezone
-from bot_server.client import make_payload, post_tick, signed_headers, next_tick_from_remote, deterministic_tick_id, plan_hourly_tick
+from bot_server.client import make_payload, post_tick, signed_headers, next_tick_from_remote, deterministic_tick_id, plan_hourly_tick, run_one_hour
 
 class ClientTests(unittest.TestCase):
     def test_ten_bots_and_signature(self):
@@ -44,3 +44,34 @@ class ClientTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             deterministic_tick_id(datetime(2026, 11, 18))
         self.assertEqual(json.loads(plan_hourly_tick({}, hour))["tick_id"], deterministic_tick_id(hour))
+
+    def test_hourly_receipt_prevents_duplicate(self):
+        slot = datetime(2026,11,18,12,tzinfo=timezone.utc)
+        calls = []
+        def receipt(url, secret, tick_id):
+            return {"committed": True}
+        def forbidden(*args):
+            calls.append(1)
+            raise AssertionError("Should not run")
+        result = run_one_hour("https://example.com/api/bots/state", "s"*40, slot,
+                              reader=forbidden, sender=forbidden, receipt_reader=receipt)
+        self.assertTrue(result["already_committed"])
+        self.assertFalse(calls)
+
+    def test_uncertain_network_write_reconciles_receipt(self):
+        import hashlib
+        import urllib.error
+        slot = datetime(2026,11,18,12,tzinfo=timezone.utc)
+        receipts = iter([{"committed": False}, {"committed": True}])
+        captured = {}
+        def receipt(url, secret, tick_id):
+            result = next(receipts)
+            if result["committed"]:
+                result["payload_sha256"] = hashlib.sha256(captured["body"]).hexdigest()
+            return result
+        def sender(url, body, secret):
+            captured["body"] = body
+            raise urllib.error.URLError("timeout")
+        result = run_one_hour("https://example.com/api/bots/state", "s"*40, slot,
+                              reader=lambda url, secret: {}, sender=sender, receipt_reader=receipt)
+        self.assertTrue(result["recovered"])
