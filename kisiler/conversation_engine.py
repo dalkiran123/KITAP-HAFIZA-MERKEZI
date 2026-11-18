@@ -5,6 +5,7 @@ produce one exchange per day. No external delivery or real-world messaging.
 """
 import datetime as dt
 import random
+import json
 
 TOPICS = (
     ("book", "Son okuduğun kitap hakkında ne düşünüyorsun?",
@@ -32,6 +33,25 @@ def ensure_schema(db):
     """)
 
 
+def contextual_topic(db, person_id, rng):
+    """Use an explicit fictional profile or recent life event when present."""
+    row = db.execute("SELECT profile_json FROM sqlite_master m JOIN person_personas p ON 1=1 WHERE m.name='person_personas' AND p.person_id=?", (person_id,)).fetchone() if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='person_personas'").fetchone() else None
+    if row:
+        profile = json.loads(row[0])
+        interests = profile.get("interests") or []
+        if interests:
+            interest = str(rng.choice(interests))[:100]
+            return ("interest", f"{interest} hakkında yeni bir şey öğrendin mi?", "Bu konuyu konuşmak güzel, birlikte araştırabiliriz.")
+        occupation = str(profile.get("occupation") or "")[:100]
+        if occupation:
+            return ("occupation", f"{occupation} alanındaki çalışmaların nasıl gidiyor?", "Bugün biraz yoğundu, akşam kitap okumayı düşünüyorum.")
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='life_world_events'").fetchone():
+        event = db.execute("SELECT description FROM life_world_events WHERE person_id=? ORDER BY day DESC,id DESC LIMIT 1", (person_id,)).fetchone()
+        if event:
+            return ("memory", "Son yaşadığın değişiklik hakkında konuşmak ister misin?", "Evet, hayatımdaki yeni gelişmeleri değerlendirmeye çalışıyorum.")
+    return rng.choice(TOPICS)
+
+
 def simulate_day(db, day=None):
     day = day or dt.datetime.now(dt.timezone.utc).date().isoformat()
     dt.date.fromisoformat(day)
@@ -45,7 +65,7 @@ def simulate_day(db, day=None):
             rng = random.Random(f"bookcenter-conversation-v1:{a}:{b}:{day}")
             if rng.random() >= min(0.65,0.10+closeness/150):
                 continue
-            topic, opening, reply = rng.choice(TOPICS)
+            topic, opening, reply = contextual_topic(db, a, rng)
             cursor = db.execute(
                 "INSERT OR IGNORE INTO bot_conversations(person_a,person_b,day,topic) "
                 "VALUES(?,?,?,?)", (a,b,day,topic))
