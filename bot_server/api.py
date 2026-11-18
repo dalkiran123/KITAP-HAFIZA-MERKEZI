@@ -115,3 +115,39 @@ def handle_state(method, path, headers, *, secret, database, now=None):
     finally:
         conn.close()
     return 200, {"bots": {bot_id: {"version": version, "xp": xp} for bot_id, version, xp in rows}}
+
+def handle_tick_status(method, path, headers, *, secret, database, now=None):
+    """Signed status check by immutable tick ID, without modifying storage."""
+    prefix = "/api/bots/ticks/"
+    if method != "GET" or not path.startswith(prefix):
+        return 404, {"error": "Not found"}
+    tick_id = path[len(prefix):]
+    try:
+        if str(uuid.UUID(tick_id)) != tick_id:
+            raise ValueError()
+    except (ValueError, TypeError):
+        return 404, {"error": "Not found"}
+    if not isinstance(secret, str) or len(secret) < 32 or not database:
+        return 503, {"error": "Bot endpoint not configured"}
+    now = int(time.time() if now is None else now)
+    try:
+        stamp = int(headers.get("x-bot-timestamp", ""))
+        signature = headers.get("x-bot-signature", "")
+    except (ValueError, TypeError, AttributeError):
+        return 401, {"error": "Invalid signature"}
+    if abs(now - stamp) > MAX_SKEW or not isinstance(signature, str) or len(signature) != 64:
+        return 401, {"error": "Invalid signature"}
+    message = str(stamp).encode() + b".GET." + path.encode()
+    expected = hmac.new(secret.encode(), message, hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(signature, expected):
+        return 401, {"error": "Invalid signature"}
+    if not Path(database).is_file():
+        return 200, {"committed": False}
+    conn = sqlite3.connect(f"file:{Path(database).resolve()}?mode=ro", uri=True, timeout=10)
+    try:
+        row = conn.execute("SELECT payload FROM bot_ticks WHERE tick_id=?", (tick_id,)).fetchone()
+    except sqlite3.OperationalError:
+        return 503, {"error": "Tick status unavailable"}
+    finally:
+        conn.close()
+    return 200, {"committed": bool(row), "payload_sha256": hashlib.sha256(row[0].encode()).hexdigest() if row else None}
