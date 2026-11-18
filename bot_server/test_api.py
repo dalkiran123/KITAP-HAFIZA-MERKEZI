@@ -4,7 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from bot_server.api import handle_tick
+from bot_server.api import handle_tick, handle_state
 
 class BotApiTests(unittest.TestCase):
     def test_auth_and_replay(self):
@@ -56,3 +56,16 @@ class BotApiTests(unittest.TestCase):
             self.assertEqual(send(db, "00000000-0000-0000-0000-000000000012", 3, 20), 409)
             self.assertEqual(send(db, "00000000-0000-0000-0000-000000000013", 2, 0), 409)
             self.assertEqual(send(db, "00000000-0000-0000-0000-000000000014", 2, 20), 201)
+
+    def test_signed_state_read(self):
+        secret = "s" * 40
+        stamp = 1795000000
+        signature = hmac.new(secret.encode(), str(stamp).encode()+b".GET./api/bots/state", hashlib.sha256).hexdigest()
+        headers = {"x-bot-timestamp": str(stamp), "x-bot-signature": signature}
+        with tempfile.TemporaryDirectory() as tmp:
+            db = str(Path(tmp)/"bots.sqlite3")
+            self.assertEqual(handle_state("GET", "/api/bots/state", {}, secret=secret, database=db, now=stamp)[0], 401)
+            status, data = handle_state("GET", "/api/bots/state", headers, secret=secret, database=db, now=stamp)
+            self.assertEqual((status, data), (200, {"bots": {}}))
+            self.assertFalse(Path(db).exists())
+            self.assertEqual(handle_state("GET", "/api/bots/state", headers, secret=secret, database=db, now=stamp+301)[0], 401)
