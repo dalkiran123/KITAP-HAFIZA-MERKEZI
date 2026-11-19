@@ -15,7 +15,7 @@ style.textContent=`
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{pointer-events:auto;white-space:nowrap;z-index:10050!important}
 .bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:115px!important}
-nav.v2nav,nav.nav{row-gap:42px!important;margin-top:38px!important;overflow:visible!important}
+nav.v2nav,nav.nav{overflow:visible!important}
 nav.v2nav button,nav.nav button{position:relative}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu *{animation:none!important;filter:none!important}
@@ -28,7 +28,7 @@ nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(>
 document.head.appendChild(style);
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
 const normalizeBook=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
-const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.localSimulation===true))return false;if(type==='section'&&id==='discover'&&f.kind==='bot'&&f.localSimulation===true&&f.location?.type==='book')return true;return f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id)};
+const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.localSimulation===true))return false;return f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id)};
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
@@ -37,7 +37,7 @@ function render(friends){
   const matched=friends.filter(f=>same(f,type,id));
   if(!matched.length){root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-31)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>28?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-22)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>28?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
