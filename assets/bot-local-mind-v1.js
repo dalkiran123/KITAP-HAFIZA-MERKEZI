@@ -62,7 +62,7 @@ function learn(friend,message){
  return {learned,memory:m};
 }
 function respond(friend,message,history=[]){
- const n=norm(message);if(n.includes('benim adım ne')||n.includes('adımı hatırlıyor musun')){const m=readMemory(friend);return m.name?'Adını '+m.name+' olarak hatırlıyorum.':'Adını henüz söylemedin.'}if(n.includes('en sevdiğim kitap ne')||n.includes('favori kitabım ne')){const m=readMemory(friend);return m.favoriteBook?'En sevdiğin kitabı '+m.favoriteBook+' olarak hatırlıyorum.':'En sevdiğin kitabı henüz bilmiyorum.'}const update=learn(friend,message),m=update.memory||{};
+ const n=norm(message);if(['bugün ne yapıyorsun','günün nasıl geçiyor','planın ne','ne okuyorsun','hangi kitabı okuyorsun','şu an ne yapıyorsun'].some(q=>n.includes(q)))return activitySummary(friend);if(n.includes('benim adım ne')||n.includes('adımı hatırlıyor musun')){const m=readMemory(friend);return m.name?'Adını '+m.name+' olarak hatırlıyorum.':'Adını henüz söylemedin.'}if(n.includes('en sevdiğim kitap ne')||n.includes('favori kitabım ne')){const m=readMemory(friend);return m.favoriteBook?'En sevdiğin kitabı '+m.favoriteBook+' olarak hatırlıyorum.':'En sevdiğin kitabı henüz bilmiyorum.'}const update=learn(friend,message),m=update.memory||{};
  if(update.forgot)return 'Bu cihazdaki benimle ilgili hatırladığım profil bilgilerini sildim. Sohbet geçmişi ayrı saklanıyor.';
  if(update.learned)return ({name:'Tanıştığımıza sevindim',favoriteBook:'Bu kitabı sevdiğini not ettim',favoriteGenre:'Sevdiğin türü hatırlayacağım',interest:'İlgini not ettim'})[update.learned]+'. İstersen bunun üzerine konuşabiliriz.';
  if(n.includes('benim adım ne')||n.includes('adımı hatırlıyor musun'))return m.name?'Adını '+m.name+' olarak hatırlıyorum.':'Adını henüz söylemedin.';
@@ -70,5 +70,32 @@ function respond(friend,message,history=[]){
  if(n.includes('ne sevdiğimi hatırlıyor musun'))return m.favoriteGenre?'Sevdiğin tür: '+m.favoriteGenre+'.':'Henüz sevdiğin türü kaydetmedim.';
  return answer(friend,message,history);
 }
-window.BookCenterLocalMind={answer:respond,profiles,readMemory,learn,version:'2.0'};
+
+const activityKinds=[
+ ['discover','Keşfet bölümünde kitaplara göz atmayı planlıyor'],
+ ['library','Kitaplığındaki seçenekleri değerlendiriyor'],
+ ['video','Belgesel önerilerini inceliyor'],
+ ['game','Satranç çalışması planlıyor'],
+ ['home','Ana ekrandaki yeniliklere bakıyor'],
+ ['rest','Bir süre dinleniyor']
+];
+const dayKey=()=>new Date().toLocaleDateString('sv-SE');
+const activityKey=id=>'bc_bot_day_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
+function dailyPlan(friend){
+ const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],day=dayKey(),key=activityKey(friend.id);
+ try{const old=JSON.parse(localStorage.getItem(key)||'null');if(old?.day===day&&Array.isArray(old.activities))return old}catch{}
+ const seed=[...day+p.name].reduce((v,c)=>(v*31+c.charCodeAt(0))>>>0,17);
+ const slots=[9,12,16,20],activities=slots.map((hour,i)=>({hour,kind:activityKinds[(seed+i*7)%activityKinds.length][0],description:activityKinds[(seed+i*7)%activityKinds.length][1],status:'planlandı'}));
+ const plan={day,profile:p.name,interest:p.topic,activities,generated:'Yerel kurgusal program'};
+ try{localStorage.setItem(key,JSON.stringify(plan))}catch{}
+ return plan;
+}
+function activitySummary(friend){
+ const plan=dailyPlan(friend),hour=new Date().getHours();
+ const past=plan.activities.filter(x=>x.hour<=hour),next=plan.activities.find(x=>x.hour>hour);
+ const current=past[past.length-1];
+ return 'Bugünkü kurgusal planımda '+(current?current.description.toLocaleLowerCase('tr-TR'):'henüz bir etkinliğim başlamadı')+'. '+(next?'Sonraki planım saat '+String(next.hour).padStart(2,'0')+':00: '+next.description.toLocaleLowerCase('tr-TR')+'.':'Bugün başka planım yok.')+' Bu etkinlikler gerçek okuma veya oynama kaydı değildir.';
+}
+
+window.BookCenterLocalMind={answer:respond,profiles,readMemory,learn,dailyPlan,activitySummary,version:'3.0'};
 })();
