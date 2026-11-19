@@ -30,7 +30,8 @@ function render(friends){
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
-   button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal okuma kaydı (canlı değil)':'Çevrimiçi arkadaş')+(friend.last_seen_at?' · '+new Date(friend.last_seen_at).toLocaleString('tr-TR'):'');
+   const lastTime=Date.parse(friend.last_seen_at||'');
+   button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal okuma kaydı (canlı değil)':'Çevrimiçi arkadaş')+(Number.isFinite(lastTime)?' · '+new Date(lastTime).toLocaleString('tr-TR'):'');
    button.setAttribute('aria-label',friend.name+' profilini aç');
    const imgUrl=safeUrl(friend.avatar_url);
    if(imgUrl){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.loading='lazy';button.append(img)}
