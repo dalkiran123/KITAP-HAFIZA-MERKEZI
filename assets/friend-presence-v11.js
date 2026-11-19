@@ -46,6 +46,12 @@ style.textContent+=`
 .bc-presence-line{width:100%!important}.bc-presence-person{display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important;flex:1!important;text-align:left!important}
 .bc-presence-person img,.bc-presence-initial{width:24px!important;height:24px!important;border-radius:50%!important;object-fit:cover!important;background:#1e365c!important;color:white!important;display:grid!important;place-items:center!important;flex:none!important}
 `;
+style.textContent+=`
+/* V27: compact, readable green online counts */
+.bc-presence-trigger{font-size:10px!important;min-height:23px!important;padding:3px 6px!important;border-radius:14px!important;line-height:1.15!important;color:#65f5a1!important;-webkit-text-fill-color:#65f5a1!important}
+.bc-presence-trigger .bc-friend-count,.bc-friend-count,.bc-friends-menu .bc-friend-count{color:#65f5a1!important;-webkit-text-fill-color:#65f5a1!important;font-size:10px!important}
+.bc-friends-menu .bc-friend{width:22px!important;height:22px!important;flex-basis:22px!important}
+`;
 document.head.appendChild(style);
 document.addEventListener('click',e=>{if(!e.target.closest('.bc-friends')&&!e.target.closest('.bc-presence-panel'))document.querySelectorAll('.bc-presence-panel').forEach(p=>p.hidden=true)});
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
