@@ -97,7 +97,7 @@ refresh();setInterval(refresh,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 document.addEventListener('bookcenter:open-friend-profile',event=>{
  const id=String(event.detail?.friendId||'');
- if(!id.startsWith('local-bot-'))return;
+ if(event.detail?.kind!=='bot'||!/^local-bot-[0-9]+$/.test(id))return;
  const botId=Number(id.slice('local-bot-'.length));
  if(!Number.isInteger(botId)||botId<0||botId>9)return;
  let bot;
