@@ -26,6 +26,9 @@ function render(friends){
   const matched=friends.filter(f=>same(f,type,id));
   if(!matched.length){root?.remove();return}
   if(!root){root=document.createElement('div');root.className='bc-friends';host.append(root)}
+  const signature=matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)).join(';');
+  if(root.dataset.signature===signature)return;
+  root.dataset.signature=signature;
   root.replaceChildren();
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
@@ -65,6 +68,8 @@ function localBotRecords(){
 function draw(){render([...current,...localBotRecords()])}
 async function refresh(){try{
  if(!API){current=[];draw();return}
+ const parsed=new URL(API,location.href);
+ if(parsed.protocol!=='https:'&&parsed.hostname!=='localhost')throw Error('Presence requires HTTPS');
  const response=await fetch(API,{credentials:'include',cache:'no-store'});
  if(!response.ok)throw Error('Presence unavailable');
  const data=await response.json();if(!Array.isArray(data.friends))throw Error('Invalid presence');
@@ -85,6 +90,8 @@ function annotate(){
 }
 annotate();
 setInterval(()=>{annotate();draw()},5000);
+window.addEventListener('arena-world-updated',()=>{annotate();draw()});
+window.addEventListener('storage',event=>{if(event.key==='bookcenter_arena_botworld_v1'){annotate();draw()}});
 refresh();setInterval(refresh,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 document.addEventListener('bookcenter:open-friend-profile',event=>{
