@@ -65,21 +65,12 @@ function openFriendChat(friend){
  const header=document.createElement('div');header.style.cssText='display:flex;justify-content:space-between;align-items:center;font-weight:800';
  const title=document.createElement('span');title.textContent=friend.name+' · '+(friend.kind==='bot'?'Sanal arkadaş':'Arkadaş');
  const close=document.createElement('button');close.type='button';close.textContent='✕ Kapat';close.onclick=()=>modal.remove();header.append(title,close);box.append(header);
- const note=document.createElement('small');note.textContent=friend.kind==='bot'?'Bu sohbet yalnızca bu cihazda saklanır. Yanıtlar cihaz üzerinde oluşturulan basit bot simülasyonudur, yapay zekâ değildir.':'Gerçek kullanıcıya mesaj gönderimi henüz bağlı değil.';box.append(note);
+ const note=document.createElement('small');note.textContent=friend.kind==='bot'?'Bu sohbet yalnızca bu cihazda saklanır. Yanıtlar cihaz üzerindeki yerel konuşma motoruyla üretilir. Harici yapay zekâ kullanılmaz.':'Gerçek kullanıcıya mesaj gönderimi henüz bağlı değil.';box.append(note);
  const log=document.createElement('div');log.style.cssText='min-height:120px;max-height:45dvh;overflow:auto;border:1px solid #ccd5e2;border-radius:10px;padding:10px;white-space:pre-wrap';
  const key='bc_friend_chat_v1_'+String(friend.id).replace(/[^a-zA-Z0-9_-]/g,'').slice(0,64);
  let history=[];try{history=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(history))history=[]}catch{}
  const paint=()=>{log.replaceChildren();history.forEach(m=>{const line=document.createElement('p');line.textContent=(m.role==='bot'?friend.name:'Sen')+': '+m.text;log.append(line)})};
- const replyFor=text=>{
-  const t=text.toLocaleLowerCase('tr-TR');
-  const options=t.includes('merhaba')||t.includes('selam')?['Selam! Bugün hangi kitabı konuşalım?','Merhaba! Okudukların arasında seni en çok etkileyen kitap hangisi?']:
-   t.includes('kitap')||t.includes('oku')?['Kitaplardan konuşmayı seviyorum. En son hangi kitabı bitirdin?','Bir kitap seçelim mi? Hangi türleri seviyorsun?']:
-   t.includes('nasıl')||t.includes('naber')?['İyiyim, teşekkürler. Senin günün nasıl geçiyor?','Bugün biraz okuma üzerine düşünüyorum. Sen nasılsın?']:
-   t.includes('teşekkür')?['Rica ederim!','Ne demek, konuşmak güzeldi.']:
-   t.includes('yarış')||t.includes('puan')?['Bir hafıza yarışması fikri güzel! Hangi kitabı seçelim?','Puanları takip etmek eğlenceli. Yeni bir meydan okuma ister misin?']:
-   ['Bunu biraz daha anlatır mısın?','İlginç bir düşünce. Sence neden böyle?','Anladım. Kitaplarla ilgili bir örnek verebilir misin?'];
-  return options[(history.length+String(friend.id).length)%options.length];
- };paint();box.append(log);
+ const replyFor=text=>window.BookCenterLocalMind?.answer(friend,text,history)||'Bu konuyu biraz daha anlatır mısın?';paint();box.append(log);
  const input=document.createElement('textarea');input.placeholder='Mesajını yaz';input.rows=2;box.append(input);
  const send=document.createElement('button');send.type='button';send.textContent='Gönder';send.style.cssText='padding:12px;background:#18375c;color:white;border:0;border-radius:10px;font-weight:700';
  send.onclick=()=>{const value=input.value.trim();if(!value)return;history.push({role:'user',text:value,at:new Date().toISOString()});history=history.slice(-100);try{localStorage.setItem(key,JSON.stringify(history))}catch{}input.value='';paint();log.scrollTop=log.scrollHeight;
