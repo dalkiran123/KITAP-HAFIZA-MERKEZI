@@ -16,3 +16,14 @@ assert.match(html,/catalog\.slice\(\)\.sort/,'Ready-first sorting missing');
 assert.match(html,/kitap-hafiza-current-reading-v1/,'Recommendation rotation missing');
 assert.match(html,/localStorage\.getItem\(key\)/,'Existing local book data key must be retained');
 console.log('PASS: JS syntax and catalog/recommendation regression checks');
+
+const presence=readFileSync('assets/inline-friend-presence.js','utf8');
+new vm.Script(presence,{filename:'assets/inline-friend-presence.js'});
+assert.match(html,/assets\/inline-friend-presence\.js/,'Main screen must load inline presence');
+assert.doesNotMatch(html,/friends-presence-preview\.js/,'Old floating friends preview must not load');
+assert.doesNotMatch(html,/BİRLİKTE · Arkadaşlarla aynı ekranda \(Test\)/,'Separate Together test link must not appear');
+assert.match(presence,/bookcenter_arena_botworld_v1/,'Presence must read existing Arena simulation data');
+assert.match(presence,/reading\[0\]/,'Presence must read persisted bot book history');
+assert.match(presence,/simulated:true,localSimulation:true,online:false/,'Local bot history must not claim online status');
+assert.match(presence,/BOOKCENTER_PRESENCE_API_URL/,'Remote presence must be opt-in configured');
+console.log('PASS: inline friend presence integration checks');
