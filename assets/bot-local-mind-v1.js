@@ -122,5 +122,42 @@ function knowledgeState(friend){
 }
 function learnedFact(friend){const state=knowledgeState(friend),entry=state.entries[state.entries.length-1];return entry?'İlgi alanım hakkında bilgi havuzumdan bugün şunu seçtim: '+entry.fact+' Bu, internette yeni araştırma yaptığım anlamına gelmez.':'Henüz bilgi seçmedim.'}
 
-window.BookCenterLocalMind={answer:respond,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,version:'4.0'};
+
+/* Emotional responsiveness is a cautious text heuristic, not mind-reading or felt emotion. */
+const emotionLexicon=[
+ {id:'distress',terms:['çok kötüyüm','dayanamıyorum','kendime zarar','yaşamak istemiyorum'],level:3},
+ {id:'sad',terms:['üzgünüm','mutsuzum','moralim bozuk','ağlamak','yalnızım','kırıldım'],level:2},
+ {id:'stress',terms:['stresliyim','kaygılıyım','endişeliyim','korkuyorum','gerginim','yoruldum'],level:2},
+ {id:'happy',terms:['mutluyum','çok sevindim','harika haber','başardım','heyecanlıyım'],level:1},
+ {id:'angry',terms:['sinirliyim','kızgınım','öfkeliyim','çok kızdım'],level:2}
+];
+const emotionKey=id=>'bc_emotion_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
+function detectEmotion(message){
+ const t=norm(message);
+ for(const x of emotionLexicon)if(x.terms.some(k=>t.includes(norm(k))))return {id:x.id,level:x.level};
+ return {id:'neutral',level:0};
+}
+function emotionState(friend){try{const m=JSON.parse(localStorage.getItem(emotionKey(friend.id))||'{}');return m&&typeof m==='object'?m:{}}catch{return {}}}
+function emotionalReply(friend,message){
+ const e=detectEmotion(message);if(e.id==='neutral')return null;
+ const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0];
+ const responses={
+ distress:['Bunu ciddiye alıyorum. Şu anda güvende misin? Yakınındaki güvendiğin biriyle konuşmanı ve acil tehlike varsa yerel acil yardım hattına başvurmanı öneririm.'],
+ sad:['Bunu yaşadığını duymak üzücü. İstersen neler olduğunu anlatabilirsin.','Zor bir durum gibi geliyor. Şu anda dinlenmek mi, konuşmak mı daha iyi gelir?'],
+ stress:['Üzerinde baskı var gibi görünüyor. İstersen en acil konuyu birlikte küçük parçalara ayıralım.','Endişeli hissettiğini söylüyorsun. Şu anda seni en çok ne düşündürüyor?'],
+ happy:['Buna sevindim! Neyi başardığını anlatmak ister misin?','Güzel bir gelişme olmuş! Kutlamak için ne yapmak istersin?'],
+ angry:['Kızgın olduğunu anlıyorum. Seni en çok ne rahatsız etti?','Bu durum can sıkıcı olabilir. İstersen ne olduğunu birlikte değerlendirelim.']
+ };
+ const count=emotionState(friend).count||0;
+ const reply=responses[e.id][count%responses[e.id].length];
+ const state={last:e.id,count:count+1,updated:new Date().toISOString()};
+ try{localStorage.setItem(emotionKey(friend.id),JSON.stringify(state))}catch{}
+ return p.tone==='analitik'&&e.id==='stress'?reply+' Önce tek bir somut sorunu seçebiliriz.':reply;
+}
+function emotionallyAwareAnswer(friend,message,history=[]){
+ const response=emotionalReply(friend,message);
+ return response||respond(friend,message,history);
+}
+
+window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
