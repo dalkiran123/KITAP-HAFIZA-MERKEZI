@@ -84,5 +84,26 @@ annotate();
 setInterval(()=>{annotate();draw()},5000);
 refresh();setInterval(refresh,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+document.addEventListener('bookcenter:open-friend-profile',event=>{
+ const id=String(event.detail?.friendId||'');
+ if(!id.startsWith('local-bot-'))return;
+ const index=Number(id.slice('local-bot-'.length));
+ if(!Number.isInteger(index)||index<0||index>9)return;
+ let bot;
+ try{bot=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null')?.bots?.[index]}catch{}
+ if(!bot)return;
+ document.getElementById('bcInlineBotProfile')?.remove();
+ const dialog=document.createElement('section');dialog.id='bcInlineBotProfile';
+ dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');dialog.setAttribute('aria-label','Sanal arkadaş profili');
+ dialog.style.cssText='position:fixed;z-index:1200;inset:auto 12px 12px;max-width:440px;margin:auto;background:#1d2947;color:#fff;border:1px solid #d9a65d;border-radius:18px;padding:18px;box-shadow:0 12px 38px #0008;font:14px system-ui';
+ const title=document.createElement('h3');title.textContent='🤖 '+String(bot.name||'Sanal arkadaş');title.style.margin='0 0 9px';
+ const desc=document.createElement('p');desc.textContent='Sanal karakter · '+(Number(bot.books)||0)+' kitap etkinliği · '+(Number(bot.points)||0)+' puan';
+ const last=document.createElement('p');const recent=Array.isArray(bot.reading)?bot.reading[0]:null;
+ last.textContent=recent?'Son simüle okuma: '+String(recent.title||'')+' · '+(Number.isFinite(Date.parse(recent.at))?new Date(recent.at).toLocaleString('tr-TR'):'Tarih bilinmiyor'):'Henüz okuma kaydı yok';
+ const note=document.createElement('small');note.textContent='Bu bilgiler yerel simülasyondur. Gerçek zamanlı kullanıcı etkinliği değildir.';
+ const close=document.createElement('button');close.type='button';close.textContent='Kapat';close.style.cssText='display:block;margin-top:12px;background:#e5bc79;color:#17233c';
+ close.onclick=()=>dialog.remove();
+ dialog.append(title,desc,last,note,close);document.body.append(dialog);close.focus();
+});
 window.BookCenterPresence={refresh};
 })();
