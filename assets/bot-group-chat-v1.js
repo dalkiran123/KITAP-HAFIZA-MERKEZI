@@ -1,6 +1,8 @@
 /* BOOK CENTER group chat: offline fictional bots, persistent on-device history. */
 (()=>{'use strict';
-const KEY='bc_group_chat_v1',MAX=500;
+const KEY='bc_group_chat_v1',MAX=500,REL='bc_bot_relations_v1';
+const getRelations=()=>{try{return JSON.parse(localStorage.getItem(REL)||'{}')||{}}catch{return {}}};
+const updateRelations=members=>{const rel=getRelations();for(let i=0;i<members.length;i++)for(let j=i+1;j<members.length;j++){const k=[members[i],members[j]].sort().join('|');rel[k]=Math.min(100,(rel[k]||0)+1)}try{localStorage.setItem(REL,JSON.stringify(rel))}catch{}return rel};
 const defaults=['Atlas','Mira','Deniz','Arda','Luna','Nova','Orion','Ada','Bilge','Zirve'];
 const load=()=>{try{const x=JSON.parse(localStorage.getItem(KEY)||'null');return x&&Array.isArray(x.messages)?x:null}catch{return null}};
 const save=x=>{try{localStorage.setItem(KEY,JSON.stringify({...x,messages:x.messages.slice(-MAX)}))}catch{}};
@@ -29,7 +31,7 @@ function open(){
  const send=document.createElement('button');send.type='submit';send.textContent='Gönder';send.style.cssText='background:#17365a;color:white;border:0;border-radius:10px;padding:10px';
  form.append(input,send);panel.append(form);
  let busy=false;
- form.onsubmit=e=>{e.preventDefault();const value=input.value.trim();if(!value||busy)return;input.value='';state.messages.push({role:'user',text:value,at:new Date().toISOString()});save(state);render();
+ form.onsubmit=e=>{e.preventDefault();const value=input.value.trim();if(!value||busy)return;input.value='';state.messages.push({role:'user',text:value,at:new Date().toISOString()});updateRelations(state.members);save(state);render();
  const members=state.members.slice();if(!members.length)return;
  busy=true;send.disabled=true;
  // Reply from up to three participants, sequentially; every turn uses the shared conversation context.
@@ -43,7 +45,7 @@ function open(){
  const tools=document.createElement('div');tools.style.cssText='display:flex;gap:8px;padding:6px 12px';
  const exportBtn=document.createElement('button');exportBtn.textContent='Sohbeti dışa aktar';exportBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='book-center-ortak-chat.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
  const clearBtn=document.createElement('button');clearBtn.textContent='Sohbeti sil';clearBtn.onclick=()=>{if(!confirm('Ortak sohbet geçmişi silinsin mi?'))return;state.messages=[];save(state);render()};
- tools.append(exportBtn,clearBtn);panel.insertBefore(tools,form);
+ const relationBtn=document.createElement('button');relationBtn.textContent='🤝 Arkadaşlıklar';relationBtn.onclick=()=>{const pairs=Object.entries(getRelations()).sort((a,b)=>b[1]-a[1]).slice(0,10);alert(pairs.length?pairs.map(([names,count])=>names.replace('|',' & ')+': '+count+' ortak sohbet').join('\\n'):'Henüz ortak sohbet kaydı yok. Bu puanlar yalnızca birlikte sohbet etme sıklığını gösterir.')};tools.append(exportBtn,clearBtn,relationBtn);panel.insertBefore(tools,form);
  overlay.append(panel);overlay.onclick=e=>{if(e.target===overlay)overlay.remove()};document.body.append(overlay);render();input.focus();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
