@@ -24,6 +24,6 @@ assert.doesNotMatch(html,/friends-presence-preview\.js/,'Old floating friends pr
 assert.doesNotMatch(html,/BİRLİKTE · Arkadaşlarla aynı ekranda \(Test\)/,'Separate Together test link must not appear');
 assert.match(presence,/bookcenter_arena_botworld_v1/,'Presence must read existing Arena simulation data');
 assert.match(presence,/reading\[0\]/,'Presence must read persisted bot book history');
-assert.match(presence,/simulated:true,online:false/,'Local bot history must not claim online status');
+assert.match(presence,/simulated:true,localSimulation:true,online:false/,'Local bot history must not claim online status');
 assert.match(presence,/BOOKCENTER_PRESENCE_API_URL/,'Remote presence must be opt-in configured');
 console.log('PASS: inline friend presence integration checks');
