@@ -4,7 +4,7 @@
    Endpoint GET /api/presence/visible returns {friends:[{id,name,avatar_url,profile_url,kind,online,location:{type,id},last_seen_at}]}
    Only permission-filtered, authenticated records should be returned by the backend. */
 (()=>{'use strict';
-const API=window.BOOKCENTER_PRESENCE_API_URL||'/api/presence/visible';
+const API=window.BOOKCENTER_PRESENCE_API_URL||null;
 const style=document.createElement('style');
 style.textContent=`
 [data-presence-type][data-presence-id]{position:relative}
@@ -17,7 +17,8 @@ style.textContent=`
 `;
 document.head.appendChild(style);
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
-const same=(f,type,id)=>(f?.online===true||f?.kind==='bot'&&f?.simulated===true)&&f.location?.type===type&&String(f.location?.id)===id;
+const normalizeBook=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
+const same=(f,type,id)=>(f?.online===true||f?.kind==='bot'&&f?.simulated===true)&&f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id);
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
@@ -29,7 +30,7 @@ function render(friends){
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
-   button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal okuma kaydı (canlı değil)':'Çevrimiçi arkadaş');
+   button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal okuma kaydı (canlı değil)':'Çevrimiçi arkadaş')+(friend.last_seen_at?' · '+new Date(friend.last_seen_at).toLocaleString('tr-TR'):'');
    button.setAttribute('aria-label',friend.name+' profilini aç');
    const imgUrl=safeUrl(friend.avatar_url);
    if(imgUrl){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.loading='lazy';button.append(img)}
@@ -62,6 +63,7 @@ function localBotRecords(){
 }
 function draw(){render([...current,...localBotRecords()])}
 async function refresh(){try{
+ if(!API){current=[];draw();return}
  const response=await fetch(API,{credentials:'include',cache:'no-store'});
  if(!response.ok)throw Error('Presence unavailable');
  const data=await response.json();if(!Array.isArray(data.friends))throw Error('Invalid presence');
@@ -74,7 +76,7 @@ function annotate(){
   const type=/video|belgesel/.test(label)?'video':/arena|yarış/.test(label)?'arena':/keşfet/.test(label)?'discover':/kitaplığım/.test(label)?'library':/profil|kariyer/.test(label)?'profile':null;
   if(type){button.dataset.presenceType='section';button.dataset.presenceId=type}
  });
- document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card').forEach(card=>{
+ document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card, #discover .tile').forEach(card=>{
   const name=card.dataset.bookId||card.dataset.bookName||card.querySelector('strong,h3,h4')?.textContent?.trim();
   if(name){card.dataset.presenceType='book';card.dataset.presenceId=name}
  });
