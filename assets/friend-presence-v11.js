@@ -23,7 +23,7 @@ style.textContent=`
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{pointer-events:auto;white-space:nowrap;z-index:10050!important}
-.bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:calc(100vw - 12px)!important}
+.bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:calc(100vw - 12px)!important;min-width:0!important;width:max-content!important;height:auto!important;inset:auto!important;transform:none!important}
 nav.v2nav,nav.nav{overflow:visible!important}
 nav.v2nav button,nav.nav button{position:relative}
 nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{position:relative!important}
@@ -92,7 +92,7 @@ function render(friends){
   if(!matched.length){if(menu)delete host.dataset.bcActiveFriends;root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(menu)host.dataset.bcActiveFriends='1';
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+5)+'px';root.style.top=Math.max(2,rect.top-31)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>45?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.setProperty('left',Math.max(2,rect.left+5)+'px','important');root.style.setProperty('top',Math.max(2,rect.top-33)+'px','important');root.style.setProperty('right','auto','important');root.style.setProperty('bottom','auto','important');root.style.setProperty('transform','none','important');root.style.setProperty('position','fixed','important');root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>45?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
