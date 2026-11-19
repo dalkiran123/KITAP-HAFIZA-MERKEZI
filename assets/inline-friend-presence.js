@@ -17,7 +17,7 @@ style.textContent=`
 `;
 document.head.appendChild(style);
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
-const same=(f,type,id)=>f?.online===true&&f.location?.type===type&&String(f.location?.id)===id;
+const same=(f,type,id)=>(f?.online===true||f?.kind==='bot'&&f?.simulated===true)&&f.location?.type===type&&String(f.location?.id)===id;
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
@@ -29,7 +29,7 @@ function render(friends){
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
-   button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal arkadaş':'Çevrimiçi arkadaş');
+   button.title=friend.name+' • '+(friend.kind==='bot'?'Simülasyon kaydı':'Çevrimiçi arkadaş');
    button.setAttribute('aria-label',friend.name+' profilini aç');
    const imgUrl=safeUrl(friend.avatar_url);
    if(imgUrl){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.loading='lazy';button.append(img)}
@@ -46,13 +46,28 @@ function render(friends){
  });
 }
 let current=[];
+function localBotRecords(){
+ try{
+  const world=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null');
+  if(!Array.isArray(world?.bots))return [];
+  return world.bots.flatMap((bot,i)=>{
+   const event=Array.isArray(bot.events)?bot.events[0]:null;
+   const stamp=Date.parse(event?.when||'');
+   if(!Number.isFinite(stamp)||Date.now()-stamp>86400000||stamp>Date.now()+60000)return [];
+   const location=event.location;
+   if(!location||location.type!=='book'||!location.id)return [];
+   return [{id:'local-bot-'+i,name:String(bot.name||'Bot '+(i+1)),kind:'bot',simulated:true,online:false,location:{type:'book',id:String(location.id)},last_seen_at:event.when}];
+  });
+ }catch{return []}
+}
+function draw(){render([...current,...localBotRecords()])}
 async function refresh(){try{
  const response=await fetch(API,{credentials:'include',cache:'no-store'});
  if(!response.ok)throw Error('Presence unavailable');
  const data=await response.json();if(!Array.isArray(data.friends))throw Error('Invalid presence');
  current=data.friends.filter(f=>f&&f.id!=null&&typeof f.name==='string'&&f.location&&['user','bot'].includes(f.kind));
- render(current);
-}catch{current=[];render([])}}
+ draw();
+}catch{current=[];draw()}}
 function annotate(){
  document.querySelectorAll('nav.v2nav button, nav.nav button').forEach(button=>{
   const label=(button.textContent||'').toLocaleLowerCase('tr-TR');
@@ -66,7 +81,7 @@ function annotate(){
  document.querySelectorAll('[data-video-id]').forEach(card=>{card.dataset.presenceType='video';card.dataset.presenceId=card.dataset.videoId});
 }
 annotate();
-setInterval(()=>{annotate();if(current.length)render(current)},5000);
+setInterval(()=>{annotate();draw()},5000);
 refresh();setInterval(refresh,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 window.BookCenterPresence={refresh};
