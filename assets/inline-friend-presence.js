@@ -18,7 +18,7 @@ style.textContent=`
 document.head.appendChild(style);
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
 const normalizeBook=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
-const same=(f,type,id)=>(f?.online===true||f?.kind==='bot'&&f?.simulated===true)&&f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id);
+const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.simulated===true))return false;if(type==='section'&&id==='discover'&&f.kind==='bot'&&f.simulated===true&&f.location?.type==='book')return true;return f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id)};
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
