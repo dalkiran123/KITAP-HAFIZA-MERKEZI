@@ -66,6 +66,15 @@ function openFriendChat(friend){
  const title=document.createElement('span');title.textContent=friend.name+' · '+(friend.kind==='bot'?'Sanal arkadaş':'Arkadaş');
  const close=document.createElement('button');close.type='button';close.textContent='✕ Kapat';close.onclick=()=>modal.remove();header.append(title,close);box.append(header);
  const note=document.createElement('small');note.textContent=friend.kind==='bot'?'Bu sohbet yalnızca bu cihazda saklanır. Yanıtlar cihaz üzerindeki yerel konuşma motoruyla üretilir. Harici yapay zekâ kullanılmaz.':'Gerçek kullanıcıya mesaj gönderimi henüz bağlı değil.';box.append(note);
+ if(friend.kind==='bot'&&window.BookCenterLocalMind?.dailyPlan){
+  const plan=window.BookCenterLocalMind.dailyPlan(friend);
+  const details=document.createElement('details');details.style.cssText='font-size:12px;background:#edf3fa;padding:8px;border-radius:8px';
+  const summary=document.createElement('summary');summary.textContent='📅 '+friend.name+' · Kurgusal günlük plan';details.append(summary);
+  const list=document.createElement('div');list.style.cssText='margin-top:7px;display:grid;gap:4px';
+  plan.activities.forEach(a=>{const item=document.createElement('div');item.textContent=String(a.hour).padStart(2,'0')+':00 · '+a.description;list.append(item)});
+  details.append(list);box.append(details);
+ }
+
  const log=document.createElement('div');log.style.cssText='min-height:120px;max-height:45dvh;overflow:auto;border:1px solid #ccd5e2;border-radius:10px;padding:10px;white-space:pre-wrap';
  const key='bc_friend_chat_v1_'+String(friend.id).replace(/[^a-zA-Z0-9_-]/g,'').slice(0,64);
  let history=[];try{history=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(history))history=[]}catch{}
