@@ -45,6 +45,11 @@ function addressedBots(text,members){
 }
 function chooseResponders(text,members){
  const mentioned=addressedBots(text,members);
+ const first=clean(text).split(' ')[0];
+ if(mentioned.length>1&&/(ne dedi|ne söyle|anladın|katılıyor musun|fikri|görüşü)/.test(clean(text))){
+   const recipient=mentioned.find(n=>clean(n)===first);
+   if(recipient)return [recipient];
+ }
  if(mentioned.length)return mentioned;
  return members.slice(0,3);
 }
