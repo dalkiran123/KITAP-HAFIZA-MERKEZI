@@ -51,8 +51,20 @@ async function refresh(){try{
  current=data.friends.filter(f=>f&&f.id!=null&&typeof f.name==='string'&&f.location&&['user','bot'].includes(f.kind));
  render(current);
 }catch{current=[];render([])}}
-const observer=new MutationObserver(()=>{if(current.length)render(current)});
-observer.observe(document.body,{childList:true,subtree:true});
+function annotate(){
+ document.querySelectorAll('nav.v2nav button, nav.nav button').forEach(button=>{
+  const label=(button.textContent||'').toLocaleLowerCase('tr-TR');
+  const type=/video|belgesel/.test(label)?'video':/arena|yarış/.test(label)?'arena':/keşfet/.test(label)?'discover':/kitaplığım/.test(label)?'library':/profil|kariyer/.test(label)?'profile':null;
+  if(type){button.dataset.presenceType='section';button.dataset.presenceId=type}
+ });
+ document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card').forEach(card=>{
+  const name=card.dataset.bookId||card.dataset.bookName;
+  if(name){card.dataset.presenceType='book';card.dataset.presenceId=name}
+ });
+ document.querySelectorAll('[data-video-id]').forEach(card=>{card.dataset.presenceType='video';card.dataset.presenceId=card.dataset.videoId});
+}
+annotate();
+setInterval(()=>{annotate();if(current.length)render(current)},5000);
 refresh();setInterval(refresh,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 window.BookCenterPresence={refresh};
