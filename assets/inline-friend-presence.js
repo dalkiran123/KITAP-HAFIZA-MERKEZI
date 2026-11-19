@@ -13,9 +13,10 @@ style.textContent=`
 .bc-friend img{width:100%;height:100%;object-fit:cover}
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
-.bc-friends-menu{left:4px;right:auto;top:-12px;bottom:auto;max-width:calc(100% - 8px);pointer-events:auto;white-space:nowrap;z-index:50!important}
+.bc-friends-menu{pointer-events:auto;white-space:nowrap;z-index:10050!important}
+.bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:115px!important}
 nav.v2nav,nav.nav{row-gap:20px!important;overflow:visible!important}
-nav.v2nav button:has(> .bc-friends-menu),nav.nav button:has(> .bc-friends-menu){overflow:visible!important;min-height:92px!important;padding:44px 4px 9px!important;line-height:1.2!important;position:relative!important;white-space:normal!important}
+nav.v2nav button,nav.nav button{position:relative}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu *{animation:none!important;filter:none!important}
 .bc-friends-menu .bc-friend{background:#162b51!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:12px!important;font-weight:800!important;line-height:1!important;text-shadow:none!important;opacity:1!important;transform:none!important;animation:none!important;box-shadow:0 1px 5px #0008!important}
@@ -31,11 +32,12 @@ const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.localSimulat
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
-  let root=host.querySelector(':scope > .bc-friends');
+  const menu=host.matches('nav.v2nav button, nav.nav button');
+  let root=menu?document.querySelector('.bc-floating-presence[data-host-key="'+(host.dataset.bcPresenceKey||'')+'"]'):host.querySelector(':scope > .bc-friends');
   const matched=friends.filter(f=>same(f,type,id));
   if(!matched.length){root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
-  if(!root){root=document.createElement('div');root.className='bc-friends';host.append(root)}
-  const menu=host.matches('nav.v2nav button, nav.nav button');
+  if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
+  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-10)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
@@ -120,6 +122,7 @@ function annotate(){
 }
 annotate();
 setInterval(()=>{annotate();draw()},5000);
+window.addEventListener('scroll',draw,{passive:true});window.addEventListener('resize',draw,{passive:true});
 window.addEventListener('arena-world-updated',()=>{annotate();draw()});
 window.addEventListener('storage',event=>{if(event.key==='bookcenter_arena_botworld_v1'){annotate();draw()}});
 refresh();setInterval(refresh,30000);
