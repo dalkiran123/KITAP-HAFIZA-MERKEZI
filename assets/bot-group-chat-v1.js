@@ -38,6 +38,32 @@ function distinctAnswer(name,message,history){
  }
  return reply;
 }
+
+function addressedBots(text,members){
+ const normalized=clean(text);
+ return members.filter(name=>new RegExp('(^| )'+clean(name)+'( |$)').test(normalized));
+}
+function chooseResponders(text,members){
+ const mentioned=addressedBots(text,members);
+ if(mentioned.length)return mentioned;
+ return members.slice(0,3);
+}
+function peerComment(speaker,previousName,previousText){
+ const subject=previousText.replace(/^(Selam|Merhaba)[^.!?]*[.!?]?/i,'').trim();
+ const variants={
+ Atlas:'@'+previousName+' söylediğin noktayı düşünelim. Bence önce varsayımları netleştirmeliyiz.',
+ Mira:'@'+previousName+' buna farklı bir açıdan bakabiliriz. Sence bu fikir bir hikâyede nasıl gelişirdi?',
+ Arda:'@'+previousName+' güzel yaklaşım. Ben buna bir meydan okuma ekleyeyim: nasıl sınayabiliriz?',
+ Deniz:'@'+previousName+' ben biraz daha sakin ve dikkatli ilerlemeyi öneririm.',
+ Luna:'@'+previousName+' aynı düşünceye başka bir anlam katabiliriz.',
+ Nova:'@'+previousName+' fikrini sevdim! Bunu küçük bir denemeye çevirelim mi?',
+ Orion:'@'+previousName+' buna geçmişten bir örnek bulmak ilginç olabilir.',
+ Ada:'@'+previousName+' senin bakış açını duymak güzel. Başkaları nasıl hissediyor?',
+ Bilge:'@'+previousName+' burada asıl soruyu bulmak önemli olabilir.',
+ Zirve:'@'+previousName+' bunu somut bir adıma dönüştürmeyi öneriyorum.'
+ };
+ return variants[speaker]||'@'+previousName+' buna farklı bir açıdan bakabiliriz.';
+}
 function open(){
  document.getElementById('bc-group-modal')?.remove();
  const state=load()||{members:['Atlas','Mira','Arda'],messages:[]};
@@ -50,7 +76,7 @@ function open(){
  const memberBox=document.createElement('div');memberBox.style.cssText='display:flex;gap:5px;flex-wrap:wrap;padding:7px 12px;border-bottom:1px solid #d7e0e8';
  const log=document.createElement('div');log.style.cssText='flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px';
  const render=()=>{memberBox.replaceChildren();defaults.forEach(name=>{const b=document.createElement('button');const active=state.members.includes(name);b.textContent=(active?'✓ ':'+ ')+name;b.style.cssText='border:1px solid #adc2d5;border-radius:15px;padding:6px 9px;background:'+(active?'#cde7da':'#fff')+';color:#193b55';b.onclick=()=>{state.members=active?state.members.filter(n=>n!==name):[...state.members,name];save(state);render()};memberBox.append(b)});
- log.replaceChildren();state.messages.forEach(m=>{const item=document.createElement('div');item.style.cssText='align-self:'+(m.role==='user'?'flex-end':'flex-start')+';background:'+(m.role==='user'?'#d5eaff':'#fff')+';border-radius:12px;padding:9px 12px;max-width:88%;overflow-wrap:anywhere';const who=document.createElement('strong');who.textContent=m.role==='user'?'Sen':m.name;const body=document.createElement('div');body.textContent=m.text;item.append(who,body);log.append(item)});log.scrollTop=log.scrollHeight};
+ log.replaceChildren();state.messages.forEach(m=>{const item=document.createElement('div');item.style.cssText='align-self:'+(m.role==='user'?'flex-end':'flex-start')+';background:'+(m.role==='user'?'#d5eaff':'#fff')+';border-radius:12px;padding:9px 12px;max-width:88%;overflow-wrap:anywhere';const who=document.createElement('strong');who.textContent=m.role==='user'?'Sen':m.name;const body=document.createElement('div');body.textContent=m.text;if(m.replyTo&&m.replyTo!=='user'){const replyTag=document.createElement('small');replyTag.textContent='↳ '+m.replyTo+' adlı bota yanıt';replyTag.style.cssText='display:block;color:#5d7081;margin:3px 0';item.append(replyTag)}item.append(who,body);log.append(item)});log.scrollTop=log.scrollHeight};
  panel.append(memberBox,log);
  const form=document.createElement('form');form.style.cssText='display:flex;gap:7px;padding:10px;border-top:1px solid #d7e0e8';
  const input=document.createElement('input');input.placeholder='Gruba mesaj yaz...';input.maxLength=1000;input.style.cssText='flex:1;min-width:0;border:1px solid #aab9c9;border-radius:10px;padding:12px;font-size:16px';
@@ -61,12 +87,23 @@ function open(){
  const members=state.members.slice();if(!members.length)return;
  busy=true;send.disabled=true;
  // Reply from up to three participants, sequentially; every turn uses the shared conversation context.
- const chosen=members.slice(0,3);let index=0;
- const next=()=>{if(!overlay.isConnected){busy=false;return}if(index>=chosen.length){busy=false;send.disabled=false;return}
+ const chosen=chooseResponders(value,members);let index=0;
+ const next=()=>{if(!overlay.isConnected){busy=false;return}if(index>=chosen.length){
+ // One optional peer-to-peer response, never a recursive chain.
+ const last=state.messages[state.messages.length-1];
+ const peers=members.filter(n=>n!==last?.name);
+ const peer=peers.length>0&&last?.role==='bot'&&chosen.length>1?peers.find(n=>!chosen.includes(n))||peers[0]:null;
+ if(peer&&chosen.length>1&&chosen.length<4){
+   const peerText=peerComment(peer,last.name,last.text);
+   state.messages.push({role:'bot',name:peer,text:peerText,replyTo:last.name,at:new Date().toISOString()});
+   const k=[peer,last.name].sort().join('|'),relations=getRelations();relations[k]=Math.min(100,(relations[k]||0)+1);try{localStorage.setItem(REL,JSON.stringify(relations))}catch{}
+   save(state);render();
+ }
+ busy=false;send.disabled=false;return}
  const name=chosen[index++],friend={id:name.toLowerCase(),name,kind:'bot'};
  const answer=distinctAnswer(name,value,state.messages);
  const typing=document.createElement('div');typing.textContent=name+' yazıyor…';typing.style.cssText='padding:9px;color:#596e84';log.append(typing);log.scrollTop=log.scrollHeight;
- setTimeout(()=>{if(!overlay.isConnected)return;typing.remove();state.messages.push({role:'bot',name,text:answer,at:new Date().toISOString()});save(state);render();next()},Math.min(1600,450+answer.length*12))};
+ setTimeout(()=>{if(!overlay.isConnected)return;typing.remove();state.messages.push({role:'bot',name,text:answer,replyTo:'user',at:new Date().toISOString()});save(state);render();next()},Math.min(1600,450+answer.length*12))};
  next()};
  const tools=document.createElement('div');tools.style.cssText='display:flex;gap:8px;padding:6px 12px';
  const exportBtn=document.createElement('button');exportBtn.textContent='Sohbeti dışa aktar';exportBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='book-center-ortak-chat.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
