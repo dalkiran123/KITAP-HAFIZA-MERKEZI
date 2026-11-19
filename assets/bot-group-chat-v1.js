@@ -48,21 +48,36 @@ function chooseResponders(text,members){
  if(mentioned.length)return mentioned;
  return members.slice(0,3);
 }
+function previousBotMessage(history,name){
+ return [...history].reverse().find(m=>m.role==='bot'&&m.name===name&&typeof m.text==='string');
+}
+function contextAnswer(name,message,history,members){
+ const t=clean(message),mentioned=addressedBots(message,members),other=mentioned.filter(n=>n!==name);
+ const askingAboutBot=/(ne dedi|ne söyle|anladın|katılıyor musun|fikri|görüşü|tanıyor musun|tanıyor musunuz|tanıyormusunuz|birbirinizi tanı)/.test(t);
+ if(askingAboutBot&&other.length){
+   const target=other[0],prior=previousBotMessage(history,target);
+   if(/tanı|birbirinizi/.test(t))return target+' ile aynı sanal sohbet grubundayız. Onun ilgi alanını ve burada yazdıklarını biliyorum; gerçek hayatta tanışmış değiliz.';
+   if(prior)return target+' az önce şöyle dedi: “'+prior.text.slice(0,145)+'” Benim yorumum: '+(name==='Mira'?'Bu fikrin ayrıntısını merak ettim.':name==='Arda'?'Bunu bir örnekle sınayabiliriz.':'Bunu aynı konu üzerinden değerlendirebiliriz.');
+   return target+' henüz bu sohbette bir şey söylemedi. Önce onun görüşünü alalım.';
+ }
+ if(/aynı konu|farklı konu|karışıyor|konudan sap/.test(t))return 'Haklısın. Aynı konuşma konusuna bağlı kalalım. Yeni bir konu açmadan son mesajını ele alacağım.';
+ return null;
+}
 function peerComment(speaker,previousName,previousText){
- const subject=previousText.replace(/^(Selam|Merhaba)[^.!?]*[.!?]?/i,'').trim();
+ const short=previousText.slice(0,105);
  const variants={
- Atlas:'@'+previousName+' söylediğin noktayı düşünelim. Bence önce varsayımları netleştirmeliyiz.',
- Mira:'@'+previousName+' buna farklı bir açıdan bakabiliriz. Sence bu fikir bir hikâyede nasıl gelişirdi?',
- Arda:'@'+previousName+' güzel yaklaşım. Ben buna bir meydan okuma ekleyeyim: nasıl sınayabiliriz?',
- Deniz:'@'+previousName+' ben biraz daha sakin ve dikkatli ilerlemeyi öneririm.',
- Luna:'@'+previousName+' aynı düşünceye başka bir anlam katabiliriz.',
- Nova:'@'+previousName+' fikrini sevdim! Bunu küçük bir denemeye çevirelim mi?',
- Orion:'@'+previousName+' buna geçmişten bir örnek bulmak ilginç olabilir.',
- Ada:'@'+previousName+' senin bakış açını duymak güzel. Başkaları nasıl hissediyor?',
- Bilge:'@'+previousName+' burada asıl soruyu bulmak önemli olabilir.',
- Zirve:'@'+previousName+' bunu somut bir adıma dönüştürmeyi öneriyorum.'
+ Atlas:'@'+previousName+' söylediklerini aynı konu üzerinde değerlendireyim: “'+short+'” Önce hangi noktada anlaştığımızı netleştirelim.',
+ Mira:'@'+previousName+' “'+short+'” demiştin. Bunun hangi kısmını daha çok merak ediyorsun?',
+ Arda:'@'+previousName+' “'+short+'” fikrini duydum. Bunu nasıl test edebileceğimizi düşünelim.',
+ Deniz:'@'+previousName+' seni dinledim. Konuyu acele etmeden açabiliriz.',
+ Luna:'@'+previousName+' söylediğin düşünce üzerinde biraz daha durmak isterim.',
+ Nova:'@'+previousName+' bu fikirle ilgili küçük bir deneme yapabiliriz.',
+ Orion:'@'+previousName+' söylediğin görüşün gerekçesini merak ettim.',
+ Ada:'@'+previousName+' söylediklerin önemli. Sen nasıl hissediyorsun?',
+ Bilge:'@'+previousName+' söylediğin noktada temel soru ne olabilir?',
+ Zirve:'@'+previousName+' bunu somut bir sonraki adıma çevirebiliriz.'
  };
- return variants[speaker]||'@'+previousName+' buna farklı bir açıdan bakabiliriz.';
+ return variants[speaker]||'@'+previousName+' görüşünü biraz açar mısın?';
 }
 function open(){
  document.getElementById('bc-group-modal')?.remove();
@@ -93,7 +108,7 @@ function open(){
  const last=state.messages[state.messages.length-1];
  const peers=members.filter(n=>n!==last?.name);
  const peer=peers.length>0&&last?.role==='bot'&&chosen.length>1?peers.find(n=>!chosen.includes(n))||peers[0]:null;
- if(peer&&chosen.length>1&&chosen.length<4){
+ if(peer&&chosen.length>1&&chosen.length<4&&!addressedBots(value,members).length){
    const peerText=peerComment(peer,last.name,last.text);
    state.messages.push({role:'bot',name:peer,text:peerText,replyTo:last.name,at:new Date().toISOString()});
    const k=[peer,last.name].sort().join('|'),relations=getRelations();relations[k]=Math.min(100,(relations[k]||0)+1);try{localStorage.setItem(REL,JSON.stringify(relations))}catch{}
@@ -101,7 +116,7 @@ function open(){
  }
  busy=false;send.disabled=false;return}
  const name=chosen[index++],friend={id:name.toLowerCase(),name,kind:'bot'};
- const answer=distinctAnswer(name,value,state.messages);
+ const answer=contextAnswer(name,value,state.messages,members)||distinctAnswer(name,value,state.messages);
  const typing=document.createElement('div');typing.textContent=name+' yazıyor…';typing.style.cssText='padding:9px;color:#596e84';log.append(typing);log.scrollTop=log.scrollHeight;
  setTimeout(()=>{if(!overlay.isConnected)return;typing.remove();state.messages.push({role:'bot',name,text:answer,replyTo:'user',at:new Date().toISOString()});save(state);render();next()},Math.min(1600,450+answer.length*12))};
  next()};
