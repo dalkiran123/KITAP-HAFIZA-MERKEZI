@@ -33,8 +33,7 @@ function distinctAnswer(name,message,history){
  let reply=window.BookCenterLocalMind?.answer(friend,message,history)||'Biraz daha ayrıntı paylaşır mısın?';
  const recent=history.filter(m=>m.role==='bot'&&m.text).slice(-8).map(m=>clean(m.text));
  if(recent.includes(clean(reply))){
-   const subject=window.BookCenterLocalMind?.knowledgeState?.(friend)?.entries?.slice(-1)[0]?.fact;
-   reply=subject?name+' olarak başka bir açı ekleyeyim: '+subject:(style.hello||name+' olarak farklı bir örnek üzerinden konuşalım mı?');
+   reply=name==='Atlas'?'Aynı cümleyi tekrarlamak istemiyorum. Bu konunun nedenini birlikte inceleyelim.':name==='Mira'?'Aynı konudan devam edelim. Senin görüşünü biraz daha merak ediyorum.':name==='Arda'?'Aynı konu üzerinde farklı bir önerim var: küçük bir örnekle sınayalım.':'Aynı konudan devam edelim. Önceki yanıtı tekrarlamak yerine bir ayrıntı sorayım: sen ne düşünüyorsun?';
  }
  return reply;
 }
