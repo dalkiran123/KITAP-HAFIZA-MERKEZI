@@ -1,0 +1,1 @@
+(()=>{'use strict';const el=document.getElementById('bc-social-summary');if(!el)return;function update(){let bots=0;try{const w=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null');bots=Array.isArray(w?.bots)?w.bots.length:0}catch{}el.textContent='👥 '+bots+' sanal · gerçek çevrimiçi: doğrulanmadı';}update();setInterval(update,30000)})();
