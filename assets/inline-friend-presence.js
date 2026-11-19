@@ -113,7 +113,7 @@ document.addEventListener('bookcenter:open-friend-profile',event=>{
  last.textContent=recent?'Son simüle okuma: '+String(recent.title||'')+' · '+(Number.isFinite(Date.parse(recent.at))?new Date(recent.at).toLocaleString('tr-TR'):'Tarih bilinmiyor'):'Henüz okuma kaydı yok';
  const note=document.createElement('small');note.textContent='Bu bilgiler yerel simülasyondur. Gerçek zamanlı kullanıcı etkinliği değildir.';
  const close=document.createElement('button');close.type='button';close.textContent='Kapat';close.style.cssText='display:block;margin-top:12px;background:#e5bc79;color:#17233c';
- close.onclick=()=>dialog.remove();
+ close.onclick=()=>{dialog.remove();document.removeEventListener('keydown',escape)};
  dialog.append(title,desc,last,note,close);document.body.append(dialog);close.focus();
  const escape=event=>{if(event.key==='Escape'){dialog.remove();document.removeEventListener('keydown',escape)}};
  document.addEventListener('keydown',escape);
