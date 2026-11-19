@@ -115,7 +115,7 @@ function annotate(){
   const type=/video|belgesel/.test(label)?'video':/arena|yarış/.test(label)?'arena':/keşfet/.test(label)?'discover':/kitaplığım/.test(label)?'library':/profil|kariyer/.test(label)?'profile':/ana menü/.test(label)?'home':/yedek/.test(label)?'backup':/yenile/.test(label)?'refresh':/haber/.test(label)?'news':/youtube/.test(label)?'youtube':/linkedin/.test(label)?'linkedin':/zaman/.test(label)?'time':null;
   if(type){button.dataset.presenceType='section';button.dataset.presenceId=type}
  });
- document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card, #discover .tile').forEach(card=>{
+ document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card, #discover .tile, [data-book-id], [data-book-name]').forEach(card=>{
   const name=card.dataset.bookId||card.dataset.bookName||card.querySelector('strong,h3,h4')?.textContent?.trim();
   if(name){card.dataset.presenceType='book';card.dataset.presenceId=name}
  });
@@ -152,5 +152,5 @@ document.addEventListener('bookcenter:open-friend-profile',event=>{
  document.addEventListener('keydown',escape);
  dialog.addEventListener('click',event=>{if(event.target===dialog){dialog.remove();document.removeEventListener('keydown',escape)}});
 });
-window.BookCenterPresence={refresh};
+window.BookCenterPresence={refresh,diagnostics:()=>({apiConfigured:!!API,remoteCount:current.length,localBotCount:localBotRecords().length,annotated:document.querySelectorAll('[data-presence-type][data-presence-id]').length})};
 })();
