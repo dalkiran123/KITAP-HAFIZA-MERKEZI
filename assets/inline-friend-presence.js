@@ -15,7 +15,7 @@ style.textContent=`
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{right:3px;top:auto;bottom:3px;max-width:none;pointer-events:none}
 .bc-friends-menu .bc-friend-count{font-size:10px;padding:2px 5px;border:1px solid #d9a65d;box-shadow:0 1px 4px #0005}
-.bc-book-activity{position:absolute;left:5px;right:5px;bottom:5px;z-index:4;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#172a4be8;color:#fff;border:1px solid #d9a65d;border-radius:9px;padding:3px 6px;font:11px system-ui;pointer-events:none}
+.bc-book-activity{position:relative;margin:6px 0 0;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#172a4be8;color:#fff;border:1px solid #d9a65d;border-radius:9px;padding:3px 6px;font:11px system-ui;pointer-events:none}
 .bc-friend-count{background:#172a4b;color:white;border-radius:12px;padding:3px 5px;font-size:11px}
 `;
 document.head.appendChild(style);
