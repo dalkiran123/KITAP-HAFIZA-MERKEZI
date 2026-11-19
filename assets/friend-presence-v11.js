@@ -19,6 +19,7 @@ style.textContent=`
 .bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:115px!important}
 nav.v2nav,nav.nav{overflow:visible!important}
 nav.v2nav button,nav.nav button{position:relative}
+nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{padding-top:29px!important;min-height:90px!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu *{animation:none!important;filter:none!important}
 .bc-friends-menu .bc-friend{background:#162b51!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:12px!important;font-weight:800!important;line-height:1!important;text-shadow:none!important;opacity:1!important;transform:none!important;animation:none!important;box-shadow:0 1px 5px #0008!important}
@@ -37,9 +38,10 @@ function render(friends){
   const menu=host.matches('nav.v2nav button, nav.nav button');
   let root=menu?document.querySelector('.bc-floating-presence[data-host-key="'+(host.dataset.bcPresenceKey||'')+'"]'):host.querySelector(':scope > .bc-friends');
   const matched=friends.filter(f=>same(f,type,id));
-  if(!matched.length){root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
+  if(!matched.length){if(menu)delete host.dataset.bcActiveFriends;root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
+  if(menu)host.dataset.bcActiveFriends='1';
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-22)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>28?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top+4)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>28?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
@@ -60,14 +62,14 @@ function render(friends){
    const chip=document.createElement('span');chip.className='bc-friend-count';
    const bots=matched.filter(f=>f.kind==='bot').length,people=matched.length-bots;
    chip.textContent=(bots?'🤖 '+bots:'')+(people?(bots?' · ':'')+'👥 '+people:'');
-   chip.title='Botlar sanal okuma kayıtlarıdır, canlı kullanıcı değildir';
+   chip.title='Sanal bot etkinlikleri simülasyondur';
    if(matched.length>3)root.append(chip);
   }
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
    const lastTime=Date.parse(friend.last_seen_at||'');
-   button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal okuma kaydı (canlı değil)':'Çevrimiçi arkadaş')+(Number.isFinite(lastTime)?' · '+new Date(lastTime).toLocaleString('tr-TR'):'');
+   button.title=friend.name+' • '+(friend.kind==='bot'?(friend.simulatedSection?'Sanal etkinlik simülasyonu':'Sanal okuma kaydı (canlı değil)'):'Çevrimiçi arkadaş')+(Number.isFinite(lastTime)?' · '+new Date(lastTime).toLocaleString('tr-TR'):'');
    button.setAttribute('aria-label',friend.name+' profilini aç');
    const imgUrl=safeUrl(friend.avatar_url);
    if(imgUrl){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.loading='lazy';button.append(img)}
@@ -99,7 +101,21 @@ function localBotRecords(){
   });
  }catch{return []}
 }
-function draw(){annotate();render([...current,...localBotRecords()])}
+function simulatedBotSections(){
+ try{
+  const world=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null');
+  if(!Array.isArray(world?.bots))return [];
+  const sections=['home','video','discover','news','youtube','linkedin','library'];
+  const slot=Math.floor(Date.now()/90000);
+  return world.bots.filter(b=>b&&Number.isInteger(b.id)&&b.id>=0&&b.id<10).map(bot=>{
+   const index=(bot.id*3+slot)%sections.length;
+   return {id:'local-bot-'+bot.id,name:String(bot.name||'Bot '+(bot.id+1)),kind:'bot',
+    simulated:true,simulatedSection:true,localSimulation:true,online:false,
+    location:{type:'section',id:sections[index]},last_seen_at:new Date(slot*90000).toISOString()};
+  });
+ }catch{return []}
+}
+function draw(){annotate();render([...current,...localBotRecords(),...simulatedBotSections()])}
 async function refresh(){try{
  if(!API){current=[];draw();return}
  const parsed=new URL(API,location.href);
@@ -123,7 +139,7 @@ function annotate(){
  document.querySelectorAll('[data-video-id]').forEach(card=>{card.dataset.presenceType='video';card.dataset.presenceId=card.dataset.videoId});
 }
 annotate();
-setInterval(()=>{annotate();draw()},5000);
+setInterval(draw,5000);
 window.addEventListener('scroll',draw,{passive:true});window.addEventListener('resize',draw,{passive:true});
 window.addEventListener('arena-world-updated',()=>{annotate();draw()});
 window.addEventListener('storage',event=>{if(event.key==='bookcenter_arena_botworld_v1'){annotate();draw()}});
@@ -153,5 +169,5 @@ document.addEventListener('bookcenter:open-friend-profile',event=>{
  document.addEventListener('keydown',escape);
  dialog.addEventListener('click',event=>{if(event.target===dialog){dialog.remove();document.removeEventListener('keydown',escape)}});
 });
-window.BookCenterPresence={refresh,diagnostics:()=>({apiConfigured:!!API,remoteCount:current.length,localBotCount:localBotRecords().length,annotated:document.querySelectorAll('[data-presence-type][data-presence-id]').length})};
+window.BookCenterPresence={refresh,diagnostics:()=>({apiConfigured:!!API,remoteCount:current.length,localBotCount:localBotRecords().length,simulatedBotCount:simulatedBotSections().length,annotated:document.querySelectorAll('[data-presence-type][data-presence-id]').length})};
 })();
