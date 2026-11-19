@@ -13,8 +13,9 @@ style.textContent=`
 .bc-friend img{width:100%;height:100%;object-fit:cover}
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
-.bc-friends-menu{left:5px;right:auto;top:4px;bottom:auto;max-width:calc(100% - 10px);pointer-events:auto;white-space:nowrap}
-nav.v2nav button:has(> .bc-friends-menu),nav.nav button:has(> .bc-friends-menu){padding-top:34px!important;min-height:76px!important;overflow:visible!important}
+.bc-friends-menu{left:4px;right:auto;top:-12px;bottom:auto;max-width:calc(100% - 8px);pointer-events:auto;white-space:nowrap;z-index:50!important}
+nav.v2nav,nav.nav{row-gap:20px!important;overflow:visible!important}
+nav.v2nav button:has(> .bc-friends-menu),nav.nav button:has(> .bc-friends-menu){overflow:visible!important}
 .bc-friends-menu .bc-friend{background:#162b51!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:12px!important;font-weight:800!important;line-height:1!important;text-shadow:none!important;opacity:1!important;transform:none!important;animation:none!important;box-shadow:0 1px 5px #0008!important}
 .bc-friends-menu .bc-friend-count{background:#172a4b!important;color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;animation:none!important;white-space:nowrap}
 .bc-friends-menu .bc-friend-count{font-size:10px;padding:2px 5px;border:1px solid #d9a65d;box-shadow:0 1px 4px #0005}
