@@ -27,4 +27,6 @@ assert.match(presence,/reading\[0\]/,'Presence must read persisted bot book hist
 assert.match(presence,/simulated:true,localSimulation:true,online:false/,'Local bot history must not claim online status');
 assert.match(presence,/BOOKCENTER_PRESENCE_API_URL/,'Remote presence must be opt-in configured');
 assert.match(presence,/if\(menu\)\s*\{[\s\S]*?root\.append\(chip\);return;/,'Menu presence must use a compact badge, not overlapping avatars');
+assert.match(presence,/bc-book-activity/,'Book cards must show simulated reading activity label');
+assert.match(presence,/type==='book'/,'Activity labels must be restricted to book cards');
 console.log('PASS: inline friend presence integration checks');

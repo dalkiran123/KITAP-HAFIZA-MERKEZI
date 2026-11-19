@@ -15,6 +15,7 @@ style.textContent=`
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{right:3px;top:auto;bottom:3px;max-width:none;pointer-events:none}
 .bc-friends-menu .bc-friend-count{font-size:10px;padding:2px 5px;border:1px solid #d9a65d;box-shadow:0 1px 4px #0005}
+.bc-book-activity{position:relative;margin:6px 0 0;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#172a4be8;color:#fff;border:1px solid #d9a65d;border-radius:9px;padding:3px 6px;font:11px system-ui;pointer-events:none}
 .bc-friend-count{background:#172a4b;color:white;border-radius:12px;padding:3px 5px;font-size:11px}
 `;
 document.head.appendChild(style);
@@ -26,7 +27,7 @@ function render(friends){
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
   let root=host.querySelector(':scope > .bc-friends');
   const matched=friends.filter(f=>same(f,type,id));
-  if(!matched.length){root?.remove();return}
+  if(!matched.length){root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(!root){root=document.createElement('div');root.className='bc-friends';host.append(root)}
   const menu=host.matches('nav.v2nav button, nav.nav button');
   root.classList.toggle('bc-friends-menu',menu);
@@ -34,6 +35,17 @@ function render(friends){
   if(root.dataset.signature===signature)return;
   root.dataset.signature=signature;
   root.replaceChildren();
+  const oldActivity=host.querySelector(':scope > .bc-book-activity');
+  if(type==='book'){
+   const bots=matched.filter(f=>f.localSimulation);
+   if(bots.length){
+    const activity=oldActivity||document.createElement('span');
+    activity.className='bc-book-activity';
+    activity.textContent='🤖 '+bots.slice(0,2).map(f=>f.name).join(', ')+(bots.length>2?' +'+(bots.length-2):'')+' · sanal okuma';
+    activity.title=bots.map(f=>f.name+' · '+new Date(f.last_seen_at).toLocaleString('tr-TR')).join(' | ');
+    if(!oldActivity)host.append(activity);
+   }else oldActivity?.remove();
+  }else oldActivity?.remove();
   if(menu){
    const chip=document.createElement('span');chip.className='bc-friend-count';
    const bots=matched.filter(f=>f.localSimulation).length,people=matched.length-bots;
