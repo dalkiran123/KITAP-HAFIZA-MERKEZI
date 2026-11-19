@@ -13,6 +13,8 @@ style.textContent=`
 .bc-friend img{width:100%;height:100%;object-fit:cover}
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
+.bc-friends-menu{right:3px;top:auto;bottom:3px;max-width:none;pointer-events:none}
+.bc-friends-menu .bc-friend-count{font-size:10px;padding:2px 5px;border:1px solid #d9a65d;box-shadow:0 1px 4px #0005}
 .bc-friend-count{background:#172a4b;color:white;border-radius:12px;padding:3px 5px;font-size:11px}
 `;
 document.head.appendChild(style);
@@ -26,6 +28,8 @@ function render(friends){
   const matched=friends.filter(f=>same(f,type,id));
   if(!matched.length){root?.remove();return}
   if(!root){root=document.createElement('div');root.className='bc-friends';host.append(root)}
+  const menu=host.matches('nav.v2nav button, nav.nav button');
+  root.classList.toggle('bc-friends-menu',menu);
   const signature=matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
   root.dataset.signature=signature;
