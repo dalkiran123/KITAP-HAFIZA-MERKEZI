@@ -26,7 +26,7 @@ def register_chess(app):
             if request.headers.get("Origin") == ORIGIN:
                 response.headers["Access-Control-Allow-Origin"] = ORIGIN
                 response.headers["Vary"] = "Origin"
-            response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+            response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Chess-Token"
             response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
             response.headers["Cache-Control"] = "no-store"
         return response
