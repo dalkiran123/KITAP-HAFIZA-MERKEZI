@@ -23,10 +23,10 @@ style.textContent=`
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{pointer-events:auto;white-space:nowrap;z-index:10050!important}
-.bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:115px!important}
-nav.v2nav,nav.nav{overflow:visible!important}
+.bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:calc(100vw - 12px)!important}
+nav.v2nav,nav.nav{overflow:visible!important;row-gap:39px!important;margin-top:36px!important}
 nav.v2nav button,nav.nav button{position:relative}
-nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{padding-top:49px!important;min-height:105px!important}
+nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{position:relative!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu *{animation:none!important;filter:none!important}
 .bc-friends-menu .bc-friend{background:#162b51!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:12px!important;font-weight:800!important;line-height:1!important;text-shadow:none!important;opacity:1!important;transform:none!important;animation:none!important;box-shadow:0 1px 5px #0008!important}
@@ -48,7 +48,7 @@ function render(friends){
   if(!matched.length){if(menu)delete host.dataset.bcActiveFriends;root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(menu)host.dataset.bcActiveFriends='1';
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top+2)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>28?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-38)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>40?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
