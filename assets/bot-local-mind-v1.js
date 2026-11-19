@@ -100,16 +100,16 @@ function activitySummary(friend){
 
 /* Hourly local knowledge rotation: curated facts, not live web research. */
 const knowledge={
-'bilim':['Ay ışığı, Güneş ışığının Ay yüzeyinden yansımasıdır.','Ses boşlukta yayılamaz; mekanik bir ortama ihtiyaç duyar.','DNA canlıların kalıtsal bilgisini taşır.','Dünya kendi ekseni çevresinde yaklaşık 24 saatte döner.'],
-'roman':['Romanlarda anlatıcı ile yazar aynı kişi olmak zorunda değildir.','Bir romandaki çatışma yalnızca kişiler arasında değil, karakterin kendi içinde de yaşanabilir.','Güvenilmez anlatıcı, okurun aktarılanları sorgulamasını sağlar.'],
-'doğa':['Mantarlar bitki değil, ayrı bir canlılar âlemidir.','Arılar çiçekli bitkilerin tozlaşmasına katkıda bulunur.','Gelgitlerin başlıca nedenlerinden biri Ayın kütleçekimidir.'],
-'satranç':['Satrançta şah tehdit altındayken rok yapılamaz.','Piyon son sıraya ulaşınca terfi eder.','Pat, hamle sırası gelen tarafın yasal hamlesi yokken şahının tehdit altında olmamasıdır.'],
-'şiir':['Şiirde ölçü ve uyak zorunlu değildir.','İmge, sözcüklerin çağrışımlarıyla yeni anlamlar kurabilir.','Serbest şiirde düzen yalnızca hece sayısına bağlı değildir.'],
-'teknoloji':['İki aşamalı doğrulama hesap güvenliğini artırabilir.','Açık kaynak yazılımın kodu lisans koşullarıyla incelenebilir.','Yerel depolama tarayıcı verisi silindiğinde kaybolabilir.'],
-'tarih':['Tarihsel kaynaklar birincil ve ikincil kaynaklar olarak sınıflandırılabilir.','Takvim sistemleri farklı başlangıç noktaları kullanır.','Arkeoloji maddi kalıntıları inceleyerek geçmişi araştırır.'],
-'psikoloji':['Uyku öğrenme ve belleğin pekiştirilmesinde rol oynar.','Dikkat, sınırlı bir bilişsel kaynaktır.','İnsanlar aynı olayı farklı biçimde hatırlayabilir.'],
-'felsefe':['Epistemoloji bilginin doğasını ve sınırlarını inceler.','Etik, doğru ve yanlış davranışları sorgular.','Mantık, akıl yürütmelerin geçerliliğini inceler.'],
-'kişisel gelişim':['Büyük hedefleri küçük adımlara bölmek takibi kolaylaştırır.','Düzenli tekrar bilgiyi hatırlamaya yardımcı olabilir.','Ölçülebilir hedefler ilerlemeyi değerlendirmeyi kolaylaştırır.']
+'bilim':['Ay ışığı, Güneş ışığının Ay yüzeyinden yansımasıdır.','Ses boşlukta yayılamaz; mekanik bir ortama ihtiyaç duyar.','DNA canlıların kalıtsal bilgisini taşır.','Dünya kendi ekseni çevresinde yaklaşık 24 saatte döner.' ,'Işık, boşlukta yaklaşık saniyede 300 bin kilometre hızla ilerler.'],
+'roman':['Romanlarda anlatıcı ile yazar aynı kişi olmak zorunda değildir.','Bir romandaki çatışma yalnızca kişiler arasında değil, karakterin kendi içinde de yaşanabilir.','Güvenilmez anlatıcı, okurun aktarılanları sorgulamasını sağlar.' ,'Bir romanın olay örgüsü, olayların neden-sonuç ilişkileriyle düzenlenmesini içerir.'],
+'doğa':['Mantarlar bitki değil, ayrı bir canlılar âlemidir.','Arılar çiçekli bitkilerin tozlaşmasına katkıda bulunur.','Gelgitlerin başlıca nedenlerinden biri Ayın kütleçekimidir.' ,'Likenler, bir mantar ile fotosentez yapan bir ortağın birlikte oluşturduğu ortak yaşam yapılarıdır.'],
+'satranç':['Satrançta şah tehdit altındayken rok yapılamaz.','Piyon son sıraya ulaşınca terfi eder.','Pat, hamle sırası gelen tarafın yasal hamlesi yokken şahının tehdit altında olmamasıdır.' ,'Satrançta at taşı L biçiminde hareket eder ve diğer taşların üzerinden atlayabilir.'],
+'şiir':['Şiirde ölçü ve uyak zorunlu değildir.','İmge, sözcüklerin çağrışımlarıyla yeni anlamlar kurabilir.','Serbest şiirde düzen yalnızca hece sayısına bağlı değildir.' ,'Aliterasyon, şiirde ünsüz seslerin tekrarlanmasıyla oluşan ses sanatıdır.'],
+'teknoloji':['İki aşamalı doğrulama hesap güvenliğini artırabilir.','Açık kaynak yazılımın kodu lisans koşullarıyla incelenebilir.','Yerel depolama tarayıcı verisi silindiğinde kaybolabilir.' ,'HTTPS, tarayıcı ile sunucu arasındaki iletişimin şifrelenmesine yardımcı olur.'],
+'tarih':['Tarihsel kaynaklar birincil ve ikincil kaynaklar olarak sınıflandırılabilir.','Takvim sistemleri farklı başlangıç noktaları kullanır.','Arkeoloji maddi kalıntıları inceleyerek geçmişi araştırır.' ,'Tarihte kronoloji, olayların zaman sırasına göre düzenlenmesidir.'],
+'psikoloji':['Uyku öğrenme ve belleğin pekiştirilmesinde rol oynar.','Dikkat, sınırlı bir bilişsel kaynaktır.','İnsanlar aynı olayı farklı biçimde hatırlayabilir.' ,'Çalışma belleği, bilgiyi kısa süreli olarak zihinde tutup işlemeyi sağlar.'],
+'felsefe':['Epistemoloji bilginin doğasını ve sınırlarını inceler.','Etik, doğru ve yanlış davranışları sorgular.','Mantık, akıl yürütmelerin geçerliliğini inceler.' ,'Tümdengelim, genel öncüllerden mantıksal sonuç çıkarma yöntemidir.'],
+'kişisel gelişim':['Büyük hedefleri küçük adımlara bölmek takibi kolaylaştırır.','Düzenli tekrar bilgiyi hatırlamaya yardımcı olabilir.','Ölçülebilir hedefler ilerlemeyi değerlendirmeyi kolaylaştırır.' ,'Aralıklı tekrar, öğrenilen bilgiyi zaman içine yayılmış oturumlarla gözden geçirme yöntemidir.']
 };
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
@@ -117,7 +117,7 @@ function knowledgeState(friend){
  const slot=Math.floor(Date.now()/3600000),key=knowledgeKey(friend.id);
  let state={};try{state=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch{}
  if(!Array.isArray(state.entries))state.entries=[];
- if(state.lastSlot!==slot){const idx=((slot%items.length)+items.length)%items.length;state.entries.push({slot,topic:p.topic,fact:items[idx],source:'Uygulama içi doğrulanmış temel bilgi havuzu'});state.entries=state.entries.slice(-120);state.lastSlot=slot;try{localStorage.setItem(key,JSON.stringify(state))}catch{}}
+ if(state.lastSlot!==slot){const seen=new Set(state.entries.filter(e=>e.topic===p.topic).slice(-items.length).map(e=>e.fact));const candidates=items.filter(f=>!seen.has(f));const pool=candidates.length?candidates:items;const idx=((slot%pool.length)+pool.length)%pool.length;state.entries.push({slot,topic:p.topic,fact:pool[idx],source:'Uygulama içi temel bilgi havuzu'});state.entries=state.entries.slice(-120);state.lastSlot=slot;try{localStorage.setItem(key,JSON.stringify(state))}catch{}}
  return state;
 }
 function learnedFact(friend){const state=knowledgeState(friend),entry=state.entries[state.entries.length-1];return entry?'İlgi alanım hakkında bilgi havuzumdan bugün şunu seçtim: '+entry.fact+' Bu, internette yeni araştırma yaptığım anlamına gelmez.':'Henüz bilgi seçmedim.'}
