@@ -18,7 +18,7 @@ style.textContent=`
 document.head.appendChild(style);
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
 const normalizeBook=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
-const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.simulated===true))return false;if(type==='section'&&id==='discover'&&f.kind==='bot'&&f.simulated===true&&f.location?.type==='book')return true;return f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id)};
+const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.localSimulation===true))return false;if(type==='section'&&id==='discover'&&f.kind==='bot'&&f.localSimulation===true&&f.location?.type==='book')return true;return f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id)};
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
@@ -61,7 +61,7 @@ function localBotRecords(){
    if(!reading||typeof reading.title!=='string'||!reading.title.trim())return [];
    const stamp=Date.parse(reading.at||'');
    if(!Number.isFinite(stamp)||Date.now()-stamp>86400000||stamp>Date.now()+60000)return [];
-   return [{id:'local-bot-'+bot.id,name:String(bot.name||'Bot '+(bot.id+1)),kind:'bot',simulated:true,online:false,
+   return [{id:'local-bot-'+bot.id,name:String(bot.name||'Bot '+(bot.id+1)),kind:'bot',simulated:true,localSimulation:true,online:false,
     location:{type:'book',id:reading.title.trim()},last_seen_at:reading.at}];
   });
  }catch{return []}
@@ -74,7 +74,7 @@ async function refresh(){try{
  const response=await fetch(API,{credentials:'include',cache:'no-store'});
  if(!response.ok)throw Error('Presence unavailable');
  const data=await response.json();if(!Array.isArray(data.friends))throw Error('Invalid presence');
- current=data.friends.filter(f=>f&&f.id!=null&&typeof f.name==='string'&&f.location&&['user','bot'].includes(f.kind));
+ current=data.friends.filter(f=>f&&f.id!=null&&typeof f.name==='string'&&f.name.length<=80&&f.location&&['user','bot'].includes(f.kind)&&f.online===true&&['section','book','video'].includes(f.location.type)&&typeof f.location.id==='string'&&f.location.id.length<=180).slice(0,100).map(f=>({...f,localSimulation:false}));
  draw();
 }catch{current=[];draw()}}
 function annotate(){
