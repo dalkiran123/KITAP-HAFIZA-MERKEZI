@@ -24,7 +24,7 @@ style.textContent=`
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{pointer-events:auto;white-space:nowrap;z-index:10050!important}
 .bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:calc(100vw - 12px)!important}
-nav.v2nav,nav.nav{overflow:visible!important;row-gap:39px!important;margin-top:36px!important}
+nav.v2nav,nav.nav{overflow:visible!important}
 nav.v2nav button,nav.nav button{position:relative}
 nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{position:relative!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
@@ -35,7 +35,19 @@ nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(>
 .bc-book-activity{position:relative;margin:6px 0 0;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#172a4be8;color:#fff;border:1px solid #d9a65d;border-radius:9px;padding:3px 6px;font:11px system-ui;pointer-events:none}
 .bc-friend-count{background:#172a4b;color:white;border-radius:12px;padding:3px 5px;font-size:11px}
 `;
+style.textContent+=`
+.bc-floating-presence,.bc-friends{overflow:visible!important}
+.bc-presence-trigger{appearance:none!important;border:1px solid #f3d18a!important;border-radius:16px!important;background:#193558!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 11px/1.2 system-ui!important;padding:5px 8px!important;min-height:28px!important;white-space:nowrap!important;box-shadow:0 2px 6px #0005!important;cursor:pointer!important;animation:none!important}
+.bc-presence-panel{position:absolute!important;left:0!important;top:32px!important;z-index:10090!important;width:min(290px,calc(100vw - 24px))!important;max-height:280px!important;overflow-y:auto!important;padding:9px!important;border:1px solid #a4aab9!important;border-radius:12px!important;background:#fffdf7!important;color:#152c4d!important;box-shadow:0 8px 22px #0005!important;animation:none!important;text-align:left!important}
+.bc-presence-panel[hidden]{display:none!important}
+.bc-presence-heading{font:700 13px system-ui!important;margin:2px 0 8px!important}
+.bc-presence-line{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:6px!important;margin:5px 0!important}
+.bc-presence-person,.bc-presence-message{appearance:none!important;background:#edf3ff!important;color:#142c4b!important;-webkit-text-fill-color:#142c4b!important;border:1px solid #b5c5db!important;border-radius:9px!important;padding:5px!important;font:600 12px system-ui!important;min-height:34px!important;cursor:pointer!important;animation:none!important}
+.bc-presence-person{display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important;flex:1!important;text-align:left!important}
+.bc-presence-person img,.bc-presence-initial{width:24px!important;height:24px!important;border-radius:50%!important;object-fit:cover!important;background:#1e365c!important;color:white!important;display:grid!important;place-items:center!important;flex:none!important}
+`;
 document.head.appendChild(style);
+document.addEventListener('click',e=>{if(!e.target.closest('.bc-friends'))document.querySelectorAll('.bc-presence-panel').forEach(p=>p.hidden=true)});
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
 const normalizeBook=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
 const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.localSimulation===true))return false;return f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id)};
@@ -48,7 +60,7 @@ function render(friends){
   if(!matched.length){if(menu)delete host.dataset.bcActiveFriends;root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(menu)host.dataset.bcActiveFriends='1';
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-38)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>40?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-18)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>40?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
@@ -65,33 +77,31 @@ function render(friends){
     if(!oldActivity)host.append(activity);
    }else oldActivity?.remove();
   }else oldActivity?.remove();
-  if(menu){
-   const chip=document.createElement('span');chip.className='bc-friend-count';
-   const bots=matched.filter(f=>f.kind==='bot').length,people=matched.length-bots;
-   chip.textContent=(bots?'🤖 '+bots:'')+(people?(bots?' · ':'')+'👥 '+people:'');
-   chip.title='Sanal bot etkinlikleri simülasyondur';
-   if(matched.length>3)root.append(chip);
-  }
-  matched.slice(0,3).forEach(friend=>{
-   const person=document.createElement('span');person.className='bc-friend-person';
-   const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
-   button.dataset.kind=friend.kind==='bot'?'bot':'user';
-   const lastTime=Date.parse(friend.last_seen_at||'');
-   button.title=friend.name+' • '+(friend.kind==='bot'?(friend.simulatedSection?'Sanal etkinlik simülasyonu':'Sanal okuma kaydı (canlı değil)'):'Çevrimiçi arkadaş')+(Number.isFinite(lastTime)?' · '+new Date(lastTime).toLocaleString('tr-TR'):'');
-   button.setAttribute('aria-label',friend.name+' profilini aç');
-   const imgUrl=safeUrl(friend.avatar_url);
-   if(imgUrl){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.loading='lazy';button.append(img)}
-   else button.textContent=String(friend.name||'?').slice(0,1).toUpperCase();
-   const openProfile=event=>{event.preventDefault();event.stopPropagation();
-    const target=safeUrl(friend.profile_url);if(target)location.assign(target);
-    else document.dispatchEvent(new CustomEvent('bookcenter:open-friend-profile',{detail:{friendId:friend.id,kind:friend.kind}}));
-   };
-   button.addEventListener('click',openProfile);
-   button.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){openProfile(event)}});
-   const name=document.createElement('span');name.className='bc-friend-name';name.textContent=String(friend.name||'Arkadaş').slice(0,22);name.title=friend.name;
-   person.append(button,name);root.append(person);
+  const trigger=document.createElement('button');
+  trigger.type='button';trigger.className='bc-presence-trigger';
+  trigger.textContent='👥 '+matched.length;
+  trigger.setAttribute('aria-label',matched.length+' arkadaş. Listeyi aç');
+  trigger.title=matched.filter(f=>f.kind==='bot').length+' sanal arkadaş; simülasyon gerçek çevrimiçi durumu değildir';
+  root.append(trigger);
+  const panel=document.createElement('div');panel.className='bc-presence-panel';panel.hidden=true;
+  const heading=document.createElement('div');heading.className='bc-presence-heading';
+  heading.textContent='Bu alandaki arkadaşlar ('+matched.length+')';
+  panel.append(heading);
+  matched.forEach(friend=>{
+   const line=document.createElement('div');line.className='bc-presence-line';
+   const name=document.createElement('button');name.type='button';name.className='bc-presence-person';
+   const url=safeUrl(friend.avatar_url);
+   if(url){const img=document.createElement('img');img.src=url;img.alt='';name.append(img)}
+   else {const initials=document.createElement('span');initials.className='bc-presence-initial';initials.textContent=String(friend.name||'?').slice(0,1).toUpperCase();name.append(initials)}
+   const label=document.createElement('span');label.textContent=String(friend.name||'Arkadaş')+(friend.kind==='bot'?' · Sanal':' · Çevrimiçi');name.append(label);
+   name.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const target=safeUrl(friend.profile_url);if(target)location.assign(target);else document.dispatchEvent(new CustomEvent('bookcenter:open-friend-profile',{detail:{friendId:friend.id,kind:friend.kind}}))});
+   const message=document.createElement('button');message.type='button';message.className='bc-presence-message';message.textContent='Mesaj';
+   message.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();document.dispatchEvent(new CustomEvent('bookcenter:message-friend',{detail:{friendId:friend.id,kind:friend.kind,name:friend.name}}));panel.hidden=true});
+   line.append(name,message);panel.append(line);
   });
-  if(matched.length>3){const more=document.createElement('span');more.className='bc-friend-count';more.textContent='+'+(matched.length-3);root.append(more)}
+  root.append(panel);
+  trigger.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();document.querySelectorAll('.bc-presence-panel').forEach(p=>{if(p!==panel)p.hidden=true});panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden))});
+  trigger.setAttribute('aria-expanded','false');
  });
 }
 let current=[];
