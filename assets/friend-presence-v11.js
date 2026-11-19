@@ -38,19 +38,37 @@ nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(>
 style.textContent+=`
 .bc-floating-presence,.bc-friends{overflow:visible!important}
 .bc-presence-trigger{appearance:none!important;border:1px solid #f3d18a!important;border-radius:16px!important;background:#193558!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 11px/1.2 system-ui!important;padding:5px 8px!important;min-height:28px!important;white-space:nowrap!important;box-shadow:0 2px 6px #0005!important;cursor:pointer!important;animation:none!important}
-.bc-presence-panel{position:absolute!important;left:0!important;top:32px!important;z-index:10090!important;width:min(290px,calc(100vw - 24px))!important;max-height:280px!important;overflow-y:auto!important;padding:9px!important;border:1px solid #a4aab9!important;border-radius:12px!important;background:#fffdf7!important;color:#152c4d!important;box-shadow:0 8px 22px #0005!important;animation:none!important;text-align:left!important}
+.bc-presence-panel{position:fixed!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;z-index:10090!important;width:min(360px,calc(100vw - 28px))!important;max-height:min(70dvh,480px)!important;overflow-y:auto!important;padding:9px!important;border:1px solid #a4aab9!important;border-radius:12px!important;background:#fffdf7!important;color:#152c4d!important;box-shadow:0 8px 22px #0005!important;animation:none!important;text-align:left!important}
 .bc-presence-panel[hidden]{display:none!important}
 .bc-presence-heading{font:700 13px system-ui!important;margin:2px 0 8px!important}
 .bc-presence-line{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:6px!important;margin:5px 0!important}
 .bc-presence-person,.bc-presence-message{appearance:none!important;background:#edf3ff!important;color:#142c4b!important;-webkit-text-fill-color:#142c4b!important;border:1px solid #b5c5db!important;border-radius:9px!important;padding:5px!important;font:600 12px system-ui!important;min-height:34px!important;cursor:pointer!important;animation:none!important}
-.bc-presence-person{display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important;flex:1!important;text-align:left!important}
+.bc-presence-line{width:100%!important}.bc-presence-person{display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important;flex:1!important;text-align:left!important}
 .bc-presence-person img,.bc-presence-initial{width:24px!important;height:24px!important;border-radius:50%!important;object-fit:cover!important;background:#1e365c!important;color:white!important;display:grid!important;place-items:center!important;flex:none!important}
 `;
 document.head.appendChild(style);
-document.addEventListener('click',e=>{if(!e.target.closest('.bc-friends'))document.querySelectorAll('.bc-presence-panel').forEach(p=>p.hidden=true)});
+document.addEventListener('click',e=>{if(!e.target.closest('.bc-friends')&&!e.target.closest('.bc-presence-panel'))document.querySelectorAll('.bc-presence-panel').forEach(p=>p.hidden=true)});
 const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
 const normalizeBook=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
 const same=(f,type,id)=>{if(!(f?.online===true||f?.kind==='bot'&&f?.localSimulation===true))return false;return f.location?.type===type&&(type==='book'?normalizeBook(f.location?.id)===normalizeBook(id):String(f.location?.id)===id)};
+function openFriendChat(friend){
+ document.querySelector('#bc-private-chat')?.remove();
+ const modal=document.createElement('section');modal.id='bc-private-chat';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');
+ modal.style.cssText='position:fixed;inset:0;z-index:110000;background:#0009;display:grid;place-items:center;padding:14px';
+ const box=document.createElement('div');box.style.cssText='background:#fffdf8;color:#172d4d;border-radius:18px;padding:16px;width:min(420px,100%);max-height:85dvh;display:flex;flex-direction:column;gap:10px';
+ const header=document.createElement('div');header.style.cssText='display:flex;justify-content:space-between;align-items:center;font-weight:800';
+ const title=document.createElement('span');title.textContent=friend.name+' · '+(friend.kind==='bot'?'Sanal arkadaş':'Arkadaş');
+ const close=document.createElement('button');close.type='button';close.textContent='✕ Kapat';close.onclick=()=>modal.remove();header.append(title,close);box.append(header);
+ const note=document.createElement('small');note.textContent=friend.kind==='bot'?'Bu sohbet yalnızca bu cihazda saklanır. Otomatik yanıt henüz bağlı değil.':'Gerçek kullanıcıya mesaj gönderimi henüz bağlı değil.';box.append(note);
+ const log=document.createElement('div');log.style.cssText='min-height:120px;max-height:45dvh;overflow:auto;border:1px solid #ccd5e2;border-radius:10px;padding:10px;white-space:pre-wrap';
+ const key='bc_friend_chat_v1_'+String(friend.id).replace(/[^a-zA-Z0-9_-]/g,'').slice(0,64);
+ let history=[];try{history=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(history))history=[]}catch{}
+ const paint=()=>{log.replaceChildren();history.forEach(m=>{const line=document.createElement('p');line.textContent='Sen: '+m.text;log.append(line)})};paint();box.append(log);
+ const input=document.createElement('textarea');input.placeholder='Mesajını yaz';input.rows=2;box.append(input);
+ const send=document.createElement('button');send.type='button';send.textContent='Mesajı kaydet';send.style.cssText='padding:12px;background:#18375c;color:white;border:0;border-radius:10px;font-weight:700';
+ send.onclick=()=>{const value=input.value.trim();if(!value)return;history.push({text:value,at:new Date().toISOString()});history=history.slice(-100);try{localStorage.setItem(key,JSON.stringify(history))}catch{}input.value='';paint();log.scrollTop=log.scrollHeight};box.append(send);
+ modal.append(box);document.body.append(modal);input.focus();
+}
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
@@ -65,7 +83,7 @@ function render(friends){
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
   root.dataset.signature=signature;
-  root.replaceChildren();
+  root.replaceChildren();document.querySelectorAll('.bc-presence-panel[data-owner="'+(host.dataset.bcPresenceKey||host.dataset.presenceId)+'"]').forEach(p=>p.remove());
   const oldActivity=host.querySelector(':scope > .bc-book-activity');
   if(type==='book'){
    const bots=matched.filter(f=>f.localSimulation);
@@ -83,7 +101,7 @@ function render(friends){
   trigger.setAttribute('aria-label',matched.length+' arkadaş. Listeyi aç');
   trigger.title=matched.filter(f=>f.kind==='bot').length+' sanal arkadaş; simülasyon gerçek çevrimiçi durumu değildir';
   root.append(trigger);
-  const panel=document.createElement('div');panel.className='bc-presence-panel';panel.hidden=true;
+  const panel=document.createElement('div');panel.className='bc-presence-panel';panel.hidden=true;panel.dataset.owner=host.dataset.bcPresenceKey||host.dataset.presenceId;
   const heading=document.createElement('div');heading.className='bc-presence-heading';
   heading.textContent='Bu alandaki arkadaşlar ('+matched.length+')';
   panel.append(heading);
@@ -96,10 +114,11 @@ function render(friends){
    const label=document.createElement('span');label.textContent=String(friend.name||'Arkadaş')+(friend.kind==='bot'?' · Sanal':' · Çevrimiçi');name.append(label);
    name.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const target=safeUrl(friend.profile_url);if(target)location.assign(target);else document.dispatchEvent(new CustomEvent('bookcenter:open-friend-profile',{detail:{friendId:friend.id,kind:friend.kind}}))});
    const message=document.createElement('button');message.type='button';message.className='bc-presence-message';message.textContent='Mesaj';
-   message.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();document.dispatchEvent(new CustomEvent('bookcenter:message-friend',{detail:{friendId:friend.id,kind:friend.kind,name:friend.name}}));panel.hidden=true});
+   message.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();panel.hidden=true;openFriendChat(friend)});
    line.append(name,message);panel.append(line);
   });
-  root.append(panel);
+  const close=document.createElement('button');close.type='button';close.textContent='Kapat ✕';close.className='bc-presence-message';close.style.marginBottom='8px';close.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();panel.hidden=true});panel.insertBefore(close,panel.firstChild);
+  document.body.append(panel);
   trigger.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();document.querySelectorAll('.bc-presence-panel').forEach(p=>{if(p!==panel)p.hidden=true});panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden))});
   trigger.setAttribute('aria-expanded','false');
  });
