@@ -59,14 +59,28 @@ function openFriendChat(friend){
  const header=document.createElement('div');header.style.cssText='display:flex;justify-content:space-between;align-items:center;font-weight:800';
  const title=document.createElement('span');title.textContent=friend.name+' · '+(friend.kind==='bot'?'Sanal arkadaş':'Arkadaş');
  const close=document.createElement('button');close.type='button';close.textContent='✕ Kapat';close.onclick=()=>modal.remove();header.append(title,close);box.append(header);
- const note=document.createElement('small');note.textContent=friend.kind==='bot'?'Bu sohbet yalnızca bu cihazda saklanır. Otomatik yanıt henüz bağlı değil.':'Gerçek kullanıcıya mesaj gönderimi henüz bağlı değil.';box.append(note);
+ const note=document.createElement('small');note.textContent=friend.kind==='bot'?'Bu sohbet yalnızca bu cihazda saklanır. Yanıtlar cihaz üzerinde oluşturulan basit bot simülasyonudur, yapay zekâ değildir.':'Gerçek kullanıcıya mesaj gönderimi henüz bağlı değil.';box.append(note);
  const log=document.createElement('div');log.style.cssText='min-height:120px;max-height:45dvh;overflow:auto;border:1px solid #ccd5e2;border-radius:10px;padding:10px;white-space:pre-wrap';
  const key='bc_friend_chat_v1_'+String(friend.id).replace(/[^a-zA-Z0-9_-]/g,'').slice(0,64);
  let history=[];try{history=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(history))history=[]}catch{}
- const paint=()=>{log.replaceChildren();history.forEach(m=>{const line=document.createElement('p');line.textContent='Sen: '+m.text;log.append(line)})};paint();box.append(log);
+ const paint=()=>{log.replaceChildren();history.forEach(m=>{const line=document.createElement('p');line.textContent=(m.role==='bot'?friend.name:'Sen')+': '+m.text;log.append(line)})};
+ const replyFor=text=>{
+  const t=text.toLocaleLowerCase('tr-TR');
+  const options=t.includes('merhaba')||t.includes('selam')?['Selam! Bugün hangi kitabı konuşalım?','Merhaba! Okudukların arasında seni en çok etkileyen kitap hangisi?']:
+   t.includes('kitap')||t.includes('oku')?['Kitaplardan konuşmayı seviyorum. En son hangi kitabı bitirdin?','Bir kitap seçelim mi? Hangi türleri seviyorsun?']:
+   t.includes('nasıl')||t.includes('naber')?['İyiyim, teşekkürler. Senin günün nasıl geçiyor?','Bugün biraz okuma üzerine düşünüyorum. Sen nasılsın?']:
+   t.includes('teşekkür')?['Rica ederim!','Ne demek, konuşmak güzeldi.']:
+   t.includes('yarış')||t.includes('puan')?['Bir hafıza yarışması fikri güzel! Hangi kitabı seçelim?','Puanları takip etmek eğlenceli. Yeni bir meydan okuma ister misin?']:
+   ['Bunu biraz daha anlatır mısın?','İlginç bir düşünce. Sence neden böyle?','Anladım. Kitaplarla ilgili bir örnek verebilir misin?'];
+  return options[(history.length+String(friend.id).length)%options.length];
+ };paint();box.append(log);
  const input=document.createElement('textarea');input.placeholder='Mesajını yaz';input.rows=2;box.append(input);
- const send=document.createElement('button');send.type='button';send.textContent='Mesajı kaydet';send.style.cssText='padding:12px;background:#18375c;color:white;border:0;border-radius:10px;font-weight:700';
- send.onclick=()=>{const value=input.value.trim();if(!value)return;history.push({text:value,at:new Date().toISOString()});history=history.slice(-100);try{localStorage.setItem(key,JSON.stringify(history))}catch{}input.value='';paint();log.scrollTop=log.scrollHeight};box.append(send);
+ const send=document.createElement('button');send.type='button';send.textContent='Gönder';send.style.cssText='padding:12px;background:#18375c;color:white;border:0;border-radius:10px;font-weight:700';
+ send.onclick=()=>{const value=input.value.trim();if(!value)return;history.push({role:'user',text:value,at:new Date().toISOString()});history=history.slice(-100);try{localStorage.setItem(key,JSON.stringify(history))}catch{}input.value='';paint();log.scrollTop=log.scrollHeight;
+ if(friend.kind!=='bot')return;
+ const reply=replyFor(value);const typing=document.createElement('p');typing.textContent=friend.name+' yazıyor…';log.append(typing);send.disabled=true;
+ let i=0;const timer=setInterval(()=>{if(!modal.isConnected){clearInterval(timer);return}i=Math.min(reply.length,i+2);typing.textContent=friend.name+': '+reply.slice(0,i)+'▍';log.scrollTop=log.scrollHeight;if(i>=reply.length){clearInterval(timer);typing.textContent=friend.name+': '+reply;history.push({role:'bot',text:reply,at:new Date().toISOString()});history=history.slice(-100);try{localStorage.setItem(key,JSON.stringify(history))}catch{}send.disabled=false}},65);
+ };box.append(send);
  modal.append(box);document.body.append(modal);input.focus();
 }
 function render(friends){
@@ -78,7 +92,7 @@ function render(friends){
   if(!matched.length){if(menu)delete host.dataset.bcActiveFriends;root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(menu)host.dataset.bcActiveFriends='1';
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top-18)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>40?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+5)+'px';root.style.top=Math.max(2,rect.top-31)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>45?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
