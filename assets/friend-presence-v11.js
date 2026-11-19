@@ -5,6 +5,7 @@
    Only permission-filtered, authenticated records should be returned by the backend. */
 (()=>{'use strict';
 const API=window.BOOKCENTER_PRESENCE_API_URL||null;
+const SIMULATION_LABEL='Sanal etkinlik';
 // Cache-independent asset release: no local reading record implies live section presence.
 const style=document.createElement('style');
 style.textContent=`
@@ -98,7 +99,7 @@ function localBotRecords(){
   });
  }catch{return []}
 }
-function draw(){render([...current,...localBotRecords()])}
+function draw(){annotate();render([...current,...localBotRecords()])}
 async function refresh(){try{
  if(!API){current=[];draw();return}
  const parsed=new URL(API,location.href);
@@ -115,7 +116,7 @@ function annotate(){
   const type=/video|belgesel/.test(label)?'video':/arena|yarış/.test(label)?'arena':/keşfet/.test(label)?'discover':/kitaplığım/.test(label)?'library':/profil|kariyer/.test(label)?'profile':/ana menü/.test(label)?'home':/yedek/.test(label)?'backup':/yenile/.test(label)?'refresh':/haber/.test(label)?'news':/youtube/.test(label)?'youtube':/linkedin/.test(label)?'linkedin':/zaman/.test(label)?'time':null;
   if(type){button.dataset.presenceType='section';button.dataset.presenceId=type}
  });
- document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card, #discover .tile, [data-book-id], [data-book-name]').forEach(card=>{
+ document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card, #discover .tile, [data-book-id], [data-book-name], #page-home .book-card, #page-home [class*=book-card]').forEach(card=>{
   const name=card.dataset.bookId||card.dataset.bookName||card.querySelector('strong,h3,h4')?.textContent?.trim();
   if(name){card.dataset.presenceType='book';card.dataset.presenceId=name}
  });
