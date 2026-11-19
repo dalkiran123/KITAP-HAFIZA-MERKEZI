@@ -29,7 +29,7 @@ function render(friends){
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
-   button.title=friend.name+' • '+(friend.kind==='bot'?'Simülasyon kaydı':'Çevrimiçi arkadaş');
+   button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal okuma kaydı (canlı değil)':'Çevrimiçi arkadaş');
    button.setAttribute('aria-label',friend.name+' profilini aç');
    const imgUrl=safeUrl(friend.avatar_url);
    if(imgUrl){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.loading='lazy';button.append(img)}
@@ -51,12 +51,12 @@ function localBotRecords(){
   const world=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null');
   if(!Array.isArray(world?.bots))return [];
   return world.bots.flatMap((bot,i)=>{
-   const event=Array.isArray(bot.events)?bot.events[0]:null;
-   const stamp=Date.parse(event?.when||'');
+   const reading=Array.isArray(bot.reading)?bot.reading[0]:null;
+   if(!reading||typeof reading.title!=='string'||!reading.title.trim())return [];
+   const stamp=Date.parse(reading.at||'');
    if(!Number.isFinite(stamp)||Date.now()-stamp>86400000||stamp>Date.now()+60000)return [];
-   const location=event.location;
-   if(!location||location.type!=='book'||!location.id)return [];
-   return [{id:'local-bot-'+i,name:String(bot.name||'Bot '+(i+1)),kind:'bot',simulated:true,online:false,location:{type:'book',id:String(location.id)},last_seen_at:event.when}];
+   return [{id:'local-bot-'+i,name:String(bot.name||'Bot '+(i+1)),kind:'bot',simulated:true,online:false,
+    location:{type:'book',id:reading.title.trim()},last_seen_at:reading.at}];
   });
  }catch{return []}
 }
