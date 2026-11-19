@@ -4,7 +4,7 @@
    Endpoint GET /api/presence/visible returns {friends:[{id,name,avatar_url,profile_url,kind,online,location:{type,id},last_seen_at}]}
    Only permission-filtered, authenticated records should be returned by the backend. */
 (()=>{'use strict';
-const API='/api/presence/visible';
+const API=window.BOOKCENTER_PRESENCE_API_URL||'/api/presence/visible';
 const style=document.createElement('style');
 style.textContent=`
 [data-presence-type][data-presence-id]{position:relative}
@@ -16,7 +16,7 @@ style.textContent=`
 .bc-friend-count{background:#172a4b;color:white;border-radius:12px;padding:3px 5px;font-size:11px}
 `;
 document.head.appendChild(style);
-const safeUrl=(s)=>{try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
+const safeUrl=(s)=>{if(typeof s!=='string'||!s.trim())return null;try{const u=new URL(s,location.origin);return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}};
 const same=(f,type,id)=>f?.online===true&&f.location?.type===type&&String(f.location?.id)===id;
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
@@ -27,17 +27,19 @@ function render(friends){
   if(!root){root=document.createElement('div');root.className='bc-friends';host.append(root)}
   root.replaceChildren();
   matched.slice(0,3).forEach(friend=>{
-   const button=document.createElement('button');button.type='button';button.className='bc-friend';
+   const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
    button.title=friend.name+' • '+(friend.kind==='bot'?'Sanal arkadaş':'Çevrimiçi arkadaş');
    button.setAttribute('aria-label',friend.name+' profilini aç');
    const imgUrl=safeUrl(friend.avatar_url);
    if(imgUrl){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.loading='lazy';button.append(img)}
    else button.textContent=String(friend.name||'?').slice(0,1).toUpperCase();
-   button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();
+   const openProfile=event=>{event.preventDefault();event.stopPropagation();
     const target=safeUrl(friend.profile_url);if(target)location.assign(target);
     else document.dispatchEvent(new CustomEvent('bookcenter:open-friend-profile',{detail:{friendId:friend.id,kind:friend.kind}}));
-   });
+   };
+   button.addEventListener('click',openProfile);
+   button.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){openProfile(event)}});
    root.append(button);
   });
   if(matched.length>3){const more=document.createElement('span');more.className='bc-friend-count';more.textContent='+'+(matched.length-3);root.append(more)}
@@ -45,7 +47,7 @@ function render(friends){
 }
 let current=[];
 async function refresh(){try{
- const response=await fetch(API,{credentials:'same-origin',cache:'no-store'});
+ const response=await fetch(API,{credentials:'include',cache:'no-store'});
  if(!response.ok)throw Error('Presence unavailable');
  const data=await response.json();if(!Array.isArray(data.friends))throw Error('Invalid presence');
  current=data.friends.filter(f=>f&&f.id!=null&&typeof f.name==='string'&&f.location&&['user','bot'].includes(f.kind));
@@ -58,7 +60,7 @@ function annotate(){
   if(type){button.dataset.presenceType='section';button.dataset.presenceId=type}
  });
  document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card').forEach(card=>{
-  const name=card.dataset.bookId||card.dataset.bookName;
+  const name=card.dataset.bookId||card.dataset.bookName||card.querySelector('strong,h3,h4')?.textContent?.trim();
   if(name){card.dataset.presenceType='book';card.dataset.presenceId=name}
  });
  document.querySelectorAll('[data-video-id]').forEach(card=>{card.dataset.presenceType='video';card.dataset.presenceId=card.dataset.videoId});
