@@ -1170,11 +1170,11 @@ window.KITAP_CATALOG=[
     "author": "R. F. Kuang",
     "category": "Çağdaş Roman",
     "description": "Yayın dünyası, kültürel sahiplenme ve yazarlık etiği üzerine roman; özgün özet hazırlanacak.",
-    "summary": "",
+    "summary": "June Hayward, yayımlanmış romanıyla beklediği başarıyı elde edememiş bir yazardır; arkadaşı Athena Liu ise edebiyat çevrelerinde hızla yükselmektedir.\n\nAthena'nın ani ölümünden sonra June, onun tamamlanmamış savaş romanı taslağını alır ve üzerinde çalışmaya başlar.\n\nJune, metni kendi adıyla yayımlatırken yazar kimliğini Juniper Song biçiminde sunar; yayınevinin pazarlaması kökeni hakkında yanlış izlenimler yaratır.\n\nRoman büyük ilgi görür, ancak June'un Athena'nın emeğini sahiplenmiş olması sosyal medyada ve edebiyat çevrelerinde sorgulanır.\n\nJune, geçmişte Athena'yla yaşadığı rekabeti kendi davranışını haklı göstermek için kullanır; artan baskı onu yeni yalanlara sürükler.\n\nR. F. Kuang'ın Sarı Yüz romanı, June'un güvenilmez anlatımı üzerinden kültürel sahiplenmeyi, yayıncılıkta temsil sorunlarını ve başarı hırsının ahlaki sonuçlarını tartışır.",
     "longSummary": "",
     "detailSummary": "",
     "status": "Özet hazırlanıyor",
-    "preparedAt": "2026-11-16T02:56:30+03:00",
+    "preparedAt": "2026-11-19T00:01:00.000Z",
     "detailSummaryVerified": false,
     "audioVerified": false
   },
@@ -2379,11 +2379,12 @@ window.KITAP_CATALOG=[
     "category": "Klasik Roman",
     "summary": "",
     "longSummary": "",
-    "detailSummary": "",
-    "status": "pending",
+    "detailSummary": "Margaret Hale, ailesiyle birlikte İngiltere'nin güneyindeki Helstone papaz evinde yaşarken kırsal hayatın ritmine alışmıştır. Londra'daki varlıklı akrabalarının yanında geçirdiği yıllar ise ona farklı sınıfların davranışlarını karşılaştırma imkânı verir.\n\nMargaret'ın kuzeni Edith'in evliliği, Londra'daki rahat çevreyle bağlarını hatırlatır. Margaret bu ortamın gösterişli alışkanlıklarına mesafeli yaklaşır ve Helstone'a dönmeyi ister.\n\nBabası Richard Hale, İngiltere Kilisesi'nin öğretileriyle ilgili vicdani kuşkuları nedeniyle papazlık görevinden ayrılmaya karar verir. Ailenin düzenini değiştiren asıl kırılma, onun bu inanç krizidir.\n\nHale ailesi Helstone'dan ayrılıp kuzeydeki sanayi kenti Milton'a taşınır. Margaret, doğduğu çevrenin yeşilliği yerine fabrikaların dumanıyla ve hızlı çalışma temposuyla karşılaşır.\n\nMilton'da Bay Hale özel ders vererek geçimini sağlamaya çalışır. Öğrencilerinden biri, pamuk fabrikası sahibi John Thornton'dır; bu tanışma iki ailenin yollarını kesiştirir.\n\nThornton, yoksul bir çocukluktan çalışarak yükselmiş disiplinli bir iş insanıdır. Margaret onun başarısını görse de işçilere karşı sert tutumunu başlangıçta anlayamaz.\n\nThornton'ın annesi Hannah, oğlunun mücadelesiyle gurur duyar ve Margaret'ın eleştirel tavrından hoşlanmaz. İki kadın arasındaki gerilim, aile sadakatiyle sınıf önyargısını karşı karşıya getirir.\n\nMargaret, fabrika işçisi Nicholas Higgins ve kızı Bessy ile arkadaş olur. Bu yakınlık, sanayi düzeninin bedelini patronların anlatılarından değil işçilerin evlerinden öğrenmesini sağlar.\n\nBessy'nin pamuk tozuna maruz kalması nedeniyle ağırlaşan hastalığı, fabrikanın insan sağlığı üzerindeki etkisini görünür kılar. Margaret onun konuşmalarında çalışma koşullarının kişisel acıya dönüşmesini dinler.\n\nİşçiler ücret kesintilerine karşı greve hazırlanırken Thornton, fabrikanın ekonomik baskılar altında olduğunu savunur. Higgins ise çalışanların geçim sıkıntısının göz ardı edildiğini düşünür.\n\nMargaret, Thornton ile Higgins'in görüşlerini dinledikçe çatışmanın tek taraflı olmadığını kavrar. Yine de işverenlerin işçilerin hayatını doğrudan tanıması gerektiğinde ısrar eder.\n\nGrev sırasında öfkeli kalabalık Thornton'ın evinin önünde toplanır. Margaret, Thornton'ın kalabalıkla yüzleşmesini ister ve şiddeti önlemeye çalışırken atılan bir taşla yaralanır.\n\nThornton, Margaret'ın kendisini koruduğunu düşünerek ona evlenme teklif eder. Margaret teklifi reddeder; yaptığı müdahalenin kişisel aşk ilanı olarak yorumlanmasından rahatsız olur.\n\nMargaret'ın annesi Maria Hale'in sağlığı Milton'da kötüleşir. Aile, onun eski hayatına duyduğu özlemi gidermeye çalışırken hastalığın geri döndürülemez boyutunu fark eder.\n\nMargaret'ın kardeşi Frederick, donanmada geçmişte yaşanan isyanla bağlantılı suçlamalar yüzünden İngiltere'ye açıkça dönememektedir. Annesini son kez görmek için gizlice Milton'a gelir.\n\nMaria Hale'in ölümünün ardından Frederick ülkeden ayrılmak zorunda kalır. Margaret onu tren istasyonunda uğurlarken Thornton tarafından görülür; bu karşılaşma yanlış bir yakınlık izlenimi yaratır.\n\nFrederick'ın ayrılışıyla ilgili bir olay soruşturulunca Margaret, kardeşini korumak için gerçeği saklar. Daha sonra söylediği yalan, kendi ahlaki ölçülerine duyduğu güveni sarsar.\n\nThornton, Margaret'ın istasyondaki davranışını yanlış yorumlamasına rağmen onu koruyacak bir karar verir. Margaret ise onun sessiz iyiliğini öğrendikçe hakkındaki ilk yargılarını yeniden değerlendirir.\n\nBessy'nin ölümü ve grevin sonuçları Higgins'i derinden etkiler. Thornton ile Higgins arasında zamanla daha doğrudan bir iletişim kurulması, işçi ve işverenin birbirini insan olarak tanımasının mümkün olduğunu gösterir.\n\nBay Hale, Oxford'da eski dostunu ziyareti sırasında hayatını kaybeder. Margaret hem annesini hem babasını yitirdikten sonra Londra'daki akrabalarının yanına döner ve Milton deneyimini uzaktan düşünür.\n\nThornton'ın fabrikası ekonomik güçlükler nedeniyle kapanma noktasına gelirken Margaret bir miras sayesinde mülk sahibi olur. Margaret'ın Thornton'a işini yeniden kurması için mali destek önermesi, aralarındaki saygının ve sevginin açıkça kabul edilmesine zemin hazırlar.",
+    "status": "ready",
     "addedAt": "2026-11-19T00:57:06.000Z",
-    "preparedAt": null,
-    "coverStatus": "missing"
+    "preparedAt": "2026-11-19T00:01:00.000Z",
+    "coverStatus": "missing",
+    "detailSummaryVerified": true
   },
   {
     "name": "Beyazlı Kadın",
@@ -2402,11 +2403,11 @@ window.KITAP_CATALOG=[
     "author": "Charlotte Brontë",
     "category": "Klasik Roman",
     "summary": "",
-    "longSummary": "",
+    "longSummary": "Lucy Snowe, çocukluk ve gençliğindeki kayıpların ardından İngiltere'de kendisine güvenli bir gelecek bulmakta zorlanır.\n\nLucy, geçimini sağlamak amacıyla tek başına Avrupa kıtasına gider ve kurgusal Labassecour ülkesinin başkenti Villette'e ulaşır.\n\nMadame Beck'in yönettiği kız okulunda önce bakıcılık, ardından öğretmenlik yapmaya başlar.\n\nMadame Beck, okulun gündelik düzenini gizli gözetim ve ayrıntılı kontrolle yürütür; Lucy bu ortamda özel hayatını korumaya çalışır.\n\nLucy, İngiltere'den tanıdığı Bretton ailesiyle ilgili hatıralarını yeni çevresinde yeniden canlandıran karşılaşmalar yaşar.\n\nDoktor John'un aslında çocukluğundan tanıdığı Graham Bretton olduğunu fark etmesi, geçmiş ile şimdiki hayatı arasında bağ kurar.\n\nGraham'ın Ginevra Fanshawe'ye ilgisi Lucy'nin onun karakterini ve aşkın yanıltıcı beklentilerini değerlendirmesine yol açar.\n\nGinevra'nın gösterişli ve çıkarcı davranışları, Lucy'nin daha içine kapanık ve dikkatli gözlemci kişiliğiyle karşıtlık oluşturur.\n\nLucy, okulda dolaştığı söylenen rahibe hayaletine ilişkin görüntülerle karşılaşır; bu olaylar onun yalnızlığını ve kaygılarını artırır.\n\nRahibe figürü, ilerleyen süreçte doğaüstü bir varlıktan çok insan eliyle kurulmuş bir aldatmacanın parçası olarak açıklanır.\n\nPaulina Home, yıllar sonra Polly adıyla Lucy'nin çevresine yeniden girer ve Graham'la yakınlaşır.\n\nLucy, Graham'a karşı duygularını kendi içinde yaşarken onun Polly'ye yönelen sevgisini kabullenmek zorunda kalır.\n\nOkuldaki öğretmen Monsieur Paul Emanuel, Lucy'nin yeteneklerini fark eder ama onunla sert tartışmalara da girer.\n\nPaul'ün keskin eleştirileri Lucy'yi incitse de ikisi zamanla birbirlerinin zihinsel bağımsızlığına saygı duymaya başlar.\n\nLucy'nin Protestan kimliği ile Paul'ün Katolik inancı, aralarındaki yakınlığın önüne toplumsal ve dinsel engeller çıkarır.\n\nMadame Beck ve Paul'ün çevresindeki bazı kişiler, bu yakınlaşmayı kendi beklentilerine göre yönlendirmeye çalışır.\n\nLucy ağır bir yalnızlık döneminde Villette sokaklarında dolaşır ve bir kutlama gecesinin kalabalığı içinde ruhsal bunalımını hisseder.\n\nPaul, Lucy'nin kendi okulunu açabilmesi için ona destek olur; bu yardım, Lucy'nin başkalarına bağımlı kalmadan yaşayabilmesi açısından belirleyicidir.\n\nPaul, denizaşırı bir yolculuğa çıkarken Lucy onun dönüşünü bekler ve okulunu yönetmeyi sürdürür.\n\nRomanın sonunda denizdeki fırtına Paul'ün akıbetini belirsiz bırakır; Lucy, okurun umutlu bir son tasarlamasına izin verirken kendi anlatısında kesin bir kavuşma ilan etmez.",
     "detailSummary": "",
-    "status": "pending",
+    "status": "ready",
     "addedAt": "2026-11-19T00:57:06.000Z",
-    "preparedAt": null,
+    "preparedAt": "2026-11-19T00:01:00.000Z",
     "coverStatus": "missing"
   }
 ];
