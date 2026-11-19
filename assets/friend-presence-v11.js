@@ -13,13 +13,20 @@ style.textContent=`
 .bc-friends{position:absolute;left:5px;right:auto;top:5px;z-index:20;display:flex;align-items:center;gap:2px;max-width:calc(100% - 10px);isolation:isolate;filter:none!important;animation:none!important}
 .bc-friend{flex:0 0 25px;width:25px;height:25px;border-radius:50%;border:2px solid #fff;background:#20345a;color:white;padding:0;display:grid;place-items:center;overflow:hidden;box-shadow:0 2px 8px #0004;cursor:pointer}
 .bc-friend img{width:100%;height:100%;object-fit:cover}
+.bc-friend-person{display:flex;flex-direction:column;align-items:center;gap:2px;flex:0 0 auto;max-width:76px;cursor:pointer}
+.bc-friend-name{display:block;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#fff9e8!important;color:#142544!important;-webkit-text-fill-color:#142544!important;border:1px solid #b58a46;border-radius:6px;padding:1px 4px;font:700 10px/1.3 system-ui!important;text-shadow:none!important;filter:none!important;opacity:1!important;animation:none!important;box-shadow:0 1px 4px #0003}
+.bc-friends-menu{gap:4px!important;align-items:flex-start!important;max-width:calc(100vw - 12px)!important}
+.bc-friends-menu .bc-friend-person{max-width:62px}
+.bc-friends-menu .bc-friend-name{max-width:62px}
+.bc-friends:not(.bc-friends-menu) .bc-friend-person{max-width:68px}
+
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{pointer-events:auto;white-space:nowrap;z-index:10050!important}
 .bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:115px!important}
 nav.v2nav,nav.nav{overflow:visible!important}
 nav.v2nav button,nav.nav button{position:relative}
-nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{padding-top:29px!important;min-height:90px!important}
+nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{padding-top:49px!important;min-height:105px!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu *{animation:none!important;filter:none!important}
 .bc-friends-menu .bc-friend{background:#162b51!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:12px!important;font-weight:800!important;line-height:1!important;text-shadow:none!important;opacity:1!important;transform:none!important;animation:none!important;box-shadow:0 1px 5px #0008!important}
@@ -41,7 +48,7 @@ function render(friends){
   if(!matched.length){if(menu)delete host.dataset.bcActiveFriends;root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(menu)host.dataset.bcActiveFriends='1';
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top+4)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>28?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.left=Math.max(2,rect.left+4)+'px';root.style.top=Math.max(2,rect.top+2)+'px';root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>28?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
@@ -66,6 +73,7 @@ function render(friends){
    if(matched.length>3)root.append(chip);
   }
   matched.slice(0,3).forEach(friend=>{
+   const person=document.createElement('span');person.className='bc-friend-person';
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
    const lastTime=Date.parse(friend.last_seen_at||'');
@@ -80,7 +88,8 @@ function render(friends){
    };
    button.addEventListener('click',openProfile);
    button.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){openProfile(event)}});
-   root.append(button);
+   const name=document.createElement('span');name.className='bc-friend-name';name.textContent=String(friend.name||'Arkadaş').slice(0,22);name.title=friend.name;
+   person.append(button,name);root.append(person);
   });
   if(matched.length>3){const more=document.createElement('span');more.className='bc-friend-count';more.textContent='+'+(matched.length-3);root.append(more)}
  });
