@@ -56,11 +56,12 @@ function localBotRecords(){
   const world=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null');
   if(!Array.isArray(world?.bots))return [];
   return world.bots.flatMap((bot,i)=>{
+   if(!bot||!Number.isInteger(bot.id)||bot.id<0||bot.id>9)return [];
    const reading=Array.isArray(bot.reading)?bot.reading[0]:null;
    if(!reading||typeof reading.title!=='string'||!reading.title.trim())return [];
    const stamp=Date.parse(reading.at||'');
    if(!Number.isFinite(stamp)||Date.now()-stamp>86400000||stamp>Date.now()+60000)return [];
-   return [{id:'local-bot-'+i,name:String(bot.name||'Bot '+(i+1)),kind:'bot',simulated:true,online:false,
+   return [{id:'local-bot-'+bot.id,name:String(bot.name||'Bot '+(bot.id+1)),kind:'bot',simulated:true,online:false,
     location:{type:'book',id:reading.title.trim()},last_seen_at:reading.at}];
   });
  }catch{return []}
@@ -97,10 +98,10 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()}
 document.addEventListener('bookcenter:open-friend-profile',event=>{
  const id=String(event.detail?.friendId||'');
  if(!id.startsWith('local-bot-'))return;
- const index=Number(id.slice('local-bot-'.length));
- if(!Number.isInteger(index)||index<0||index>9)return;
+ const botId=Number(id.slice('local-bot-'.length));
+ if(!Number.isInteger(botId)||botId<0||botId>9)return;
  let bot;
- try{bot=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null')?.bots?.[index]}catch{}
+ try{bot=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null')?.bots?.find(b=>b?.id===botId)}catch{}
  if(!bot)return;
  document.getElementById('bcInlineBotProfile')?.remove();
  const dialog=document.createElement('section');dialog.id='bcInlineBotProfile';
