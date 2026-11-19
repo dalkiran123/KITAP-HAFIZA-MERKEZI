@@ -159,12 +159,14 @@ function simulatedBotSections(){
   const world=JSON.parse(localStorage.getItem('bookcenter_arena_botworld_v1')||'null');
   if(!Array.isArray(world?.bots))return [];
   const sections=['home','video','discover','news','youtube','linkedin','library'];
-  const slot=Math.floor(Date.now()/90000);
-  return world.bots.filter(b=>b&&Number.isInteger(b.id)&&b.id>=0&&b.id<10).map(bot=>{
-   const index=(bot.id*3+slot)%sections.length;
+  // Test: ten distinct bots are visible across seven sections; positions rotate every 45 seconds.
+  const slot=Math.floor(Date.now()/45000);
+  const bots=world.bots.filter(b=>b&&Number.isInteger(b.id)&&b.id>=0&&b.id<10).sort((a,b)=>a.id-b.id);
+  return bots.map((bot,i)=>{
+   const index=(i+slot)%sections.length;
    return {id:'local-bot-'+bot.id,name:String(bot.name||'Bot '+(bot.id+1)),kind:'bot',
     simulated:true,simulatedSection:true,localSimulation:true,online:false,
-    location:{type:'section',id:sections[index]},last_seen_at:new Date(slot*90000).toISOString()};
+    location:{type:'section',id:sections[index]},last_seen_at:new Date(slot*45000).toISOString()};
   });
  }catch{return []}
 }
