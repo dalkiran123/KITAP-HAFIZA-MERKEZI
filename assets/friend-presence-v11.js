@@ -86,13 +86,14 @@ function openFriendChat(friend){
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
-  const menu=host.matches('nav.v2nav button, nav.nav button')||((type==='section'&&id==='discover')&&host.matches('button,[role="button"],a'));
+  const menu=host.matches('nav.v2nav button, nav.nav button')||(type==='section'&&id==='discover');
   let root=menu?document.querySelector('.bc-floating-presence[data-host-key="'+(host.dataset.bcPresenceKey||'')+'"]'):host.querySelector(':scope > .bc-friends');
   const matched=friends.filter(f=>same(f,type,id));
+  if(type==='section'&&id==='discover'){host.style.setProperty('overflow','visible','important');host.style.setProperty('isolation','auto','important');}
   if(!matched.length){if(menu)delete host.dataset.bcActiveFriends;root?.remove();host.querySelector(':scope > .bc-book-activity')?.remove();return}
   if(menu)host.dataset.bcActiveFriends='1';
   if(!root){root=document.createElement('div');root.className='bc-friends';if(menu){host.dataset.bcPresenceKey=host.dataset.bcPresenceKey||('bc-'+Math.random().toString(36).slice(2));root.dataset.hostKey=host.dataset.bcPresenceKey;root.classList.add('bc-floating-presence');document.body.append(root)}else host.append(root)}
-  if(menu){const rect=host.getBoundingClientRect();root.style.setProperty('left',Math.max(2,rect.left+5)+'px','important');root.style.setProperty('top',Math.max(2,rect.top-17)+'px','important');root.style.setProperty('right','auto','important');root.style.setProperty('bottom','auto','important');root.style.setProperty('transform','none','important');root.style.setProperty('position','fixed','important');root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>25?'flex':'none'}
+  if(menu){const rect=host.getBoundingClientRect();root.style.setProperty('left',Math.max(2,rect.left+5)+'px','important');root.style.setProperty('top',Math.max(2,rect.top-29)+'px','important');root.style.setProperty('right','auto','important');root.style.setProperty('bottom','auto','important');root.style.setProperty('transform','none','important');root.style.setProperty('position','fixed','important');root.style.display=rect.bottom>0&&rect.top<innerHeight&&rect.top>32?'flex':'none'}
   root.classList.toggle('bc-friends-menu',menu);
   const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
