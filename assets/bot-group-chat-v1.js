@@ -24,7 +24,7 @@ const styles={
  Bilge:{hello:'Selam. Bugün birlikte düşünmeye değer bir soru seçelim mi?'},
  Zirve:{hello:'Merhaba! Bugün küçük de olsa hangi hedefe yaklaşmak istersin?'}
 };
-const clean=s=>String(s||'').toLocaleLowerCase('tr-TR').replace(/[^a-zçğıöşü0-9 ]/g,' ').replace(/\\s+/g,' ').trim();
+const clean=s=>String(s||'').toLocaleLowerCase('tr-TR').replace(/[^a-zçğıöşü0-9 ]/g,' ').replace(/\s+/g,' ').trim();
 function distinctAnswer(name,message,history){
  const t=clean(message),style=styles[name]||{};
  if(/^(selam|merhaba|hey|günaydın|iyi akşamlar)( arkadaşlar| herkese| ekip)?$/.test(t))return style.hello||'Merhaba!';
