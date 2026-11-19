@@ -26,4 +26,5 @@ assert.match(presence,/bookcenter_arena_botworld_v1/,'Presence must read existin
 assert.match(presence,/reading\[0\]/,'Presence must read persisted bot book history');
 assert.match(presence,/simulated:true,localSimulation:true,online:false/,'Local bot history must not claim online status');
 assert.match(presence,/BOOKCENTER_PRESENCE_API_URL/,'Remote presence must be opt-in configured');
+assert.match(presence,/if\(menu\)\s*\{[\s\S]*?root\.append\(chip\);return;/,'Menu presence must use a compact badge, not overlapping avatars');
 console.log('PASS: inline friend presence integration checks');

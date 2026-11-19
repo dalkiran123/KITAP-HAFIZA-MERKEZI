@@ -34,6 +34,13 @@ function render(friends){
   if(root.dataset.signature===signature)return;
   root.dataset.signature=signature;
   root.replaceChildren();
+  if(menu){
+   const chip=document.createElement('span');chip.className='bc-friend-count';
+   const bots=matched.filter(f=>f.localSimulation).length,people=matched.length-bots;
+   chip.textContent=(bots?'🤖 '+bots:'')+(people?(bots?' · ':'')+'👥 '+people:'');
+   chip.title='Botlar sanal okuma kayıtlarıdır, canlı kullanıcı değildir';
+   root.append(chip);return;
+  }
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
    button.dataset.kind=friend.kind==='bot'?'bot':'user';
