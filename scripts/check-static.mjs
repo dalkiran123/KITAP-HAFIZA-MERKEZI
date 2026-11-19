@@ -20,6 +20,7 @@ console.log('PASS: JS syntax and catalog/recommendation regression checks');
 const presence=readFileSync('assets/inline-friend-presence.js','utf8');
 new vm.Script(presence,{filename:'assets/inline-friend-presence.js'});
 assert.match(html,/assets\/inline-friend-presence\.js/,'Main screen must load inline presence');
+assert.match(html,/nav\.v2nav button \.bc-friends[\s\S]*?display:none !important/,'Navigation must hide avatar overlays even with cached JS');
 assert.doesNotMatch(html,/friends-presence-preview\.js/,'Old floating friends preview must not load');
 assert.doesNotMatch(html,/BİRLİKTE · Arkadaşlarla aynı ekranda \(Test\)/,'Separate Together test link must not appear');
 assert.match(presence,/bookcenter_arena_botworld_v1/,'Presence must read existing Arena simulation data');
