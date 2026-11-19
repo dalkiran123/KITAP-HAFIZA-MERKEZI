@@ -89,6 +89,7 @@ function openFriendChat(friend){
  };box.append(send);
  modal.append(box);document.body.append(modal);input.focus();
 }
+window.BookCenterOpenFriendChat=openFriendChat;
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
