@@ -15,7 +15,9 @@ style.textContent=`
 .bc-friend:focus-visible{outline:3px solid #2085ff}
 .bc-friends-menu{left:4px;right:auto;top:-12px;bottom:auto;max-width:calc(100% - 8px);pointer-events:auto;white-space:nowrap;z-index:50!important}
 nav.v2nav,nav.nav{row-gap:20px!important;overflow:visible!important}
-nav.v2nav button:has(> .bc-friends-menu),nav.nav button:has(> .bc-friends-menu){overflow:visible!important}
+nav.v2nav button:has(> .bc-friends-menu),nav.nav button:has(> .bc-friends-menu){overflow:visible!important;min-height:92px!important;padding:44px 4px 9px!important;line-height:1.2!important;position:relative!important;white-space:normal!important}
+nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
+nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu *{animation:none!important;filter:none!important}
 .bc-friends-menu .bc-friend{background:#162b51!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:12px!important;font-weight:800!important;line-height:1!important;text-shadow:none!important;opacity:1!important;transform:none!important;animation:none!important;box-shadow:0 1px 5px #0008!important}
 .bc-friends-menu .bc-friend-count{background:#172a4b!important;color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;animation:none!important;white-space:nowrap}
 .bc-friends-menu .bc-friend-count{font-size:10px;padding:2px 5px;border:1px solid #d9a65d;box-shadow:0 1px 4px #0005}
@@ -35,7 +37,7 @@ function render(friends){
   if(!root){root=document.createElement('div');root.className='bc-friends';host.append(root)}
   const menu=host.matches('nav.v2nav button, nav.nav button');
   root.classList.toggle('bc-friends-menu',menu);
-  const signature=matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
+  const signature=(menu?'menu|':'card|')+matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
   root.dataset.signature=signature;
   root.replaceChildren();
