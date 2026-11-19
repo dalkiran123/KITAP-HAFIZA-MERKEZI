@@ -55,9 +55,47 @@ function chooseResponders(text,members){
 function previousBotMessage(history,name){
  return [...history].reverse().find(m=>m.role==='bot'&&m.name===name&&typeof m.text==='string');
 }
+/* Fictional defaults, editable locally by the user. No real-world identities implied. */
+const characterDefaults={
+ Atlas:{age:34,job:'veri analisti',interest:'bilim ve araştırma'},
+ Mira:{age:29,job:'edebiyat öğretmeni',interest:'romanlar ve yazarlık'},
+ Deniz:{age:32,job:'çevre mühendisi',interest:'doğa ve ekoloji'},
+ Arda:{age:27,job:'satranç eğitmeni',interest:'strateji ve rekabet'},
+ Luna:{age:30,job:'editör',interest:'şiir ve edebiyat'},
+ Nova:{age:26,job:'yazılım geliştirici',interest:'teknoloji'},
+ Orion:{age:41,job:'tarih araştırmacısı',interest:'tarih'},
+ Ada:{age:35,job:'rehberlik danışmanı',interest:'psikoloji'},
+ Bilge:{age:46,job:'felsefe öğretmeni',interest:'felsefe'},
+ Zirve:{age:33,job:'proje koordinatörü',interest:'kişisel gelişim'}
+};
+const CHARACTER_KEY='bc_bot_character_profiles_v1';
+function characterStore(){try{const v=JSON.parse(localStorage.getItem(CHARACTER_KEY)||'{}');return v&&typeof v==='object'?v:{}}catch{return {}}}
+function character(name){return {...characterDefaults[name],...(characterStore()[name]||{})}}
+function updateCharacter(name,changes){
+ const all=characterStore();all[name]={...(all[name]||{}),...changes};
+ try{localStorage.setItem(CHARACTER_KEY,JSON.stringify(all));return true}catch{return false}
+}
+function characterAnswer(name,message,members){
+ const t=clean(message),others=addressedBots(message,members).filter(n=>n!==name);
+ const target=others[0]||name,person=character(target);
+ if(!person)return null;
+ // Users may assign a fictional age or profession using explicit instructions.
+ if(target===name){
+   const age=t.match(/(?:yaşın|yaşını|senin yaşın)\s+(\d{1,2})\s+olsun/);
+   if(age){const value=Number(age[1]);return value>=18&&value<=90&&updateCharacter(name,{age:value})?'Tamam, kurgusal yaşımı '+value+' olarak kaydettim.':'Yaş için 18 ile 90 arasında bir değer seçmelisin.'}
+   const job=t.match(/(?:mesleğin|mesleğini|işin)\s+(.{3,55}?)\s+olsun$/);
+   if(job){const value=job[1].trim();return updateCharacter(name,{job:value})?'Tamam, kurgusal mesleğimi '+value+' olarak kaydettim.':'Bu cihazda kaydedemedim.'}
+ }
+ if(/(kaç yaş|yaşın kaç|yaşı kaç|kaç yaşında|doğum yılın)/.test(t))return target===name?'Ben '+name+'. Kurgusal karakter yaşım '+person.age+'.':target+' '+person.age+' yaşında bir sanal karakter.';
+ if(/(mesle|ne iş yap|işin ne|nerede çalış|ne olarak çalış)/.test(t))return target===name?'Kurgusal mesleğim '+person.job+'.':target+' kurgusal olarak '+person.job+' mesleğini yapıyor.';
+ if(/(kendini tanıt|kendinden bahset|kim olduğunu anlat|kimsin)/.test(t))return 'Ben '+name+'. '+person.age+' yaşında, '+person.job+' olarak kurgulanmış bir sanal karakterim. '+person.interest+' ilgimi çekiyor.';
+ if(/(ilgi alanın|nelerden hoşlan|neye ilgin)/.test(t))return 'En çok '+person.interest+' konularına ilgi duyuyorum.';
+ return null;
+}
 function contextAnswer(name,message,history,members){
  const t=clean(message),mentioned=addressedBots(message,members),other=mentioned.filter(n=>n!==name);
- if(/(kaç yaşındasın|kaç yaşındasınız|yaşın kaç|kaç yaşında sın|kaç yaşındasın)/.test(t))return 'Ben BOOK CENTER içindeki kurgusal bir botum. Gerçek bir doğum tarihim veya yaşım yok. İstersen karakterime bir yaş belirleyebilirsin.';
+ const bio=characterAnswer(name,message,members);if(bio)return bio;
+
  const askingAboutBot=/(ne dedi|ne söyle|anladın|katılıyor musun|fikri|görüşü|tanıyor musun|tanıyor musunuz|tanıyormusunuz|birbirinizi tanı)/.test(t);
  if(askingAboutBot&&other.length){
    const target=other[0],prior=previousBotMessage(history,target);
