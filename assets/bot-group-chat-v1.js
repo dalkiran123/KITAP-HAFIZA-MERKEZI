@@ -12,6 +12,32 @@ function mount(){
  btn.style.cssText='position:fixed;right:12px;bottom:76px;z-index:89999;border:0;border-radius:22px;background:#183a60;color:white;padding:12px 16px;box-shadow:0 4px 18px #0005;font-weight:800;cursor:pointer';
  btn.onclick=open;document.body.append(btn);
 }
+const styles={
+ Atlas:{hello:'Selam! Bugün konuşmak istediğiniz konuyu birlikte çözümleyelim.',repeat:'Haklısın, aynı yanıtı tekrarlamak iyi bir sohbet değil. Ben konuyu mantıksal yönden ele alacağım.'},
+ Mira:{hello:'Merhaba! Bugün okuduğun bir hikâye ya da aklında kalan bir sahne var mı?',repeat:'Ben de aynı cümleyi görünce sıkılırdım. Bu kez merak ettiğim bir ayrıntıyı sorayım: sen nasıl bir sohbet istersin?'},
+ Arda:{hello:'Selam ekip! Bugün bir satranç meydan okuması mı yapalım, yoksa kitap yarışı mı?',repeat:'Eleştiri kabul! Bundan sonra kendi stratejimi ve görüşümü ortaya koyacağım.'},
+ Deniz:{hello:'Merhaba. Bugün biraz sakin sohbet edelim mi? Doğayla ilgili bir şey keşfettin mi?'},
+ Luna:{hello:'Hoş geldin. Bugün aklında kalan bir dize veya güzel bir düşünce var mı?'},
+ Nova:{hello:'Hey! Yeni bir fikir ya da teknoloji haberi konuşmaya var mısınız?'},
+ Orion:{hello:'Selam. Bugün geçmişten ilginç bir olayın nedenlerini konuşalım mı?'},
+ Ada:{hello:'Merhaba, aramıza hoş geldin. Bugün kendini nasıl hissediyorsun?'},
+ Bilge:{hello:'Selam. Bugün birlikte düşünmeye değer bir soru seçelim mi?'},
+ Zirve:{hello:'Merhaba! Bugün küçük de olsa hangi hedefe yaklaşmak istersin?'}
+};
+const clean=s=>String(s||'').toLocaleLowerCase('tr-TR').replace(/[^a-zçğıöşü0-9 ]/g,' ').replace(/\\s+/g,' ').trim();
+function distinctAnswer(name,message,history){
+ const t=clean(message),style=styles[name]||{};
+ if(/^(selam|merhaba|hey|günaydın|iyi akşamlar)( arkadaşlar| herkese| ekip)?$/.test(t))return style.hello||'Merhaba!';
+ if(/aynı cevab|aynı yanıt|farklı cevap|farklı yanıt|hep aynı/.test(t))return style.repeat||name+' olarak kendi bakış açımdan yanıt vermeye çalışacağım.';
+ const friend={id:name.toLowerCase(),name,kind:'bot'};
+ let reply=window.BookCenterLocalMind?.answer(friend,message,history)||'Biraz daha ayrıntı paylaşır mısın?';
+ const recent=history.filter(m=>m.role==='bot'&&m.text).slice(-8).map(m=>clean(m.text));
+ if(recent.includes(clean(reply))){
+   const subject=window.BookCenterLocalMind?.knowledgeState?.(friend)?.entries?.slice(-1)[0]?.fact;
+   reply=subject?name+' olarak başka bir açı ekleyeyim: '+subject:(style.hello||name+' olarak farklı bir örnek üzerinden konuşalım mı?');
+ }
+ return reply;
+}
 function open(){
  document.getElementById('bc-group-modal')?.remove();
  const state=load()||{members:['Atlas','Mira','Arda'],messages:[]};
@@ -38,7 +64,7 @@ function open(){
  const chosen=members.slice(0,3);let index=0;
  const next=()=>{if(!overlay.isConnected){busy=false;return}if(index>=chosen.length){busy=false;send.disabled=false;return}
  const name=chosen[index++],friend={id:name.toLowerCase(),name,kind:'bot'};
- const answer=window.BookCenterLocalMind?.answer(friend,value,state.messages)||'Bu konuyu biraz daha açabilir misin?';
+ const answer=distinctAnswer(name,value,state.messages);
  const typing=document.createElement('div');typing.textContent=name+' yazıyor…';typing.style.cssText='padding:9px;color:#596e84';log.append(typing);log.scrollTop=log.scrollHeight;
  setTimeout(()=>{if(!overlay.isConnected)return;typing.remove();state.messages.push({role:'bot',name,text:answer,at:new Date().toISOString()});save(state);render();next()},Math.min(1600,450+answer.length*12))};
  next()};
