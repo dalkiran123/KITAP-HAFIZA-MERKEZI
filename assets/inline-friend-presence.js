@@ -26,7 +26,7 @@ function render(friends){
   const matched=friends.filter(f=>same(f,type,id));
   if(!matched.length){root?.remove();return}
   if(!root){root=document.createElement('div');root.className='bc-friends';host.append(root)}
-  const signature=matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)).join(';');
+  const signature=matched.map(f=>String(f.id)+'|'+String(f.last_seen_at||'')+'|'+String(f.name)+'|'+String(f.avatar_url||'')).join(';');
   if(root.dataset.signature===signature)return;
   root.dataset.signature=signature;
   root.replaceChildren();
@@ -115,6 +115,9 @@ document.addEventListener('bookcenter:open-friend-profile',event=>{
  const close=document.createElement('button');close.type='button';close.textContent='Kapat';close.style.cssText='display:block;margin-top:12px;background:#e5bc79;color:#17233c';
  close.onclick=()=>dialog.remove();
  dialog.append(title,desc,last,note,close);document.body.append(dialog);close.focus();
+ const escape=event=>{if(event.key==='Escape'){dialog.remove();document.removeEventListener('keydown',escape)}};
+ document.addEventListener('keydown',escape);
+ dialog.addEventListener('click',event=>{if(event.target===dialog){dialog.remove();document.removeEventListener('keydown',escape)}});
 });
 window.BookCenterPresence={refresh};
 })();
