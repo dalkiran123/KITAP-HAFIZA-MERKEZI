@@ -45,5 +45,31 @@ function answer(friend,message,history=[]){
  if(intent==='chess'&&p.tone==='rekabetçi')return 'Satrançta seni zorlamak isterdim! '+pick(responses,seed);
  return pick(responses,seed);
 }
-window.BookCenterLocalMind={answer,profiles,version:'1.0'};
+const memoryKey=id=>'bc_mind_memory_v2_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
+function readMemory(friend){try{const v=JSON.parse(localStorage.getItem(memoryKey(friend.id))||'{}');return v&&typeof v==='object'?v:{}}catch{return {}}}
+function learn(friend,message){
+ const t=String(message||'').trim(),n=norm(t),m=readMemory(friend);
+ const patterns=[
+  ['name',/(?:benim adım|adım|bana)\s+([a-zçğıöşüA-ZÇĞİÖŞÜ]{2,25})/i],
+  ['favoriteBook',/(?:en sevdiğim kitap|favori kitabım)\s+(.{2,75})/i],
+  ['favoriteGenre',/(?:en sevdiğim tür|favori türüm)\s+(.{2,45})/i],
+  ['interest',/(?:ilgileniyorum|merak ediyorum)\s+(.{2,60})/i]
+ ];
+ let learned=null;
+ for(const [field,regex] of patterns){const match=t.match(regex);if(match){const value=match[1].replace(/[.!?]+$/,'').trim();if(value&&value.length<=75){m[field]=value;learned=field;break}}}
+ if(n.includes('beni unut')||n.includes('hafızanı sil')||n.includes('bilgilerimi sil')){try{localStorage.removeItem(memoryKey(friend.id))}catch{}return {forgot:true}}
+ if(learned){m.updated=new Date().toISOString();try{localStorage.setItem(memoryKey(friend.id),JSON.stringify(m))}catch{}}
+ return {learned,memory:m};
+}
+function respond(friend,message,history=[]){
+ const update=learn(friend,message),m=update.memory||{};
+ if(update.forgot)return 'Bu cihazdaki benimle ilgili hatırladığım profil bilgilerini sildim. Sohbet geçmişi ayrı saklanıyor.';
+ if(update.learned)return ({name:'Tanıştığımıza sevindim',favoriteBook:'Bu kitabı sevdiğini not ettim',favoriteGenre:'Sevdiğin türü hatırlayacağım',interest:'İlgini not ettim'})[update.learned]+'. İstersen bunun üzerine konuşabiliriz.';
+ const n=norm(message);
+ if(n.includes('benim adım ne')||n.includes('adımı hatırlıyor musun'))return m.name?'Adını '+m.name+' olarak hatırlıyorum.':'Adını henüz söylemedin.';
+ if(n.includes('en sevdiğim kitap ne')||n.includes('favori kitabım ne'))return m.favoriteBook?'En sevdiğin kitabı '+m.favoriteBook+' olarak hatırlıyorum.':'En sevdiğin kitabı henüz bilmiyorum.';
+ if(n.includes('ne sevdiğimi hatırlıyor musun'))return m.favoriteGenre?'Sevdiğin tür: '+m.favoriteGenre+'.':'Henüz sevdiğin türü kaydetmedim.';
+ return answer(friend,message,history);
+}
+window.BookCenterLocalMind={answer:respond,profiles,readMemory,learn,version:'2.0'};
 })();
