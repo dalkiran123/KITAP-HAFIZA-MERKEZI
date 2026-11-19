@@ -8,12 +8,15 @@ const API=window.BOOKCENTER_PRESENCE_API_URL||null;
 const style=document.createElement('style');
 style.textContent=`
 [data-presence-type][data-presence-id]{position:relative}
-.bc-friends{position:absolute;left:5px;right:auto;top:5px;z-index:5;display:flex;align-items:center;gap:2px;max-width:110px}
-.bc-friend{width:29px;height:29px;border-radius:50%;border:2px solid #fff;background:#20345a;color:white;padding:0;display:grid;place-items:center;overflow:hidden;box-shadow:0 2px 8px #0004;cursor:pointer}
+.bc-friends{position:absolute;left:5px;right:auto;top:5px;z-index:20;display:flex;align-items:center;gap:2px;max-width:calc(100% - 10px);isolation:isolate;filter:none!important;animation:none!important}
+.bc-friend{flex:0 0 25px;width:25px;height:25px;border-radius:50%;border:2px solid #fff;background:#20345a;color:white;padding:0;display:grid;place-items:center;overflow:hidden;box-shadow:0 2px 8px #0004;cursor:pointer}
 .bc-friend img{width:100%;height:100%;object-fit:cover}
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
-.bc-friends-menu{left:3px;right:auto;top:3px;bottom:auto;max-width:calc(100% - 6px);pointer-events:auto}
+.bc-friends-menu{left:5px;right:auto;top:4px;bottom:auto;max-width:calc(100% - 10px);pointer-events:auto;white-space:nowrap}
+nav.v2nav button:has(> .bc-friends-menu),nav.nav button:has(> .bc-friends-menu){padding-top:34px!important;min-height:76px!important;overflow:visible!important}
+.bc-friends-menu .bc-friend{background:#162b51!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:12px!important;font-weight:800!important;line-height:1!important;text-shadow:none!important;opacity:1!important;transform:none!important;animation:none!important;box-shadow:0 1px 5px #0008!important}
+.bc-friends-menu .bc-friend-count{background:#172a4b!important;color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;animation:none!important;white-space:nowrap}
 .bc-friends-menu .bc-friend-count{font-size:10px;padding:2px 5px;border:1px solid #d9a65d;box-shadow:0 1px 4px #0005}
 .bc-book-activity{position:relative;margin:6px 0 0;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#172a4be8;color:#fff;border:1px solid #d9a65d;border-radius:9px;padding:3px 6px;font:11px system-ui;pointer-events:none}
 .bc-friend-count{background:#172a4b;color:white;border-radius:12px;padding:3px 5px;font-size:11px}
@@ -51,7 +54,7 @@ function render(friends){
    const bots=matched.filter(f=>f.kind==='bot').length,people=matched.length-bots;
    chip.textContent=(bots?'🤖 '+bots:'')+(people?(bots?' · ':'')+'👥 '+people:'');
    chip.title='Botlar sanal okuma kayıtlarıdır, canlı kullanıcı değildir';
-   root.append(chip);
+   if(matched.length>3)root.append(chip);
   }
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
