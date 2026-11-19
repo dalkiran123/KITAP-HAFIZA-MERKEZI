@@ -2430,5 +2430,41 @@ window.KITAP_CATALOG=[
     "addedAt": "2026-11-19T09:02:49+03:00",
     "preparedAt": "2026-11-19T08:58:39.000Z",
     "coverStatus": "missing"
+  },
+  {
+    "name": "Koku",
+    "author": "Patrick Süskind",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-19T08:58:39+00:00",
+    "preparedAt": null,
+    "coverStatus": "missing"
+  },
+  {
+    "name": "Şato",
+    "author": "Franz Kafka",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-19T08:58:39+00:00",
+    "preparedAt": null,
+    "coverStatus": "missing"
+  },
+  {
+    "name": "Yüzyıllık Yalnızlık",
+    "author": "Gabriel García Márquez",
+    "category": "Roman",
+    "summary": "",
+    "longSummary": "",
+    "detailSummary": "",
+    "status": "pending",
+    "addedAt": "2026-11-19T08:58:39+00:00",
+    "preparedAt": null,
+    "coverStatus": "missing"
   }
 ];
