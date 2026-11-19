@@ -8,12 +8,12 @@ const API=window.BOOKCENTER_PRESENCE_API_URL||null;
 const style=document.createElement('style');
 style.textContent=`
 [data-presence-type][data-presence-id]{position:relative}
-.bc-friends{position:absolute;right:5px;top:5px;z-index:5;display:flex;align-items:center;gap:2px;max-width:110px}
+.bc-friends{position:absolute;left:5px;right:auto;top:5px;z-index:5;display:flex;align-items:center;gap:2px;max-width:110px}
 .bc-friend{width:29px;height:29px;border-radius:50%;border:2px solid #fff;background:#20345a;color:white;padding:0;display:grid;place-items:center;overflow:hidden;box-shadow:0 2px 8px #0004;cursor:pointer}
 .bc-friend img{width:100%;height:100%;object-fit:cover}
 .bc-friend[data-kind=bot]{border-color:#d9a65d}
 .bc-friend:focus-visible{outline:3px solid #2085ff}
-.bc-friends-menu{right:3px;top:auto;bottom:3px;max-width:none;pointer-events:none}
+.bc-friends-menu{left:3px;right:auto;top:3px;bottom:auto;max-width:calc(100% - 6px);pointer-events:auto}
 .bc-friends-menu .bc-friend-count{font-size:10px;padding:2px 5px;border:1px solid #d9a65d;box-shadow:0 1px 4px #0005}
 .bc-book-activity{position:relative;margin:6px 0 0;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#172a4be8;color:#fff;border:1px solid #d9a65d;border-radius:9px;padding:3px 6px;font:11px system-ui;pointer-events:none}
 .bc-friend-count{background:#172a4b;color:white;border-radius:12px;padding:3px 5px;font-size:11px}
@@ -48,10 +48,10 @@ function render(friends){
   }else oldActivity?.remove();
   if(menu){
    const chip=document.createElement('span');chip.className='bc-friend-count';
-   const bots=matched.filter(f=>f.localSimulation).length,people=matched.length-bots;
+   const bots=matched.filter(f=>f.kind==='bot').length,people=matched.length-bots;
    chip.textContent=(bots?'🤖 '+bots:'')+(people?(bots?' · ':'')+'👥 '+people:'');
    chip.title='Botlar sanal okuma kayıtlarıdır, canlı kullanıcı değildir';
-   root.append(chip);return;
+   root.append(chip);
   }
   matched.slice(0,3).forEach(friend=>{
    const button=document.createElement('span');button.className='bc-friend';button.setAttribute('role','button');button.tabIndex=0;
@@ -103,7 +103,7 @@ async function refresh(){try{
 function annotate(){
  document.querySelectorAll('nav.v2nav button, nav.nav button').forEach(button=>{
   const label=(button.textContent||'').toLocaleLowerCase('tr-TR');
-  const type=/video|belgesel/.test(label)?'video':/arena|yarış/.test(label)?'arena':/keşfet/.test(label)?'discover':/kitaplığım/.test(label)?'library':/profil|kariyer/.test(label)?'profile':null;
+  const type=/video|belgesel/.test(label)?'video':/arena|yarış/.test(label)?'arena':/keşfet/.test(label)?'discover':/kitaplığım/.test(label)?'library':/profil|kariyer/.test(label)?'profile':/ana menü/.test(label)?'home':/yedek/.test(label)?'backup':/yenile/.test(label)?'refresh':/haber/.test(label)?'news':/youtube/.test(label)?'youtube':/linkedin/.test(label)?'linkedin':/zaman/.test(label)?'time':null;
   if(type){button.dataset.presenceType='section';button.dataset.presenceId=type}
  });
  document.querySelectorAll('#catalogshelf .tile, #discover .catalog-card, #discover .tile').forEach(card=>{
