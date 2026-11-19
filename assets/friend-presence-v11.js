@@ -25,7 +25,7 @@ style.textContent=`
 .bc-friends-menu{pointer-events:auto;white-space:nowrap;z-index:10050!important}
 .bc-floating-presence{position:fixed!important;z-index:10050!important;pointer-events:auto!important;max-width:calc(100vw - 12px)!important;min-width:0!important;width:max-content!important;height:auto!important;inset:auto!important;transform:none!important}
 nav.v2nav,nav.nav{overflow:visible!important}
-nav.v2nav button,nav.nav button{position:relative}
+nav.v2nav button,nav.nav button,.topbar-buttons button{position:relative}
 nav.v2nav button[data-bc-active-friends="1"],nav.nav button[data-bc-active-friends="1"]{position:relative!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu{top:5px!important;left:5px!important;transform:none!important;filter:none!important;animation:none!important}
 nav.v2nav button:has(> .bc-friends-menu) .bc-friends-menu *,nav.nav button:has(> .bc-friends-menu) .bc-friends-menu *{animation:none!important;filter:none!important}
@@ -86,7 +86,7 @@ function openFriendChat(friend){
 function render(friends){
  document.querySelectorAll('[data-presence-type][data-presence-id]').forEach(host=>{
   const type=host.dataset.presenceType,id=host.dataset.presenceId;
-  const menu=host.matches('nav.v2nav button, nav.nav button')||(type==='section'&&id==='discover');
+  const menu=host.matches('nav.v2nav button, nav.nav button, .topbar-buttons button')||(type==='section'&&id==='discover');
   let root=menu?document.querySelector('.bc-floating-presence[data-host-key="'+(host.dataset.bcPresenceKey||'')+'"]'):host.querySelector(':scope > .bc-friends');
   const matched=friends.filter(f=>same(f,type,id));
   if(type==='section'&&id==='discover'){host.style.setProperty('overflow','visible','important');host.style.setProperty('isolation','auto','important');}
@@ -182,7 +182,7 @@ async function refresh(){try{
  draw();
 }catch{current=[];draw()}}
 function annotate(){
- document.querySelectorAll('nav.v2nav button, nav.nav button').forEach(button=>{
+ document.querySelectorAll('nav.v2nav button, nav.nav button, .topbar-buttons button').forEach(button=>{
   const label=(button.textContent||'').toLocaleLowerCase('tr-TR');
   const type=/video|belgesel/.test(label)?'video':/arena|yarış/.test(label)?'arena':/keşfet/.test(label)?'discover':/kitaplığım/.test(label)?'library':/profil|kariyer/.test(label)?'profile':/ana menü/.test(label)?'home':/yedek/.test(label)?'backup':/yenile/.test(label)?'refresh':/haber/.test(label)?'news':/youtube/.test(label)?'youtube':/linkedin/.test(label)?'linkedin':/zaman/.test(label)?'time':null;
   if(type){button.dataset.presenceType='section';button.dataset.presenceId=type}
