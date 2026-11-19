@@ -45,7 +45,7 @@ function addressedBots(text,members){
 function chooseResponders(text,members){
  const mentioned=addressedBots(text,members);
  const first=clean(text).split(' ')[0];
- if(mentioned.length>1&&/(ne dedi|ne söyle|anladın|katılıyor musun|fikri|görüşü)/.test(clean(text))){
+ if(mentioned.length>1){
    const recipient=mentioned.find(n=>clean(n)===first);
    if(recipient)return [recipient];
  }
@@ -57,6 +57,7 @@ function previousBotMessage(history,name){
 }
 function contextAnswer(name,message,history,members){
  const t=clean(message),mentioned=addressedBots(message,members),other=mentioned.filter(n=>n!==name);
+ if(/(kaç yaşındasın|kaç yaşındasınız|yaşın kaç|kaç yaşında sın|kaç yaşındasın)/.test(t))return 'Ben BOOK CENTER içindeki kurgusal bir botum. Gerçek bir doğum tarihim veya yaşım yok. İstersen karakterime bir yaş belirleyebilirsin.';
  const askingAboutBot=/(ne dedi|ne söyle|anladın|katılıyor musun|fikri|görüşü|tanıyor musun|tanıyor musunuz|tanıyormusunuz|birbirinizi tanı)/.test(t);
  if(askingAboutBot&&other.length){
    const target=other[0],prior=previousBotMessage(history,target);
