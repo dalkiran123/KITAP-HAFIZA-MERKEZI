@@ -1728,9 +1728,10 @@ window.addEventListener("pageshow",refreshHomeArena);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshHomeArena()});
 })();
 </script><script src="./profile-visitors.js"></script><style id="bc-mobile-menu-presence-safety">
-/* Keep navigation labels readable even when an older presence script is cached. */
-nav.v2nav button .bc-friends, nav.nav button .bc-friends,
-nav.v2nav button .bc-friend, nav.nav button .bc-friend,
-nav.v2nav button .bc-friend-count, nav.nav button .bc-friend-count { display:none !important; }
+/* Presence stays visible at top left without covering the menu label. */
+nav.v2nav button[data-presence-type],nav.nav button[data-presence-type]{padding-top:27px!important;position:relative}
+nav.v2nav button .bc-friends,nav.nav button .bc-friends{display:flex!important;left:5px!important;right:auto!important;top:3px!important;bottom:auto!important;max-width:calc(100% - 10px)!important;pointer-events:auto!important}
+nav.v2nav button .bc-friend,nav.nav button .bc-friend{display:grid!important;width:19px!important;height:19px!important;font-size:10px!important;border-width:1px!important}
+nav.v2nav button .bc-friend-count,nav.nav button .bc-friend-count{display:inline-block!important;font-size:9px!important;padding:1px 3px!important}
 </style>
 <script defer src="./assets/inline-friend-presence.js?v=20261119-4"></script><script src="./bot-inbox.js"></script></body></html>
