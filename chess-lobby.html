@@ -28,6 +28,30 @@ body{background:radial-gradient(ellipse at 85% 8%,#245d83 0%,transparent 40%),li
 .welcome-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;align-items:center}.welcome-actions button{width:auto!important;margin:0!important;font-size:12px!important;padding:8px 10px!important;max-width:none!important}.welcome-actions #refreshLobby{background:#1767a9;color:#fff;border-color:#105388;box-shadow:0 3px 0 #0b3b66}
 .stat-btn{border-radius:14px;box-shadow:0 5px 0 rgba(25,40,65,.22),0 9px 16px rgba(25,40,65,.15);transition:transform .15s,box-shadow .15s;font-weight:800}.stat-btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(25,40,65,.2)}.stat-btn[data-filter="all"]{background:#b9ebc6;border-color:#39a75b;color:#11552b}.stat-btn[data-filter="playing"]{background:#ffd0a2;border-color:#e78a2c;color:#803b09}.stat-btn[data-filter="watching"]{background:#b8d9ff;border-color:#428ee4;color:#134d94}.stat-btn[data-filter="idle"]{background:#ffef9b;border-color:#d6ae22;color:#685007}.stat-btn.active{outline:3px solid #243d5e;outline-offset:2px;filter:saturate(1.18);transform:translateY(-2px);box-shadow:0 7px 0 rgba(25,40,65,.25),0 12px 20px rgba(25,40,65,.19)}
 @media(max-width:390px){.welcome-actions{gap:4px}.welcome-actions button{font-size:11px!important;padding:7px!important}}
+
+/* V3: restrained modern lobby, flat edges and soft elevation */
+body{background:linear-gradient(160deg,#10253c 0%,#173751 100%)}
+.card{border:1px solid rgba(218,228,238,.7);border-radius:18px;box-shadow:0 10px 28px rgba(5,19,36,.14)}
+#dashboard{padding:18px 16px}
+#dashboard .button#share{background:#214e83;border-radius:12px;box-shadow:none;font-weight:650}
+#dashboard .invitation-details{border:1px solid #e8d8b9;background:#fffaf1;border-radius:12px;box-shadow:none}
+#dashboard .invitation-details summary{color:#81531e}
+.stats-grid{gap:10px;margin-top:16px}
+.stat-btn,.stat-btn.active{position:relative;border:1px solid transparent;border-radius:13px;min-height:82px;padding:12px 4px 10px;transform:none;outline:none;filter:none;box-shadow:0 4px 12px rgba(17,34,53,.09);transition:background .16s,box-shadow .16s,transform .16s}
+.stat-btn:active{transform:scale(.97);box-shadow:0 2px 7px rgba(17,34,53,.1)}
+.stat-btn strong{font-size:clamp(23px,5vw,29px);line-height:1.1;font-weight:750;letter-spacing:-.7px}
+.stat-btn span{display:block;margin-top:7px;font-size:clamp(10px,2.65vw,12px);font-weight:650}
+.stat-btn[data-filter="all"]{background:#e7f5ec;border-color:#c9e8d3;color:#216c43}
+.stat-btn[data-filter="playing"]{background:#fff0e1;border-color:#f3dac1;color:#9b571f}
+.stat-btn[data-filter="watching"]{background:#e8f1fd;border-color:#cddff6;color:#285e9d}
+.stat-btn[data-filter="idle"]{background:#fff8da;border-color:#efe3ae;color:#806515}
+.stat-btn.active{outline:none;border-width:2px;box-shadow:0 0 0 2px rgba(23,48,75,.12),0 5px 14px rgba(17,34,53,.12)}
+.welcome-actions{display:flex;gap:7px;flex-wrap:nowrap}
+.welcome-actions button,.welcome-actions #refreshLobby{border:1px solid #dbe4ef!important;border-radius:10px!important;background:#f1f5fa!important;color:#1c476f!important;box-shadow:none!important;font-size:11px!important;font-weight:650!important;padding:9px 10px!important;white-space:nowrap}
+.welcome-actions #refreshLobby{background:#e9f2fb!important;border-color:#cfe1f2!important}
+#onlinePlayers{border:1px solid #dce6f0;border-radius:12px;background:#f8fbff}
+.list{border:1px solid #e2e8f0;background:#f8fafc;border-radius:13px}
+@media(max-width:420px){#welcome .row{align-items:flex-start}#welcome h2{font-size:20px;min-width:0}.welcome-actions{flex-direction:column;align-items:stretch}.welcome-actions button{padding:7px 8px!important}.stats-grid{gap:7px}.stat-btn{min-height:75px}}
 </style></head>
 <body><main class="shell"><div class="top"><div class="mark">♟️</div><span class="tag">V2.9</span></div><h1>ChessOnline</h1>
 <section class="card" id="join"><h2>Oyuncu girişi</h2><label for="nickname">Oyuncu adın</label><input id="nickname" maxlength="24" autocomplete="nickname" placeholder="Örn. Numan" aria-describedby="nameHelp"><p id="nameHelp" class="muted">2–24 karakter. Bu ad bu cihazda saklanır; henüz sunucuda kayıtlı bir hesap değildir.</p><button class="button" id="saveName">Lobiye gir</button><p class="notice" id="error" role="alert"></p></section>
