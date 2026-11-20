@@ -268,8 +268,8 @@ body.chess-immersive .chess-side:last-child details summary:after{content:"Hamle
 }
 
 /* V7.9: mobile landscape compact side panels, single headings and refresh control. */
-body.chess-immersive #chessRefresh{position:fixed!important;right:80px!important;top:5px!important;z-index:10004!important;display:block!important;background:#173d70!important;color:white!important;border:1px solid white!important;border-radius:7px!important;padding:5px 9px!important;font-size:12px!important}
-#chessRefresh{display:none}
+body #chessRefresh{position:fixed!important;right:80px!important;top:5px!important;z-index:10004!important;display:block!important;background:#173d70!important;color:white!important;border:1px solid white!important;border-radius:7px!important;padding:5px 9px!important;font-size:12px!important}
+#chessRefresh{display:block!important}
 @media (orientation:landscape) and (pointer:coarse) and (max-width:1200px){
  body.chess-immersive .chess-side h3{display:none!important}
  body.chess-immersive .chess-side details summary{display:block!important;font-size:0!important;line-height:1.4!important;white-space:nowrap!important;overflow:hidden!important}
@@ -402,10 +402,11 @@ historyRender();
 
 const fullscreenToggle=document.getElementById('chessFullscreenToggle');
 const fullscreenExit=document.getElementById('chessFullscreenExit');
-function setChessImmersive(enabled){document.body.classList.toggle('chess-immersive',enabled);fullscreenToggle.textContent=enabled?'Tam ekrandan çık':'⛶ Tam ekran oyun';clockRender();}
+function setChessImmersive(enabled){document.body.classList.toggle('chess-immersive',enabled);try{sessionStorage.setItem('bookChessImmersive',enabled?'1':'0');}catch(e){}fullscreenToggle.textContent=enabled?'Tam ekrandan çık':'⛶ Tam ekran oyun';clockRender();}
 fullscreenToggle.addEventListener('click',()=>setChessImmersive(!document.body.classList.contains('chess-immersive')));
 fullscreenExit.addEventListener('click',()=>setChessImmersive(false));
-document.getElementById('chessRefresh').addEventListener('click',()=>window.location.reload());
+document.getElementById('chessRefresh').addEventListener('click',()=>{try{sessionStorage.setItem('bookChessImmersive',document.body.classList.contains('chess-immersive')?'1':'0');}catch(e){}const url=new URL(window.location.href);url.searchParams.set('chess_refresh',Date.now().toString());window.location.replace(url.toString());});
+try{if(sessionStorage.getItem('bookChessImmersive')==='1')setChessImmersive(true);}catch(e){}
 const squares=[];for(let r=8;r>=1;r--)for(const f of 'abcdefgh')squares.push(f+r);
 function statusText(){if(mode.value==='remote'){if(!room)return 'Oda oluştur ve arkadaşını davet et.';if(!token)return 'Oyuna katılmak için bekleyin…';if(!joined)return 'Arkadaşının katılması bekleniyor…';}if(game.in_checkmate())return 'Şah mat! '+(game.turn()==='w'?'Siyah':'Beyaz')+' kazandı.';if(game.in_draw())return 'Oyun berabere.';return (game.turn()==='w'?'Beyaz':'Siyah')+' oynuyor'+(game.in_check()?' · Şah!':'')+(thinking?' · Bot düşünüyor…':'')}
 function render(){board.replaceChildren();const legal=selected?game.moves({square:selected,verbose:true}):[];for(let i=0;i<64;i++){const sq=squares[i],piece=game.get(sq),btn=document.createElement('button');btn.type='button';btn.className='sq '+(((Math.floor(i/8)+i%8)%2)?'dark':'light')+(piece?(piece.color==='w'?' white-piece':' black-piece'):'')+(lastMove&&(lastMove.from===sq||lastMove.to===sq)?' last-move':'')+(selected===sq?' sel':'')+(legal.some(m=>m.to===sq)?' dest':'');if(piece){const img=document.createElement('img');img.className='piece-art';img.alt=(piece.color==='w'?'Beyaz ':'Siyah ')+piece.type;img.draggable=false;img.src='https://images.chesscomfiles.com/chess-themes/pieces/neo/150/'+piece.color+piece.type+'.png';img.onerror=()=>{const fallback=document.createElement('span');fallback.className='piece-fallback';fallback.textContent=symbols[piece.color+piece.type];img.replaceWith(fallback)};btn.append(img)}btn.setAttribute('aria-label',sq+(piece?' '+piece.color+piece.type:''));btn.onclick=()=>tap(sq);board.append(btn)}status.textContent=statusText()+(mode.value==='remote'&&joined?' · Sen '+(role==='white'?'beyazsın':'siyahsın'):'');history.textContent='Hamleler: '+game.history().map((m,i)=>(i%2===0?(Math.floor(i/2)+1)+'. ':'')+m).join(' ');movesRender();clockRender()}
