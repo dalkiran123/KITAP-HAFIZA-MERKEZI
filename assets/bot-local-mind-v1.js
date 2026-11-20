@@ -249,6 +249,17 @@ knowledge["tarih"].push("Diplomatik, tarihî belgelerin biçimini, özgünlüğ�
 knowledge["psikoloji"].push("İleriye ket vurma, önceden öğrenilen bilginin yeni bilginin öğrenilmesini zorlaştırabilmesidir.");
 knowledge["felsefe"].push("Modus ponens, 'P ise Q' ve 'P' öncüllerinden 'Q' sonucunu çıkaran geçerli akıl yürütme biçimidir.");
 knowledge["kişisel gelişim"].push("Uygulama niyeti, bir hedef için 'Eğer X olursa Y yapacağım' biçiminde somut bir eylem planı kurmaktır.");
+/* 2026-11-20: ten curated offline facts. */
+knowledge["bilim"].push("Bir tam Güneş tutulması, Ay'ın Güneş diskini Dünya'daki belirli bir gözlemci için tamamen örtmesiyle gerçekleşir.");
+knowledge["roman"].push("İç monolog, bir anlatı kişisinin düşüncelerinin doğrudan aktarılmasına dayanan anlatım tekniğidir.");
+knowledge["doğa"].push("Mercanlar, Knidliler şubesine ait hayvanlardır; mercan resifleri çok sayıda polipin oluşturduğu yapılardır.");
+knowledge["satranç"].push("Satrançta geçerken alma, rakip piyon başlangıç karesinden iki kare ilerledikten hemen sonraki hamlede yapılabilen özel bir piyon alışıdır.");
+knowledge["şiir"].push("Aliterasyon, bir şiir veya düzyazıda ünsüz seslerin yinelenmesiyle oluşan ses sanatıdır.");
+knowledge["teknoloji"].push("HTTP 511 durum kodu, ağ erişimi için kimlik doğrulaması gerektiğini bildirir.");
+knowledge["tarih"].push("Paleografi, eski yazı biçimlerini ve tarihsel el yazılarını inceleyen bilim dalıdır.");
+knowledge["psikoloji"].push("Örtük bellek, bilgilerin bilinçli olarak hatırlanmasına gerek kalmadan davranışı etkileyebilen bellek türüdür.");
+knowledge["felsefe"].push("Modus tollens, 'Eğer P ise Q; Q değil; öyleyse P değil' biçimindeki geçerli çıkarım kuralıdır.");
+knowledge["kişisel gelişim"].push("Pomodoro tekniği, çalışmayı kısa odaklanma dönemleri ve aralarla düzenleyen bir zaman yönetimi yöntemidir.");
 function learnedFact(friend){const state=knowledgeState(friend),entry=state.entries[state.entries.length-1];return entry?'İlgi alanım hakkında bilgi havuzumdan bugün şunu seçtim: '+entry.fact+' Bu, internette yeni araştırma yaptığım anlamına gelmez.':'Henüz bilgi seçmedim.'}
 
 
