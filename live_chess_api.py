@@ -271,6 +271,9 @@ def register_chess(app):
                 return jsonify(error="Oda bulunamadı"), 404
             if row["black_token"]:
                 return jsonify(error="Oda dolu"), 409
+            invite_room = c.execute("SELECT id FROM chess_lobby_invites WHERE room=?", (room,)).fetchone()
+            if invite_room:
+                return jsonify(error="Bu oda yalnızca davet edilen oyuncuya açık"), 403
             token = secrets.token_urlsafe(32)
             now = int(time.time())
             c.execute("UPDATE chess_rooms SET black_token=?,tick_ms=?,updated=? WHERE id=?",
