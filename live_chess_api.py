@@ -210,13 +210,22 @@ def register_chess(app):
             now = int(time.time())
             c.execute("""UPDATE chess_lobby_invites SET status='expired',updated=?
                 WHERE status='pending' AND created<?""",(now,now-120))
-            rows = c.execute("""SELECT i.*,s.name AS sender_name,r.name AS receiver_name
+            rows = c.execute("""SELECT i.*,s.name AS sender_name,r.name AS receiver_name,cr.fen AS room_fen,cr.result AS room_result,cr.reason AS room_reason,cr.minutes AS room_minutes,cr.white_ms AS room_white_ms,cr.black_ms AS room_black_ms,cr.tick_ms AS room_tick_ms
                 FROM chess_lobby_invites i
                 JOIN chess_lobby_players s ON s.token_hash=i.sender_hash
                 JOIN chess_lobby_players r ON r.token_hash=i.receiver_hash
+                LEFT JOIN chess_rooms cr ON cr.id=i.room
                 WHERE (i.receiver_hash=? OR i.sender_hash=?) AND i.created>=?
                 ORDER BY i.created DESC LIMIT 40""",(me["token_hash"],me["token_hash"],now-86400)).fetchall()
-            return jsonify(invites=[dict(id=r["id"],room=r["room"],status=r["status"],
+            def match_finished(r):
+                if r["status"]!="accepted": return False
+                if r["room_result"] or (r["room_fen"] and chess.Board(r["room_fen"]).is_game_over(claim_draw=True)): return True
+                if r["room_minutes"] and r["room_tick_ms"]:
+                    elapsed=max(0,int(time.time()*1000)-r["room_tick_ms"])
+                    side=chess.Board(r["room_fen"]).turn
+                    return (r["room_white_ms"] if side else r["room_black_ms"]) <= elapsed
+                return False
+            return jsonify(invites=[dict(finished=match_finished(r),id=r["id"],room=r["room"],status=r["status"],
                 direction="incoming" if r["receiver_hash"]==me["token_hash"] else "outgoing",
                 from_name=r["sender_name"],to_name=r["receiver_name"],created=r["created"]) for r in rows])
 
