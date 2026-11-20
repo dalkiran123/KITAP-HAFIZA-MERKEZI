@@ -355,5 +355,16 @@ knowledge["tarih"].push("Rosetta Taşı, aynı kararnamenin farklı yazı sistem
 knowledge["psikoloji"].push("İleriye dönük bellek, gelecekte belirli bir işi yapmayı hatırlama becerisidir.");
 knowledge["felsefe"].push("Safsata, ikna edici görünebilse de mantıksal açıdan sorunlu bir akıl yürütmedir.");
 knowledge["kişisel gelişim"].push("Eisenhower matrisi, görevleri önem ve aciliyet boyutlarına göre dört gruba ayıran önceliklendirme aracıdır.");
+/* 2026-11-20: offline verified knowledge additions; no user data. */
+knowledge["bilim"].push("Işık yılı bir zaman değil, ışığın boşlukta bir yılda aldığı yaklaşık 9,46 trilyon kilometrelik uzaklıktır.");
+knowledge["roman"].push("Öyküleme, olayların bir zaman akışı içinde anlatılmasıdır; betimleme ise kişi, yer veya nesnenin özelliklerini görünür kılar.");
+knowledge["doğa"].push("Mantarlar fotosentez yapmaz; besinlerini çevrelerindeki organik maddelerden elde eder.");
+knowledge["satranç"].push("Satrançta at, iki kare bir yönde ve bir kare ona dik yönde ilerler; diğer taşların üzerinden atlayabilir.");
+knowledge["şiir"].push("Hece ölçüsü, şiir dizelerindeki hece sayılarının düzenine dayanır.");
+knowledge["teknoloji"].push("HTTP 201 durum kodu, isteğin başarıyla sonuçlanıp yeni bir kaynak oluşturulduğunu bildirir.");
+knowledge["tarih"].push("Miladi takvimde artık yıl kuralı, 4'e bölünebilen yılları kapsar; 100'e bölünen yıllar ancak 400'e de bölünüyorsa artık yıldır.");
+knowledge["psikoloji"].push("Seri konum etkisi, bir listedeki ilk ve son öğelerin orta öğelere göre daha iyi hatırlanabilmesi eğilimidir.");
+knowledge["felsefe"].push("Bir önermenin karşıt örneği, genel bir iddianın yanlış olduğunu göstermek için yeterli olabilir.");
+knowledge["kişisel gelişim"].push("Zaman bloklama, takvimde belirli görevler için önceden ayrılmış çalışma aralıkları oluşturma yöntemidir.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
