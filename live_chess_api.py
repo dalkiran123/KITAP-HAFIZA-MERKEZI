@@ -249,6 +249,53 @@ def register_chess(app):
             c.execute("UPDATE chess_lobby_invites SET status='accepted',updated=? WHERE id=?",(now,invite_id))
             return jsonify(ok=True,status="accepted",room=row["room"],token=black_token,role="black")
 
+
+    @app.get("/api/chess/live")
+    def chess_live_matches():
+        """Public metadata for accepted invitation matches; no player tokens or chat."""
+        with connect() as c:
+            rows = c.execute("""SELECT r.*,p1.name AS white_name,p2.name AS black_name
+                FROM chess_rooms r JOIN chess_lobby_invites i
+                ON i.room=r.id AND i.status='accepted'
+                JOIN chess_lobby_players p1 ON p1.token_hash=i.sender_hash
+                JOIN chess_lobby_players p2 ON p2.token_hash=i.receiver_hash
+                WHERE r.black_token IS NOT NULL AND r.result='' AND r.created>=?
+                ORDER BY r.updated DESC LIMIT 40""",(int(time.time())-86400,)).fetchall()
+            matches=[]
+            for row in rows:
+                row=settle(c,row)
+                if row["result"] or chess.Board(row["fen"]).is_game_over(claim_draw=True):
+                    continue
+                names=c.execute("""SELECT p1.name AS white_name,p2.name AS black_name
+                    FROM chess_lobby_invites i JOIN chess_lobby_players p1 ON p1.token_hash=i.sender_hash
+                    JOIN chess_lobby_players p2 ON p2.token_hash=i.receiver_hash
+                    WHERE i.room=? AND i.status='accepted' LIMIT 1""",(row["id"],)).fetchone()
+                matches.append(dict(room=row["id"],white_name=names["white_name"],black_name=names["black_name"],
+                    moves=len(row["moves"].split()),minutes=row["minutes"]))
+        return jsonify(matches=matches)
+
+    @app.get("/api/chess/watch/<room>")
+    def chess_watch(room):
+        """Read-only spectator board state. Deliberately excludes chat, tokens and undo."""
+        with connect() as c:
+            c.execute("BEGIN IMMEDIATE")
+            row=c.execute("""SELECT r.*,p1.name AS white_name,p2.name AS black_name
+                FROM chess_rooms r JOIN chess_lobby_invites i
+                ON i.room=r.id AND i.status='accepted'
+                JOIN chess_lobby_players p1 ON p1.token_hash=i.sender_hash
+                JOIN chess_lobby_players p2 ON p2.token_hash=i.receiver_hash
+                WHERE r.id=? AND r.black_token IS NOT NULL""",(room,)).fetchone()
+            if row is None:
+                return jsonify(error="İzlenebilir maç bulunamadı"),404
+            row=settle(c,row)
+            board=chess.Board(row["fen"])
+            return jsonify(room=row["id"],white_name=row["white_name"],black_name=row["black_name"],
+                fen=row["fen"],moves=row["moves"].split() if row["moves"] else [],
+                turn="white" if board.turn else "black",minutes=row["minutes"],
+                white_ms=row["white_ms"],black_ms=row["black_ms"],tick_ms=row["tick_ms"],
+                finished=bool(row["result"]) or board.is_game_over(claim_draw=True),
+                result=row["result"],reason=row["reason"],updated=row["updated"])
+
     @app.post("/api/chess/create")
     def chess_create():
         data = request.get_json(silent=True) or {}
