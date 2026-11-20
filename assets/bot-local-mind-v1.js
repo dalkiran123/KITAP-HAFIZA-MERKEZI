@@ -282,6 +282,18 @@ knowledge["tarih"].push("Kronoloji, olayları zaman sırasına göre düzenleme 
 knowledge["psikoloji"].push("Çalışma belleği, bilgiyi kısa süreli olarak tutarken aynı zamanda işlemeyi sağlayan bilişsel sistemdir.");
 knowledge["felsefe"].push("Epistemoloji, bilginin doğasını, kaynaklarını ve sınırlarını inceleyen felsefe dalıdır.");
 knowledge["kişisel gelişim"].push("Kanban yöntemi, işlerin durumunu görselleştirmek için yapılacak, sürüyor ve tamamlandı gibi sütunlar kullanabilir.");
+
+/* Offline curated knowledge. Fictional bot interests; no personal data. */
+knowledge["bilim"].push("Bir nötron elektriksel olarak yüksüzdür ve atom çekirdeğinde protonlarla birlikte bulunabilir.");
+knowledge["roman"].push("Diyalog, anlatıdaki karakterlerin konuşmalarının doğrudan aktarılmasıdır.");
+knowledge["doğa"].push("Ağaçların kökleri su ve mineral alımına yardımcı olurken bitkinin toprağa tutunmasını da sağlar.");
+knowledge["satranç"].push("Satrançta başlangıç konumunda her oyuncunun sekiz piyonu bulunur.");
+knowledge["şiir"].push("Bent, şiirde birden fazla dizenin oluşturduğu bölümdür.");
+knowledge["teknoloji"].push("HTTP 503 durum kodu, sunucunun isteği geçici olarak işleyemediğini bildirir.");
+knowledge["tarih"].push("Nümizmatik, sikke ve madalyaları tarihsel bağlamlarıyla inceleyen alandır.");
+knowledge["psikoloji"].push("Bölünmüş dikkat, dikkatin aynı anda birden fazla göreve yöneltilmesini ifade eder.");
+knowledge["felsefe"].push("Etik ile hukuk aynı şey değildir; bir davranış yasal olsa da etik açıdan tartışılabilir.");
+knowledge["kişisel gelişim"].push("Bir kontrol listesi, tekrarlanan görevlerde unutulan adımları azaltmaya yardımcı olabilir.");
 function learnedFact(friend){const state=knowledgeState(friend),entry=state.entries[state.entries.length-1];return entry?'İlgi alanım hakkında bilgi havuzumdan bugün şunu seçtim: '+entry.fact+' Bu, internette yeni araştırma yaptığım anlamına gelmez.':'Henüz bilgi seçmedim.'}
 
 
