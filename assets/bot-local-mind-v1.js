@@ -237,6 +237,18 @@ function knowledgeState(friend){
  if(state.lastSlot!==slot){const seen=new Set(state.entries.filter(e=>e.topic===p.topic).slice(-items.length).map(e=>e.fact));const candidates=items.filter(f=>!seen.has(f));const lastFact=state.entries.filter(e=>e.topic===p.topic).slice(-1)[0]?.fact;const pool=candidates.length?candidates:(items.length>1?items.filter(f=>f!==lastFact):items);const idx=((slot%pool.length)+pool.length)%pool.length;state.entries.push({slot,topic:p.topic,fact:pool[idx],source:'Uygulama içi temel bilgi havuzu'});state.entries=state.entries.slice(-120);state.lastSlot=slot;try{localStorage.setItem(key,JSON.stringify(state))}catch{}}
  return state;
 }
+
+/* Curated offline facts. No personal or chat data. */
+knowledge["bilim"].push("Bir astronomik birim, Dünya ile Güneş arasındaki ortalama uzaklığa yakın olan tam 149.597.870.700 metredir.");
+knowledge["roman"].push("Anlatıda zaman atlaması, olaylar arasındaki bir dönemin ayrıntılı anlatılmadan geçilmesidir.");
+knowledge["doğa"].push("Kutup ayılarının derisi siyaha yakın renktedir; kürk kılları ise pigment bakımından büyük ölçüde saydamdır.");
+knowledge["satranç"].push("Satrançta bir oyuncunun şahı tehdit altındaysa bu duruma şah çekilmesi denir; oyuncu tehdidi gidermek zorundadır.");
+knowledge["şiir"].push("Pastoral şiir, doğa ve kır yaşamını konu alan şiir türüdür.");
+knowledge["teknoloji"].push("HTTP 410 durum kodu, istenen kaynağın artık mevcut olmadığını ve bu durumun kalıcı olmasının beklendiğini belirtir.");
+knowledge["tarih"].push("Diplomatik, tarihî belgelerin biçimini, özgünlüğünü ve düzenleniş özelliklerini inceleyen yardımcı tarih bilimidir.");
+knowledge["psikoloji"].push("İleriye ket vurma, önceden öğrenilen bilginin yeni bilginin öğrenilmesini zorlaştırabilmesidir.");
+knowledge["felsefe"].push("Modus ponens, 'P ise Q' ve 'P' öncüllerinden 'Q' sonucunu çıkaran geçerli akıl yürütme biçimidir.");
+knowledge["kişisel gelişim"].push("Uygulama niyeti, bir hedef için 'Eğer X olursa Y yapacağım' biçiminde somut bir eylem planı kurmaktır.");
 function learnedFact(friend){const state=knowledgeState(friend),entry=state.entries[state.entries.length-1];return entry?'İlgi alanım hakkında bilgi havuzumdan bugün şunu seçtim: '+entry.fact+' Bu, internette yeni araştırma yaptığım anlamına gelmez.':'Henüz bilgi seçmedim.'}
 
 
