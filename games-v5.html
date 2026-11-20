@@ -26,22 +26,140 @@
 .board-files{grid-column:2;grid-row:2;display:grid;grid-template-columns:repeat(8,1fr);align-items:center;justify-items:center;font:700 12px system-ui;color:#473624}
 .sq[data-file]:after,.sq[data-rank]:before{content:none!important}
 @media(max-width:420px){.board-frame{grid-template-columns:17px minmax(0,1fr);grid-template-rows:auto 17px;margin:10px auto}.board-ranks,.board-files{font-size:11px}}
-[hidden]{display:none!important}.board-frame .board{border:5px solid #46301e}.board-frame .board-ranks,.board-frame .board-files{color:#29384c;font-weight:800;font-size:13px}.sq::before,.sq::after{content:none!important}</style></head><body><main class="wrap"><a href="./index.html">← Ana ekrana dön</a><h1>♟️ BOOK CENTER Satranç <small style='font-size:12px;color:#65758a'>Görünüm V5</small></h1><div class="panel"><label for="mode">Rakip</label><select id="mode"><option value="bot">Sanal bot (başlangıç seviyesi)</option><option value="local">Arkadaşla aynı cihazda</option><option value="remote">Arkadaşla iki telefonda (canlı)</option></select><div class="actions" id="remoteActions" hidden><button id="createRoom">Oda oluştur</button><button id="copyInvite" hidden>Davet bağlantısını paylaş</button><span id="roomInfo" class="muted"></span></div><div class="actions"><button id="restart">Yeni oyun</button><button id="undo">Hamleyi geri al</button></div><div id="status" class="status" aria-live="polite">Oyun yükleniyor...</div><div class="board-frame"><div class="board-ranks" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div><div id="board" class="board" aria-label="Satranç tahtası"></div><div class="board-files" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div></div><div class="actions" id="promotions" hidden></div><p class="muted">Beyaz taşlarla başlarsın. Bir taşa ve ardından gideceği kareye dokun. Botun hamleleri geçerli hamlelerden seçilir. İki telefonda oynamak için canlı modu seç ve davet bağlantısını paylaş.</p><div id="history"></div></div><p class="muted">Tavla sonraki aşama. Bu sürümde yalnızca satranç oynanabilir.</p></main><script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script><script>
+[hidden]{display:none!important}.board-frame .board{border:5px solid #46301e}.board-frame .board-ranks,.board-frame .board-files{color:#29384c;font-weight:800;font-size:13px}.sq::before,.sq::after{content:none!important}
+/* V6: social chess, readable board and adaptive sidebars */
+.wrap{max-width:1180px}
+.chess-layout{display:grid;grid-template-columns:minmax(185px,1fr) minmax(320px,640px) minmax(185px,1fr);gap:12px;align-items:start}
+.chess-side{background:#f5f8fc;border:1px solid #cbd8e5;border-radius:14px;padding:12px;min-width:0}
+.chess-side h3{margin:0 0 9px;font-size:16px}
+#chessChatList{height:280px;overflow:auto;display:flex;flex-direction:column;gap:7px}
+.chat-bubble{max-width:95%;border-radius:12px;padding:7px 9px;background:#dbe9fb;overflow-wrap:anywhere;font-size:13px}
+.chat-bubble.mine{align-self:flex-end;background:#d4f2dd}
+.chat-bubble small{display:block;font-size:10px;opacity:.75}
+.chat-input{display:flex;gap:5px;margin-top:8px}
+.chat-input input{min-width:0;width:100%;padding:9px;border:1px solid #8a9db2;border-radius:8px}
+.chat-input button{padding:8px}
+#moveList{max-height:260px;overflow:auto;font:14px/1.9 ui-monospace,monospace}
+.move-row{display:grid;grid-template-columns:32px 1fr 1fr;gap:6px;border-bottom:1px solid #e1e6ed}
+.move-row:last-child{background:#e3efd8;font-weight:700}
+.chess-clock{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:#e9edf4;border-radius:10px;font-weight:700;margin:6px 0}
+.chess-clock.active{background:#d5eacb;box-shadow:inset 0 0 0 2px #6c9d58}
+.chess-clock .time{font-variant-numeric:tabular-nums;font-size:22px}
+#matchHistory{display:flex;gap:8px;overflow-x:auto;padding:6px 0 12px}
+.match-card{flex:0 0 190px;background:#f2f5fa;border-radius:10px;padding:9px;font-size:12px;border:1px solid #ccd7e3}
+#undoPanel{margin-top:10px;font-size:13px}
+#undoPanel button{font-size:12px;padding:7px}
+@media(max-width:850px){.chess-layout{grid-template-columns:minmax(0,1fr)}.chess-center{grid-row:1}.chess-side{grid-row:auto}.chess-side details summary{cursor:pointer;font-weight:700}.chess-side details:not([open])>*:not(summary){display:none}#chessChatList{height:180px}.board-frame{max-width:664px}}
+@media(min-width:851px){.chess-side details summary{display:none}.chess-side details>*:not(summary){display:block}}
+</style></head><body><main class="wrap"><a href="./index.html">← Ana ekrana dön</a><h1>♟️ BOOK CENTER Satranç <small style='font-size:12px;color:#65758a'>Görünüm V6</small></h1><div class="panel"><label for="mode">Rakip</label><select id="mode"><option value="bot">Sanal bot (başlangıç seviyesi)</option><option value="local">Arkadaşla aynı cihazda</option><option value="remote">Arkadaşla iki telefonda (canlı)</option></select><div class="actions" id="remoteActions" hidden><label for="clockChoice">Süre</label><select id="clockChoice"><option value="0">Süresiz</option><option value="10">10 dakika</option><option value="30" selected>30 dakika</option><option value="60">60 dakika</option></select><button id="createRoom">Oda oluştur</button><button id="copyInvite" hidden>Davet bağlantısını paylaş</button><span id="roomInfo" class="muted"></span></div><div class="actions"><button id="restart">Yeni oyun</button><button id="undo">Hamleyi geri al</button></div><div id="status" class="status" aria-live="polite">Oyun yükleniyor...</div><section aria-label="Maç geçmişi"><h3>Son maçlar</h3><div id="matchHistory"><span class="muted">Maç geçmişi yükleniyor...</span></div></section><div class="chess-layout"><aside class="chess-side"><details open><summary>💬 Oyuncu sohbeti</summary><h3>💬 Oyuncu sohbeti</h3><div id="chessChatList" aria-live="polite"></div><form id="chatForm" class="chat-input"><input id="chatText" maxlength="500" placeholder="Mesaj yaz..." aria-label="Mesaj yaz"><button type="submit">Gönder</button></form></details></aside><div class="chess-center"><div id="blackClock" class="chess-clock"><span>⚫ Siyah</span><span class="time">--:--</span></div><div class="board-frame"><div class="board-ranks" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div><div id="board" class="board" aria-label="Satranç tahtası"></div><div class="board-files" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div></div><div id="whiteClock" class="chess-clock"><span>⚪ Beyaz</span><span class="time">--:--</span></div></div><aside class="chess-side"><details open><summary>♟️ Hamleler ve geri alma</summary><h3>♟️ Hamleler</h3><div id="moveList"></div><div id="undoPanel"></div></details></aside></div><div class="actions" id="promotions" hidden></div><p class="muted">Beyaz taşlarla başlarsın. Bir taşa ve ardından gideceği kareye dokun. Botun hamleleri geçerli hamlelerden seçilir. İki telefonda oynamak için canlı modu seç ve davet bağlantısını paylaş.</p><div id="history"></div></div><p class="muted">Tavla sonraki aşama. Bu sürümde yalnızca satranç oynanabilir.</p></main><script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script><script>
 (function(){
 const board=document.getElementById('board'),status=document.getElementById('status'),mode=document.getElementById('mode'),history=document.getElementById('history'),promotions=document.getElementById('promotions');
 if(typeof Chess!=='function'){status.textContent='Satranç motoru yüklenemedi. İnternet bağlantını kontrol edip yenile.';return}
 const game=new Chess(),symbols={wk:'♔',wq:'♕',wr:'♖',wb:'♗',wn:'♘',wp:'♙',bk:'♚',bq:'♛',br:'♜',bb:'♝',bn:'♞',bp:'♟︎'};let selected=null,thinking=false,job=0,lastMove=null;const API='https://b2bsocialtest.pythonanywhere.com/api/chess';let room=null,token=null,role=null,joined=false,busy=false;const remoteActions=document.getElementById('remoteActions'),roomInfo=document.getElementById('roomInfo'),copyInvite=document.getElementById('copyInvite');const params=new URLSearchParams(location.search);if(params.has('room')){mode.value='remote';room=params.get('room')}
+
+const chatList=document.getElementById('chessChatList'),chatForm=document.getElementById('chatForm'),chatText=document.getElementById('chatText');
+const moveList=document.getElementById('moveList'),undoPanel=document.getElementById('undoPanel'),matchHistory=document.getElementById('matchHistory');
+const clockChoice=document.getElementById('clockChoice');
+let liveState=null,receivedAt=0,historyCacheKey='',undoSeen='';
+function clockString(ms){const secs=Math.max(0,Math.ceil(ms/1000));return String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0')}
+function clockRender(){
+  for(const color of ['white','black']){
+    const el=document.getElementById(color==='white'?'whiteClock':'blackClock');
+    if(!liveState||mode.value!=='remote'||!liveState.minutes){el.hidden=true;continue}
+    el.hidden=false;
+    let ms=liveState[color+'_ms'];
+    const running=liveState.joined&&!liveState.finished&&liveState.turn===color;
+    if(running)ms-=Date.now()-receivedAt;
+    el.querySelector('.time').textContent=clockString(ms);
+    el.classList.toggle('active',running);
+  }
+}
+function movesRender(){
+  moveList.replaceChildren();
+  const moves=game.history();
+  if(!moves.length){moveList.textContent='Henüz hamle yok.';return}
+  for(let i=0;i<moves.length;i+=2){
+    const row=document.createElement('div');row.className='move-row';
+    for(const txt of [String(i/2+1)+'.',moves[i]||'',moves[i+1]||'']){
+      const span=document.createElement('span');span.textContent=txt;row.append(span);
+    }
+    moveList.append(row);
+  }
+  moveList.scrollTop=moveList.scrollHeight;
+}
+function chatRender(){
+  const messages=liveState?.messages||[];
+  const last=chatList.lastElementChild?.dataset.id;
+  if(last===String(messages[messages.length-1]?.id||'')&&chatList.childElementCount===messages.length)return;
+  chatList.replaceChildren();
+  for(const m of messages){
+    const bubble=document.createElement('div');bubble.className='chat-bubble'+(m.role===role?' mine':'');
+    bubble.dataset.id=m.id;
+    const meta=document.createElement('small');meta.textContent=(m.role==='white'?'Beyaz':'Siyah')+' · '+new Date(m.at*1000).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    const body=document.createElement('div');body.textContent=m.text;
+    bubble.append(meta,body);chatList.append(bubble);
+  }
+  chatList.scrollTop=chatList.scrollHeight;
+}
+function undoRender(){
+  undoPanel.replaceChildren();
+  if(mode.value!=='remote'||!liveState?.joined||liveState.finished)return;
+  const pending=liveState.undo_by;
+  const info=document.createElement('p');
+  info.textContent=pending?(pending===role?'Geri alma onayı bekleniyor.':'Rakip son hamleyi geri almak istiyor.'):'Son hamleyi geri alma isteği gönderebilirsin.';
+  undoPanel.append(info);
+  const actions=pending&&pending!==role?['accept','reject']:pending?[]:['request'];
+  for(const action of actions){
+    const btn=document.createElement('button');
+    btn.textContent=({request:'Geri alma iste',accept:'Kabul et',reject:'Reddet'})[action];
+    btn.onclick=async()=>{try{const data=await req('/undo/'+encodeURIComponent(room),{method:'POST',body:JSON.stringify({action})});sync(data)}catch(e){status.textContent=e.message}};
+    undoPanel.append(btn);
+  }
+}
+chatForm.onsubmit=async e=>{
+  e.preventDefault();
+  const text=chatText.value.trim();
+  if(!text||!room||!token||!joined)return;
+  try{const data=await req('/chat/'+encodeURIComponent(room),{method:'POST',body:JSON.stringify({text})});chatText.value='';sync(data)}
+  catch(e){status.textContent='Mesaj gönderilemedi: '+e.message}
+};
+function recordMatch(data){
+  if(!room||!token)return;
+  let list;try{list=JSON.parse(localStorage.getItem('chess:matches')||'[]')}catch{list=[]}
+  const existing=list.find(x=>x.room===room);
+  const item={room,token,created:data.created||Math.floor(Date.now()/1000),result:data.result||'',reason:data.reason||'',minutes:data.minutes||0,ended:data.ended||0,finished:data.finished};
+  if(existing)Object.assign(existing,item);else list.unshift(item);
+  list.sort((a,b)=>b.created-a.created);
+  localStorage.setItem('chess:matches',JSON.stringify(list.slice(0,40)));
+  historyRender();
+}
+function historyRender(){
+  matchHistory.replaceChildren();
+  let list=[];try{list=JSON.parse(localStorage.getItem('chess:matches')||'[]')}catch{}
+  if(!list.length){matchHistory.textContent='Bu cihazda henüz maç kaydı yok.';return}
+  for(const m of list.slice(0,12)){
+    const card=document.createElement('div');card.className='match-card';
+    const date=document.createElement('strong');date.textContent=new Date(m.created*1000).toLocaleString('tr-TR');
+    const desc=document.createElement('div');
+    desc.textContent=(m.finished?(m.result==='draw'?'Beraberlik':m.result==='white'?'Beyaz kazandı':m.result==='black'?'Siyah kazandı':'Maç tamamlandı'):'Devam ediyor')+' · '+(m.minutes?m.minutes+' dk':'Süresiz');
+    const link=document.createElement('a');link.href=location.pathname+'?room='+encodeURIComponent(m.room);link.textContent='Maça git';
+    card.append(date,desc,link);matchHistory.append(card);
+  }
+}
+setInterval(clockRender,250);
+historyRender();
+
 const squares=[];for(let r=8;r>=1;r--)for(const f of 'abcdefgh')squares.push(f+r);
 function statusText(){if(mode.value==='remote'){if(!room)return 'Oda oluştur ve arkadaşını davet et.';if(!token)return 'Oyuna katılmak için bekleyin…';if(!joined)return 'Arkadaşının katılması bekleniyor…';}if(game.in_checkmate())return 'Şah mat! '+(game.turn()==='w'?'Siyah':'Beyaz')+' kazandı.';if(game.in_draw())return 'Oyun berabere.';return (game.turn()==='w'?'Beyaz':'Siyah')+' oynuyor'+(game.in_check()?' · Şah!':'')+(thinking?' · Bot düşünüyor…':'')}
-function render(){board.replaceChildren();const legal=selected?game.moves({square:selected,verbose:true}):[];for(let i=0;i<64;i++){const sq=squares[i],piece=game.get(sq),btn=document.createElement('button');btn.type='button';btn.className='sq '+(((Math.floor(i/8)+i%8)%2)?'dark':'light')+(piece?(piece.color==='w'?' white-piece':' black-piece'):'')+(lastMove&&(lastMove.from===sq||lastMove.to===sq)?' last-move':'')+(selected===sq?' sel':'')+(legal.some(m=>m.to===sq)?' dest':'');if(piece){const img=document.createElement('img');img.className='piece-art';img.alt=(piece.color==='w'?'Beyaz ':'Siyah ')+piece.type;img.draggable=false;img.src='https://images.chesscomfiles.com/chess-themes/pieces/neo/150/'+piece.color+piece.type+'.png';img.onerror=()=>{const fallback=document.createElement('span');fallback.className='piece-fallback';fallback.textContent=symbols[piece.color+piece.type];img.replaceWith(fallback)};btn.append(img)}btn.setAttribute('aria-label',sq+(piece?' '+piece.color+piece.type:''));btn.onclick=()=>tap(sq);board.append(btn)}status.textContent=statusText()+(mode.value==='remote'&&joined?' · Sen '+(role==='white'?'beyazsın':'siyahsın'):'');history.textContent='Hamleler: '+game.history().map((m,i)=>(i%2===0?(Math.floor(i/2)+1)+'. ':'')+m).join(' ')}
+function render(){board.replaceChildren();const legal=selected?game.moves({square:selected,verbose:true}):[];for(let i=0;i<64;i++){const sq=squares[i],piece=game.get(sq),btn=document.createElement('button');btn.type='button';btn.className='sq '+(((Math.floor(i/8)+i%8)%2)?'dark':'light')+(piece?(piece.color==='w'?' white-piece':' black-piece'):'')+(lastMove&&(lastMove.from===sq||lastMove.to===sq)?' last-move':'')+(selected===sq?' sel':'')+(legal.some(m=>m.to===sq)?' dest':'');if(piece){const img=document.createElement('img');img.className='piece-art';img.alt=(piece.color==='w'?'Beyaz ':'Siyah ')+piece.type;img.draggable=false;img.src='https://images.chesscomfiles.com/chess-themes/pieces/neo/150/'+piece.color+piece.type+'.png';img.onerror=()=>{const fallback=document.createElement('span');fallback.className='piece-fallback';fallback.textContent=symbols[piece.color+piece.type];img.replaceWith(fallback)};btn.append(img)}btn.setAttribute('aria-label',sq+(piece?' '+piece.color+piece.type:''));btn.onclick=()=>tap(sq);board.append(btn)}status.textContent=statusText()+(mode.value==='remote'&&joined?' · Sen '+(role==='white'?'beyazsın':'siyahsın'):'');history.textContent='Hamleler: '+game.history().map((m,i)=>(i%2===0?(Math.floor(i/2)+1)+'. ':'')+m).join(' ');movesRender();clockRender()}
 async function commit(move){if(mode.value==='remote'){if(busy||!joined)return;busy=true;try{const uci=move.from+move.to+(move.promotion||'');const data=await req('/move/'+encodeURIComponent(room),{method:'POST',body:JSON.stringify({uci})});sync(data)}catch(e){status.textContent='Hamle gönderilemedi: '+e.message}finally{busy=false}return;}lastMove=game.move(move);selected=null;promotions.hidden=true;render();if(mode.value==='bot'&&game.turn()==='b'&&!game.game_over()){thinking=true;render();const ticket=++job;setTimeout(()=>{if(ticket!==job)return;const moves=game.moves({verbose:true});if(moves.length)lastMove=game.move(moves[Math.floor(Math.random()*moves.length)]);thinking=false;render()},450)}}
 function tap(sq){if(thinking||busy||game.game_over()||(mode.value==='bot'&&game.turn()==='b')||(mode.value==='remote'&&(!joined||game.turn()!==(role==='white'?'w':'b'))))return;const p=game.get(sq);if(selected){const options=game.moves({square:selected,verbose:true}).filter(m=>m.to===sq);if(options.length){if(options.some(m=>m.flags.includes('p'))){promotions.replaceChildren();promotions.hidden=false;for(const promotion of ['q','r','b','n']){const b=document.createElement('button');b.textContent=({q:'Vezir',r:'Kale',b:'Fil',n:'At'})[promotion];b.onclick=()=>commit({from:selected,to:sq,promotion});promotions.append(b)}return}commit({from:selected,to:sq});return}}selected=p&&p.color===game.turn()?sq:null;render()}
-document.getElementById('restart').onclick=()=>{if(mode.value==='remote'){status.textContent='Yeni oyun için yeni oda oluştur.';return;}job++;thinking=false;game.reset();selected=null;lastMove=null;render()};document.getElementById('undo').onclick=()=>{if(mode.value==='remote')return;job++;thinking=false;game.undo();if(mode.value==='bot'&&game.turn()==='b')game.undo();selected=null;lastMove=game.history({verbose:true}).slice(-1)[0]||null;render()};async function req(path,options={}){const response=await fetch(API+path,{...options,headers:{'Content-Type':'application/json',...(token?{'X-Chess-Token':token}:{})}});const data=await response.json();if(!response.ok)throw Error(data.error||'Sunucu yanıt vermedi');return data}
-function sync(data){joined=data.joined;role=data.role;if(game.fen()!==data.fen){game.load(data.fen);selected=null;lastMove=null;}render();roomInfo.textContent='Oda: '+room+(joined?' · İki oyuncu bağlı':' · Rakip bekleniyor')}
-function remoteUI(){remoteActions.hidden=mode.value!=='remote';document.getElementById('undo').disabled=mode.value==='remote';copyInvite.hidden=!room||!token;render()}
-document.getElementById('createRoom').onclick=async()=>{try{token=null;const data=await req('/create',{method:'POST',body:'{}'});room=data.room;token=data.token;role=data.role;localStorage.setItem('chess:'+room,token);window.history.replaceState(null,'',location.pathname+'?room='+encodeURIComponent(room));game.reset();joined=false;remoteUI();await poll()}catch(e){status.textContent='Oda oluşturulamadı: '+e.message}};
+document.getElementById('restart').onclick=()=>{if(mode.value==='remote'){status.textContent='Yeni oyun için yeni oda oluştur.';return;}job++;thinking=false;game.reset();selected=null;lastMove=null;render()};document.getElementById('undo').onclick=()=>{if(mode.value==='remote'){const btn=undoPanel.querySelector('button');if(btn)btn.click();return;}job++;thinking=false;game.undo();if(mode.value==='bot'&&game.turn()==='b')game.undo();selected=null;lastMove=game.history({verbose:true}).slice(-1)[0]||null;render()};async function req(path,options={}){const response=await fetch(API+path,{...options,headers:{'Content-Type':'application/json',...(token?{'X-Chess-Token':token}:{})}});const data=await response.json();if(!response.ok)throw Error(data.error||'Sunucu yanıt vermedi');return data}
+function sync(data){joined=data.joined;role=data.role;liveState=data;receivedAt=Date.now();if(game.fen()!==data.fen||game.history().length!==data.moves.length){game.reset();for(const uci of data.moves){const m=game.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]||'q'});if(!m){game.load(data.fen);break}}selected=null;lastMove=game.history({verbose:true}).slice(-1)[0]||null;}render();chatRender();undoRender();recordMatch(data);roomInfo.textContent='Oda: '+room+(joined?' · İki oyuncu bağlı':' · Rakip bekleniyor')}
+function remoteUI(){remoteActions.hidden=mode.value!=='remote';document.getElementById('undo').disabled=mode.value==='remote'&&!liveState?.joined;copyInvite.hidden=!room||!token;render()}
+document.getElementById('createRoom').onclick=async()=>{try{token=null;const data=await req('/create',{method:'POST',body:JSON.stringify({minutes:Number(clockChoice.value)})});room=data.room;token=data.token;role=data.role;localStorage.setItem('chess:'+room,token);window.history.replaceState(null,'',location.pathname+'?room='+encodeURIComponent(room));game.reset();joined=false;liveState=null;remoteUI();await poll()}catch(e){status.textContent='Oda oluşturulamadı: '+e.message}};
 copyInvite.onclick=async()=>{const url=location.origin+location.pathname+'?room='+encodeURIComponent(room);try{if(navigator.share)await navigator.share({title:'BOOK CENTER Satranç Daveti',url});else{await navigator.clipboard.writeText(url);roomInfo.textContent='Davet bağlantısı kopyalandı'}}catch(e){roomInfo.textContent='Davet: '+url}};
 async function poll(){if(mode.value!=='remote'||!room||busy)return;try{if(!token){const data=await req('/join',{method:'POST',body:JSON.stringify({room})});token=data.token;role=data.role;localStorage.setItem('chess:'+room,token)}const data=await req('/state/'+encodeURIComponent(room));sync(data)}catch(e){status.textContent='Canlı bağlantı: '+e.message}}
-mode.onchange=()=>{if(mode.value==='remote'){remoteUI();poll()}else{room=null;token=null;window.history.replaceState(null,'',location.pathname);document.getElementById('restart').click();remoteUI()}};if(room){token=localStorage.getItem('chess:'+room);remoteUI();poll()}else remoteUI();setInterval(poll,1800);render();
+mode.onchange=()=>{if(mode.value==='remote'){remoteUI();poll()}else{room=null;token=null;liveState=null;window.history.replaceState(null,'',location.pathname);document.getElementById('restart').click();remoteUI()}};if(room){token=localStorage.getItem('chess:'+room);remoteUI();poll()}else remoteUI();setInterval(poll,1800);render();
 })();
 </script></body></html>
