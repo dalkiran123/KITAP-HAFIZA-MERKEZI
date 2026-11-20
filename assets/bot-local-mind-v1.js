@@ -378,5 +378,17 @@ knowledge["tarih"].push("Çivi yazısı ilk olarak Mezopotamya'da geliştirilmi�
 knowledge["psikoloji"].push("Aralıklı tekrar, öğrenilen bilgiyi zaman içinde farklı aralıklarla yeniden gözden geçirme yöntemidir.");
 knowledge["felsefe"].push("Tümdengelimde, geçerli bir çıkarımda öncüller doğruysa sonuç yanlış olamaz.");
 knowledge["kişisel gelişim"].push("Bir hedefin ölçülebilir olması, ilerlemenin somut göstergelerle izlenmesini sağlar.");
+
+/* Curated offline facts 2026-11-21. */
+knowledge["bilim"].push("Neptün, Güneş Sistemi'nde Güneş'e en uzak gezegendir.");
+knowledge["roman"].push("Öyküde olay örgüsü, anlatılan olayların neden-sonuç ve zaman ilişkileriyle düzenlenmesidir.");
+knowledge["doğa"].push("Yunuslar balık değil, akciğerleriyle solunum yapan memelilerdir.");
+knowledge["satranç"].push("Satrançta rok hamlesi, şah ile aynı renkteki kalenin birlikte yer değiştirdiği özel hamledir.");
+knowledge["şiir"].push("Redif, dizelerin sonunda aynı görev ve anlamla tekrarlanan ek ya da sözcüklerdir.");
+knowledge["teknoloji"].push("HTTP 206 durum kodu, sunucunun istenen içeriğin yalnızca belirli bir bölümünü döndürdüğünü belirtir.");
+knowledge["tarih"].push("Tarih öncesi dönemlerin sınırları, yazının farklı bölgelerde farklı zamanlarda kullanılmaya başlanması nedeniyle bölgeden bölgeye değişebilir.");
+knowledge["psikoloji"].push("Hatırlama, bellekteki bilgiyi ipucu olmadan geri getirmeyi; tanıma ise sunulan bilgiyi önceden öğrenilmiş olarak ayırt etmeyi içerir.");
+knowledge["felsefe"].push("Bir önermenin karşıtının yanlış olması, tek başına o önermenin doğruluğunu kanıtlamaz.");
+knowledge["kişisel gelişim"].push("Bir alışkanlığı takip etmek için her uygulandığı günü takvimde işaretlemek, davranışın sıklığını görünür kılar.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
