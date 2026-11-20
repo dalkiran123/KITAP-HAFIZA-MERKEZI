@@ -303,6 +303,28 @@ body.chess-immersive .chess-side details>summary:after{content:none!important;di
  body.chess-immersive .chess-side details>summary{font-size:12px!important}
  body.chess-immersive .chess-side details>summary:after{content:none!important;display:none!important}
 }
+
+/* V8.1: restore visible headings, remove dead chat space and separate controls. */
+body.chess-immersive .chess-side details>summary{
+ display:list-item!important;font-size:14px!important;line-height:1.4!important;
+ color:#1b3050!important;white-space:nowrap!important;overflow:visible!important;
+}
+body.chess-immersive .chess-side details>summary:after{content:none!important;display:none!important}
+@media (orientation:portrait) and (max-width:700px){
+ body.chess-immersive .chess-layout>.chess-side,
+ body.chess-immersive .chess-layout>.chess-side details{height:auto!important;min-height:0!important;max-height:none!important}
+ body.chess-immersive .chess-layout>.chess-side:first-child #chessChatList{height:52px!important;min-height:0!important;max-height:52px!important}
+ body.chess-immersive .chess-layout>.chess-side:first-child{padding:7px 9px!important}
+ body.chess-immersive .chess-layout>.chess-side:last-child{padding:7px 9px!important}
+ body.chess-immersive .chess-side details>summary{font-size:14px!important}
+}
+@media (orientation:landscape) and (pointer:coarse) and (max-width:1200px){
+ body.chess-immersive .chess-side details>summary{font-size:13px!important}
+ body.chess-immersive .chess-layout>.chess-side:last-child{padding-top:46px!important}
+ body.chess-immersive #chessRefresh{right:86px!important;top:5px!important;font-size:11px!important;padding:4px 7px!important}
+ body.chess-immersive #chessFullscreenExit{top:5px!important;right:5px!important}
+ body.chess-immersive .chess-side:first-child #chessChatList{height:80px!important;max-height:80px!important;min-height:0!important}
+}
 </style></head><body><main class="wrap"><a href="./index.html">← Ana ekrana dön</a><h1>♟️ BOOK CENTER Satranç <small style='font-size:12px;color:#65758a'>Görünüm V6</small></h1><div class="panel"><button id="chessFullscreenExit" type="button">Çıkış</button><button id="chessRefresh" type="button" aria-label="Oyunu yenile" onclick="this.textContent='⏳ Yenileniyor';this.disabled=true;try{sessionStorage.setItem('bookChessImmersive',document.body.classList.contains('chess-immersive')?'1':'0')}catch(e){}var u=new URL(location.href);u.searchParams.set('chess_refresh',String(Date.now()));location.href=u.href;">↻ Yenile</button><label for="mode">Rakip</label><select id="mode"><option value="bot">Sanal bot (başlangıç seviyesi)</option><option value="local">Arkadaşla aynı cihazda</option><option value="remote">Arkadaşla farklı cihazlarda (canlı)</option></select><div class="actions" id="remoteActions" hidden><label for="clockChoice">Süre</label><select id="clockChoice"><option value="0">Süresiz</option><option value="10">10 dakika</option><option value="30" selected>30 dakika</option><option value="60">60 dakika</option></select><button id="createRoom">Oda oluştur</button><button id="copyInvite" hidden>Davet bağlantısını paylaş</button><span id="roomInfo" class="muted"></span></div><div class="actions"><button id="chessFullscreenToggle" type="button">⛶ Tam ekran oyun</button><button id="restart">Yeni oyun</button><button id="undo">Hamleyi geri al</button></div><div id="status" class="status" aria-live="polite">Oyun yükleniyor...</div><section aria-label="Maç geçmişi"><h3>Son maçlar</h3><div id="matchHistory"><span class="muted">Maç geçmişi yükleniyor...</span></div></section><div class="chess-layout"><aside class="chess-side"><details open><summary>💬 Sohbet</summary><div id="chessChatList" aria-live="polite"></div><form id="chatForm" class="chat-input"><input id="chatText" maxlength="500" placeholder="Mesaj yaz..." aria-label="Mesaj yaz"><button type="submit">Gönder</button></form></details></aside><div class="chess-center"><div id="blackClock" class="chess-clock"><span>⚫ Siyah</span><span class="time">--:--</span></div><div class="board-frame"><div class="board-ranks" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div><div id="board" class="board" aria-label="Satranç tahtası"></div><div class="board-files" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div></div><div id="whiteClock" class="chess-clock"><span>⚪ Beyaz</span><span class="time">--:--</span></div></div><aside class="chess-side"><details open><summary>♟️ Hamleler</summary><div id="moveList"></div><div id="undoPanel"></div></details></aside></div><div class="actions" id="promotions" hidden></div><p class="muted">Beyaz taşlarla başlarsın. Bir taşa ve ardından gideceği kareye dokun. Botun hamleleri geçerli hamlelerden seçilir. İki telefonda oynamak için canlı modu seç ve davet bağlantısını paylaş.</p><div id="history"></div></div><p class="muted">Tavla sonraki aşama. Bu sürümde yalnızca satranç oynanabilir.</p></main><script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script><script>
 (function(){
 const board=document.getElementById('board'),status=document.getElementById('status'),mode=document.getElementById('mode'),history=document.getElementById('history'),promotions=document.getElementById('promotions');
