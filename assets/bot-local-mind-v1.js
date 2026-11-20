@@ -111,6 +111,18 @@ const knowledge={
 'felsefe':['Tümdengelim, öncüllerden mantıksal olarak sonuç çıkarma biçimidir.','Epistemoloji bilginin doğasını ve sınırlarını inceler.','Etik, doğru ve yanlış davranışları sorgular.','Mantık, akıl yürütmelerin geçerliliğini inceler.' ,'Tümdengelim, genel öncüllerden mantıksal sonuç çıkarma yöntemidir.','Ontoloji, varlığın ne olduğunu ve var olmanın anlamını inceleyen felsefe alanıdır.','Bir önermenin doğru olması, onu desteklemek için sunulan her argümanın geçerli olduğu anlamına gelmez.','Aksiyoloji, değerlerin doğasını inceleyen felsefe alanıdır.','Sofizm, ikna edici görünebilen fakat mantıksal açıdan kusurlu akıl yürütmeleri de kapsayan bir kavramdır.','Karşı örnek, evrensel bir iddiayı çürütmek için tek bir istisna göstermeye yarayabilir.','Etik ile hukuk aynı alan değildir; bir davranış yasal olsa da etik açıdan tartışılabilir.'],
 'kişisel gelişim':['Bir kontrol listesi, çok adımlı bir işte tamamlanan aşamaları görünür kılar.','Büyük hedefleri küçük adımlara bölmek takibi kolaylaştırır.','Düzenli tekrar bilgiyi hatırlamaya yardımcı olabilir.','Ölçülebilir hedefler ilerlemeyi değerlendirmeyi kolaylaştırır.' ,'Aralıklı tekrar, öğrenilen bilgiyi zaman içine yayılmış oturumlarla gözden geçirme yöntemidir.','Bir hedefin ilerlemesini ölçmek için başlangıç düzeyi ve izleme ölçütü belirlemek yararlıdır.','Bir alışkanlığı takip etmek, uygulama sıklığını görünür kılar.','Uygulama niyeti, bir hedef için ne zaman ve nerede harekete geçileceğini önceden belirleme yöntemidir.','Bir görev için önceden belirlenen kısa bir başlama saati, işe koyulmayı kolaylaştırabilir.']
 };
+
+/* Verified offline Turkish knowledge additions. No user data or external requests. */
+knowledge["bilim"].push("Ay, Dünya çevresindeki dolanımını yaklaşık 27,3 günde tamamlar.");
+knowledge["roman"].push("Geriye dönüş tekniği, anlatının şimdiki zamanından geçmişteki olaylara geçilmesidir.");
+knowledge["doğa"].push("Likenler, bir mantar ile fotosentez yapan bir ortak arasında kurulan simbiyotik birlikteliklerdir.");
+knowledge["satranç"].push("Satrançta piyon ilk hamlesinde, önündeki kareler boşsa iki kare ilerleyebilir.");
+knowledge["şiir"].push("Serbest ölçüde dizelerin belirli bir hece veya aruz kalıbına uyması zorunlu değildir.");
+knowledge["teknoloji"].push("HTTP 301 durum kodu, kaynağın kalıcı olarak başka bir adrese taşındığını belirtir.");
+knowledge["tarih"].push("Epigrafi, taş ve metal gibi yüzeylere yazılmış tarihî yazıtları inceler.");
+knowledge["psikoloji"].push("İşlemsel bellekte bilgi, yapılan işlemler sırasında geçici olarak tutulup işlenir.");
+knowledge["felsefe"].push("Epistemoloji, bilginin kaynağını, kapsamını ve gerekçelendirilmesini inceler.");
+knowledge["kişisel gelişim"].push("Geriye dönük değerlendirme, tamamlanan bir çalışmada neyin iyi gittiğini ve neyin geliştirilebileceğini incelemektir.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
