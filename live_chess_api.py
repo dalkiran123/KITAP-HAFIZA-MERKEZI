@@ -100,7 +100,14 @@ def register_chess(app):
         board = chess.Board(row["fen"])
         messages = [dict(id=m["id"], role=m["role"], text=m["body"], at=m["created"])
                     for m in c.execute("SELECT * FROM chess_messages WHERE room=? ORDER BY id DESC LIMIT 100", (row["id"],))]
-        return dict(id=row["id"], role=role, fen=row["fen"],
+        invite = c.execute("""SELECT s.name AS white_name,r.name AS black_name
+            FROM chess_lobby_invites i
+            JOIN chess_lobby_players s ON s.token_hash=i.sender_hash
+            JOIN chess_lobby_players r ON r.token_hash=i.receiver_hash
+            WHERE i.room=? AND i.status='accepted' LIMIT 1""",(row["id"],)).fetchone()
+        white_name = invite["white_name"] if invite else "Beyaz"
+        black_name = invite["black_name"] if invite else "Siyah"
+        return dict(white_name=white_name, black_name=black_name, id=row["id"], role=role, fen=row["fen"],
             moves=row["moves"].split() if row["moves"] else [],
             turn="white" if board.turn else "black", joined=bool(row["black_token"]),
             finished=bool(row["result"]) or board.is_game_over(claim_draw=True),
