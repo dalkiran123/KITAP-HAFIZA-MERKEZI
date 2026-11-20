@@ -2493,12 +2493,12 @@ window.KITAP_CATALOG=[
     "name": "Kırmızı Pazartesi",
     "author": "Gabriel García Márquez",
     "category": "Roman",
-    "summary": "",
+    "summary": "Santiago Nasar, kasabanın bildiği fakat kendisinin öğrenemediği bir cinayet tehdidinin ortasında sabah evinden çıkar. Anlatıcı yıllar sonra tanıklıkları birleştirerek bu ölümün nasıl önlenemediğini araştırır.\n\nÁngela Vicario, Bayardo San Román ile görkemli bir düğün yapar; ancak damat onu düğün gecesi ailesine geri gönderir. Ángela, bekâretini kaybetmesinden sorumlu tuttuğu kişi olarak Santiago'nun adını verir.\n\nÁngela'nın ikiz kardeşleri Pedro ve Pablo Vicario aile onurunu kurtarmak için Santiago'yu öldüreceklerini açıkça söyler. Tehditlerini kasabadaki pek çok kişi duyar ama sözlerin ciddiye alınması gecikir.\n\nKardeşler kasap bıçaklarını hazırlarken polis, din görevlileri ve komşular arasında kopuk uyarılar dolaşır. Herkes bir başkasının müdahale edeceğini düşünür; bu ortak edilgenlik tehlikeyi büyütür.\n\nSantiago'nun yakınları ona ulaşmaya çalışsa da yanlış anlaşılmalar ve kapıların kapanması ölümcül bir zamanlama yaratır. Vicario kardeşler onu evinin önünde bıçaklayarak öldürür.\n\nAnlatıcı çelişkili anıları, Ángela'nın sonraki yaşamını ve Bayardo ile ilişkisini değerlendirir. Roman, Santiago'nun suçunun kesinleşmemesini ve bütün kasabanın sorumluluğunu sorgulayarak sona erer.",
     "longSummary": "",
     "detailSummary": "",
-    "status": "pending",
+    "status": "ready",
     "addedAt": "2026-11-20T08:59:05.062Z",
-    "preparedAt": null,
+    "preparedAt": "2026-11-20T16:01:19+03:00",
     "coverStatus": "missing"
   },
   {
@@ -2518,11 +2518,11 @@ window.KITAP_CATALOG=[
     "author": "Sabahattin Ali",
     "category": "Roman",
     "summary": "",
-    "longSummary": "",
+    "longSummary": "Yusuf'un anne ve babası bir eşkıya saldırısında öldürülür; olay yerine gelen kaymakam Salahattin Bey, çocuğu sahipsiz bırakmayıp yanına alır.\n\nYusuf, Salahattin Bey'in evinde büyürken evin hanımı Şahinde'nin mesafeli tutumuyla karşılaşır.\n\nKaymakamın kızı Muazzez, Yusuf'la yakınlık kurar; iki çocuğun ilişkisi zamanla güçlü bir bağlılığa dönüşür.\n\nYusuf'un içine kapanık ve gururlu kişiliği, kasabanın gösterişe dayalı ilişkileriyle uyuşmaz.\n\nŞahinde, toplumsal çevresini ve eğlencelerini önemser; aile içindeki maddi ve ahlaki gerilimler giderek belirginleşir.\n\nKasabanın zengin ailelerinden gelen Şakir, Muazzez'e ilgi duyar ve sahip olduğu nüfuzla çevresini etkiler.\n\nYusuf, Şakir'in taşkın ve zorba davranışlarına karşı çıkarak aralarında açık bir düşmanlık yaratır.\n\nŞakir'in ailesinin serveti, kasabada adaletin herkese eşit uygulanmadığını gösterir.\n\nSalahattin Bey, kumar ve borçlar nedeniyle güç duruma düşer; evin ekonomik dengesi sarsılır.\n\nYusuf, Muazzez'in çıkar ilişkileri uğruna evlendirilmesi ihtimalini büyük bir tehdit olarak görür.\n\nMuazzez de Yusuf'a yakınlık duyar fakat çevresindeki yetişkinlerin kararları üzerinde sınırlı söz sahibidir.\n\nYusuf, Muazzez'i korumak ve birlikte bir yaşam kurmak için geleneksel beklentilere karşı harekete geçer.\n\nİkisi evlenerek kasabadaki baskıdan bir süre uzaklaşabileceklerini düşünür.\n\nSalahattin Bey'in ölümü, aileyi koruyan en önemli otoriteyi ortadan kaldırır.\n\nYusuf geçimini sağlamak için çalışırken evden uzak kaldığı zamanlar artar.\n\nŞahinde'nin yönlendirdiği eğlence toplantıları Muazzez'i Yusuf'un istemediği bir çevreye sürükler.\n\nKasabanın güçlü erkekleri, Muazzez'in kırılgan durumundan yararlanmaya çalışır.\n\nYusuf eve döndüğünde karşılaştığı manzara karşısında öfkesini kontrol edemez ve silahına davranır.\n\nÇıkan çatışmada Muazzez ağır yaralanır; Yusuf onu alıp kasabadan uzaklaşmaya çalışır.\n\nMuazzez'in ölümüyle Yusuf'un birlikte kurmayı düşlediği hayat yıkılır; roman, kişisel trajediyi taşra düzenindeki güç ve yozlaşmayla ilişkilendirir.",
     "detailSummary": "",
-    "status": "pending",
+    "status": "ready",
     "addedAt": "2026-11-20T08:59:05.062Z",
-    "preparedAt": null,
+    "preparedAt": "2026-11-20T16:01:19+03:00",
     "coverStatus": "missing"
   }
 ];
