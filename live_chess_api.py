@@ -37,6 +37,10 @@ def register_chess(app):
             id INTEGER PRIMARY KEY AUTOINCREMENT, room TEXT NOT NULL,
             role TEXT NOT NULL, body TEXT NOT NULL, created INTEGER NOT NULL)""")
         c.execute("CREATE INDEX IF NOT EXISTS chess_messages_room ON chess_messages(room,id)")
+        c.execute("""CREATE TABLE IF NOT EXISTS chess_lobby_players (
+            token_hash TEXT PRIMARY KEY, name TEXT NOT NULL,
+            last_seen INTEGER NOT NULL)""")
+        c.execute("CREATE INDEX IF NOT EXISTS chess_lobby_seen ON chess_lobby_players(last_seen)")
         return c
 
     @app.after_request
@@ -107,6 +111,37 @@ def register_chess(app):
             return None, None
         row = settle(c, row)
         return row, role_of(row, token)
+
+    @app.post("/api/chess/lobby/heartbeat")
+    def chess_lobby_heartbeat():
+        """Anonymous nickname presence, scoped to a private random browser token."""
+        import hashlib
+        data = request.get_json(silent=True) or {}
+        name = str(data.get("name", "")).strip()
+        token = str(data.get("token", ""))
+        if not (2 <= len(name) <= 24) or any(ord(ch) < 32 for ch in name):
+            return jsonify(error="Oyuncu adı 2-24 karakter olmalı"), 400
+        if not (32 <= len(token) <= 128) or not all(ch.isalnum() or ch in "-_" for ch in token):
+            return jsonify(error="Geçersiz oturum anahtarı"), 400
+        key = hashlib.sha256(token.encode()).hexdigest()
+        now = int(time.time())
+        with connect() as c:
+            c.execute("BEGIN IMMEDIATE")
+            c.execute("DELETE FROM chess_lobby_players WHERE last_seen<?", (now-86400,))
+            c.execute("""INSERT INTO chess_lobby_players(token_hash,name,last_seen)
+                VALUES(?,?,?) ON CONFLICT(token_hash) DO UPDATE
+                SET name=excluded.name,last_seen=excluded.last_seen""", (key,name,now))
+        return jsonify(ok=True, online=True)
+
+    @app.get("/api/chess/lobby/players")
+    def chess_lobby_players():
+        now = int(time.time())
+        with connect() as c:
+            rows = c.execute("""SELECT name,last_seen FROM chess_lobby_players
+                WHERE last_seen>=? ORDER BY name COLLATE NOCASE LIMIT 200""",
+                (now-60,)).fetchall()
+        return jsonify(players=[dict(name=r["name"],online=True) for r in rows],
+                       count=len(rows),online_window_seconds=60)
 
     @app.post("/api/chess/create")
     def chess_create():
