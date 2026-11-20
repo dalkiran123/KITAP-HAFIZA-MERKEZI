@@ -98,7 +98,7 @@ def register_chess(app):
             result=row["result"], reason=row["reason"], updated=row["updated"],
             created=row["created"], ended=row["ended"], minutes=row["minutes"],
             white_ms=row["white_ms"], black_ms=row["black_ms"],
-            tick_ms=row["tick_ms"], undo_by=row["undo_by"],
+            tick_ms=row["tick_ms"], clock_history=row["clock_history"].split(), undo_by=row["undo_by"],
             messages=list(reversed(messages)))
 
     def current(c, room, token):
