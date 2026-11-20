@@ -62,7 +62,7 @@ function learn(friend,message){
  return {learned,memory:m};
 }
 function respond(friend,message,history=[]){
- const n=norm(message);if(['ne öğrendin','yeni bilgi','öğrendiğin','bana bir bilgi','ne biliyorsun'].some(q=>n.includes(q)))return learnedFact(friend);if(['bugün ne yapıyorsun','günün nasıl geçiyor','planın ne','ne okuyorsun','hangi kitabı okuyorsun','şu an ne yapıyorsun'].some(q=>n.includes(q)))return activitySummary(friend);if(n.includes('benim adım ne')||n.includes('adımı hatırlıyor musun')){const m=readMemory(friend);return m.name?'Adını '+m.name+' olarak hatırlıyorum.':'Adını henüz söylemedin.'}if(n.includes('en sevdiğim tür ne')||n.includes('favori türüm ne')){const m=readMemory(friend);return m.favoriteGenre?'Sevdiğin türü '+m.favoriteGenre+' olarak hatırlıyorum.':'En sevdiğin türü henüz söylemedin.'}if(n.includes('ilgimi hatırlıyor musun')||n.includes('neye ilgi duyuyorum')){const m=readMemory(friend);return m.interest?'İlgilendiğin konu: '+m.interest+'.':'İlgi alanını henüz kaydetmedim.'}if(n.includes('en sevdiğim kitap ne')||n.includes('favori kitabım ne')){const m=readMemory(friend);return m.favoriteBook?'En sevdiğin kitabı '+m.favoriteBook+' olarak hatırlıyorum.':'En sevdiğin kitabı henüz bilmiyorum.'}const update=learn(friend,message),m=update.memory||{};
+ const n=norm(message);if(n.includes('beni unut')||n.includes('hafızanı sil')||n.includes('bilgilerimi sil')){try{localStorage.removeItem(memoryKey(friend.id))}catch{}return 'Bu cihazdaki benimle ilgili profil hafızasını sildim. Sohbet geçmişi ayrı saklanıyor.';}if(['ne öğrendin','yeni bilgi','öğrendiğin','bana bir bilgi','ne biliyorsun'].some(q=>n.includes(q)))return learnedFact(friend);if(['bugün ne yapıyorsun','günün nasıl geçiyor','planın ne','ne okuyorsun','hangi kitabı okuyorsun','şu an ne yapıyorsun'].some(q=>n.includes(q)))return activitySummary(friend);if(n.includes('benim adım ne')||n.includes('adımı hatırlıyor musun')){const m=readMemory(friend);return m.name?'Adını '+m.name+' olarak hatırlıyorum.':'Adını henüz söylemedin.'}if(n.includes('en sevdiğim tür ne')||n.includes('favori türüm ne')){const m=readMemory(friend);return m.favoriteGenre?'Sevdiğin türü '+m.favoriteGenre+' olarak hatırlıyorum.':'En sevdiğin türü henüz söylemedin.'}if(n.includes('ilgimi hatırlıyor musun')||n.includes('neye ilgi duyuyorum')){const m=readMemory(friend);return m.interest?'İlgilendiğin konu: '+m.interest+'.':'İlgi alanını henüz kaydetmedim.'}if(n.includes('en sevdiğim kitap ne')||n.includes('favori kitabım ne')){const m=readMemory(friend);return m.favoriteBook?'En sevdiğin kitabı '+m.favoriteBook+' olarak hatırlıyorum.':'En sevdiğin kitabı henüz bilmiyorum.'}const update=learn(friend,message),m=update.memory||{};
  if(update.forgot)return 'Bu cihazdaki benimle ilgili hatırladığım profil bilgilerini sildim. Sohbet geçmişi ayrı saklanıyor.';
  if(update.learned)return ({name:'Tanıştığımıza sevindim',favoriteBook:'Bu kitabı sevdiğini not ettim',favoriteGenre:'Sevdiğin türü hatırlayacağım',interest:'İlgini not ettim'})[update.learned]+'. İstersen bunun üzerine konuşabiliriz.';
  if(n.includes('benim adım ne')||n.includes('adımı hatırlıyor musun'))return m.name?'Adını '+m.name+' olarak hatırlıyorum.':'Adını henüz söylemedin.';
@@ -123,6 +123,18 @@ knowledge["tarih"].push("Epigrafi, taş ve metal gibi yüzeylere yazılmış tar
 knowledge["psikoloji"].push("İşlemsel bellekte bilgi, yapılan işlemler sırasında geçici olarak tutulup işlenir.");
 knowledge["felsefe"].push("Epistemoloji, bilginin kaynağını, kapsamını ve gerekçelendirilmesini inceler.");
 knowledge["kişisel gelişim"].push("Geriye dönük değerlendirme, tamamlanan bir çalışmada neyin iyi gittiğini ve neyin geliştirilebileceğini incelemektir.");
+
+/* Distinct curated facts for all ten fictional bot interests. */
+knowledge["bilim"].push("Venüs, Güneş Sistemi'ndeki gezegenler arasında yüzey sıcaklığı en yüksek olanıdır.");
+knowledge["roman"].push("Çerçeve anlatı, başka bir hikâyeyi içine alan üst anlatı yapısıdır.");
+knowledge["doğa"].push("Ahtapotların üç kalbi vardır.");
+knowledge["satranç"].push("Satrançta piyonlar geriye doğru hareket edemez.");
+knowledge["şiir"].push("Epifora, art arda gelen söz veya dizelerin sonunda aynı ifadenin yinelenmesidir.");
+knowledge["teknoloji"].push("HTTP 503 durum kodu, sunucunun isteği geçici olarak karşılayamadığını belirtir.");
+knowledge["tarih"].push("Dendrokronoloji, ağaçların yıllık büyüme halkalarından yararlanarak tarihleme yapar.");
+knowledge["psikoloji"].push("İleriye dönük bellek, gelecekte yapılması planlanan bir eylemi hatırlamayı sağlar.");
+knowledge["felsefe"].push("Bir argümanın geçerli olması, öncülleri doğruysa sonucunun yanlış olamaması demektir.");
+knowledge["kişisel gelişim"].push("Pomodoro tekniğinde çalışma, kısa odaklanma aralıkları ve molalar halinde düzenlenir.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
@@ -168,6 +180,7 @@ function emotionalReply(friend,message){
  return p.tone==='analitik'&&e.id==='stress'?reply+' Önce tek bir somut sorunu seçebiliriz.':reply;
 }
 function emotionallyAwareAnswer(friend,message,history=[]){
+ const n=norm(message);if(n.includes('beni unut')||n.includes('hafızanı sil')||n.includes('bilgilerimi sil'))return respond(friend,message,history);
  const response=emotionalReply(friend,message);
  return response||respond(friend,message,history);
 }
