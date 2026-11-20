@@ -46,6 +46,7 @@ def register_chess(app):
             room TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending',
             created INTEGER NOT NULL, updated INTEGER NOT NULL)""")
         c.execute("CREATE INDEX IF NOT EXISTS chess_invites_receiver ON chess_lobby_invites(receiver_hash,status)")
+        c.execute("""CREATE TABLE IF NOT EXISTS chess_lobby_watching (token_hash TEXT PRIMARY KEY,room TEXT NOT NULL,last_seen INTEGER NOT NULL)""")
         return c
 
     @app.after_request
@@ -139,7 +140,7 @@ def register_chess(app):
         now = int(time.time())
         with connect() as c:
             c.execute("BEGIN IMMEDIATE")
-            c.execute("DELETE FROM chess_lobby_players WHERE last_seen<?", (now-86400,))
+            c.execute("DELETE FROM chess_lobby_players WHERE last_seen<?", (now-30*86400,))
             c.execute("""INSERT INTO chess_lobby_players(token_hash,name,last_seen)
                 VALUES(?,?,?) ON CONFLICT(token_hash) DO UPDATE
                 SET name=excluded.name,last_seen=excluded.last_seen""", (key,name,now))
@@ -147,14 +148,67 @@ def register_chess(app):
 
     @app.get("/api/chess/lobby/players")
     def chess_lobby_players():
+        """Registered players, presence, current matches and spectator activity."""
         now = int(time.time())
         with connect() as c:
-            rows = c.execute("""SELECT name,last_seen FROM chess_lobby_players
-                WHERE last_seen>=? ORDER BY name COLLATE NOCASE LIMIT 200""",
-                (now-60,)).fetchall()
-        return jsonify(players=[dict(id=r["token_hash"],name=r["name"],online=True) for r in c.execute("""SELECT token_hash,name,last_seen FROM chess_lobby_players WHERE last_seen>=? ORDER BY name COLLATE NOCASE LIMIT 200""",(now-60,))],
-                       count=len(rows),online_window_seconds=60)
+            players = c.execute("""SELECT token_hash,name,last_seen FROM chess_lobby_players
+                WHERE last_seen>=? ORDER BY last_seen DESC LIMIT 200""",(now-30*86400,)).fetchall()
+            match_rows = c.execute("""SELECT i.sender_hash,i.receiver_hash,i.room,
+                r.fen,r.result,r.minutes,r.white_ms,r.black_ms,r.tick_ms,
+                s.name AS white_name,t.name AS black_name
+                FROM chess_lobby_invites i
+                JOIN chess_rooms r ON r.id=i.room
+                JOIN chess_lobby_players s ON s.token_hash=i.sender_hash
+                JOIN chess_lobby_players t ON t.token_hash=i.receiver_hash
+                WHERE i.status='accepted' AND r.result='' ORDER BY r.created DESC
+                LIMIT 100""").fetchall()
+            active={}
+            for r in match_rows:
+                board=chess.Board(r["fen"])
+                if board.is_game_over(claim_draw=True):
+                    continue
+                if r["minutes"] and r["tick_ms"]:
+                    remaining=r["white_ms"] if board.turn else r["black_ms"]
+                    if remaining <= max(0,now*1000-r["tick_ms"]):
+                        continue
+                for player_hash,opponent in ((r["sender_hash"],r["black_name"]),(r["receiver_hash"],r["white_name"])):
+                    active.setdefault(player_hash,dict(activity="playing",opponent=opponent,room=r["room"]))
+            watching={}
+            for r in c.execute("""SELECT token_hash,room,last_seen FROM chess_lobby_watching
+                WHERE last_seen>=?""",(now-20,)):
+                watching[r["token_hash"]]=r["room"]
+            match_names={r["room"]:r["white_name"]+" - "+r["black_name"] for r in match_rows}
+            out=[]
+            for p in players:
+                online=p["last_seen"]>=now-60
+                state=active.get(p["token_hash"])
+                if online and p["token_hash"] in watching and watching[p["token_hash"]] in match_names:
+                    state=dict(activity="watching",match=match_names[watching[p["token_hash"]]],room=watching[p["token_hash"]])
+                out.append(dict(id=p["token_hash"],name=p["name"],online=online,
+                    last_seen=p["last_seen"],**(state or dict(activity="idle"))))
+            out.sort(key=lambda p:(not p["online"],p["name"].casefold()))
+        return jsonify(players=out,count=sum(p["online"] for p in out),
+            total=len(out),online_window_seconds=60)
 
+    @app.post("/api/chess/lobby/watching")
+    def chess_lobby_watching():
+        """Spectator presence; identity is the same random browser token as lobby."""
+        data=request.get_json(silent=True) or {}
+        room=str(data.get("room",""))[:64]
+        with connect() as c:
+            c.execute("BEGIN IMMEDIATE")
+            player=lobby_identity(c)
+            if player is None:
+                return jsonify(error="Önce lobiye giriş yap"),403
+            valid=c.execute("""SELECT 1 FROM chess_lobby_invites i JOIN chess_rooms r ON r.id=i.room
+                WHERE i.room=? AND i.status='accepted' AND r.black_token IS NOT NULL""",(room,)).fetchone()
+            if not valid:
+                return jsonify(error="Maç bulunamadı"),404
+            c.execute("""INSERT INTO chess_lobby_watching(token_hash,room,last_seen)
+                VALUES(?,?,?) ON CONFLICT(token_hash) DO UPDATE
+                SET room=excluded.room,last_seen=excluded.last_seen""",
+                (player["token_hash"],room,int(time.time())))
+        return jsonify(ok=True)
 
     def lobby_identity(c):
         import hashlib
