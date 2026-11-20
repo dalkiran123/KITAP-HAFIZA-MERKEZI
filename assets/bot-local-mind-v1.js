@@ -157,6 +157,18 @@ knowledge["tarih"].push("Stratigrafi, arkeolojik tabakaların sırasını ve bir
 knowledge["psikoloji"].push("Bilişsel çarpıtma, olayların değerlendirilmesinde sistematik ve yanıltıcı düşünce kalıplarını ifade eder.");
 knowledge["felsefe"].push("Tümevarımda tekil gözlemlerden daha genel bir sonuca ulaşılır; sonuç mantıksal olarak zorunlu değildir.");
 knowledge["kişisel gelişim"].push("Kanban panosu, işleri yapılacak, sürüyor ve tamamlandı gibi aşamalarda görselleştirmeye yarar.");
+
+/* Offline curated facts. No conversation data or external APIs. */
+knowledge["bilim"].push("Mars'ın bir günü yaklaşık 24 saat 39 dakika sürer.");
+knowledge["roman"].push("Bilinç akışı tekniği, karakterin zihninden geçen düşünce ve çağrışımları kesintili biçimde yansıtabilir.");
+knowledge["doğa"].push("Penguenler kuştur; kanatlarını uçmak yerine suda yüzmek için kullanırlar.");
+knowledge["satranç"].push("Satrançta üç kez aynı konumun oluşması, kurallar uyarınca beraberlik talebine olanak sağlayabilir.");
+knowledge["şiir"].push("Hece ölçüsü, dizelerdeki hece sayılarının belirli bir düzende kullanılmasına dayanır.");
+knowledge["teknoloji"].push("HTTP 201 durum kodu, isteğin sonucunda yeni bir kaynağın oluşturulduğunu belirtir.");
+knowledge["tarih"].push("Tarihsel belgelerin özgünlüğünü ve güvenilirliğini sorgulama sürecine kaynak eleştirisi denir.");
+knowledge["psikoloji"].push("Hatırlama sırasında bağlam ipuçları, öğrenilmiş bilginin geri çağrılmasını kolaylaştırabilir.");
+knowledge["felsefe"].push("Bir önermenin değili, önerme doğruyken yanlış; yanlışken doğrudur.");
+knowledge["kişisel gelişim"].push("Bir görevin tamamlanma ölçütünü önceden belirlemek, ilerlemenin değerlendirilmesini kolaylaştırır.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
