@@ -193,6 +193,17 @@ knowledge["tarih"].push("Rosetta Taşı üzerindeki farklı yazılar, Mısır hi
 knowledge["psikoloji"].push("Seri konum etkisi, bir listedeki ilk ve son öğelerin ortadakilere göre daha kolay hatırlanabilmesini ifade eder.");
 knowledge["felsefe"].push("Bir argümanın sağlam olması, hem geçerli olması hem de öncüllerinin doğru olması demektir.");
 knowledge["kişisel gelişim"].push("Eisenhower matrisi, görevleri önem ve aciliyet düzeylerine göre dört gruba ayırır.");
+/* 2026-11-20 verified offline knowledge expansion. */
+knowledge["bilim"].push("Neptün, Güneş çevresindeki bir turunu yaklaşık 165 Dünya yılında tamamlar.");
+knowledge["roman"].push("Çoklu bakış açısı, aynı olayın farklı karakterlerin anlatımlarıyla sunulmasını sağlar.");
+knowledge["doğa"].push("Yunuslar balıktır değil, akciğerleriyle solunum yapan memelilerdir.");
+knowledge["satranç"].push("Satrançta at, bulunduğu karenin rengini her hamlede değiştirir.");
+knowledge["şiir"].push("Redif, dizelerin sonunda aynı anlam ve görevle tekrarlanan ek ya da sözcüklerdir.");
+knowledge["teknoloji"].push("HTTP 418 durum kodu, bir Nisan Şakası geleneğinden doğan mizahi bir yanıttır.");
+knowledge["tarih"].push("Çivi yazısı, Mezopotamya'da kil tabletler üzerine işaretler basılarak kullanılmıştır.");
+knowledge["psikoloji"].push("Yanlış anı, kişinin yaşanmamış veya farklı yaşanmış bir olayı olmuş gibi hatırlamasıdır.");
+knowledge["felsefe"].push("Bir önermenin karşıtı ile çelişiği mantıkta aynı ilişkiyi ifade etmez.");
+knowledge["kişisel gelişim"].push("Zaman kutulama, bir işe önceden belirlenmiş sınırlı bir zaman aralığı ayırma yöntemidir.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
