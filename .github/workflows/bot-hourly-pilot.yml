@@ -1,0 +1,38 @@
+name: Bot hourly runner (manual pilot)
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_live_write:
+        description: 'Type YES to allow one production bot tick'
+        required: true
+        default: 'NO'
+permissions:
+  contents: read
+concurrency:
+  group: book-center-bot-hourly
+  cancel-in-progress: false
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m unittest discover -s bot_server -p 'test_*.py' -v
+  pilot:
+    needs: tests
+    if: ${{ inputs.confirm_live_write == 'YES' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Validate configuration and run one UTC slot
+        env:
+          BOOK_BOT_ENABLE_REMOTE_WRITE: 'true'
+          BOOK_BOT_API_URL: https://b2bsocialtest.pythonanywhere.com/api/bots/state
+          BOOK_BOT_API_SECRET: ${{ secrets.BOOK_BOT_API_SECRET }}
+        run: python -m bot_server.client
