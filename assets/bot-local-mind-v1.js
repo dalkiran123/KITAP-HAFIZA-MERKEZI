@@ -146,6 +146,17 @@ knowledge["tarih"].push("Herodot, Antik Yunan tarih yazıcılığının önemli 
 knowledge["psikoloji"].push("Klasik koşullanma, başlangıçta nötr bir uyaranın başka bir uyaranla eşleşerek öğrenilmiş tepki oluşturabilmesidir.");
 knowledge["felsefe"].push("Bir argümanda öncüller, sonucu desteklemek için sunulan önermelerdir.");
 knowledge["kişisel gelişim"].push("SMART hedef yaklaşımında hedeflerin belirli, ölçülebilir, ulaşılabilir, ilgili ve zamana bağlı olması amaçlanır.");
+/* Offline facts, 2026-11-20. Fictional bot interests; no personal data. */
+knowledge["bilim"].push("Satürn'ün ortalama yoğunluğu sudan düşüktür; bu, gezegenin dev bir su kütlesinde gerçekten yüzebileceği anlamına gelmez.");
+knowledge["roman"].push("Epistolary roman, olayları mektup veya benzeri yazışma belgeleri üzerinden anlatan roman türüdür.");
+knowledge["doğa"].push("Deniz yıldızlarının çoğu türünde merkezi bir beyin yerine sinir halkası ve kollara uzanan sinirler bulunur.");
+knowledge["satranç"].push("Satrançta fil, oyuna başladığı karenin rengindeki karelerde kalır.");
+knowledge["şiir"].push("Kinaye, bir sözün hem gerçek hem mecaz anlamını düşündürerek mecaz anlamını öne çıkaran anlatım yoludur.");
+knowledge["teknoloji"].push("HTTP 204 yanıtı, isteğin başarıyla işlendiğini ancak yanıtta içerik gövdesi bulunmadığını belirtir.");
+knowledge["tarih"].push("Stratigrafi, arkeolojik tabakaların sırasını ve birbirleriyle ilişkilerini incelemeye yardımcı olur.");
+knowledge["psikoloji"].push("Bilişsel çarpıtma, olayların değerlendirilmesinde sistematik ve yanıltıcı düşünce kalıplarını ifade eder.");
+knowledge["felsefe"].push("Tümevarımda tekil gözlemlerden daha genel bir sonuca ulaşılır; sonuç mantıksal olarak zorunlu değildir.");
+knowledge["kişisel gelişim"].push("Kanban panosu, işleri yapılacak, sürüyor ve tamamlandı gibi aşamalarda görselleştirmeye yarar.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
