@@ -287,9 +287,10 @@ def register_chess(app):
                 WHERE r.id=? AND r.black_token IS NOT NULL""",(room,)).fetchone()
             if row is None:
                 return jsonify(error="İzlenebilir maç bulunamadı"),404
+            white_name,black_name=row["white_name"],row["black_name"]
             row=settle(c,row)
             board=chess.Board(row["fen"])
-            return jsonify(room=row["id"],white_name=row["white_name"],black_name=row["black_name"],
+            return jsonify(room=row["id"],white_name=white_name,black_name=black_name,
                 fen=row["fen"],moves=row["moves"].split() if row["moves"] else [],
                 turn="white" if board.turn else "black",minutes=row["minutes"],
                 white_ms=row["white_ms"],black_ms=row["black_ms"],tick_ms=row["tick_ms"],
