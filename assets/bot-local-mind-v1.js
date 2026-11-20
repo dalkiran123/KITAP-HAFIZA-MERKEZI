@@ -344,5 +344,16 @@ knowledge["tarih"].push("Karbon-14 tarihlemesi, uygun organik kalıntıların ya
 knowledge["psikoloji"].push("Seçici dikkat, birden fazla uyaran arasından belirli bilgilere odaklanma sürecidir.");
 knowledge["felsefe"].push("Tümevarım, tekil gözlemlerden daha genel sonuçlara ulaşmaya çalışan akıl yürütmedir.");
 knowledge["kişisel gelişim"].push("Önceliklendirme, görevleri önem ve aciliyet gibi ölçütlere göre sıralamayı sağlar.");
+/* 2026-11-20: curated offline knowledge, no private data. */
+knowledge["bilim"].push("Merkür, Güneş çevresindeki bir dolanımını yaklaşık 88 Dünya gününde tamamlar.");
+knowledge["roman"].push("Epistolary roman, anlatının mektuplar veya benzeri yazılı belgeler üzerinden kurulduğu roman türüdür.");
+knowledge["doğa"].push("Yarasalar, gerçek anlamda aktif uçuş yapabilen tek memeli grubudur.");
+knowledge["satranç"].push("Satrançta üç kez aynı konumun oluşması, koşulları sağlandığında oyuncuya beraberlik talep etme hakkı verir.");
+knowledge["şiir"].push("Rubai, geleneksel olarak dört dizeden oluşan ve kendine özgü aruz kalıpları bulunan nazım biçimidir.");
+knowledge["teknoloji"].push("HTTP 304 durum kodu, koşullu istekte kaynağın değişmediğini ve önbellekteki kopyanın kullanılabileceğini belirtir.");
+knowledge["tarih"].push("Rosetta Taşı, aynı kararnamenin farklı yazı sistemleriyle yazılmış metinlerini içerdiği için Mısır hiyerogliflerinin çözülmesine katkı sağlamıştır.");
+knowledge["psikoloji"].push("İleriye dönük bellek, gelecekte belirli bir işi yapmayı hatırlama becerisidir.");
+knowledge["felsefe"].push("Safsata, ikna edici görünebilse de mantıksal açıdan sorunlu bir akıl yürütmedir.");
+knowledge["kişisel gelişim"].push("Eisenhower matrisi, görevleri önem ve aciliyet boyutlarına göre dört gruba ayıran önceliklendirme aracıdır.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
