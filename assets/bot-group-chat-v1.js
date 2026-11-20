@@ -46,6 +46,9 @@ function chooseResponders(text,members){
  const mentioned=addressedBots(text,members);
  const first=clean(text).split(' ')[0];
  if(mentioned.length>1){
+   // Explicit coordination invites multiple bots; a question about another bot addresses the first.
+   const coordinated=mentioned.some((name,i)=>i>0&&new RegExp('\\b(ve|ile|ile birlikte) '+clean(name)+'\\b').test(clean(text)));
+   if(coordinated)return mentioned;
    const recipient=mentioned.find(n=>clean(n)===first);
    if(recipient)return [recipient];
  }
