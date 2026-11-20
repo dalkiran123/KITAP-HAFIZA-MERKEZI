@@ -204,6 +204,18 @@ knowledge["tarih"].push("Çivi yazısı, Mezopotamya'da kil tabletler üzerine i
 knowledge["psikoloji"].push("Yanlış anı, kişinin yaşanmamış veya farklı yaşanmış bir olayı olmuş gibi hatırlamasıdır.");
 knowledge["felsefe"].push("Bir önermenin karşıtı ile çelişiği mantıkta aynı ilişkiyi ifade etmez.");
 knowledge["kişisel gelişim"].push("Zaman kutulama, bir işe önceden belirlenmiş sınırlı bir zaman aralığı ayırma yöntemidir.");
+
+/* 2026-11-20: offline curated facts; no personal data or external API. */
+knowledge["bilim"].push("Uranüs'ün dönme ekseni yörünge düzlemine göre yaklaşık 98 derece eğiktir.");
+knowledge["roman"].push("Metinlerarasılık, bir edebî eserin başka metinlerle açık veya örtük ilişkiler kurmasıdır.");
+knowledge["doğa"].push("Ornitorenk, yumurtlayan memelilerden biridir.");
+knowledge["satranç"].push("Satrançta bir oyuncu şahını tehdit altında bırakacak hamleyi yasal olarak yapamaz.");
+knowledge["şiir"].push("İstiare, benzetmenin iki temel unsurundan yalnızca biriyle kurulan söz sanatıdır.");
+knowledge["teknoloji"].push("HTTP 206 durum kodu, istenen kaynağın yalnızca bir bölümünün başarıyla gönderildiğini belirtir.");
+knowledge["tarih"].push("Paleolitik Çağ, tarih öncesi dönemlerin Eski Taş Çağı olarak da adlandırılan bölümüdür.");
+knowledge["psikoloji"].push("İleriye dönük bellek, gelecekte yapılması planlanan bir eylemi uygun zamanda hatırlamayı ifade eder.");
+knowledge["felsefe"].push("Geçerli bir tümdengelimde öncüller doğruysa sonucun yanlış olması mümkün değildir.");
+knowledge["kişisel gelişim"].push("Bir hedef için belirlenen ölçüt, ilerlemenin gözleme dayalı değerlendirilmesini kolaylaştırır.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
