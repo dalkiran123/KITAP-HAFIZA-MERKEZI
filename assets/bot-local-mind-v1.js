@@ -366,5 +366,17 @@ knowledge["tarih"].push("Miladi takvimde artık yıl kuralı, 4'e bölünebilen 
 knowledge["psikoloji"].push("Seri konum etkisi, bir listedeki ilk ve son öğelerin orta öğelere göre daha iyi hatırlanabilmesi eğilimidir.");
 knowledge["felsefe"].push("Bir önermenin karşıt örneği, genel bir iddianın yanlış olduğunu göstermek için yeterli olabilir.");
 knowledge["kişisel gelişim"].push("Zaman bloklama, takvimde belirli görevler için önceden ayrılmış çalışma aralıkları oluşturma yöntemidir.");
+
+/* 2026-11-21: 10 curated offline facts; no user conversation data. */
+knowledge["bilim"].push("Jüpiter, Güneş Sistemi'ndeki en büyük gezegendir.");
+knowledge["roman"].push("Bir romanın anlatıcısı ile romanın yazarı aynı kişi olmak zorunda değildir.");
+knowledge["doğa"].push("Likenler, mantar ile fotosentez yapan bir ortak arasında kurulan simbiyotik birlikteliklerdir.");
+knowledge["satranç"].push("Satrançta vezir, önünde taş yoksa yatay, dikey ve çapraz doğrultuda ilerleyebilir.");
+knowledge["şiir"].push("Serbest nazımda dizeler belirli bir hece veya aruz ölçüsüne bağlı olmak zorunda değildir.");
+knowledge["teknoloji"].push("HTTP 404 durum kodu, sunucunun istenen kaynağı bulamadığını belirtir.");
+knowledge["tarih"].push("Çivi yazısı ilk olarak Mezopotamya'da geliştirilmiştir.");
+knowledge["psikoloji"].push("Aralıklı tekrar, öğrenilen bilgiyi zaman içinde farklı aralıklarla yeniden gözden geçirme yöntemidir.");
+knowledge["felsefe"].push("Tümdengelimde, geçerli bir çıkarımda öncüller doğruysa sonuç yanlış olamaz.");
+knowledge["kişisel gelişim"].push("Bir hedefin ölçülebilir olması, ilerlemenin somut göstergelerle izlenmesini sağlar.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
