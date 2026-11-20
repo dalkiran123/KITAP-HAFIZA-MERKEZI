@@ -135,6 +135,17 @@ knowledge["tarih"].push("Dendrokronoloji, ağaçların yıllık büyüme halkala
 knowledge["psikoloji"].push("İleriye dönük bellek, gelecekte yapılması planlanan bir eylemi hatırlamayı sağlar.");
 knowledge["felsefe"].push("Bir argümanın geçerli olması, öncülleri doğruysa sonucunun yanlış olamaması demektir.");
 knowledge["kişisel gelişim"].push("Pomodoro tekniğinde çalışma, kısa odaklanma aralıkları ve molalar halinde düzenlenir.");
+/* Curated offline knowledge expansion. */
+knowledge["bilim"].push("Jüpiter, Güneş Sistemi'nin en büyük gezegenidir.");
+knowledge["roman"].push("Leitmotif, bir anlatıda tekrarlanarak anlam kazanan motif veya izlek öğesidir.");
+knowledge["doğa"].push("Yarasalarda aktif uçuş, ön üyelerin kanada dönüşmesiyle gerçekleşir.");
+knowledge["satranç"].push("Satrançta şah mat olduğunda oyun sona erer; mat edilen taraf kaybeder.");
+knowledge["şiir"].push("Akrostişte dizelerin ilk harfleri bir sözcük veya ifade oluşturabilir.");
+knowledge["teknoloji"].push("HTTP 429 durum kodu, istemcinin belirli bir sürede çok fazla istek gönderdiğini belirtir.");
+knowledge["tarih"].push("Herodot, Antik Yunan tarih yazıcılığının önemli isimlerinden biridir.");
+knowledge["psikoloji"].push("Klasik koşullanma, başlangıçta nötr bir uyaranın başka bir uyaranla eşleşerek öğrenilmiş tepki oluşturabilmesidir.");
+knowledge["felsefe"].push("Bir argümanda öncüller, sonucu desteklemek için sunulan önermelerdir.");
+knowledge["kişisel gelişim"].push("SMART hedef yaklaşımında hedeflerin belirli, ölçülebilir, ulaşılabilir, ilgili ve zamana bağlı olması amaçlanır.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
