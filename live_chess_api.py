@@ -454,6 +454,25 @@ def register_chess(app):
             updated = c.execute("SELECT * FROM chess_rooms WHERE id=?", (room,)).fetchone()
             return jsonify(view(c, updated, token))
 
+    @app.post("/api/chess/resign/<room>")
+    def chess_resign(room):
+        token = request.headers.get("X-Chess-Token", "")
+        with connect() as c:
+            c.execute("BEGIN IMMEDIATE")
+            row, role = current(c, room, token)
+            if role not in ("white", "black"):
+                return jsonify(error="Yalnızca oyuncular maçı bitirebilir"), 403
+            if not row["black_token"]:
+                return jsonify(error="Rakip henüz katılmadı"), 409
+            if row["result"] or chess.Board(row["fen"]).is_game_over(claim_draw=True):
+                return jsonify(error="Maç zaten sona erdi"), 409
+            winner = "black" if role == "white" else "white"
+            now = int(time.time())
+            c.execute("""UPDATE chess_rooms SET result=?,reason='resign',ended=?,updated=?,tick_ms=0,undo_by='' WHERE id=? AND result=''""",
+                      (winner, now, now, room))
+            updated = c.execute("SELECT * FROM chess_rooms WHERE id=?", (room,)).fetchone()
+            return jsonify(view(c, updated, token))
+
     @app.post("/api/chess/chat/<room>")
     def chess_chat(room):
         token = request.headers.get("X-Chess-Token", "")
