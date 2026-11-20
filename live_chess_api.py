@@ -146,6 +146,19 @@ def register_chess(app):
                 SET name=excluded.name,last_seen=excluded.last_seen""", (key,name,now))
         return jsonify(ok=True, online=True)
 
+    @app.post("/api/chess/lobby/offline")
+    def chess_lobby_offline():
+        """Best-effort immediate disconnect; the normal heartbeat restores presence."""
+        import hashlib
+        data = request.get_json(silent=True) or {}
+        token = str(data.get("token", ""))
+        if not (32 <= len(token) <= 128) or not all(ch.isalnum() or ch in "-_" for ch in token):
+            return jsonify(error="Geçersiz oturum anahtarı"), 400
+        key = hashlib.sha256(token.encode()).hexdigest()
+        with connect() as c:
+            c.execute("UPDATE chess_lobby_players SET last_seen=? WHERE token_hash=?", (int(time.time())-121, key))
+        return jsonify(ok=True)
+
     @app.get("/api/chess/lobby/players")
     def chess_lobby_players():
         """Registered players, presence, current matches and spectator activity."""
