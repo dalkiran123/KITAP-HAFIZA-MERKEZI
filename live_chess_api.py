@@ -244,7 +244,7 @@ def register_chess(app):
             receiver = c.execute("SELECT * FROM chess_lobby_players WHERE token_hash=? AND last_seen>=?",(target,now-60)).fetchone()
             if receiver is None:
                 return jsonify(error="Oyuncu çevrimdışı"), 404
-            pending = c.execute("""SELECT id FROM chess_lobby_invites WHERE sender_hash=? AND receiver_hash=? AND status='pending' AND created>=?""",(sender["token_hash"],target,now-120)).fetchone()
+            pending = c.execute("""SELECT id FROM chess_lobby_invites WHERE sender_hash=? AND receiver_hash=? AND status='pending' AND created>=?""",(sender["token_hash"],target,now-300)).fetchone()
             if pending:
                 return jsonify(error="Bu oyuncuya bekleyen davetin var"), 409
             room, white_token = secrets.token_urlsafe(9), secrets.token_urlsafe(32)
@@ -263,7 +263,7 @@ def register_chess(app):
                 return jsonify(error="Önce lobiye giriş yap"), 403
             now = int(time.time())
             c.execute("""UPDATE chess_lobby_invites SET status='expired',updated=?
-                WHERE status='pending' AND created<?""",(now,now-120))
+                WHERE status='pending' AND created<=?""",(now,now-300))
             rows = c.execute("""SELECT i.*,s.name AS sender_name,r.name AS receiver_name,cr.fen AS room_fen,cr.result AS room_result,cr.reason AS room_reason,cr.minutes AS room_minutes,cr.white_ms AS room_white_ms,cr.black_ms AS room_black_ms,cr.tick_ms AS room_tick_ms
                 FROM chess_lobby_invites i
                 JOIN chess_lobby_players s ON s.token_hash=i.sender_hash
@@ -281,6 +281,7 @@ def register_chess(app):
                 return False
             return jsonify(invites=[dict(finished=match_finished(r),id=r["id"],room=r["room"],status=r["status"],
                 direction="incoming" if r["receiver_hash"]==me["token_hash"] else "outgoing",
+                from_id=r["sender_hash"],to_id=r["receiver_hash"],expires_at=r["created"]+300,
                 from_name=r["sender_name"],to_name=r["receiver_name"],created=r["created"]) for r in rows])
 
     @app.post("/api/chess/lobby/invites/<invite_id>/respond")
@@ -297,7 +298,7 @@ def register_chess(app):
                 (invite_id,me["token_hash"])).fetchone()
             if not row:
                 return jsonify(error="Davet bulunamadı"), 404
-            if row["status"]!="pending" or row["created"]<int(time.time())-120:
+            if row["status"]!="pending" or row["created"]<=int(time.time())-300:
                 return jsonify(error="Davet süresi doldu veya yanıtlandı"), 409
             now=int(time.time())
             if action=="reject":
