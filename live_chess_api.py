@@ -41,6 +41,11 @@ def register_chess(app):
             token_hash TEXT PRIMARY KEY, name TEXT NOT NULL,
             last_seen INTEGER NOT NULL)""")
         c.execute("CREATE INDEX IF NOT EXISTS chess_lobby_seen ON chess_lobby_players(last_seen)")
+        c.execute("""CREATE TABLE IF NOT EXISTS chess_lobby_invites (
+            id TEXT PRIMARY KEY, sender_hash TEXT NOT NULL, receiver_hash TEXT NOT NULL,
+            room TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending',
+            created INTEGER NOT NULL, updated INTEGER NOT NULL)""")
+        c.execute("CREATE INDEX IF NOT EXISTS chess_invites_receiver ON chess_lobby_invites(receiver_hash,status)")
         return c
 
     @app.after_request
@@ -140,8 +145,102 @@ def register_chess(app):
             rows = c.execute("""SELECT name,last_seen FROM chess_lobby_players
                 WHERE last_seen>=? ORDER BY name COLLATE NOCASE LIMIT 200""",
                 (now-60,)).fetchall()
-        return jsonify(players=[dict(name=r["name"],online=True) for r in rows],
+        return jsonify(players=[dict(id=r["token_hash"],name=r["name"],online=True) for r in c.execute("""SELECT token_hash,name,last_seen FROM chess_lobby_players WHERE last_seen>=? ORDER BY name COLLATE NOCASE LIMIT 200""",(now-60,))],
                        count=len(rows),online_window_seconds=60)
+
+
+    def lobby_identity(c):
+        import hashlib
+        token = str(request.headers.get("X-Chess-Token", ""))
+        if not (32 <= len(token) <= 128) or not all(ch.isalnum() or ch in "-_" for ch in token):
+            return None
+        key = hashlib.sha256(token.encode()).hexdigest()
+        row = c.execute("SELECT * FROM chess_lobby_players WHERE token_hash=?", (key,)).fetchone()
+        if not row or row["last_seen"] < int(time.time()) - 60:
+            return None
+        return row
+
+    @app.post("/api/chess/lobby/invite")
+    def chess_lobby_invite():
+        data = request.get_json(silent=True) or {}
+        target = str(data.get("player_id", ""))
+        if len(target) != 64 or any(ch not in "0123456789abcdef" for ch in target):
+            return jsonify(error="Geçersiz oyuncu"), 400
+        try:
+            minutes = int(data.get("minutes", 10))
+        except (TypeError, ValueError):
+            return jsonify(error="Geçersiz süre"), 400
+        if minutes not in (0, 10, 30, 60):
+            return jsonify(error="Geçersiz süre"), 400
+        now = int(time.time())
+        with connect() as c:
+            c.execute("BEGIN IMMEDIATE")
+            sender = lobby_identity(c)
+            if sender is None:
+                return jsonify(error="Önce lobiye giriş yap"), 403
+            if sender["token_hash"] == target:
+                return jsonify(error="Kendine davet gönderemezsin"), 400
+            receiver = c.execute("SELECT * FROM chess_lobby_players WHERE token_hash=? AND last_seen>=?",(target,now-60)).fetchone()
+            if receiver is None:
+                return jsonify(error="Oyuncu çevrimdışı"), 404
+            pending = c.execute("""SELECT id FROM chess_lobby_invites WHERE sender_hash=? AND receiver_hash=? AND status='pending' AND created>=?""",(sender["token_hash"],target,now-120)).fetchone()
+            if pending:
+                return jsonify(error="Bu oyuncuya bekleyen davetin var"), 409
+            room, white_token = secrets.token_urlsafe(9), secrets.token_urlsafe(32)
+            invite_id = secrets.token_urlsafe(12)
+            c.execute("""INSERT INTO chess_rooms(id,white_token,fen,updated,created,minutes,white_ms,black_ms)
+                VALUES(?,?,?,?,?,?,?,?)""",(room,white_token,chess.STARTING_FEN,now,now,minutes,minutes*60000,minutes*60000))
+            c.execute("""INSERT INTO chess_lobby_invites(id,sender_hash,receiver_hash,room,status,created,updated)
+                VALUES(?,?,?,?,?,?,?)""",(invite_id,sender["token_hash"],target,room,"pending",now,now))
+        return jsonify(ok=True,invite_id=invite_id,room=room,token=white_token,status="pending"), 201
+
+    @app.get("/api/chess/lobby/invites")
+    def chess_lobby_invites():
+        with connect() as c:
+            me = lobby_identity(c)
+            if me is None:
+                return jsonify(error="Önce lobiye giriş yap"), 403
+            now = int(time.time())
+            c.execute("""UPDATE chess_lobby_invites SET status='expired',updated=?
+                WHERE status='pending' AND created<?""",(now,now-120))
+            rows = c.execute("""SELECT i.*,s.name AS sender_name,r.name AS receiver_name
+                FROM chess_lobby_invites i
+                JOIN chess_lobby_players s ON s.token_hash=i.sender_hash
+                JOIN chess_lobby_players r ON r.token_hash=i.receiver_hash
+                WHERE (i.receiver_hash=? OR i.sender_hash=?) AND i.created>=?
+                ORDER BY i.created DESC LIMIT 40""",(me["token_hash"],me["token_hash"],now-86400)).fetchall()
+            return jsonify(invites=[dict(id=r["id"],room=r["room"],status=r["status"],
+                direction="incoming" if r["receiver_hash"]==me["token_hash"] else "outgoing",
+                from_name=r["sender_name"],to_name=r["receiver_name"],created=r["created"]) for r in rows])
+
+    @app.post("/api/chess/lobby/invites/<invite_id>/respond")
+    def chess_lobby_invite_respond(invite_id):
+        action = str((request.get_json(silent=True) or {}).get("action",""))
+        if action not in ("accept","reject"):
+            return jsonify(error="Geçersiz işlem"), 400
+        with connect() as c:
+            c.execute("BEGIN IMMEDIATE")
+            me = lobby_identity(c)
+            if me is None:
+                return jsonify(error="Önce lobiye giriş yap"), 403
+            row = c.execute("SELECT * FROM chess_lobby_invites WHERE id=? AND receiver_hash=?",
+                (invite_id,me["token_hash"])).fetchone()
+            if not row:
+                return jsonify(error="Davet bulunamadı"), 404
+            if row["status"]!="pending" or row["created"]<int(time.time())-120:
+                return jsonify(error="Davet süresi doldu veya yanıtlandı"), 409
+            now=int(time.time())
+            if action=="reject":
+                c.execute("UPDATE chess_lobby_invites SET status='rejected',updated=? WHERE id=?",(now,invite_id))
+                return jsonify(ok=True,status="rejected")
+            room=c.execute("SELECT * FROM chess_rooms WHERE id=?",(row["room"],)).fetchone()
+            if not room or room["black_token"]:
+                return jsonify(error="Oyun odası dolu"), 409
+            black_token=secrets.token_urlsafe(32)
+            c.execute("UPDATE chess_rooms SET black_token=?,tick_ms=?,updated=? WHERE id=?",
+                (black_token,int(time.time()*1000) if room["minutes"] else 0,now,row["room"]))
+            c.execute("UPDATE chess_lobby_invites SET status='accepted',updated=? WHERE id=?",(now,invite_id))
+            return jsonify(ok=True,status="accepted",room=row["room"],token=black_token,role="black")
 
     @app.post("/api/chess/create")
     def chess_create():
