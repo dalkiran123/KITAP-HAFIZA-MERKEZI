@@ -124,6 +124,25 @@ body.chess-immersive #undoPanel{font-size:9px!important}
 #chessFullscreenToggle{position:fixed!important;right:12px!important;bottom:12px!important;z-index:10001!important;display:block!important;background:#173d70!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border:2px solid #fff!important;border-radius:10px!important;padding:9px 12px!important;font-size:14px!important;box-shadow:0 2px 12px #0005!important}
 body.chess-immersive #chessFullscreenToggle{display:none!important}
 body.chess-immersive #chessFullscreenExit{position:fixed!important;right:8px!important;top:5px!important;z-index:10002!important}
+
+/* V7.2: visible turn clocks and more balanced side areas */
+body.chess-immersive .chess-layout{grid-template-columns:17% 68% 15%!important}
+body.chess-immersive .chess-center{justify-content:center!important;position:relative!important;padding-top:29px!important;box-sizing:border-box!important}
+body.chess-immersive .board-frame{width:min(calc(100dvh - 57px),calc(68vw - 14px))!important;max-width:none!important}
+body.chess-immersive .chess-clock{display:flex!important;position:absolute!important;top:2px!important;width:calc(50% - 7px)!important;max-width:180px!important;min-width:0!important;padding:4px 6px!important;margin:0!important;border-radius:7px!important;background:#d8dce2!important;color:#334155!important;box-shadow:none!important;z-index:4!important;white-space:nowrap!important}
+body.chess-immersive #whiteClock{left:calc(50% - 184px)!important}
+body.chess-immersive #blackClock{right:calc(50% - 184px)!important}
+body.chess-immersive .chess-clock.active{background:#a5df94!important;color:#174d24!important;box-shadow:inset 0 0 0 2px #438e46!important}
+body.chess-immersive .chess-clock .time{font-size:13px!important}
+body.chess-immersive #status{display:none!important}
+body.chess-immersive .chess-side details summary{font-size:11px!important}
+body.chess-immersive .chess-side h3{display:none!important}
+@media(max-width:700px){
+body.chess-immersive .chess-layout{grid-template-columns:18% 67% 15%!important}
+body.chess-immersive .board-frame{width:min(calc(100dvh - 57px),calc(67vw - 12px))!important}
+body.chess-immersive #whiteClock{left:2px!important}
+body.chess-immersive #blackClock{right:2px!important}
+}
 </style></head><body><main class="wrap"><a href="./index.html">← Ana ekrana dön</a><h1>♟️ BOOK CENTER Satranç <small style='font-size:12px;color:#65758a'>Görünüm V6</small></h1><div class="panel"><button id="chessFullscreenExit" type="button">Çıkış</button><label for="mode">Rakip</label><select id="mode"><option value="bot">Sanal bot (başlangıç seviyesi)</option><option value="local">Arkadaşla aynı cihazda</option><option value="remote">Arkadaşla iki telefonda (canlı)</option></select><div class="actions" id="remoteActions" hidden><label for="clockChoice">Süre</label><select id="clockChoice"><option value="0">Süresiz</option><option value="10">10 dakika</option><option value="30" selected>30 dakika</option><option value="60">60 dakika</option></select><button id="createRoom">Oda oluştur</button><button id="copyInvite" hidden>Davet bağlantısını paylaş</button><span id="roomInfo" class="muted"></span></div><div class="actions"><button id="chessFullscreenToggle" type="button">⛶ Tam ekran oyun</button><button id="restart">Yeni oyun</button><button id="undo">Hamleyi geri al</button></div><div id="status" class="status" aria-live="polite">Oyun yükleniyor...</div><section aria-label="Maç geçmişi"><h3>Son maçlar</h3><div id="matchHistory"><span class="muted">Maç geçmişi yükleniyor...</span></div></section><div class="chess-layout"><aside class="chess-side"><details open><summary>💬 Oyuncu sohbeti</summary><h3>💬 Oyuncu sohbeti</h3><div id="chessChatList" aria-live="polite"></div><form id="chatForm" class="chat-input"><input id="chatText" maxlength="500" placeholder="Mesaj yaz..." aria-label="Mesaj yaz"><button type="submit">Gönder</button></form></details></aside><div class="chess-center"><div id="blackClock" class="chess-clock"><span>⚫ Siyah</span><span class="time">--:--</span></div><div class="board-frame"><div class="board-ranks" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div><div id="board" class="board" aria-label="Satranç tahtası"></div><div class="board-files" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div></div><div id="whiteClock" class="chess-clock"><span>⚪ Beyaz</span><span class="time">--:--</span></div></div><aside class="chess-side"><details open><summary>♟️ Hamleler ve geri alma</summary><h3>♟️ Hamleler</h3><div id="moveList"></div><div id="undoPanel"></div></details></aside></div><div class="actions" id="promotions" hidden></div><p class="muted">Beyaz taşlarla başlarsın. Bir taşa ve ardından gideceği kareye dokun. Botun hamleleri geçerli hamlelerden seçilir. İki telefonda oynamak için canlı modu seç ve davet bağlantısını paylaş.</p><div id="history"></div></div><p class="muted">Tavla sonraki aşama. Bu sürümde yalnızca satranç oynanabilir.</p></main><script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script><script>
 (function(){
 const board=document.getElementById('board'),status=document.getElementById('status'),mode=document.getElementById('mode'),history=document.getElementById('history'),promotions=document.getElementById('promotions');
@@ -138,7 +157,12 @@ function clockString(ms){const secs=Math.max(0,Math.ceil(ms/1000));return String
 function clockRender(){
   for(const color of ['white','black']){
     const el=document.getElementById(color==='white'?'whiteClock':'blackClock');
-    if(!liveState||mode.value!=='remote'||!liveState.minutes){el.hidden=true;continue}
+    if(!liveState||mode.value!=='remote'||!liveState.minutes){
+      const immersive=document.body.classList.contains('chess-immersive');
+      el.hidden=!immersive;
+      if(immersive){el.querySelector('.time').textContent='--:--';el.classList.toggle('active',!game.game_over()&&game.turn()===(color==='white'?'w':'b'));}
+      continue;
+    }
     el.hidden=false;
     let ms=liveState[color+'_ms'];
     const running=liveState.joined&&!liveState.finished&&liveState.turn===color;
@@ -226,7 +250,7 @@ historyRender();
 
 const fullscreenToggle=document.getElementById('chessFullscreenToggle');
 const fullscreenExit=document.getElementById('chessFullscreenExit');
-function setChessImmersive(enabled){document.body.classList.toggle('chess-immersive',enabled);fullscreenToggle.textContent=enabled?'Tam ekrandan çık':'⛶ Tam ekran oyun';}
+function setChessImmersive(enabled){document.body.classList.toggle('chess-immersive',enabled);fullscreenToggle.textContent=enabled?'Tam ekrandan çık':'⛶ Tam ekran oyun';clockRender();}
 fullscreenToggle.addEventListener('click',()=>setChessImmersive(!document.body.classList.contains('chess-immersive')));
 fullscreenExit.addEventListener('click',()=>setChessImmersive(false));
 const squares=[];for(let r=8;r>=1;r--)for(const f of 'abcdefgh')squares.push(f+r);
