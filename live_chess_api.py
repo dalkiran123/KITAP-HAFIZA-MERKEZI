@@ -76,10 +76,7 @@ def register_chess(app):
             winner = "black" if turn == "white" else "white"
             # FIDE: no win on time if the opponent cannot possibly mate.
             opponent = chess.WHITE if winner == "white" else chess.BLACK
-            result = winner if any(p.piece_type in (chess.PAWN, chess.ROOK, chess.QUEEN)
-                for p in board.piece_map().values() if p.color == opponent) or
-                sum(1 for p in board.piece_map().values() if p.color == opponent and p.piece_type in (chess.BISHOP, chess.KNIGHT)) >= 2
-                else "draw"
+            result = "draw" if board.has_insufficient_material(opponent) else winner
             c.execute("UPDATE chess_rooms SET " + turn + "_ms=0,tick_ms=?,result=?,reason='timeout',ended=?,updated=? WHERE id=?",
                       (now, result, int(time.time()), int(time.time()), row["id"]))
         else:
@@ -225,8 +222,9 @@ def register_chess(app):
                 if not row["undo_by"] or row["undo_by"] == role:
                     return jsonify(error="Rakibin bekleyen talebi yok"), 409
                 if action == "accept":
-                    board = chess.Board(row["fen"])
-                    board.pop()
+                    board = chess.Board()
+                    for previous in row["moves"].split()[:-1]:
+                        board.push_uci(previous)
                     clocks = row["clock_history"].split()
                     white_ms, black_ms = map(int, clocks[-1].split(",")) if clocks else (row["white_ms"], row["black_ms"])
                     c.execute("""UPDATE chess_rooms SET fen=?,moves=?,white_ms=?,black_ms=?,clock_history=?,
