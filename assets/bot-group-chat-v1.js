@@ -95,8 +95,47 @@ function characterAnswer(name,message,members){
  if(/(ilgi alanın|nelerden hoşlan|neye ilgin)/.test(t))return 'En çok '+person.interest+' konularına ilgi duyuyorum.';
  return null;
 }
+
+/* V11: shared factual memory, user/bot subject resolution, persistent across sessions. */
+const USER_MEMORY_KEY='bc_group_user_facts_v1';
+function userFacts(){try{return JSON.parse(localStorage.getItem(USER_MEMORY_KEY)||'{}')||{}}catch{return {}}}
+function rememberUser(message){
+ const t=clean(message), facts=userFacts();
+ let m=t.match(/(?:benim adım|benim ismim|adım|ismim|ben)\s+([a-zçğıöşü]{2,24})(?=\s|$)/);
+ if(m&&!['kaç','ne','kim','nasıl','nerede','yaşında','bir','de'].includes(m[1]))facts.name=m[1].charAt(0).toLocaleUpperCase('tr-TR')+m[1].slice(1);
+ m=t.match(/(?:ben\s+|)(\d{1,3})\s+yaşındayım/);
+ if(m&&Number(m[1])>=1&&Number(m[1])<=110)facts.age=Number(m[1]);
+ m=t.match(/(?:ben\s+|)(?:bir\s+)?(mali müşavir|muhasebeci|öğretmen|mühendis|doktor|avukat|yazılımcı|öğrenci|emekli)(?:im|ım|um|üm|yim|yım|yum|yüm)?(?=\s|$)/);
+ if(m)facts.job=m[1];
+ if(Object.keys(facts).length){facts.updated=new Date().toISOString();try{localStorage.setItem(USER_MEMORY_KEY,JSON.stringify(facts))}catch{}}
+}
+function userQuestion(message){
+ const t=clean(message),self=/(?:\bben\b|\bbeni\b|\bbenim\b|\bbana\b)/.test(t);
+ const asksAge=/(kaç yaş|yaşım|yaşındayım|yaşımı)/.test(t);
+ const asksJob=/(ne iş|mesleğ|işim|işimi|mesleğim)/.test(t);
+ const asksName=/(adım ne|ismim ne|adımı|ismimi|beni tanı|beni hatırla|beni bili)/.test(t);
+ if(!self||!(asksAge||asksJob||asksName))return null;
+ const f=userFacts(),parts=[];
+ if(asksName||/beni tanı|beni hatırla|beni bili/.test(t))parts.push(f.name?'Adın '+f.name:'Adını henüz bilmiyorum');
+ if(asksAge)parts.push(f.age?'Yaşın '+f.age:'Yaşını henüz bilmiyorum');
+ if(asksJob)parts.push(f.job?'Mesleğin '+f.job:'Mesleğini henüz bilmiyorum');
+ if(!parts.length&&f.name)parts.push('Seni '+f.name+' olarak tanıyorum');
+ return parts.join(', ')+'.';
+}
+function biographyQuestion(name,message){
+ const t=clean(message),p=character(name);
+ if(/(kendinizi tanıt|kendinizi anlat|kendinizden bahset|kendini tanıt|kendinden bahset|kim olduğun)/.test(t))return 'Ben '+name+'. '+p.age+' yaşındayım, kurgusal mesleğim '+p.job+'. İlgi alanlarım '+p.interest+'.';
+ const age=/(kaç yaş|yaşın|yaşınız)/.test(t),job=/(ne iş|mesleğ|işiniz)/.test(t),interest=/(ilgi alan|nelerden hoşlan|neye ilgin)/.test(t);
+ if(/\bben\b|\bbeni\b|\bbenim\b/.test(t))return null;
+ if(interest)return 'Ben '+name+'. İlgi alanlarım '+p.interest+'.';
+ if(age&&job)return 'Ben '+name+'. '+p.age+' yaşındayım ve kurgusal mesleğim '+p.job+'.';
+ return null;
+}
+
 function contextAnswer(name,message,history,members){
  const t=clean(message),mentioned=addressedBots(message,members),other=mentioned.filter(n=>n!==name);
+ const aboutUser=userQuestion(message);if(aboutUser)return aboutUser;
+ const biography=biographyQuestion(name,message);if(biography)return biography;
  const bio=characterAnswer(name,message,members);if(bio)return bio;
 
  const askingAboutBot=/(ne dedi|ne söyle|anladın|katılıyor musun|fikri|görüşü|tanıyor musun|tanıyor musunuz|tanıyormusunuz|birbirinizi tanı)/.test(t);
@@ -155,7 +194,7 @@ function open(){
  const send=document.createElement('button');send.type='submit';send.textContent='Gönder';send.style.cssText='background:#17365a!important;color:white!important;border:0!important;border-radius:10px!important;padding:9px 12px!important;height:42px!important';
  form.append(input,send);panel.append(form);
  let busy=false;
- form.onsubmit=e=>{e.preventDefault();const value=input.value.trim();if(!value||busy)return;input.value='';state.messages.push({role:'user',text:value,at:new Date().toISOString()});updateRelations(state.members);save(state);render();
+ form.onsubmit=e=>{e.preventDefault();const value=input.value.trim();if(!value||busy)return;input.value='';state.messages.push({role:'user',text:value,at:new Date().toISOString()});rememberUser(value);updateRelations(state.members);save(state);render();
  const members=state.members.slice();if(!members.length)return;
  busy=true;send.disabled=true;
  // Reply from up to three participants, sequentially; every turn uses the shared conversation context.
