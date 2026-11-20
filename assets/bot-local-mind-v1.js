@@ -181,6 +181,18 @@ knowledge["tarih"].push("Tarih yazımında anakronizm, bir olayın veya kavramı
 knowledge["psikoloji"].push("İşlemsel koşullanma, davranışın sonuçlarının gelecekteki görülme sıklığını etkileyebildiği öğrenme biçimidir.");
 knowledge["felsefe"].push("Bir argümanın geçerli olması, öncüllerinin mutlaka doğru olduğu anlamına gelmez.");
 knowledge["kişisel gelişim"].push("Bir görevin bitiş koşulunu önceden yazmak, tamamlanıp tamamlanmadığını değerlendirmeyi kolaylaştırır.");
+
+/* Curated offline facts; no user data. */
+knowledge["bilim"].push("Merkür'ün Güneş çevresindeki bir dolanımı yaklaşık 88 Dünya günü sürer.");
+knowledge["roman"].push("Önseme, anlatıda ileride yaşanacak olaylara ilişkin ipuçları verilmesidir.");
+knowledge["doğa"].push("Denizatlarında çoğu türde yumurtaları erkek bireyin kuluçka kesesi taşır.");
+knowledge["satranç"].push("Satrançta vezir başlangıçta kendi rengindeki kareye yerleştirilir.");
+knowledge["şiir"].push("Enjambman, bir dizede başlayan söz diziminin sonraki dizede sürmesidir.");
+knowledge["teknoloji"].push("HTTP 304 yanıtı, koşullu istekte kaynağın değişmediğini ve önbellekteki sürümün kullanılabileceğini belirtir.");
+knowledge["tarih"].push("Rosetta Taşı üzerindeki farklı yazılar, Mısır hiyerogliflerinin çözülmesinde önemli rol oynamıştır.");
+knowledge["psikoloji"].push("Seri konum etkisi, bir listedeki ilk ve son öğelerin ortadakilere göre daha kolay hatırlanabilmesini ifade eder.");
+knowledge["felsefe"].push("Bir argümanın sağlam olması, hem geçerli olması hem de öncüllerinin doğru olması demektir.");
+knowledge["kişisel gelişim"].push("Eisenhower matrisi, görevleri önem ve aciliyet düzeylerine göre dört gruba ayırır.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
