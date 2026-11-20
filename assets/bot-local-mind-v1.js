@@ -390,5 +390,17 @@ knowledge["tarih"].push("Tarih öncesi dönemlerin sınırları, yazının farkl
 knowledge["psikoloji"].push("Hatırlama, bellekteki bilgiyi ipucu olmadan geri getirmeyi; tanıma ise sunulan bilgiyi önceden öğrenilmiş olarak ayırt etmeyi içerir.");
 knowledge["felsefe"].push("Bir önermenin karşıtının yanlış olması, tek başına o önermenin doğruluğunu kanıtlamaz.");
 knowledge["kişisel gelişim"].push("Bir alışkanlığı takip etmek için her uygulandığı günü takvimde işaretlemek, davranışın sıklığını görünür kılar.");
+
+/* 2026-11-21: 10 verified, non-personal offline facts. */
+knowledge["bilim"].push("Mars'ın iki doğal uydusu Phobos ve Deimos olarak adlandırılır.");
+knowledge["roman"].push("Metinlerarasılık, bir edebî metnin başka metinlerle kurduğu açık veya örtük ilişkileri ifade eder.");
+knowledge["doğa"].push("Denizyıldızlarının çoğunda su damar sistemi hareket etmeye ve beslenmeye yardımcı olur.");
+knowledge["satranç"].push("Satrançta at, kendi taşlarının ve rakip taşların üzerinden atlayabilen tek standart taştır.");
+knowledge["şiir"].push("Enjambman, bir şiir dizesinde başlayan söz diziminin sonraki dizede sürmesidir.");
+knowledge["teknoloji"].push("HTTP 418 durum kodu, 1998 tarihli mizahi HTCPCP protokolünde 'I'm a teapot' yanıtı olarak tanımlanmıştır.");
+knowledge["tarih"].push("Hiyeroglif yazısı yalnızca resimlerden oluşmaz; ses değerleri taşıyan işaretler de içerir.");
+knowledge["psikoloji"].push("Prospektif bellek, gelecekte belirli bir zamanda veya durumda yapılması planlanan işi hatırlama yetisidir.");
+knowledge["felsefe"].push("Ockham'ın usturası, eşit açıklama gücündeki varsayımlar arasında gereksiz çoğaltmadan kaçınmayı öğütler.");
+knowledge["kişisel gelişim"].push("Uygulama niyeti, bir hedefi 'Eğer X olursa Y yapacağım' biçiminde somut bir koşula bağlar.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
