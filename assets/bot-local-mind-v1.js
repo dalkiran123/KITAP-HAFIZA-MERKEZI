@@ -271,6 +271,17 @@ knowledge["tarih"].push("Stratigrafi, arkeolojik tabakaların sıralanmasını v
 knowledge["psikoloji"].push("Geriye ket vurma, sonradan öğrenilen bilginin daha önce öğrenilen bilgiyi hatırlamayı zorlaştırabilmesidir.");
 knowledge["felsefe"].push("Yanlış ikilem, seçenekler ikiden fazla olabilecekken yalnızca iki seçenek varmış gibi sunan akıl yürütme hatasıdır.");
 knowledge["kişisel gelişim"].push("SMART hedef yaklaşımında hedefin belirli, ölçülebilir, ulaşılabilir, ilgili ve zamana bağlı olması amaçlanır.");
+/* 2026-11-20: ten offline educational facts; no personal data. */
+knowledge["bilim"].push("Venüs, Güneş Sistemi'nde kendi ekseni çevresinde çoğu gezegenin ters yönünde döner.");
+knowledge["roman"].push("Çerçeve anlatı, bir öykünün başka bir öykünün içinde anlatıldığı kurgu tekniğidir.");
+knowledge["doğa"].push("Ahtapotların üç kalbi vardır; ikisi solungaçlara, biri vücudun geri kalanına kan pompalar.");
+knowledge["satranç"].push("Satrançta pat, hamle sırası gelen oyuncunun şahı tehdit altında değilken hiçbir yasal hamlesinin bulunmamasıdır ve oyun berabere biter.");
+knowledge["şiir"].push("Asonans, şiirde ünlü seslerin yinelenmesiyle oluşan ses uyumudur.");
+knowledge["teknoloji"].push("HTTP 415 yanıt kodu, sunucunun istekteki içerik biçimini desteklemediğini belirtir.");
+knowledge["tarih"].push("Kronoloji, olayları zaman sırasına göre düzenleme ve tarihlendirme çalışmasıdır.");
+knowledge["psikoloji"].push("Çalışma belleği, bilgiyi kısa süreli olarak tutarken aynı zamanda işlemeyi sağlayan bilişsel sistemdir.");
+knowledge["felsefe"].push("Epistemoloji, bilginin doğasını, kaynaklarını ve sınırlarını inceleyen felsefe dalıdır.");
+knowledge["kişisel gelişim"].push("Kanban yöntemi, işlerin durumunu görselleştirmek için yapılacak, sürüyor ve tamamlandı gibi sütunlar kullanabilir.");
 function learnedFact(friend){const state=knowledgeState(friend),entry=state.entries[state.entries.length-1];return entry?'İlgi alanım hakkında bilgi havuzumdan bugün şunu seçtim: '+entry.fact+' Bu, internette yeni araştırma yaptığım anlamına gelmez.':'Henüz bilgi seçmedim.'}
 
 
