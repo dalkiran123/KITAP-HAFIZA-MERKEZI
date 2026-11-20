@@ -322,5 +322,15 @@ function emotionallyAwareAnswer(friend,message,history=[]){
  return response||respond(friend,message,history);
 }
 
+knowledge["bilim"].push("Satürn'ün ortalama yoğunluğu sudan düşüktür; yaklaşık 0,69 gram/santimetreküptür.");
+knowledge["roman"].push("Güvenilmez anlatıcı, olayları aktardığı hâlde anlatımının doğruluğuna bütünüyle güvenilemeyen anlatıcıdır.");
+knowledge["doğa"].push("Arılar çiçeklerden nektar toplarken polen taşıyarak birçok bitkinin tozlaşmasına katkıda bulunur.");
+knowledge["satranç"].push("Satrançta fil, önünde taş bulunmadığı sürece çapraz doğrultuda istediği kadar kare ilerleyebilir.");
+knowledge["şiir"].push("Akrostişte dizelerin ilk harfleri bir sözcük veya ifadeyi oluşturabilir.");
+knowledge["teknoloji"].push("HTTP 204 durum kodu, isteğin başarıyla işlendiğini ancak yanıt gövdesi gönderilmediğini belirtir.");
+knowledge["tarih"].push("Karbon-14 tarihlemesi, uygun organik kalıntıların yaşını belirlemek için radyoaktif karbonun bozunmasından yararlanır.");
+knowledge["psikoloji"].push("Seçici dikkat, birden fazla uyaran arasından belirli bilgilere odaklanma sürecidir.");
+knowledge["felsefe"].push("Tümevarım, tekil gözlemlerden daha genel sonuçlara ulaşmaya çalışan akıl yürütmedir.");
+knowledge["kişisel gelişim"].push("Önceliklendirme, görevleri önem ve aciliyet gibi ölçütlere göre sıralamayı sağlar.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
