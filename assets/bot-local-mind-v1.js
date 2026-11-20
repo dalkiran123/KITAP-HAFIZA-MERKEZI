@@ -216,6 +216,17 @@ knowledge["tarih"].push("Paleolitik Çağ, tarih öncesi dönemlerin Eski Taş �
 knowledge["psikoloji"].push("İleriye dönük bellek, gelecekte yapılması planlanan bir eylemi uygun zamanda hatırlamayı ifade eder.");
 knowledge["felsefe"].push("Geçerli bir tümdengelimde öncüller doğruysa sonucun yanlış olması mümkün değildir.");
 knowledge["kişisel gelişim"].push("Bir hedef için belirlenen ölçüt, ilerlemenin gözleme dayalı değerlendirilmesini kolaylaştırır.");
+/* 2026-11-20: curated offline facts. No user conversations or remote APIs. */
+knowledge["bilim"].push("Bir parsek, yaklaşık 3,26 ışık yılına eşit bir uzaklık birimidir.");
+knowledge["roman"].push("Odaklanma, anlatıda olayların hangi karakterin algısı veya bilgisi üzerinden sunulduğunu ifade eder.");
+knowledge["doğa"].push("Mangrov ağaçları, tuzlu veya acı su bulunan kıyı ekosistemlerinde yaşayabilen bitkilerdir.");
+knowledge["satranç"].push("Satrançta rok yapabilmek için şah ile ilgili kale daha önce hareket etmemiş olmalıdır.");
+knowledge["şiir"].push("Tunç uyakta, bir sözcük diğerinin sonunda bütünüyle yer alır.");
+knowledge["teknoloji"].push("HTTP 202 durum kodu, isteğin işlenmek üzere kabul edildiğini ancak işlemenin tamamlanmadığını belirtir.");
+knowledge["tarih"].push("Epigrafi, taş veya metal gibi dayanıklı yüzeylerdeki yazıtları inceleyen bilim dalıdır.");
+knowledge["psikoloji"].push("Aralıklı tekrar, öğrenilen bilginin farklı zaman aralıklarında yeniden çalışılmasına dayanır.");
+knowledge["felsefe"].push("Bir çıkarımın geçerliliği, öncüllerle sonuç arasındaki mantıksal ilişkiye bağlıdır; öncüllerin fiilen doğru olmasını gerektirmez.");
+knowledge["kişisel gelişim"].push("Geri bildirim, yapılan işin sonuçları hakkında bilgi sağlayarak sonraki adımların düzenlenmesine yardımcı olur.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
