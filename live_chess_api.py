@@ -404,6 +404,7 @@ def register_chess(app):
     def chess_live_matches():
         """Public metadata for accepted invitation matches; no player tokens or chat."""
         with connect() as c:
+            c.execute("BEGIN IMMEDIATE")
             rows = c.execute("""SELECT r.*,p1.name AS white_name,p2.name AS black_name
                 FROM chess_rooms r JOIN chess_lobby_invites i
                 ON i.room=r.id AND i.status='accepted'
