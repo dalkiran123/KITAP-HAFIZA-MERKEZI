@@ -44,10 +44,17 @@ function addressedBots(text,members){
 }
 function chooseResponders(text,members){
  const mentioned=addressedBots(text,members);
- const first=clean(text).split(' ')[0];
+ const normalized=clean(text),first=normalized.split(' ')[0];
  if(mentioned.length>1){
-   // Explicit coordination invites multiple bots; a question about another bot addresses the first.
-   const coordinated=mentioned.some((name,i)=>i>0&&new RegExp('\\b(ve|ile|ile birlikte) '+clean(name)+'\\b').test(clean(text)));
+   // A conjunction between named bots means a group request, even when the names
+   // occur in reverse order relative to the configured member list.
+   const namesInText=[...mentioned].sort((a,b)=>normalized.indexOf(clean(a))-normalized.indexOf(clean(b)));
+   const coordinated=namesInText.some((name,i)=>{
+     if(i===0)return false;
+     const prev=namesInText[i-1];
+     const between=normalized.slice(normalized.indexOf(clean(prev))+clean(prev).length,normalized.indexOf(clean(name))).trim();
+     return /^(ve|ile|ve birlikte|ile birlikte)$/.test(between);
+   });
    if(coordinated)return mentioned;
    const recipient=mentioned.find(n=>clean(n)===first);
    if(recipient)return [recipient];
