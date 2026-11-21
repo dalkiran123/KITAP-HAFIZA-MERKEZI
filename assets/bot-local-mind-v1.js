@@ -507,5 +507,17 @@ knowledge["tarih"].push("Paleografi, eski el yazılarının biçimlerini inceley
 knowledge["psikoloji"].push("Yanlış anı, kişinin gerçekleşmemiş bir olayı yaşanmış gibi hatırlaması durumudur.");
 knowledge["felsefe"].push("Epistemoloji, bilginin doğasını, kaynaklarını ve gerekçelendirilmesini inceleyen felsefe dalıdır.");
 knowledge["kişisel gelişim"].push("İki dakika kuralı, çok kısa süren işleri ertelemeden yapmayı öneren pratik bir iş yönetimi yaklaşımıdır.");
+
+/* 2026-11-21: ten curated offline facts. No chat logs or personal data. */
+knowledge["bilim"].push("Merkür, Güneş Sistemi'ndeki en küçük gezegendir.");
+knowledge["roman"].push("Geriye dönüş tekniği, anlatının şimdiki zamanından önce yaşanmış olayları okura aktarır.");
+knowledge["doğa"].push("Koalalar keseli memelilerdir ve ağırlıklı olarak okaliptüs yapraklarıyla beslenir.");
+knowledge["satranç"].push("Satrançta rok yapılırken şah tehdit altında olamaz ve tehdit altındaki bir kareden geçemez.");
+knowledge["şiir"].push("Redif, dizelerin sonunda aynı görev ve anlamda tekrarlanan ek ya da sözcüklerdir.");
+knowledge["teknoloji"].push("HTTP 503 durum kodu, sunucunun geçici olarak isteği karşılayamadığını belirtir.");
+knowledge["tarih"].push("Çivi yazısı, Mezopotamya'da kil tabletler üzerine kamış kalemle işaretler basılarak kullanılmıştır.");
+knowledge["psikoloji"].push("Seri konum etkisi, bir listedeki ilk ve son öğelerin ortadakilere göre daha kolay hatırlanabilmesidir.");
+knowledge["felsefe"].push("Tümdengelimde sonuç, geçerli bir çıkarımda öncüllerden zorunlu olarak çıkar.");
+knowledge["kişisel gelişim"].push("Eisenhower matrisi, işleri önem ve aciliyetlerine göre dört grupta sınıflandırır.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
