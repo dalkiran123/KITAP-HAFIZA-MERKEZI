@@ -461,5 +461,16 @@ knowledge["tarih"].push("Rosetta Taşı üzerinde aynı kararname üç farklı y
 knowledge["psikoloji"].push("Stroop etkisi, bir kelimenin yazıldığı rengi söylerken kelimenin anlamının tepkiyi zorlaştırabilmesidir.");
 knowledge["felsefe"].push("Döngüsel akıl yürütmede sonuç, onu desteklemek için sunulan öncüllerde zaten varsayılır.");
 knowledge["kişisel gelişim"].push("Geriye doğru planlama, hedefin tamamlanma tarihinden başlayıp gerekli adımları geriye doğru sıralama yöntemidir.");
+/* 2026-11-21: ten offline facts, no user data. */
+knowledge["bilim"].push("Venüs, Güneş Sistemi'ndeki gezegenler arasında en uzun kendi ekseni dönüş süresine sahiptir.");
+knowledge["roman"].push("Epigraf, bir eserin veya bölümün başına yerleştirilen kısa alıntı ya da özdeyiştir.");
+knowledge["doğa"].push("Ahtapotların üç kalbi vardır; ikisi solungaçlara, biri vücuda kan pompalar.");
+knowledge["satranç"].push("Satrançta en passant alma hakkı, rakip piyonun iki kare ilerlediği hamlenin hemen ardından kullanılabilir.");
+knowledge["şiir"].push("Pastoral şiir, kır yaşamını ve doğayı konu edinen şiir türüdür.");
+knowledge["teknoloji"].push("HTTP 204 durum kodu, isteğin başarılı olduğunu ve yanıtta içerik gövdesi bulunmadığını belirtir.");
+knowledge["tarih"].push("Epigrafi, taş veya metal gibi kalıcı yüzeyler üzerindeki yazıtları inceler.");
+knowledge["psikoloji"].push("Duruma bağlı bellek, öğrenme ve hatırlama sırasında benzer fizyolojik koşulların geri çağırmayı kolaylaştırabilmesidir.");
+knowledge["felsefe"].push("Tümevarım, tekil gözlemlerden genel bir sonuca ulaşmaya çalışan akıl yürütmedir; sonucu zorunlu kılmaz.");
+knowledge["kişisel gelişim"].push("Kanban yöntemi, işleri yapılacak, sürüyor ve tamamlandı gibi aşamalarda görselleştirerek akışı izlemeye yardımcı olur.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
