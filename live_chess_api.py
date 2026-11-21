@@ -454,8 +454,8 @@ def register_chess(app):
             minutes = int(data.get("minutes", 0))
         except (ValueError, TypeError):
             return jsonify(error="Geçersiz süre"), 400
-        if minutes not in (0, 1, 3, 5, 10):
-            return jsonify(error="Süre 1, 3, 5, 10 dakika veya süresiz olmalı"), 400
+        if minutes not in (0, 1, 3, 5, 10, 30, 60):
+            return jsonify(error="Süre 1, 3, 5, 10, 30, 60 dakika veya süresiz olmalı"), 400
         room, token = secrets.token_urlsafe(9), secrets.token_urlsafe(32)
         now = int(time.time())
         with connect() as c:
