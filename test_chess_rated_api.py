@@ -19,6 +19,7 @@ class RatedApiTests(unittest.TestCase):
         app.testing = True
         live_chess_api.register_chess(app)
         self.client = app.test_client()
+        assert self.client.get('/api/chess/rating/leaderboard').status_code == 200
         self.white = "white-secret"
         self.black = "black-secret"
 
