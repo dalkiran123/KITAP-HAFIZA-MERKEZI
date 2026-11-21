@@ -481,6 +481,7 @@ const uciOf=m=>m.from+m.to+(m.promotion||'');
 function cancelAuto(message=''){autoLine=null;autoBase=[];autoMessage=message;autoSending=false;}
 function startAuto(){
  if(!simulation||mode.value!=='remote'||!joined||liveState?.finished)return;
+ if(liveState?.rated){simulationNotice.textContent='Dereceli maçlarda otomatik hamle çalıştırılamaz.';return;}
  const line=simulation.history({verbose:true}).map(uciOf);
  if(!line.length){simulationNotice.textContent='Önce en az bir hamle simüle et.';return;}
  autoBase=Array.isArray(liveState?.moves)?liveState.moves.slice():[];
@@ -490,6 +491,7 @@ function startAuto(){
 simulationRun.onclick=startAuto;
 async function checkAutoLine(){
  if(!autoLine||autoSending||busy||!joined||!room||!token||liveState?.finished||mode.value!=='remote')return;
+ if(liveState?.rated){cancelAuto('Dereceli maçta otomatik hamle kapatıldı.');render();return;}
  const actual=Array.isArray(liveState?.moves)?liveState.moves:[];
  const start=autoBase.length;
  if(actual.length<start||autoBase.some((m,i)=>actual[i]!==m)){cancelAuto('Maç konumu değişti. Otomasyon iptal edildi.');render();return;}
