@@ -543,5 +543,17 @@ knowledge["tarih"].push("Behistun Yazıtı, Eski Farsça, Elamca ve Babilce meti
 knowledge["psikoloji"].push("Bağlamsal ipuçları, öğrenilen bir bilginin geri çağrılmasını kolaylaştırabilir.");
 knowledge["felsefe"].push("Gettier problemi, gerekçelendirilmiş doğru inancın bilgi için her zaman yeterli olup olmadığını sorgular.");
 knowledge["kişisel gelişim"].push("Önceden karar verme, tekrar eden küçük seçimlerin sayısını azaltarak günlük planı sadeleştirebilir.");
+
+/* 2026-11-21: ten curated offline facts; no private data. */
+knowledge["bilim"].push("Gelgit kilidi, bir gökcisminin kendi çevresindeki dönüş süresiyle başka bir gökcismi çevresindeki dolanım süresinin eşitlenmesidir.");
+knowledge["roman"].push("Diegesis, anlatı dünyasının içinde gerçekleşen olaylar ve bu dünyaya ait unsurlar için kullanılan bir kavramdır.");
+knowledge["doğa"].push("Pangolinlerin vücudu keratinden oluşan pullarla kaplıdır; tehlike anında top gibi kıvrılabilirler.");
+knowledge["satranç"].push("Fianchetto, filin genellikle b veya g dikeyindeki piyonu ilerleterek uzun çapraza geliştirilmesidir.");
+knowledge["şiir"].push("Rubato, müzikte ifade amacıyla temponun esnek biçimde hızlandırılıp yavaşlatılmasıdır; şiir okumalarında da ritmik yorum için benzetme olarak kullanılabilir.");
+knowledge["teknoloji"].push("HTTP 425 Too Early, sunucunun yeniden oynatma riski taşıyan erken veriyi işlemek istemediğini bildirir.");
+knowledge["tarih"].push("Obsidyen, volkanik camdır; keskin kenarlar oluşturabildiği için tarih öncesinde alet yapımında kullanılmıştır.");
+knowledge["psikoloji"].push("Dunning-Kruger etkisi, bazı görevlerde düşük beceri düzeyindeki kişilerin kendi performanslarını olduğundan yüksek değerlendirebilmesiyle ilişkilidir.");
+knowledge["felsefe"].push("Epokhe, özellikle kuşkucu felsefede bir yargı hakkında hüküm vermeyi askıya alma tutumunu ifade eder.");
+knowledge["kişisel gelişim"].push("Alışkanlık istifleme, yeni bir davranışı hâlihazırda sürdürülen bir rutinin hemen sonrasına bağlamayı önerir.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
