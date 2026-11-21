@@ -519,5 +519,17 @@ knowledge["tarih"].push("Çivi yazısı, Mezopotamya'da kil tabletler üzerine k
 knowledge["psikoloji"].push("Seri konum etkisi, bir listedeki ilk ve son öğelerin ortadakilere göre daha kolay hatırlanabilmesidir.");
 knowledge["felsefe"].push("Tümdengelimde sonuç, geçerli bir çıkarımda öncüllerden zorunlu olarak çıkar.");
 knowledge["kişisel gelişim"].push("Eisenhower matrisi, işleri önem ve aciliyetlerine göre dört grupta sınıflandırır.");
+
+/* 2026-11-21: offline bot knowledge; no user conversations or personal data. */
+knowledge["bilim"].push("Dünya'nın eksen eğikliği, yıl boyunca Güneş ışınlarının geliş açısını değiştirerek mevsimlerin oluşmasında temel rol oynar.");
+knowledge["roman"].push("Anlatıda odaklanma, olayların hangi karakterin algısı veya bilgisi üzerinden sunulduğunu ifade eder.");
+knowledge["doğa"].push("Mercanlar bitki değil, knidliler şubesine ait hayvanlardır; birçok tür koloni hâlinde yaşar.");
+knowledge["satranç"].push("Satrançta fil yalnızca çapraz hareket eder ve oyun boyunca başladığı kareyle aynı renkteki karelerde kalır.");
+knowledge["şiir"].push("Enjambman, şiirde bir cümlenin anlam ve sözdizimi bakımından dize sonunda bitmeyip sonraki dizeye taşmasıdır.");
+knowledge["teknoloji"].push("HTTP 418 durum kodu, bir 1 Nisan şakası olarak tanımlanan 'I'm a teapot' yanıtıdır.");
+knowledge["tarih"].push("Numizmatik, sikkeleri ve para tarihine ilişkin nesneleri inceleyen bilim dalıdır.");
+knowledge["psikoloji"].push("İleriye ket vurma, önceden öğrenilen bilginin yeni bilgiyi öğrenmeyi veya hatırlamayı zorlaştırabilmesidir.");
+knowledge["felsefe"].push("Karşı örnek, genel bir iddianın yanlış olduğunu göstermek için iddiayla çelişen tek bir geçerli örnektir.");
+knowledge["kişisel gelişim"].push("Kontrol listesi, tekrarlanan bir süreçte atlanabilecek adımları görünür kılmaya yardımcı olur.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
