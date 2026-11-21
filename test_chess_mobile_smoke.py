@@ -31,6 +31,25 @@ class ChessMobileSmokeTests(unittest.TestCase):
                 joined = self.client.post("/api/chess/join", json={"room": room})
                 self.assertEqual(joined.status_code, 200, joined.get_json())
 
+    def test_invalid_time_controls_are_rejected(self):
+        for minutes in (-1, 2, 15, 120, "invalid"):
+            with self.subTest(minutes=minutes):
+                response = self.client.post("/api/chess/create", json={"minutes": minutes})
+                self.assertEqual(response.status_code, 400)
+
+    def test_illegal_move_does_not_modify_match(self):
+        created = self.client.post("/api/chess/create", json={"minutes": 3}).get_json()
+        room = created["room"]
+        self.client.post("/api/chess/join", json={"room": room})
+        white = {"X-Chess-Token": created["token"]}
+        response = self.client.post("/api/chess/move/" + room, headers=white,
+                                    json={"uci": "e2e5"})
+        self.assertEqual(response.status_code, 400)
+        state = self.client.get("/api/chess/state/" + room, headers=white)
+        self.assertEqual(state.status_code, 200)
+        self.assertEqual(state.get_json()["moves"], [])
+        self.assertEqual(state.get_json()["turn"], "white")
+
     def test_two_players_alternate_moves_and_block_out_of_turn(self):
         created = self.client.post("/api/chess/create", json={"minutes": 10}).get_json()
         room = created["room"]
