@@ -349,7 +349,7 @@ def register_chess(app):
             now = int(time.time())
             c.execute("""UPDATE chess_lobby_invites SET status='expired',updated=?
                 WHERE status='pending' AND created<=?""",(now,now-300))
-            rows = c.execute("""SELECT i.*,s.name AS sender_name,r.name AS receiver_name,cr.fen AS room_fen,cr.result AS room_result,cr.reason AS room_reason,cr.minutes AS room_minutes,cr.white_ms AS room_white_ms,cr.black_ms AS room_black_ms,cr.tick_ms AS room_tick_ms
+            rows = c.execute("""SELECT i.*,s.name AS sender_name,r.name AS receiver_name,cr.fen AS room_fen,cr.result AS room_result,cr.reason AS room_reason,cr.minutes AS room_minutes,cr.white_ms AS room_white_ms,cr.black_ms AS room_black_ms,cr.tick_ms AS room_tick_ms,cr.rated AS room_rated
                 FROM chess_lobby_invites i
                 JOIN chess_lobby_players s ON s.token_hash=i.sender_hash
                 JOIN chess_lobby_players r ON r.token_hash=i.receiver_hash
@@ -367,7 +367,8 @@ def register_chess(app):
             return jsonify(invites=[dict(finished=match_finished(r),id=r["id"],room=r["room"],status=r["status"],
                 direction="incoming" if r["receiver_hash"]==me["token_hash"] else "outgoing",
                 from_id=r["sender_hash"],to_id=r["receiver_hash"],expires_at=r["created"]+300,
-                from_name=r["sender_name"],to_name=r["receiver_name"],created=r["created"]) for r in rows])
+                from_name=r["sender_name"],to_name=r["receiver_name"],created=r["created"],
+                rated=bool(r["room_rated"]),minutes=r["room_minutes"]) for r in rows])
 
     @app.post("/api/chess/lobby/invites/<invite_id>/respond")
     def chess_lobby_invite_respond(invite_id):
