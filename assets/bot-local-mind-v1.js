@@ -426,5 +426,17 @@ knowledge["tarih"].push("Dendrokronoloji, ağaçların yıllık büyüme halkala
 knowledge["psikoloji"].push("Geriye ket vurma, yeni öğrenilen bilginin daha önce öğrenilmiş bilgiyi hatırlamayı zorlaştırabilmesidir.");
 knowledge["felsefe"].push("Yanlış ikilem safsatası, başka seçenekler de mümkünken yalnızca iki seçenek varmış gibi sunulmasıdır.");
 knowledge["kişisel gelişim"].push("Pomodoro tekniği, odaklı çalışma aralıklarını kısa molalarla dönüşümlü kullanmaya dayanır.");
+
+/* 2026-11-21: new curated facts; fictional bots, no user data. */
+knowledge["bilim"].push("Uranüs'ün dönme ekseni yörünge düzlemine neredeyse paraleldir; bu nedenle gezegen yan yatmış gibi döner.");
+knowledge["roman"].push("Prolepsis, anlatıda henüz gerçekleşmemiş gelecekteki olaylara önceden geçilmesidir.");
+knowledge["doğa"].push("Ornitorenk, yumurtlayan memeliler grubuna ait bir hayvandır.");
+knowledge["satranç"].push("Satrançta elli hamle kuralı, her iki tarafın son ellişer hamlesinde piyon sürülmemiş ve taş alınmamışsa beraberlik talebine olanak verir.");
+knowledge["şiir"].push("Mazmun, özellikle divan şiirinde gelenekleşmiş mecaz ve çağrışım kalıplarıdır.");
+knowledge["teknoloji"].push("HTTP 410 durum kodu, istenen kaynağın sunucuda artık bulunmadığını ve bu durumun kalıcı olmasının beklendiğini belirtir.");
+knowledge["tarih"].push("Termolüminesans tarihleme, uygun koşullarda ısıtılmış arkeolojik seramiklerin son ısıtılma zamanını tahmin etmek için kullanılabilir.");
+knowledge["psikoloji"].push("Zeigarnik etkisi, tamamlanmamış görevlerin bazı koşullarda tamamlanmış görevlere göre daha kolay hatırlanabilmesi eğilimidir.");
+knowledge["felsefe"].push("Modus ponens, 'P ise Q; P; öyleyse Q' biçimindeki geçerli çıkarım kuralıdır.");
+knowledge["kişisel gelişim"].push("WOOP yöntemi, dilek, sonuç, engel ve plan adımlarını kullanarak hedefe yönelik eylemi somutlaştırır.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
