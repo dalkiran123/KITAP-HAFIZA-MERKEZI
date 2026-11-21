@@ -61,6 +61,26 @@ class RatedApiTests(unittest.TestCase):
                 headers={"X-Chess-Token":self.black}).status_code, 200)
         self.assertEqual(self.counts(), (2, 2))
 
+    def test_concurrent_live_timeout_and_player_reads_rate_once(self):
+        from concurrent.futures import ThreadPoolExecutor
+        import time
+        self.seed()
+        with self.api.sqlite3.connect(self.db) as c:
+            c.execute("UPDATE chess_rooms SET created=?,tick_ms=?,white_ms=1 WHERE id='room'",
+                      (int(time.time()), int(time.time()*1000)-1000))
+        app = self.client.application
+        def read(i):
+            with app.test_client() as client:
+                if i % 2:
+                    return client.get("/api/chess/live").status_code
+                return client.get("/api/chess/state/room",
+                    headers={"X-Chess-Token":self.black}).status_code
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            self.assertEqual(list(pool.map(read, range(8))), [200]*8)
+        self.assertEqual(self.counts(), (2, 2))
+        with self.api.sqlite3.connect(self.db) as c:
+            self.assertEqual(c.execute("SELECT result FROM chess_rooms WHERE id='room'").fetchone()[0], "black")
+
     def test_unrated_does_not_change_ratings(self):
         self.seed(rated=False)
         self.assertEqual(self.client.post("/api/chess/resign/room",
