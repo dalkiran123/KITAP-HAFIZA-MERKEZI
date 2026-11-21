@@ -48,7 +48,7 @@ class ChessMobileSmokeTests(unittest.TestCase):
         for headers in (white, black):
             state = self.client.get("/api/chess/state/" + room, headers=headers)
             self.assertEqual(state.status_code, 200)
-            self.assertIn("e2e4 e7e5", str(state.get_json()))
+            self.assertEqual(state.get_json()["moves"], ["e2e4", "e7e5"])
 
 
 if __name__ == "__main__":
