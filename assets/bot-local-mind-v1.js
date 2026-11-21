@@ -495,5 +495,17 @@ knowledge["tarih"].push("Karbon-14 tarihlemesi, organik kökenli kalıntıların
 knowledge["psikoloji"].push("Çalışma belleği, bilgiyi kısa süreli olarak tutarken onun üzerinde işlem yapmayı sağlayan bilişsel sistemdir.");
 knowledge["felsefe"].push("Ad hominem safsatası, bir iddiayı gerekçeleri yerine iddiayı savunan kişinin özellikleri üzerinden reddetmeye çalışır.");
 knowledge["kişisel gelişim"].push("Zaman bloklama, takvimde belirli görevler için önceden süre ayırma yöntemidir.");
+
+/* 2026-11-21: 10 curated offline facts, no personal data. */
+knowledge["bilim"].push("Triton, Neptün'ün büyük uyduları arasında ters yönde dolanan bir uydudur.");
+knowledge["roman"].push("Paratekst, bir kitabın başlık, önsöz ve kapak gibi ana metni çevreleyen unsurlarını kapsar.");
+knowledge["doğa"].push("Karıncayiyenlerin dişleri yoktur; uzun ve yapışkan dilleriyle böcekleri yakalayabilirler.");
+knowledge["satranç"].push("Satrançta iki atla yalnız şahı olan rakibe karşı zorunlu mat kurmak mümkün değildir.");
+knowledge["şiir"].push("Terza rima, birbirine bağlı üç dizelik bentlerde ABA BCB CDC biçiminde ilerleyen uyak örgüsüdür.");
+knowledge["teknoloji"].push("HTTP 207 Multi-Status yanıtı, birden çok kaynağın durumunu tek yanıtta bildirmek için WebDAV kapsamında tanımlanmıştır.");
+knowledge["tarih"].push("Paleografi, eski el yazılarının biçimlerini inceleyerek yazıların okunmasına ve tarihlendirilmesine yardımcı olur.");
+knowledge["psikoloji"].push("Yanlış anı, kişinin gerçekleşmemiş bir olayı yaşanmış gibi hatırlaması durumudur.");
+knowledge["felsefe"].push("Epistemoloji, bilginin doğasını, kaynaklarını ve gerekçelendirilmesini inceleyen felsefe dalıdır.");
+knowledge["kişisel gelişim"].push("İki dakika kuralı, çok kısa süren işleri ertelemeden yapmayı öneren pratik bir iş yönetimi yaklaşımıdır.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
