@@ -483,5 +483,17 @@ knowledge["tarih"].push("Epigrafi, taş veya metal gibi kalıcı yüzeyler üzer
 knowledge["psikoloji"].push("Duruma bağlı bellek, öğrenme ve hatırlama sırasında benzer fizyolojik koşulların geri çağırmayı kolaylaştırabilmesidir.");
 knowledge["felsefe"].push("Tümevarım, tekil gözlemlerden genel bir sonuca ulaşmaya çalışan akıl yürütmedir; sonucu zorunlu kılmaz.");
 knowledge["kişisel gelişim"].push("Kanban yöntemi, işleri yapılacak, sürüyor ve tamamlandı gibi aşamalarda görselleştirerek akışı izlemeye yardımcı olur.");
+
+/* 2026-11-21: ten curated offline facts, no user data. */
+knowledge["bilim"].push("Işık yılı, ışığın boşlukta bir yılda aldığı uzaklığı ifade eden uzunluk birimidir.");
+knowledge["roman"].push("Güvenilmez anlatıcı, aktardığı olayların doğruluğu okur tarafından sorgulanabilen anlatıcıdır.");
+knowledge["doğa"].push("Yarasalarda uçuşu sağlayan kanat zarı, uzamış parmak kemikleri arasında gerilir.");
+knowledge["satranç"].push("Satrançta pat, sırası gelen oyuncunun şahı tehdit altında değilken hiçbir yasal hamlesinin bulunmamasıdır ve oyun berabere biter.");
+knowledge["şiir"].push("Aliterasyon, birbirine yakın sözcüklerde ünsüz seslerin yinelenmesidir.");
+knowledge["teknoloji"].push("HTTP 304 yanıtı, önbellekteki kaynağın koşullu isteğe göre değişmediğini bildirir.");
+knowledge["tarih"].push("Karbon-14 tarihlemesi, organik kökenli kalıntıların yaşını tahmin etmek için radyoaktif karbonun bozunmasından yararlanır.");
+knowledge["psikoloji"].push("Çalışma belleği, bilgiyi kısa süreli olarak tutarken onun üzerinde işlem yapmayı sağlayan bilişsel sistemdir.");
+knowledge["felsefe"].push("Ad hominem safsatası, bir iddiayı gerekçeleri yerine iddiayı savunan kişinin özellikleri üzerinden reddetmeye çalışır.");
+knowledge["kişisel gelişim"].push("Zaman bloklama, takvimde belirli görevler için önceden süre ayırma yöntemidir.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
