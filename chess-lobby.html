@@ -158,10 +158,10 @@ h1{color:#f4c65f;text-shadow:0 2px 0 #79531f,0 6px 16px rgba(0,0,0,.34);letter-s
 .chess-brand .brand-black{color:#080c12;-webkit-text-stroke:.35px rgba(226,233,241,.6)}
 .chess-brand .brand-white{color:#fff}
 
-/* V4.3: all-white title with pronounced lower drop shadow */
+/* V4.4: all-white title with pronounced lower drop shadow */
 .chess-brand .brand-letter,.chess-brand .brand-black,.chess-brand .brand-white{color:#fff;-webkit-text-stroke:0;text-shadow:0 2px 0 #65778b,0 5px 0 rgba(5,13,23,.72),0 9px 12px rgba(0,0,0,.5)}
 
-/* V4.3 premium navy-gold chess lobby: visual-only, preserves API and controls */
+/* V4.4 premium navy-gold chess lobby: visual-only, preserves API and controls */
 :root{color-scheme:dark;--gold:#f4c34e;--cyan:#1dbdff;--navy:#06172e}
 html{background:#03142b}
 body{background:radial-gradient(ellipse at 55% -10%,#0752a2 0%,transparent 42%),linear-gradient(160deg,#03142b,#06254b 56%,#03152d);background-attachment:fixed}
@@ -206,7 +206,7 @@ h1.chess-brand{margin:0 0 15px;font-size:clamp(30px,7vw,43px);font-style:italic;
 .card .notice,.card .muted{color:#d1e1f4}
 @media(max-width:420px){.top{min-height:57px}.top:after{font-size:28px;right:13%}#welcome .row{gap:6px}#welcome h2{font-size:clamp(16px,4.5vw,21px)}#welcome h2:before{margin-right:5px;font-size:25px}.welcome-actions{min-width:112px}.welcome-actions button{padding:8px 6px!important}.stats-grid{gap:7px}}
 
-/* V4.3 visual refinement: mobile chess artwork, emblems and rich status icons */
+/* V4.4 visual refinement: mobile chess artwork, emblems and rich status icons */
 .top{min-height:91px;isolation:isolate;background:radial-gradient(ellipse at 65% 55%,#0b66b555,transparent 58%)}
 .top:before{content:"";position:absolute;z-index:-1;left:2%;right:0;bottom:3px;height:31px;background:repeating-conic-gradient(from 45deg,#0c66ad 0% 25%,#03152d 0% 50%) 0 0/35px 35px;transform:perspective(160px) rotateX(54deg);opacity:.6;mask-image:linear-gradient(90deg,transparent,#000 42%,#000)}
 .top:after{content:"♚ ♟";right:10%;top:10px;font-size:clamp(32px,8vw,52px);letter-spacing:2px;color:#a9e6ff;text-shadow:0 0 6px #00b7ff,0 0 16px #008cff,0 4px 3px #000;opacity:1}
@@ -236,8 +236,54 @@ h1.chess-brand{margin:0 0 15px;font-size:clamp(30px,7vw,43px);font-style:italic;
 .lobby-card #serverStatus .dot{background:#17f46b;box-shadow:0 0 10px #11ff68}
 @media(max-width:420px){.top{min-height:80px}.chess-brand{transform:translateY(-16px)}#welcome{padding:11px 12px}#welcome .row{min-height:90px}#welcome h2{gap:4px}#welcome h2:before{width:43px;height:61px;font-size:46px;margin-right:2px}#welcome h2:after{left:61px;height:55px}#welcome .welcome-player-name{font-size:clamp(14px,4vw,19px)}.welcome-actions{min-width:115px}#dashboard .stat-btn{min-height:98px}.lobby-card .row{gap:5px}.lobby-card h2{font-size:clamp(19px,5vw,25px)}.lobby-card #serverStatus{font-size:12px;padding:6px}}
 @media(prefers-reduced-motion:reduce){.stat-btn,.button{transition:none!important}}
+
+/* V4.4 cinematic chess presentation. No behavioral changes. */
+html{background:#020d20}
+body{background:radial-gradient(ellipse 75% 23% at 60% 0%,#064b93 0%,transparent 78%),radial-gradient(ellipse at 0% 65%,#073b6e55,transparent 65%),linear-gradient(170deg,#031127,#041a35 55%,#010b1e);background-attachment:fixed}
+.shell{position:relative;isolation:isolate;padding-bottom:115px}
+.shell:before{content:"";position:absolute;z-index:-1;left:0;right:0;bottom:0;height:165px;background:repeating-conic-gradient(from 45deg,#0c5a9c 0 25%,#02132e 0 50%) 0 0/46px 46px;transform:perspective(240px) rotateX(55deg);transform-origin:bottom;opacity:.53;mask-image:linear-gradient(transparent,#000 55%)}
+.shell:after{content:"♟      ♛      ♟";position:absolute;z-index:-1;left:0;right:0;bottom:10px;text-align:center;color:#c1eaff;font:clamp(32px,10vw,70px) Georgia,serif;letter-spacing:12px;text-shadow:0 0 10px #00aaff,0 5px 5px #000;opacity:.72;pointer-events:none}
+.top{min-height:102px;background:radial-gradient(ellipse at 72% 20%,#0a70bb55,transparent 60%)}
+.top:before{height:45px;bottom:0;opacity:.75}
+.top:after{content:"♚ ♞ ♜";font:clamp(34px,8vw,58px) Georgia,serif;letter-spacing:2px;right:7%;top:12px;color:#bfeaff;text-shadow:0 0 8px #06bfff,0 0 19px #027bd5,0 5px 4px #000}
+.top .mark{font-size:clamp(47px,11vw,70px);color:#ffd968!important;text-shadow:0 0 7px #ffb800,0 0 16px #e89a00}
+.top .tag{background:#051a37dd;border:1px solid #91b6da;border-radius:20px;padding:5px 11px;box-shadow:inset 0 1px 0 #ffffff66}
+.chess-brand{margin-top:-6px!important;margin-bottom:4px!important;font-size:clamp(31px,7.5vw,47px);filter:drop-shadow(0 0 9px #149fff99)}
+.chess-brand:after{content:"★★★★★";display:block;width:max-content;font-size:11px;letter-spacing:6px;color:#ffd66b;text-shadow:0 0 6px #ffb72a;margin:3px auto 0}
+.card{position:relative;overflow:visible;border-radius:27px;box-shadow:0 5px 0 #01101f,0 14px 26px #000b,0 0 12px #008cff66,inset 0 2px 0 #bdeaff55}
+.card:before{content:"";position:absolute;z-index:0;inset:4px;border:1px solid #ffffff1c;border-radius:22px;pointer-events:none}
+.card>*{position:relative}
+#welcome{border:2px solid #ffd069;background:radial-gradient(ellipse at 12% 45%,#10407166,transparent 55%),linear-gradient(150deg,#061a33,#020b1a);box-shadow:0 5px 0 #8a570b,0 12px 23px #000b,0 0 15px #ffc74699,inset 0 2px 0 #fff0b5}
+#welcome:after{content:"";position:absolute;left:20%;right:20%;bottom:-3px;height:5px;border-radius:100%;background:linear-gradient(90deg,transparent,#ffdb79,transparent);box-shadow:0 0 10px #ffc135;pointer-events:none}
+#welcome h2:before{content:"♞";font-size:clamp(44px,12vw,74px);color:#ffdb6b;text-shadow:0 2px 0 #81500b,0 0 9px #ffb900,0 0 17px #ffb900}
+#welcome h2 .welcome-player-name{color:#fff;font-weight:850;text-shadow:0 2px 4px #000}
+.welcome-actions button,.welcome-actions #refreshLobby{background:linear-gradient(180deg,#076fc8,#043061 80%)!important;border:1px solid #49cfff!important;box-shadow:0 4px 0 #010e22,0 0 12px #08b9ff88,inset 0 2px 0 #ffffff55!important}
+.welcome-actions #refreshLobby{color:#ffea37!important;border-color:#ffdf73!important;box-shadow:0 4px 0 #010e22,0 0 12px #fbc34b66,inset 0 2px 0 #ffffff55!important}
+#dashboard{background:radial-gradient(ellipse at 50% 0%,#0755a477,transparent 65%),linear-gradient(#06254b,#03132d);border:2px solid #24c9ff;box-shadow:0 6px 0 #02132a,0 16px 30px #000b,0 0 16px #00b7ff99,inset 0 2px 0 #b7f3ff}
+#dashboard:after{content:"";position:absolute;left:16%;right:16%;top:-3px;height:4px;background:linear-gradient(90deg,transparent,#e6ffff,transparent);box-shadow:0 0 11px #00d5ff;pointer-events:none}
+#dashboard .button#share{background:linear-gradient(#0a95f1,#0553a5 85%);border:2px solid #44e5ff;box-shadow:0 5px 0 #001229,0 0 15px #00caffbb,inset 0 2px 0 #d6ffffaa;text-shadow:0 2px 3px #002044}
+#dashboard .invitation-details{background:linear-gradient(#8a551c,#47260d);border:2px solid #ffd26c;box-shadow:0 5px 0 #241205,0 0 14px #ffb63a99,inset 0 2px 0 #ffe3a077}
+#dashboard .stat-btn,#dashboard .stat-btn.active{border-width:2px;box-shadow:0 6px 0 #010916,0 11px 16px #0009,0 0 12px currentColor,inset 0 2px 0 #ffffffaa,inset 0 -3px 6px #0005}
+#dashboard .stat-btn .stat-icon{font-size:clamp(24px,6vw,34px);color:#fff;filter:drop-shadow(0 2px 1px #00132c) drop-shadow(0 0 4px #ffffff88)}
+#dashboard .stat-btn[data-filter="all"]{background:linear-gradient(#00ad57,#00512e);border-color:#42ff9b}
+#dashboard .stat-btn[data-filter="playing"]{background:linear-gradient(#dd3538,#6e0c19);border-color:#ff7878}
+#dashboard .stat-btn[data-filter="watching"]{background:linear-gradient(#077ff1,#053778);border-color:#3cd9ff}
+#dashboard .stat-btn[data-filter="idle"]{background:linear-gradient(#e7aa0b,#75400a);border-color:#ffe35b}
+.lobby-card{background:radial-gradient(ellipse at 85% 15%,#0d4e8055,transparent 65%),linear-gradient(#061c38,#020b1c);border:2px solid #ffd36b;box-shadow:0 6px 0 #80510b,0 17px 29px #000c,0 0 16px #ffc94b99,inset 0 2px 0 #fff3b6}
+.lobby-card:after{content:"♞";position:absolute;top:22px;right:22%;font:clamp(33px,8vw,60px) Georgia,serif;color:#00aaff44;text-shadow:0 0 8px #008cff55;pointer-events:none}
+.lobby-card h2:before{content:"♛";color:#ffdc77;font-size:1.25em;text-shadow:0 0 9px #ffb31c}
+.lobby-card .list,.lobby-card #onlinePlayers,.lobby-card .offline-details{border:2px solid #21aeff;background:linear-gradient(160deg,#083365,#02142c);box-shadow:0 0 13px #007eff88,inset 0 2px 10px #0008,inset 0 1px 0 #c4f0ff66;border-radius:20px}
+.lobby-card .players-heading:before{content:"♟ ";color:#d6edff}
+.lobby-card .lobby-player:nth-child(odd),.lobby-card .lobby-player:nth-child(even){background:linear-gradient(145deg,#fff8e7,#f9db97);border:2px solid #ffe09c;box-shadow:0 4px 0 #765421,0 0 11px #ffd67a77,inset 0 2px 0 #fff}
+.lobby-card .lobby-player:nth-child(odd):after{content:"♛";font-size:33px;color:#c58a0a;text-shadow:0 0 7px #e9ae1e}
+.lobby-card #serverStatus{border:1px solid #4fcaff;background:linear-gradient(#06487c,#031a37);border-radius:16px;box-shadow:0 0 10px #08a9ff99,inset 0 1px 0 #ffffff66}
+.lobby-card .offline-details{border-color:#39baff;box-shadow:0 3px 0 #00172c,0 0 11px #009fff66}
+.lobby-card .offline-details summary{color:#fff;font-weight:800}
+#lobbyMessage{color:#dceaff}
+@media(max-width:420px){.top{min-height:88px}.top:after{font-size:34px;right:11%}.chess-brand{transform:translateY(-12px);margin-bottom:3px!important}#welcome h2:before{font-size:44px}.lobby-card:after{right:27%;font-size:31px}.lobby-card .row{align-items:center}#dashboard .stat-btn{min-height:100px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head>
-<body><main class="shell"><div class="top"><div class="mark" aria-hidden="true">♛</div><span class="tag">V4.3</span></div><h1 class="chess-brand" aria-label="Chessonline"><span class="brand-letter brand-black">C</span><span class="brand-letter brand-white">h</span><span class="brand-letter brand-black">e</span><span class="brand-letter brand-white">s</span><span class="brand-letter brand-black">s</span><span class="brand-letter brand-white">o</span><span class="brand-letter brand-black">n</span><span class="brand-letter brand-white">l</span><span class="brand-letter brand-black">i</span><span class="brand-letter brand-white">n</span><span class="brand-letter brand-black">e</span></h1>
+<body><main class="shell"><div class="top"><div class="mark" aria-hidden="true">♛</div><span class="tag">V4.4</span></div><h1 class="chess-brand" aria-label="Chessonline"><span class="brand-letter brand-black">C</span><span class="brand-letter brand-white">h</span><span class="brand-letter brand-black">e</span><span class="brand-letter brand-white">s</span><span class="brand-letter brand-black">s</span><span class="brand-letter brand-white">o</span><span class="brand-letter brand-black">n</span><span class="brand-letter brand-white">l</span><span class="brand-letter brand-black">i</span><span class="brand-letter brand-white">n</span><span class="brand-letter brand-black">e</span></h1>
 <section class="card" id="join"><h2>Oyuncu girişi</h2><label for="nickname">Oyuncu adın</label><input id="nickname" maxlength="24" autocomplete="nickname" placeholder="Örn. Numan" aria-describedby="nameHelp"><p id="nameHelp" class="muted">2–24 karakter. Bu ad bu cihazda saklanır; henüz sunucuda kayıtlı bir hesap değildir.</p><button class="button" id="saveName">Lobiye gir</button><p class="notice" id="error" role="alert"></p></section>
 <section class="card" id="welcome"><div class="row"><h2 id="hello">Hoş geldin</h2><div class="welcome-actions"><button id="change" class="button secondary" type="button">İsmi değiştir</button><button id="refreshLobby" class="button secondary" type="button">↻ Sayfayı yenile</button></div></div></section><section class="card" id="dashboard"><button class="button" id="share" style="margin-top:0">🔗 Arkadaşına giriş bağlantısı gönder</button><p id="shareResult" class="notice" aria-live="polite"></p><details class="invitation-details" id="incomingDetails"><summary id="incomingSummary">Gelen davetler (0)</summary><div id="incomingList"></div></details><div class="stats-grid" id="statsGrid"><button class="stat-btn active" data-filter="all"><span class="stat-icon" aria-hidden="true">♟</span><strong id="statOnline">0</strong><span>Çevrimiçi</span></button><button class="stat-btn" data-filter="playing"><span class="stat-icon" aria-hidden="true">⚔</span><strong id="statPlaying">0</strong><span>Maçta</span></button><button class="stat-btn" data-filter="watching"><span class="stat-icon" aria-hidden="true">◉</span><strong id="statWatching">0</strong><span>İzliyor</span></button><button class="stat-btn" data-filter="idle"><span class="stat-icon" aria-hidden="true">⌛</span><strong id="statIdle">0</strong><span>Müsait</span></button></div></section>
 <section class="card lobby-card"><div class="row"><h2>Oyuncu lobisi</h2><span class="muted" id="serverStatus"><span class="dot"></span>Bağlanıyor</span></div><div class="list"><strong class="players-heading">Oyuncular ve davetler</strong><p class="muted" id="playerStatus">Oyuncular sorgulanıyor...</p><div id="onlinePlayers" aria-live="polite"></div><details class="offline-details" id="offlineDetails"><summary id="offlineSummary">Çevrimdışı oyuncular (0)</summary><div id="offlinePlayers"></div></details></div><p id="lobbyMessage" class="notice" role="status"></p></section><section class="card" style="padding:14px 22px"><details id="historyDetails"><summary style="cursor:pointer;font-weight:700">Geçmiş maçlar</summary><div id="inviteList"></div></details></section><div id="liveMatches" hidden></div></main>
