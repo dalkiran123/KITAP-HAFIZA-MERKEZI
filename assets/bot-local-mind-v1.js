@@ -414,5 +414,17 @@ knowledge["tarih"].push("Tarih araştırmalarında birincil kaynaklar, incelenen
 knowledge["psikoloji"].push("Çapa etkisi, ilk sunulan sayısal bilginin sonraki tahmin ve değerlendirmeleri etkileme eğilimidir.");
 knowledge["felsefe"].push("Geçerli bir argüman, öncülleri doğru olduğunda sonucunun yanlış olamayacağı çıkarım biçimidir.");
 knowledge["kişisel gelişim"].push("Bir işi küçük ve somut adımlara bölmek, ilerlemeyi izlemeyi ve ilk adımı atmayı kolaylaştırabilir.");
+
+/* 2026-11-21: ten curated offline facts, no personal data. */
+knowledge["bilim"].push("Güneş'in enerjisi çekirdeğinde hidrojenin helyuma dönüşmesini sağlayan nükleer füzyondan kaynaklanır.");
+knowledge["roman"].push("Leitmotif, bir anlatıda yinelenerek belirli bir karakteri, düşünceyi veya temayı çağrıştıran motiftir.");
+knowledge["doğa"].push("Yusufçukların erginleri ve sucul nimfleri avcıdır; nimfler çoğunlukla suda yaşar.");
+knowledge["satranç"].push("Satrançta şah çekilmişken oyuncu tehdidi ortadan kaldıran yasal bir hamle yapmak zorundadır.");
+knowledge["şiir"].push("Kafiye, dizelerin sonlarında rediften önce görülen ses benzerliğidir.");
+knowledge["teknoloji"].push("HTTP 422 durum kodu, sunucunun isteğin içeriğini anladığı ancak içerdiği talimatları işleyemediği durumu belirtir.");
+knowledge["tarih"].push("Dendrokronoloji, ağaçların yıllık büyüme halkalarını inceleyerek tarihleme yapmaya yardımcı olur.");
+knowledge["psikoloji"].push("Geriye ket vurma, yeni öğrenilen bilginin daha önce öğrenilmiş bilgiyi hatırlamayı zorlaştırabilmesidir.");
+knowledge["felsefe"].push("Yanlış ikilem safsatası, başka seçenekler de mümkünken yalnızca iki seçenek varmış gibi sunulmasıdır.");
+knowledge["kişisel gelişim"].push("Pomodoro tekniği, odaklı çalışma aralıklarını kısa molalarla dönüşümlü kullanmaya dayanır.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
