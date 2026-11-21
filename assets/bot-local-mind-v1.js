@@ -227,6 +227,17 @@ knowledge["tarih"].push("Epigrafi, taş veya metal gibi dayanıklı yüzeylerdek
 knowledge["psikoloji"].push("Aralıklı tekrar, öğrenilen bilginin farklı zaman aralıklarında yeniden çalışılmasına dayanır.");
 knowledge["felsefe"].push("Bir çıkarımın geçerliliği, öncüllerle sonuç arasındaki mantıksal ilişkiye bağlıdır; öncüllerin fiilen doğru olmasını gerektirmez.");
 knowledge["kişisel gelişim"].push("Geri bildirim, yapılan işin sonuçları hakkında bilgi sağlayarak sonraki adımların düzenlenmesine yardımcı olur.");
+/* 2026-11-21: ten offline educational facts, no user data. */
+knowledge["bilim"].push("Dünya'nın manyetik alanı, Güneş rüzgârındaki yüklü parçacıkların önemli bir bölümünü saptırır.");
+knowledge["roman"].push("Diyalog, anlatıda karakterlerin karşılıklı konuşmalarının aktarılmasıdır.");
+knowledge["doğa"].push("Arıların antenleri koku algılamada da görev alır.");
+knowledge["satranç"].push("Satrançta bir piyon rakip taşı yalnızca çapraz önündeki karede alabilir.");
+knowledge["şiir"].push("Rubai, klasik edebiyatta dört dizeden oluşan bir nazım biçimidir.");
+knowledge["teknoloji"].push("HTTP 401 durum kodu, isteğin geçerli kimlik doğrulama bilgileri gerektirdiğini belirtir.");
+knowledge["tarih"].push("Sikke üzerindeki yazı ve tasvirler, tarihçilerin yönetici ve dönemleri araştırmasına yardımcı olabilir.");
+knowledge["psikoloji"].push("Alışma, tekrarlanan zararsız bir uyarana verilen tepkinin zamanla azalmasıdır.");
+knowledge["felsefe"].push("Özdeşlik ilkesi, klasik mantıkta bir şeyin kendisiyle aynı olduğunu ifade eder.");
+knowledge["kişisel gelişim"].push("Bir işin önceliğini belirlerken beklenen etkisini ve gereken çabayı birlikte değerlendirmek yararlıdır.");
 const knowledgeKey=id=>'bc_knowledge_v1_'+String(id||'').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60);
 function knowledgeState(friend){
  const p=profiles.find(x=>norm(x.name)===norm(friend.name))||profiles[0],rawItems=knowledge[p.topic]||knowledge.bilim;
