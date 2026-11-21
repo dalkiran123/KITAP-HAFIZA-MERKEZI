@@ -29,6 +29,7 @@ def register_chess(app):
             "undo_by": "TEXT NOT NULL DEFAULT ''",
             "undo_at": "INTEGER NOT NULL DEFAULT 0",
             "clock_history": "TEXT NOT NULL DEFAULT ''",
+            "rated": "INTEGER NOT NULL DEFAULT 0",
         }
         for name, ddl in extras.items():
             if name not in columns:
@@ -125,12 +126,49 @@ def register_chess(app):
         else:
             c.execute("UPDATE chess_rooms SET " + turn + "_ms=?,tick_ms=? WHERE id=?",
                       (remaining, now, row["id"]))
-        return c.execute("SELECT * FROM chess_rooms WHERE id=?", (row["id"],)).fetchone()
+        updated = c.execute("SELECT * FROM chess_rooms WHERE id=?", (row["id"],)).fetchone()
+        if updated["result"]:
+            finalize_rating(c, updated)
+        return updated
+
+    def finalize_rating(c, row):
+        """Idempotent, invitation-authenticated, opt-in rated settlement."""
+        if not row["rated"] or not row["result"] or not row["black_token"]:
+            return False
+        if row["result"] not in ("white", "black", "draw"):
+            return False
+        invite = c.execute("""SELECT sender_hash,receiver_hash FROM chess_lobby_invites
+            WHERE room=? AND status='accepted' LIMIT 1""", (row["id"],)).fetchone()
+        if not invite or invite["sender_hash"] == invite["receiver_hash"]:
+            return False
+        players = (invite["sender_hash"], invite["receiver_hash"])
+        if c.execute("SELECT 1 FROM chess_rating_events WHERE room=? LIMIT 1", (row["id"],)).fetchone():
+            return False
+        from chess_rating import Rating, update_rating
+        old = []
+        for player_hash in players:
+            r = c.execute("SELECT * FROM chess_ratings WHERE player_hash=?", (player_hash,)).fetchone()
+            old.append(Rating(r["rating"], r["rd"], r["volatility"]) if r else Rating())
+        scores = (1.0, 0.0) if row["result"] == "white" else (0.0, 1.0) if row["result"] == "black" else (0.5, 0.5)
+        updated = [update_rating(old[i], [(old[1-i], scores[i])]) for i in range(2)]
+        now = int(time.time())
+        for i, player_hash in enumerate(players):
+            c.execute("""INSERT INTO chess_ratings(player_hash,rating,rd,volatility,rated_games,updated)
+                VALUES(?,?,?,?,1,?)
+                ON CONFLICT(player_hash) DO UPDATE SET
+                rating=excluded.rating,rd=excluded.rd,volatility=excluded.volatility,
+                rated_games=chess_ratings.rated_games+1,updated=excluded.updated""",
+                (player_hash,updated[i].rating,updated[i].rd,updated[i].volatility,now))
+            c.execute("""INSERT INTO chess_rating_events(room,player_hash,old_rating,new_rating,created)
+                VALUES(?,?,?,?,?)""", (row["id"],player_hash,old[i].rating,updated[i].rating,now))
+        return True
 
     def view(c, row, token):
         role = role_of(row, token)
         if not role:
             return None
+        if row["result"]:
+            finalize_rating(c, row)
         board = chess.Board(row["fen"])
         messages = [dict(id=m["id"], role=m["role"], text=m["body"], at=m["created"])
                     for m in c.execute("SELECT * FROM chess_messages WHERE room=? ORDER BY id DESC LIMIT 100", (row["id"],))]
@@ -144,7 +182,7 @@ def register_chess(app):
         return dict(white_name=white_name, black_name=black_name, id=row["id"], role=role, fen=row["fen"],
             moves=row["moves"].split() if row["moves"] else [],
             turn="white" if board.turn else "black", joined=bool(row["black_token"]),
-            finished=bool(row["result"]) or board.is_game_over(claim_draw=True),
+            rated=bool(row["rated"]), finished=bool(row["result"]) or board.is_game_over(claim_draw=True),
             result=row["result"], reason=row["reason"], updated=row["updated"],
             created=row["created"], ended=row["ended"], minutes=row["minutes"],
             white_ms=row["white_ms"], black_ms=row["black_ms"],
@@ -277,8 +315,9 @@ def register_chess(app):
             minutes = int(data.get("minutes", 10))
         except (TypeError, ValueError):
             return jsonify(error="Geçersiz süre"), 400
-        if minutes not in (0, 10, 30, 60):
+        if minutes not in (0, 1, 3, 5, 10):
             return jsonify(error="Geçersiz süre"), 400
+        rated = data.get("rated", False) is True
         now = int(time.time())
         with connect() as c:
             c.execute("BEGIN IMMEDIATE")
@@ -295,8 +334,8 @@ def register_chess(app):
                 return jsonify(error="Bu oyuncuya bekleyen davetin var"), 409
             room, white_token = secrets.token_urlsafe(9), secrets.token_urlsafe(32)
             invite_id = secrets.token_urlsafe(12)
-            c.execute("""INSERT INTO chess_rooms(id,white_token,fen,updated,created,minutes,white_ms,black_ms)
-                VALUES(?,?,?,?,?,?,?,?)""",(room,white_token,chess.STARTING_FEN,now,now,minutes,minutes*60000,minutes*60000))
+            c.execute("""INSERT INTO chess_rooms(id,white_token,fen,updated,created,minutes,white_ms,black_ms,rated)
+                VALUES(?,?,?,?,?,?,?,?,?)""",(room,white_token,chess.STARTING_FEN,now,now,minutes,minutes*60000,minutes*60000,int(rated)))
             c.execute("""INSERT INTO chess_lobby_invites(id,sender_hash,receiver_hash,room,status,created,updated)
                 VALUES(?,?,?,?,?,?,?)""",(invite_id,sender["token_hash"],target,room,"pending",now,now))
         return jsonify(ok=True,invite_id=invite_id,room=room,token=white_token,status="pending"), 201
