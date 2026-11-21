@@ -438,5 +438,16 @@ knowledge["tarih"].push("Termolüminesans tarihleme, uygun koşullarda ısıtıl
 knowledge["psikoloji"].push("Zeigarnik etkisi, tamamlanmamış görevlerin bazı koşullarda tamamlanmış görevlere göre daha kolay hatırlanabilmesi eğilimidir.");
 knowledge["felsefe"].push("Modus ponens, 'P ise Q; P; öyleyse Q' biçimindeki geçerli çıkarım kuralıdır.");
 knowledge["kişisel gelişim"].push("WOOP yöntemi, dilek, sonuç, engel ve plan adımlarını kullanarak hedefe yönelik eylemi somutlaştırır.");
+/* 2026-11-21: curated offline facts, no user data. */
+knowledge["bilim"].push("Satürn'ün halkaları büyük ölçüde buz parçacıklarından ve daha az miktarda kayaç malzemeden oluşur.");
+knowledge["roman"].push("Çerçeve anlatı, bir veya birden fazla hikâyenin başka bir anlatının içinde sunulduğu yapıdır.");
+knowledge["doğa"].push("Penguenler kuş olmalarına rağmen uçamaz; yüzmeye uyum sağlamış kanatları vardır.");
+knowledge["satranç"].push("Satrançta açmaz, bir taşın hareket etmesi hâlinde arkasındaki daha değerli taşın veya şahın saldırıya açık kalması durumudur.");
+knowledge["şiir"].push("Epifora, art arda gelen dizelerin veya cümlelerin sonunda aynı sözcüğün ya da ifadenin tekrarlanmasıdır.");
+knowledge["teknoloji"].push("HTTP 431 durum kodu, sunucunun istek başlık alanları çok büyük olduğu için isteği işlemeyi reddettiğini belirtir.");
+knowledge["tarih"].push("Paleolitik Çağ, taş aletlerin kullanıldığı tarih öncesi dönemin en eski ve en uzun bölümüdür.");
+knowledge["psikoloji"].push("Kodlama özgüllüğü ilkesi, hatırlamanın öğrenme sırasında bulunan ipuçlarıyla desteklenebileceğini açıklar.");
+knowledge["felsefe"].push("Modus tollens, 'P ise Q; Q değil; öyleyse P değil' biçimindeki geçerli çıkarım kuralıdır.");
+knowledge["kişisel gelişim"].push("SMART hedef yaklaşımı, hedefleri belirli, ölçülebilir, ulaşılabilir, ilgili ve zamana bağlı biçimde tanımlamayı önerir.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
