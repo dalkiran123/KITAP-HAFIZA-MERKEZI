@@ -315,7 +315,7 @@ def register_chess(app):
             minutes = int(data.get("minutes", 10))
         except (TypeError, ValueError):
             return jsonify(error="Geçersiz süre"), 400
-        if minutes not in (0, 1, 3, 5, 10):
+        if minutes not in (0, 1, 3, 5, 10, 30, 60):
             return jsonify(error="Geçersiz süre"), 400
         rated = data.get("rated", False) is True
         now = int(time.time())
@@ -572,6 +572,8 @@ def register_chess(app):
             row, role = current(c, room, token)
             if not role:
                 return jsonify(error="Erişim reddedildi"), 403
+            if row["rated"]:
+                return jsonify(error="Dereceli maçlarda hamle geri alınamaz"), 409
             if not row["black_token"] or not row["moves"] or row["result"]:
                 return jsonify(error="Geri alma mümkün değil"), 409
             if action == "request":
