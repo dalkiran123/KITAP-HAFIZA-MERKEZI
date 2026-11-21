@@ -402,5 +402,17 @@ knowledge["tarih"].push("Hiyeroglif yazısı yalnızca resimlerden oluşmaz; ses
 knowledge["psikoloji"].push("Prospektif bellek, gelecekte belirli bir zamanda veya durumda yapılması planlanan işi hatırlama yetisidir.");
 knowledge["felsefe"].push("Ockham'ın usturası, eşit açıklama gücündeki varsayımlar arasında gereksiz çoğaltmadan kaçınmayı öğütler.");
 knowledge["kişisel gelişim"].push("Uygulama niyeti, bir hedefi 'Eğer X olursa Y yapacağım' biçiminde somut bir koşula bağlar.");
+
+/* 2026-11-21: 10 distinct offline knowledge additions; no user data. */
+knowledge["bilim"].push("Ay'ın Dünya çevresindeki dolanımı nedeniyle Dünya'dan görülen aydınlık yüzeyinin şekli evreler hâlinde değişir.");
+knowledge["roman"].push("İç çözümleme, anlatıcının bir karakterin duygu ve düşüncelerini doğrudan aktardığı anlatım tekniğidir.");
+knowledge["doğa"].push("Kelebekler tam başkalaşım geçirir; yaşam döngülerinde yumurta, larva, pupa ve ergin evreleri bulunur.");
+knowledge["satranç"].push("Satrançta bir piyon son yataya ulaştığında aynı renkten vezir, kale, fil veya ata terfi eder.");
+knowledge["şiir"].push("Ölçü, şiirde dizelerin ritmik düzenini belirleyen hece sayısı veya aruz kalıbı gibi yapılardır.");
+knowledge["teknoloji"].push("HTTP 301 yanıtı, bir kaynağın kalıcı olarak başka bir adrese taşındığını bildirir.");
+knowledge["tarih"].push("Tarih araştırmalarında birincil kaynaklar, incelenen dönemde üretilmiş belge veya nesneleri kapsar.");
+knowledge["psikoloji"].push("Çapa etkisi, ilk sunulan sayısal bilginin sonraki tahmin ve değerlendirmeleri etkileme eğilimidir.");
+knowledge["felsefe"].push("Geçerli bir argüman, öncülleri doğru olduğunda sonucunun yanlış olamayacağı çıkarım biçimidir.");
+knowledge["kişisel gelişim"].push("Bir işi küçük ve somut adımlara bölmek, ilerlemeyi izlemeyi ve ilk adımı atmayı kolaylaştırabilir.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
