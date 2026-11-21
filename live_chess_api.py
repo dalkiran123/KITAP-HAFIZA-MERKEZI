@@ -47,7 +47,40 @@ def register_chess(app):
             created INTEGER NOT NULL, updated INTEGER NOT NULL)""")
         c.execute("CREATE INDEX IF NOT EXISTS chess_invites_receiver ON chess_lobby_invites(receiver_hash,status)")
         c.execute("""CREATE TABLE IF NOT EXISTS chess_lobby_watching (token_hash TEXT PRIMARY KEY,room TEXT NOT NULL,last_seen INTEGER NOT NULL)""")
+        c.execute("""CREATE TABLE IF NOT EXISTS chess_ratings (
+            player_hash TEXT PRIMARY KEY,
+            rating REAL NOT NULL DEFAULT 1500,
+            rd REAL NOT NULL DEFAULT 350,
+            volatility REAL NOT NULL DEFAULT 0.06,
+            rated_games INTEGER NOT NULL DEFAULT 0,
+            updated INTEGER NOT NULL DEFAULT 0)""")
+        c.execute("""CREATE TABLE IF NOT EXISTS chess_rating_events (
+            room TEXT NOT NULL,
+            player_hash TEXT NOT NULL,
+            old_rating REAL NOT NULL,
+            new_rating REAL NOT NULL,
+            created INTEGER NOT NULL,
+            PRIMARY KEY(room, player_hash))""")
         return c
+
+    @app.get("/api/chess/rating/leaderboard")
+    def chess_rating_leaderboard():
+        """Read-only leaderboard; unrated players are not silently ranked."""
+        with connect() as c:
+            rows = c.execute("""SELECT p.name,r.rating,r.rd,r.rated_games
+                FROM chess_ratings r JOIN chess_lobby_players p ON p.token_hash=r.player_hash
+                WHERE r.rated_games>0
+                ORDER BY r.rating DESC,r.rated_games DESC LIMIT 100""").fetchall()
+        from chess_rating import league
+        return jsonify(players=[dict(rank=i,name=row["name"],rating=round(row["rating"]),
+            rd=round(row["rd"]),games=row["rated_games"],league=league(row["rating"]))
+            for i,row in enumerate(rows,1)])
+
+    @app.get("/api/chess/rating/bots")
+    def chess_rating_bots():
+        """Explicitly virtual roster. Not part of human rated leaderboard."""
+        from chess_rating import BOT_ROSTER
+        return jsonify(bots=list(BOT_ROSTER))
 
     @app.after_request
     def chess_cors(response):
