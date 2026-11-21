@@ -481,7 +481,7 @@ const uciOf=m=>m.from+m.to+(m.promotion||'');
 function cancelAuto(message=''){autoLine=null;autoBase=[];autoMessage=message;autoSending=false;}
 function startAuto(){
  if(!simulation||mode.value!=='remote'||!joined||liveState?.finished)return;
- if(liveState?.rated&&!liveState?.assisted){simulationNotice.textContent='Bu dereceli maç klasik modda. Simülasyonlu dereceli maç seçilmelidir.';return;}
+ if(game.fen()!==simulationSource||simulationChanged){simulationNotice.textContent='Canlı maç ilerledi. Simülasyonu güncel konumdan yeniden başlat.';return;}
  const line=simulation.history({verbose:true}).map(uciOf);
  if(!line.length){simulationNotice.textContent='Önce en az bir hamle simüle et.';return;}
  autoBase=Array.isArray(liveState?.moves)?liveState.moves.slice():[];
@@ -491,7 +491,6 @@ function startAuto(){
 simulationRun.onclick=startAuto;
 async function checkAutoLine(){
  if(!autoLine||autoSending||busy||!joined||!room||!token||liveState?.finished||mode.value!=='remote')return;
- if(liveState?.rated&&!liveState?.assisted){cancelAuto('Klasik dereceli maçta otomatik hamle kapalı.');render();return;}
  const actual=Array.isArray(liveState?.moves)?liveState.moves:[];
  const start=autoBase.length;
  if(actual.length<start||autoBase.some((m,i)=>actual[i]!==m)){cancelAuto('Maç konumu değişti. Otomasyon iptal edildi.');render();return;}
