@@ -1,5 +1,6 @@
 """ChessOnline rated settlement regression tests; run with python -m unittest test_chess_rated_api.py."""
 import os
+import gc
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -25,6 +26,9 @@ class RatedApiTests(unittest.TestCase):
 
     def tearDown(self):
         self.patch.stop()
+        # sqlite3 connection context managers commit but do not close connections.
+        # Collect unreferenced handles before removing temporary databases.
+        gc.collect()
         self.tmp.cleanup()
 
     def seed(self, rated=True, accepted=True):
