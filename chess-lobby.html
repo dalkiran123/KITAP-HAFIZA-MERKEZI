@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1c2634"><title>Satranç Merkezi | Oyuncu Girişi</title>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#03142b"><title>Satranç Merkezi | Oyuncu Girişi</title>
 <style>*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:linear-gradient(150deg,#0d1c31,#203e5c);font-family:system-ui,-apple-system,sans-serif;color:#f6f8fc}.shell{max-width:680px;margin:auto;padding:24px 16px 70px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.mark{font-size:35px}.tag{font-size:12px;color:#b7cee2;letter-spacing:1.5px}h1{font-size:clamp(28px,7vw,42px);margin:10px 0}p{color:#c6d5e2;line-height:1.55}.card{background:#fff;color:#1b3050;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 16px 32px #0004}.card h2{margin:0 0 12px;font-size:20px}label{display:block;font-weight:650;margin:12px 0 7px}input{width:100%;padding:15px;border:2px solid #b5c7d8;border-radius:12px;font:inherit;font-size:17px}input:focus{outline:3px solid #b6dbf5;border-color:#2961a3}.button{display:block;width:100%;border:0;border-radius:13px;background:#2057a3;color:white;padding:15px;margin-top:14px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer}.button.secondary{background:#eaf1fa;color:#173d70}.button:disabled{opacity:.5}.muted{font-size:13px;color:#63758b}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#8496a7;margin-right:7px}.list{padding:12px;border:1px dashed #a9bbcc;border-radius:12px;background:#f6f9fd}.notice{font-size:13px;color:#5e7083}#welcome{display:none}#welcome.show{display:block}#join{display:none}#join.show{display:block}.lobby-player{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #dbe4ee;font-weight:650}.lobby-player:last-child{border:0}.lobby-player small{font-weight:400;color:#6c7c8f}.mini-btn{margin-left:auto;border:0;border-radius:9px;padding:9px 11px;background:#2057a3;color:white;font-weight:700;cursor:pointer}.mini-btn:disabled{opacity:.5}.invite-box{padding:12px;margin:10px 0;border:1px solid #cfdaeb;border-radius:12px;background:#f6f9fd}.invite-box .button{display:inline-block;width:auto;margin:7px 6px 0 0;padding:9px 14px}.lobby-player{flex-wrap:wrap}.lobby-player .player-detail{flex:1;min-width:125px}.lobby-player .invite-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}.mini-btn.accept{background:#de8425}.mini-btn.reject{background:#7d8798}.lobby-player.pending{background:#fff4e3;border-radius:10px;padding:12px}.online-dot{width:10px;height:10px;border-radius:50%;background:#22a45b;flex:none}
 
 /* V2.2: vivid, readable lobby with contextual actions */
@@ -158,10 +158,55 @@ h1{color:#f4c65f;text-shadow:0 2px 0 #79531f,0 6px 16px rgba(0,0,0,.34);letter-s
 .chess-brand .brand-black{color:#080c12;-webkit-text-stroke:.35px rgba(226,233,241,.6)}
 .chess-brand .brand-white{color:#fff}
 
-/* V4.1: all-white title with pronounced lower drop shadow */
+/* V4.2: all-white title with pronounced lower drop shadow */
 .chess-brand .brand-letter,.chess-brand .brand-black,.chess-brand .brand-white{color:#fff;-webkit-text-stroke:0;text-shadow:0 2px 0 #65778b,0 5px 0 rgba(5,13,23,.72),0 9px 12px rgba(0,0,0,.5)}
+
+/* V4.2 premium navy-gold chess lobby: visual-only, preserves API and controls */
+:root{color-scheme:dark;--gold:#f4c34e;--cyan:#1dbdff;--navy:#06172e}
+html{background:#03142b}
+body{background:radial-gradient(ellipse at 55% -10%,#0752a2 0%,transparent 42%),linear-gradient(160deg,#03142b,#06254b 56%,#03152d);background-attachment:fixed}
+.shell{max-width:680px}
+.top{position:relative;min-height:70px;align-items:flex-start}
+.top:after{content:"♔  ♟";position:absolute;right:17%;top:12px;font-size:40px;letter-spacing:10px;color:#d9f2ff;text-shadow:0 0 12px #16aaff,0 6px 12px #000;opacity:.85;pointer-events:none}
+.top .mark{font-size:35px;color:#ffd15c;filter:drop-shadow(0 0 7px #ffb52a)}
+.top .tag{font-size:14px;color:#f3f6ff;font-weight:800}
+h1.chess-brand{margin:0 0 15px;font-size:clamp(30px,7vw,43px);font-style:italic;letter-spacing:-1.3px}
+.chess-brand .brand-letter,.chess-brand .brand-black,.chess-brand .brand-white{color:#f9fcff;text-shadow:0 2px 0 #5574a3,0 5px 0 #07152b,0 0 13px #1c9fff}
+.chess-brand .brand-letter:nth-child(-n+5){color:#ffd468;text-shadow:0 2px 0 #80551d,0 5px 0 #07152b,0 0 12px #e5a532}
+.card{background:linear-gradient(160deg,#082c59,#03182f 80%);color:#f8fbff;border:2px solid #2485c7;border-radius:26px;box-shadow:0 8px 0 #021021,0 15px 30px #0008,inset 0 2px 0 #72ceff55}
+.card h2{color:#fff}
+#welcome{background:linear-gradient(160deg,#041b35,#020e1c);border:2px solid #f0bc4e;box-shadow:0 5px 0 #694414,0 13px 30px #0009,inset 0 1px 0 #ffe6a0}
+#welcome .row{min-height:102px}
+#welcome h2 .welcome-player-name{color:#fff;text-shadow:0 2px 7px #000;font-weight:850}
+#welcome h2:before{content:"♞";display:inline-block;margin-right:12px;color:#ffce4c;font-size:clamp(28px,7vw,48px);text-shadow:0 0 12px #edab20}
+.welcome-actions button,.welcome-actions #refreshLobby{background:linear-gradient(#075ca9,#043166)!important;border:1px solid #60c6ff!important;color:#fff!important;border-radius:14px!important;box-shadow:0 4px 0 #011226,0 0 9px #078be755!important;font-size:clamp(11px,2.6vw,14px)!important;font-weight:800!important;padding:10px 12px!important}
+.welcome-actions #refreshLobby{color:#ffeb36!important;border-color:#f9d56b!important}
+#dashboard{background:linear-gradient(160deg,#072e5e,#031a36);border-color:#20a8ef}
+#dashboard .button#share{background:linear-gradient(180deg,#0878d0,#03407f);border:1px solid #2cd7ff;border-radius:19px;box-shadow:0 5px 0 #02142c,0 0 12px #06a8ff55;color:#fff;font-weight:800}
+#dashboard .invitation-details{background:linear-gradient(160deg,#68421f,#352214);border:1px solid #e8aa40;border-radius:18px;box-shadow:0 4px 0 #1e1209,0 0 12px #ffb42b33}
+#dashboard .invitation-details summary{color:#fff0d0;font-size:17px}
+#dashboard .stat-btn,#dashboard .stat-btn.active{border-width:2px;border-radius:19px;min-height:94px;box-shadow:0 6px 0 #010b19,0 0 12px #008cff66,inset 0 2px 0 #ffffff55}
+#dashboard .stat-btn strong{font-size:clamp(25px,6vw,36px);color:#fff}
+#dashboard .stat-btn span{color:#fff;font-size:clamp(10px,2.5vw,13px)}
+#dashboard .stat-btn[data-filter="all"]{background:linear-gradient(#00834d,#00462e);border-color:#3fff98;box-shadow:0 6px 0 #010b19,0 0 11px #00ff8077}
+#dashboard .stat-btn[data-filter="playing"]{background:linear-gradient(#b33735,#5c1418);border-color:#ff7063;box-shadow:0 6px 0 #010b19,0 0 11px #ff484877}
+#dashboard .stat-btn[data-filter="watching"]{background:linear-gradient(#0869c3,#033773);border-color:#36c7ff;box-shadow:0 6px 0 #010b19,0 0 11px #06bfff77}
+#dashboard .stat-btn[data-filter="idle"]{background:linear-gradient(#bd860d,#624006);border-color:#ffdc45;box-shadow:0 6px 0 #010b19,0 0 11px #ffc92877}
+#dashboard .stat-btn.active{outline:2px solid #ffffffaa;outline-offset:2px}
+.lobby-card{background:linear-gradient(160deg,#061c39,#020d1c);border:2px solid #f6c75b;box-shadow:0 5px 0 #694511,0 17px 36px #000a,inset 0 1px 0 #fff2aa}
+.lobby-card h2{font-size:clamp(21px,5vw,29px);color:#fff}
+.lobby-card h2:before{content:"♟";margin-right:9px;color:#f4c75b}
+.lobby-card .list,.lobby-card #onlinePlayers,.lobby-card .offline-details{background:linear-gradient(160deg,#092f60,#03182e);border:1px solid #36a9ed;box-shadow:inset 0 2px 10px #0007,0 0 9px #008cfa33}
+.lobby-card .list>strong{font-size:18px;color:#fff}
+.lobby-card #playerStatus,.lobby-card #serverStatus{color:#66f994}
+.lobby-card .lobby-player:nth-child(odd),.lobby-card .lobby-player:nth-child(even){background:linear-gradient(160deg,#fff1cb,#f7d996);border:1px solid #f8d178;color:#172337}
+.lobby-card .lobby-player strong,.lobby-card .lobby-player .player-detail{color:#152139!important}
+.lobby-card .offline-details{background:linear-gradient(#123963,#071e3b)}
+.lobby-card .offline-details summary{color:#f6f9ff}
+.card .notice,.card .muted{color:#d1e1f4}
+@media(max-width:420px){.top{min-height:57px}.top:after{font-size:28px;right:13%}#welcome .row{gap:6px}#welcome h2{font-size:clamp(16px,4.5vw,21px)}#welcome h2:before{margin-right:5px;font-size:25px}.welcome-actions{min-width:112px}.welcome-actions button{padding:8px 6px!important}.stats-grid{gap:7px}}
 </style></head>
-<body><main class="shell"><div class="top"><div class="mark">♟️</div><span class="tag">V4.1</span></div><h1 class="chess-brand" aria-label="Chessonline"><span class="brand-letter brand-black">C</span><span class="brand-letter brand-white">h</span><span class="brand-letter brand-black">e</span><span class="brand-letter brand-white">s</span><span class="brand-letter brand-black">s</span><span class="brand-letter brand-white">o</span><span class="brand-letter brand-black">n</span><span class="brand-letter brand-white">l</span><span class="brand-letter brand-black">i</span><span class="brand-letter brand-white">n</span><span class="brand-letter brand-black">e</span></h1>
+<body><main class="shell"><div class="top"><div class="mark">♟️</div><span class="tag">V4.2</span></div><h1 class="chess-brand" aria-label="Chessonline"><span class="brand-letter brand-black">C</span><span class="brand-letter brand-white">h</span><span class="brand-letter brand-black">e</span><span class="brand-letter brand-white">s</span><span class="brand-letter brand-black">s</span><span class="brand-letter brand-white">o</span><span class="brand-letter brand-black">n</span><span class="brand-letter brand-white">l</span><span class="brand-letter brand-black">i</span><span class="brand-letter brand-white">n</span><span class="brand-letter brand-black">e</span></h1>
 <section class="card" id="join"><h2>Oyuncu girişi</h2><label for="nickname">Oyuncu adın</label><input id="nickname" maxlength="24" autocomplete="nickname" placeholder="Örn. Numan" aria-describedby="nameHelp"><p id="nameHelp" class="muted">2–24 karakter. Bu ad bu cihazda saklanır; henüz sunucuda kayıtlı bir hesap değildir.</p><button class="button" id="saveName">Lobiye gir</button><p class="notice" id="error" role="alert"></p></section>
 <section class="card" id="welcome"><div class="row"><h2 id="hello">Hoş geldin</h2><div class="welcome-actions"><button id="change" class="button secondary" type="button">İsmi değiştir</button><button id="refreshLobby" class="button secondary" type="button">↻ Sayfayı yenile</button></div></div></section><section class="card" id="dashboard"><button class="button" id="share" style="margin-top:0">🔗 Arkadaşına giriş bağlantısı gönder</button><p id="shareResult" class="notice" aria-live="polite"></p><details class="invitation-details" id="incomingDetails"><summary id="incomingSummary">Gelen davetler (0)</summary><div id="incomingList"></div></details><div class="stats-grid" id="statsGrid"><button class="stat-btn active" data-filter="all"><strong id="statOnline">0</strong><span>Çevrimiçi</span></button><button class="stat-btn" data-filter="playing"><strong id="statPlaying">0</strong><span>Maçta</span></button><button class="stat-btn" data-filter="watching"><strong id="statWatching">0</strong><span>İzliyor</span></button><button class="stat-btn" data-filter="idle"><strong id="statIdle">0</strong><span>Müsait</span></button></div></section>
 <section class="card lobby-card"><div class="row"><h2>Oyuncu lobisi</h2><span class="muted" id="serverStatus"><span class="dot"></span>Bağlanıyor</span></div><div class="list"><strong>Oyuncular ve davetler</strong><p class="muted" id="playerStatus">Oyuncular sorgulanıyor...</p><div id="onlinePlayers" aria-live="polite"></div><details class="offline-details" id="offlineDetails"><summary id="offlineSummary">Çevrimdışı oyuncular (0)</summary><div id="offlinePlayers"></div></details></div><p id="lobbyMessage" class="notice" role="status"></p></section><section class="card" style="padding:14px 22px"><details id="historyDetails"><summary style="cursor:pointer;font-weight:700">Geçmiş maçlar</summary><div id="inviteList"></div></details></section><div id="liveMatches" hidden></div></main>
