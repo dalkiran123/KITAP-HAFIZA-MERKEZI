@@ -1,5 +1,6 @@
 """ChessOnline V10 smoke tests for supported time controls and two-player moves."""
 import os
+import gc
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -20,6 +21,9 @@ class ChessMobileSmokeTests(unittest.TestCase):
 
     def tearDown(self):
         self.patch.stop()
+        # sqlite3 connection context managers commit but do not close connections.
+        # Collect unreferenced handles before removing temporary databases.
+        gc.collect()
         self.tmp.cleanup()
 
     def test_all_time_controls_create_and_join(self):
