@@ -1,0 +1,23 @@
+name: ChessOnline V10 regression tests
+on:
+  push:
+    branches:
+      - feature/chess-v10-history-navigation
+  pull_request:
+    paths:
+      - 'live_chess_api.py'
+      - 'chess_rating.py'
+      - 'test_chess_rating.py'
+      - 'test_chess_rated_api.py'
+jobs:
+  chess-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install flask python-chess
+      - run: python -m py_compile live_chess_api.py chess_rating.py test_chess_rating.py test_chess_rated_api.py
+      - run: python -m unittest -v test_chess_rating test_chess_rated_api
