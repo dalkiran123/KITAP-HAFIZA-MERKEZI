@@ -350,6 +350,14 @@ h1.chess-brand{display:flex!important;align-items:center!important;gap:0!importa
 .chess-brand:after{content:"★★★★★"!important;display:none!important}
 .shell:before{display:none!important}
 @media(max-width:420px){.shell{padding-top:8px!important}.top{top:12px!important;right:16px!important}h1.chess-brand{font-size:clamp(24px,6.2vw,31px)!important;min-height:43px!important;margin-right:57px!important;margin-bottom:8px!important}.chess-brand:before{font-size:27px!important;margin-right:4px!important}}
+
+/* V10 mobile lobby: equal player cards, consistent breathing room. */
+.lobby-card #onlinePlayers{display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.lobby-card #onlinePlayers>.lobby-player{width:100%;min-height:112px;margin:0!important;box-sizing:border-box;align-content:center;align-items:center;row-gap:10px;padding:15px 42px 15px 16px!important;border-radius:17px!important;flex-shrink:0}
+.lobby-card #onlinePlayers>.lobby-player:last-child{border:1px solid #b8c2cc}
+.lobby-card #onlinePlayers>.lobby-player .invite-actions{flex-basis:100%;justify-content:flex-end;margin-left:0;min-height:0}
+.lobby-card #onlinePlayers>.lobby-player .player-detail{min-width:0;overflow-wrap:anywhere}
+@media(max-width:420px){.lobby-card #onlinePlayers{gap:12px}.lobby-card #onlinePlayers>.lobby-player{min-height:116px;padding:13px 39px 13px 13px!important}.lobby-card #onlinePlayers>.lobby-player strong{font-size:clamp(14px,4vw,17px)}}
 </style></head>
 <body><main class="shell"><div class="top"><div class="mark" aria-hidden="true">♛</div><span class="tag">V4.7</span></div><h1 class="chess-brand" aria-label="Chessonline"><span class="brand-letter brand-black">C</span><span class="brand-letter brand-white">h</span><span class="brand-letter brand-black">e</span><span class="brand-letter brand-white">s</span><span class="brand-letter brand-black">s</span><span class="brand-letter brand-white">o</span><span class="brand-letter brand-black">n</span><span class="brand-letter brand-white">l</span><span class="brand-letter brand-black">i</span><span class="brand-letter brand-white">n</span><span class="brand-letter brand-black">e</span></h1>
 <section class="card" id="join"><h2>Oyuncu girişi</h2><label for="nickname">Oyuncu adın</label><input id="nickname" maxlength="24" autocomplete="nickname" placeholder="Örn. Numan" aria-describedby="nameHelp"><p id="nameHelp" class="muted">2–24 karakter. Bu ad bu cihazda saklanır; henüz sunucuda kayıtlı bir hesap değildir.</p><button class="button" id="saveName">Lobiye gir</button><p class="notice" id="error" role="alert"></p></section>
