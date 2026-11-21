@@ -531,5 +531,17 @@ knowledge["tarih"].push("Numizmatik, sikkeleri ve para tarihine ilişkin nesnele
 knowledge["psikoloji"].push("İleriye ket vurma, önceden öğrenilen bilginin yeni bilgiyi öğrenmeyi veya hatırlamayı zorlaştırabilmesidir.");
 knowledge["felsefe"].push("Karşı örnek, genel bir iddianın yanlış olduğunu göstermek için iddiayla çelişen tek bir geçerli örnektir.");
 knowledge["kişisel gelişim"].push("Kontrol listesi, tekrarlanan bir süreçte atlanabilecek adımları görünür kılmaya yardımcı olur.");
+
+/* 2026-11-21: curated offline facts, no personal data. */
+knowledge["bilim"].push("James Webb Uzay Teleskobu, Dünya çevresinde değil Güneş-Dünya L2 bölgesi yakınında çalışır.");
+knowledge["roman"].push("Metafiksiyon, kurmacanın kendi anlatı oluşuna dikkat çektiği edebî yaklaşımdır.");
+knowledge["doğa"].push("Deniz yıldızları derisi dikenliler grubundadır ve tüp ayaklarıyla hareket edebilir.");
+knowledge["satranç"].push("Satrançta üç kez aynı konum oluştuğunda oyuncu belirli koşullarda beraberlik talep edebilir.");
+knowledge["şiir"].push("Sone, geleneksel olarak on dört dizeden oluşan şiir biçimidir.");
+knowledge["teknoloji"].push("HTTP 308 Permanent Redirect, isteğin kalıcı olarak başka bir adrese yönlendirildiğini belirtir.");
+knowledge["tarih"].push("Behistun Yazıtı, Eski Farsça, Elamca ve Babilce metinler içeren çok dilli bir yazıttır.");
+knowledge["psikoloji"].push("Bağlamsal ipuçları, öğrenilen bir bilginin geri çağrılmasını kolaylaştırabilir.");
+knowledge["felsefe"].push("Gettier problemi, gerekçelendirilmiş doğru inancın bilgi için her zaman yeterli olup olmadığını sorgular.");
+knowledge["kişisel gelişim"].push("Önceden karar verme, tekrar eden küçük seçimlerin sayısını azaltarak günlük planı sadeleştirebilir.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
