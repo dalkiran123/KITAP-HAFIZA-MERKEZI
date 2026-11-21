@@ -449,5 +449,17 @@ knowledge["tarih"].push("Paleolitik Çağ, taş aletlerin kullanıldığı tarih
 knowledge["psikoloji"].push("Kodlama özgüllüğü ilkesi, hatırlamanın öğrenme sırasında bulunan ipuçlarıyla desteklenebileceğini açıklar.");
 knowledge["felsefe"].push("Modus tollens, 'P ise Q; Q değil; öyleyse P değil' biçimindeki geçerli çıkarım kuralıdır.");
 knowledge["kişisel gelişim"].push("SMART hedef yaklaşımı, hedefleri belirli, ölçülebilir, ulaşılabilir, ilgili ve zamana bağlı biçimde tanımlamayı önerir.");
+
+/* 2026-11-21: curated offline knowledge; no user data. */
+knowledge["bilim"].push("Ganymede, Jüpiter'in en büyük uydusu ve Güneş Sistemi'nin en büyük doğal uydusudur.");
+knowledge["roman"].push("Bilinç akışı tekniği, karakterin zihninden geçen düşünceleri çağrışımlı ve kesintili biçimde yansıtabilir.");
+knowledge["doğa"].push("Deniz kaplumbağaları akciğerleriyle solunum yapar ve yumurtlamak için karaya çıkar.");
+knowledge["satranç"].push("Satrançta zugzwang, hamle sırası kendisinde olan oyuncunun her yasal hamlesinin konumunu kötüleştirdiği durumdur.");
+knowledge["şiir"].push("Asonans, şiirde aynı veya benzer ünlü seslerin yinelenmesiyle oluşan ses uyumudur.");
+knowledge["teknoloji"].push("HTTP 202 durum kodu, isteğin işlenmek üzere kabul edildiğini fakat işlemin henüz tamamlanmamış olabileceğini belirtir.");
+knowledge["tarih"].push("Rosetta Taşı üzerinde aynı kararname üç farklı yazı sistemiyle kaydedilmiştir.");
+knowledge["psikoloji"].push("Stroop etkisi, bir kelimenin yazıldığı rengi söylerken kelimenin anlamının tepkiyi zorlaştırabilmesidir.");
+knowledge["felsefe"].push("Döngüsel akıl yürütmede sonuç, onu desteklemek için sunulan öncüllerde zaten varsayılır.");
+knowledge["kişisel gelişim"].push("Geriye doğru planlama, hedefin tamamlanma tarihinden başlayıp gerekli adımları geriye doğru sıralama yöntemidir.");
 window.BookCenterLocalMind={answer:emotionallyAwareAnswer,profiles,readMemory,learn,dailyPlan,activitySummary,knowledgeState,learnedFact,detectEmotion,emotionState,version:'5.0'};
 })();
