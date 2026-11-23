@@ -1,0 +1,35 @@
+name: BOOK CENTER bot API connection check
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  connection-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BOOK_BOT_API_SECRET: ${{ secrets.BOT_TICK_SECRET }}
+      BOOK_BOT_API_URL: https://b2bsocialtest.pythonanywhere.com/api/bots/state
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify bot regression tests
+        run: python -m unittest discover -s bot_server -p 'test_*.py' -v
+      - name: Require matching API secret
+        run: |
+          if [ -z "$BOOK_BOT_API_SECRET" ]; then
+            echo "::error::BOT_TICK_SECRET repository secret is missing"
+            exit 1
+          fi
+      - name: Verify signed read-only PythonAnywhere connection
+        run: |
+          python - <<'PY'
+          import os
+          from bot_server.client import get_state
+          bots = get_state(os.environ["BOOK_BOT_API_URL"], os.environ["BOOK_BOT_API_SECRET"])
+          print("Signed bot API GET succeeded; bot count:", len(bots))
+          if len(bots) not in (0, 10):
+              raise SystemExit("Unexpected bot count")
+          PY
